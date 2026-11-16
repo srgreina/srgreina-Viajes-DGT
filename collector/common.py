@@ -16,6 +16,7 @@ SOURCES = {
     "paneles_loc": "https://nap.dgt.es/datex2/v3/dgt/DevicePublication/vms_datex2_v37.xml",
     "camaras": "https://nap.dgt.es/datex2/v3/dgt/DevicePublication/camaras_datex2_v37.xml",
     "radares": "https://nap.dgt.es/datex2/dgt/PredefinedLocationsPublication/radares/content.xml",
+    "recarga": "https://nap.dgt.es/datex2/v3/miterd/EnergyInfrastructureTablePublication/electrolineras.xml",
 }
 
 

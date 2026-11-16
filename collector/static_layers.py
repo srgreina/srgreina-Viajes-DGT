@@ -1,4 +1,4 @@
-"""Capas de baja frecuencia: radares fijos, cámaras y localizaciones de paneles.
+"""Capas de baja frecuencia: radares fijos, cámaras, localizaciones de paneles y puntos de recarga VE.
 
 Uso:
   python collector/static_layers.py --out data/static --samples data/samples
@@ -14,7 +14,7 @@ sys.path.insert(0, os.path.dirname(__file__))
 from common import SOURCES, fetch, iso, now_utc, read_json, save_sample, write_json  # noqa: E402
 from parsers import parse_located  # noqa: E402
 
-LAYERS = ("radares", "camaras", "paneles_loc")
+LAYERS = ("radares", "camaras", "paneles_loc", "recarga")
 
 
 def run(args):
