@@ -12,9 +12,10 @@ import sys
 sys.path.insert(0, os.path.dirname(__file__))
 
 from common import SOURCES, fetch, iso, now_utc, read_json, save_sample, write_json  # noqa: E402
-from parsers import parse_located  # noqa: E402
+from parsers import parse_located, parse_recarga  # noqa: E402
 
 LAYERS = ("radares", "camaras", "paneles_loc", "recarga")
+PARSERS = {"recarga": parse_recarga}  # el resto usa el genérico
 
 
 def run(args):
@@ -25,7 +26,7 @@ def run(args):
         try:
             data = fetch(SOURCES[name])
             save_sample(args.samples, name, data)
-            items, meta = parse_located(data)
+            items, meta = PARSERS.get(name, parse_located)(data)
         except Exception as exc:  # noqa: BLE001
             print(f"[{name}] ERROR: {exc}", file=sys.stderr)
             continue

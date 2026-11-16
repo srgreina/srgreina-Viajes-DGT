@@ -5,7 +5,7 @@ import unittest
 
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), "..", "collector"))
 
-from parsers import parse_incidencias, parse_located, parse_paneles  # noqa: E402
+from parsers import parse_incidencias, parse_located, parse_paneles, parse_recarga  # noqa: E402
 from realtime import diff  # noqa: E402
 
 NS = (
@@ -164,6 +164,57 @@ class TestParsers(unittest.TestCase):
         self.assertEqual(ev, {("change", "2"), ("close", "3"), ("open", "4")})
         boot = diff([], cur, "T", bootstrap=True)
         self.assertTrue(all(e.get("boot") for e in boot))
+
+
+def _site(sid, name, lat, lon, op, points, hours="Lunes (00:00 - 23:59) " * 7):
+    pts = "".join(
+        f"""<egi:refillPoint id="P{sid}{i}"><fac:name><com:values><com:value lang="es">x</com:value></com:values></fac:name>
+        <egi:connector><egi:connectorType>{ct}</egi:connectorType><egi:chargingMode>{cm}</egi:chargingMode>
+        <egi:maxPowerAtSocket>{w}</egi:maxPowerAtSocket></egi:connector></egi:refillPoint>"""
+        for i, (ct, cm, w) in enumerate(points)
+    )
+    coord = (f"<loc:coordinatesForDisplay><loc:latitude>{lat}</loc:latitude><loc:longitude>{lon}</loc:longitude></loc:coordinatesForDisplay>"
+             if lat is not None else "")
+    return f"""<egi:energyInfrastructureSite id="{sid}">
+      <fac:name><com:values><com:value lang="es">{name}</com:value></com:values></fac:name>
+      <fac:operatingHours><fac:label>{hours}</fac:label></fac:operatingHours>
+      <fac:locationReference><loc:_locationReferenceExtension><loc:facilityLocation><locx:address>
+        <locx:addressLine order="1"><locx:text><com:values><com:value lang="es">Dirección: Camí 166</com:value></com:values></locx:text></locx:addressLine>
+        <locx:addressLine order="2"><locx:text><com:values><com:value lang="es">Municipio: Palma</com:value></com:values></locx:text></locx:addressLine>
+        <locx:addressLine order="3"><locx:text><com:values><com:value lang="es">Provincia: Balears, Illes</com:value></com:values></locx:text></locx:addressLine>
+      </locx:address></loc:facilityLocation></loc:_locationReferenceExtension>{coord}</fac:locationReference>
+      <fac:operator id="ES*915"><fac:name><com:values><com:value lang="es">{op}</com:value></com:values></fac:name></fac:operator>
+      <egi:energyInfrastructureStation id="{sid}_1">{pts}</egi:energyInfrastructureStation>
+    </egi:energyInfrastructureSite>"""
+
+
+RECARGA = f"""<?xml version="1.0" encoding="UTF-8"?>
+<d2:payload xmlns:d2="http://datex2.eu/schema/3/d2Payload" xmlns:com="http://datex2.eu/schema/3/common"
+  xmlns:loc="http://datex2.eu/schema/3/locationReferencing" xmlns:egi="http://datex2.eu/schema/3/energyInfrastructure"
+  xmlns:fac="http://datex2.eu/schema/3/facilities" xmlns:locx="http://datex2.eu/schema/3/locationExtension">
+  <com:publicationTime>2026-11-16T10:16:41.529+01:00</com:publicationTime>
+  <egi:energyInfrastructureTable id="ELECTROLINERAS">
+    {_site("1", "Centro A CP1", 39.5948, 2.63586, "Motor Box", [("iec62196T2COMBO", "mode4DC", "350000.0")])}
+    {_site("2", "Centro A CP2", 39.59481, 2.63589, "Motor Box", [("iec62196T2", "mode3AC", "22000.0"), ("iec62196T2", "mode3AC", "22000.0")], hours="Lunes (08:00 - 17:00)")}
+    {_site("3", "Otro operador mismo punto", 39.5948, 2.63586, "Otro", [("chademo", "mode4DC", "50000.0")])}
+    {_site("4", "Sin coordenadas", None, None, "Motor Box", [("iec62196T2", "mode3AC", "7400.0")])}
+  </egi:energyInfrastructureTable>
+</d2:payload>""".encode("utf-8")
+
+
+class RecargaTests(unittest.TestCase):
+    def test_parse_recarga_fusiona_y_descarta(self):
+        items, meta = parse_recarga(RECARGA)
+        self.assertEqual(meta["published"], "2026-11-16T10:16:41.529+01:00")
+        self.assertEqual(len(items), 2)  # A1+A2 fusionados, el de otro operador aparte, el sin coordenadas fuera
+        a = next(i for i in items if i["op"] == "Motor Box")
+        self.assertEqual((a["n"], a["kw"], a["dc"]), (3, 350.0, True))
+        self.assertEqual(a["con"], ["iec62196T2COMBO", "iec62196T2"])
+        self.assertEqual((a["addr"], a["mun"], a["prov"]), ("Camí 166", "Palma", "Balears, Illes"))
+        self.assertNotIn("h24", a)  # uno de los dos sitios no es 24 h
+        o = next(i for i in items if i["op"] == "Otro")
+        self.assertEqual((o["n"], o["kw"], o["con"], o["h24"]), (1, 50.0, ["chademo"], True))
+        self.assertEqual(a["name"], "Centro A CP1")
 
 
 if __name__ == "__main__":

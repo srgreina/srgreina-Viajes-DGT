@@ -191,3 +191,85 @@ def parse_located(data):
         items.append({k: v for k, v in item.items() if v not in (None, [], {}, "")})
     meta = {"published": published, "leaf_tags": leaf_tag_counts(root)}
     return items, meta
+
+
+# ---------- puntos de recarga VE (DATEX II v3, EnergyInfrastructureTablePublication) ----------
+
+_ADDR_RE = re.compile(r"^(Dirección|Municipio|Provincia|Comunidad Autónoma):\s*(.*)$")
+
+
+def _val(el):
+    """Primer texto 'value' (textos multilingües de DATEX II) bajo el."""
+    return first_text(el, "value") if el is not None else None
+
+
+def _recarga_site(site):
+    loc = next(iter_local(site, "coordinatesForDisplay"), None)
+    if loc is None:
+        return None
+    try:
+        lat, lon = float(first_text(loc, "latitude")), float(first_text(loc, "longitude"))
+    except (TypeError, ValueError):
+        return None
+    name_el = next(iter(children_local(site, "name")), None)
+    op = next(iter(children_local(site, "operator")), None)
+    addr = {}
+    for line in iter_local(site, "addressLine"):
+        m = _ADDR_RE.match(_val(line) or "")
+        if m:
+            addr[m.group(1)] = m.group(2).strip()
+    powers, cons, modes = [], [], []
+    points = list(iter_local(site, "refillPoint"))
+    for rp in points:
+        for c in iter_local(rp, "connector"):
+            ct, cm = first_text(c, "connectorType"), first_text(c, "chargingMode")
+            if ct:
+                cons.append(ct)
+            if cm:
+                modes.append(cm)
+            try:
+                powers.append(float(first_text(c, "maxPowerAtSocket")) / 1000.0)
+            except (TypeError, ValueError):
+                pass
+    label = first_text(site, "label") or ""
+    item = {
+        "id": site.get("id"),
+        "lat": round(lat, 5),
+        "lon": round(lon, 5),
+        "name": _val(name_el),
+        "op": _val(next(iter(children_local(op, "name")), None)) if op is not None else None,
+        "addr": addr.get("Dirección"),
+        "mun": addr.get("Municipio"),
+        "prov": addr.get("Provincia"),
+        "kw": round(max(powers), 1) if powers else None,
+        "n": len(points) or 1,
+        "con": _unique(cons),
+        "dc": any("DC" in m for m in modes) or None,
+        "h24": label.count("(00:00 - 23:59)") >= 7 or None,
+    }
+    return item
+
+
+def parse_recarga(data):
+    """Un elemento por punto geográfico y operador: varios sitios con las mismas coordenadas se fusionan
+    (suma de puntos de recarga, potencia máxima, unión de conectores)."""
+    root = ET.fromstring(data)
+    published = first_text(root, "publicationTime")
+    merged = {}
+    for site in iter_local(root, "energyInfrastructureSite"):
+        it = _recarga_site(site)
+        if not it:
+            continue
+        key = (round(it["lat"], 4), round(it["lon"], 4), it.get("op"))
+        cur = merged.get(key)
+        if cur is None:
+            merged[key] = it
+            continue
+        cur["n"] += it["n"]
+        cur["kw"] = max(x for x in (cur.get("kw"), it.get("kw")) if x is not None) if (cur.get("kw") or it.get("kw")) else None
+        cur["con"] = _unique(cur["con"] + it["con"])
+        cur["dc"] = cur.get("dc") or it.get("dc")
+        cur["h24"] = cur.get("h24") and it.get("h24")
+    items = [{k: v for k, v in it.items() if v not in (None, [], "")} for it in merged.values()]
+    items.sort(key=lambda i: (i["lat"], i["lon"]))
+    return items, {"published": published, "leaf_tags": None}

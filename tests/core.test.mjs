@@ -6,7 +6,7 @@ import assert from 'node:assert/strict';
 const html = readFileSync(new URL('../docs/index.html', import.meta.url), 'utf8');
 const core = html.slice(html.indexOf('// <core>'), html.indexOf('// </core>'));
 const api = new Function(
-  `${core}; return { buildRoute, nearest, nearestLine, collectHits, describe, fmtDur, fmtKm, fmtPk, samplePoints, pickHour, weatherAt, weatherAlerts, buildWeatherHits, weatherSummary, pointInRing, buildAvisoHits, avisoSummary, calidadResumen };`,
+  `${core}; return { buildRoute, nearest, nearestLine, collectHits, describe, fmtDur, fmtKm, fmtPk, samplePoints, pickHour, weatherAt, weatherAlerts, buildWeatherHits, weatherSummary, pointInRing, buildAvisoHits, avisoSummary, calidadResumen, collectCharge };`,
 )();
 
 // Ruta recta de oeste a este por Málaga: lon -4.50 -> -4.40 a lat 36.70 (~8,9 km), 10 tramos.
@@ -257,4 +257,25 @@ test('calidadResumen y marca de fin previsto vencido', () => {
   assert.match(api.describe({ layer: 'inc', item: { ...base, end: '2020-01-01T00:00:00Z' } }).sub, /fin previsto vencido/);
   assert.doesNotMatch(api.describe({ layer: 'inc', item: { ...base, end: '2999-01-01T00:00:00Z' } }).sub, /vencido/);
   assert.doesNotMatch(api.describe({ layer: 'inc', item: base }).sub, /vencido/);
+});
+
+test('collectCharge: potencia mínima, buffer amplio y descripción', () => {
+  const wide = api.buildRoute(coords, null, { distance: totalM, duration: 3600 }, 1500, 1500);
+  const items = [
+    { id: 'a', lat: offsetLat(900), lon: -4.45, kw: 150, n: 4, op: 'Iberdrola', con: ['iec62196T2COMBO', 'chademo'], dc: true, h24: true, addr: 'Calle Mayor 1', mun: 'Málaga' },
+    { id: 'b', lat: offsetLat(900), lon: -4.45, kw: 22, n: 2 },                 // lenta: fuera
+    { id: 'c', lat: offsetLat(5000), lon: -4.45, kw: 150, n: 1 },               // lejos: fuera
+    { id: 'd', lat: offsetLat(0), lon: -4.42, kw: 50, n: 1, con: ['otro'] },     // justo en el mínimo
+    { id: 'e', lat: offsetLat(0), lon: -4.43 },                                  // sin potencia: fuera
+  ];
+  const hits = api.collectCharge(wide, items);
+  assert.deepEqual(hits.map((h) => h.item.id), ['a', 'd']);
+  assert.ok(hits[0].s < hits[1].s && hits[0].dist > 850 && hits[0].dist < 950);
+  assert.equal(api.nearest(route, offsetLat(900), -4.45), null); // con el índice normal (150 m) no entraría
+  const d = api.describe(hits[0]);
+  assert.equal(d.title, 'Carga 150 kW · Iberdrola');
+  assert.equal(d.sub, 'CCS, CHAdeMO · 4 puntos · 24 h · a 900 m de la ruta');
+  assert.equal(d.text, 'Calle Mayor 1, Málaga');
+  assert.equal(api.describe(hits[1]).sub, 'otro · 1 punto · a 0 m de la ruta');
+  assert.deepEqual(api.collectCharge(wide, undefined), []);
 });
