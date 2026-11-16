@@ -115,7 +115,9 @@ button.icon.on svg { fill: var(--obras); stroke: var(--text); }
 #recentList li { cursor: pointer; }
 .res { list-style: none; margin: 2px 0 8px; padding: 4px; border-radius: 12px; background: var(--papel); box-shadow: 0 1px 8px rgba(0, 0, 0, .12); overflow: hidden; }
 .res:empty { display: none; }
-.res button { width: 100%; min-height: 46px; text-align: left; border-radius: 8px; background: transparent; font: 500 14.5px var(--font); }
+.res button { width: 100%; min-height: 50px; padding: 6px 12px; text-align: left; border-radius: 8px; background: transparent; font: 500 14.5px var(--font); }
+.res button b { display: block; font-weight: 600; }
+.res button small { display: block; color: var(--suave); font: 400 12.5px/1.3 var(--font); }
 .res li { list-style: none; }
 #status { min-height: 1.3em; margin: 0 0 10px; color: var(--suave); font: 500 14px var(--font); }
 #status:empty { display: none; }
@@ -906,8 +908,11 @@ async function geocode(q) {
   // Nominatim devuelve a veces el municipio y la provincia con el mismo nombre: se queda el primero (el más relevante)
   const res = (await r.json()).map((x) => ({ name: x.display_name, lat: +x.lat, lon: +x.lon, kind: x.addresstype }))
     .filter((x) => !seen.has(x.name) && seen.add(x.name));
-  await Promise.all(res.filter((x) => ['city', 'town', 'village', 'municipality'].includes(x.kind)).map(centrar));
-  return res;
+  // Si hay un municipio/pueblo con el mismo nombre, la provincia o comarca con ese nombre sobra
+  const AREA = ['province', 'state', 'state_district', 'county', 'region'];
+  const first = (x) => x.name.split(',')[0].trim();
+  const out = res.filter((x) => !(AREA.includes(x.kind) && res.some((y) => y !== x && !AREA.includes(y.kind) && first(y) === first(x))));
+  return out.length ? out : res;
 }
 
 // Nominatim da para un municipio el centroide de su término (puede caer a km del casco urbano).
@@ -924,14 +929,22 @@ async function centrar(x) {
   } catch (e) { /* se queda con el punto de Nominatim */ }
 }
 
+const KIND = { municipality: 'Municipio', city: 'Ciudad', town: 'Localidad', village: 'Pueblo', hamlet: 'Aldea', suburb: 'Barrio', province: 'Provincia', state: 'Comunidad', county: 'Comarca', region: 'Región', road: 'Vía', aeroway: 'Aeropuerto', house: 'Dirección' };
+function placeLabel(r) {
+  const parts = r.name.split(',').map((t) => t.trim());
+  const rest = [KIND[r.kind], ...parts.slice(1, 3)].filter(Boolean).join(' · ');
+  return `<b>${esc(parts[0])}</b><small>${esc(rest)}</small>`;
+}
+
 function showResults(prefix, key, res) {
   const input = $(prefix);
   const list = $(prefix + 'Res');
-  list.innerHTML = res.map((r, i) => `<li><button type="button" data-i="${i}">${esc(r.name)}</button></li>`).join('');
-  list.onclick = (ev) => {
+  list.innerHTML = res.map((r, i) => `<li><button type="button" data-i="${i}">${placeLabel(r)}</button></li>`).join('');
+  list.onclick = async (ev) => {
     const b = ev.target.closest('button');
     if (!b) return;
     const r = res[+b.dataset.i];
+    if (['city', 'town', 'village', 'municipality'].includes(r.kind)) await centrar(r); // núcleo urbano, solo del elegido
     state[key] = r;
     input.value = r.name.split(',').slice(0, 2).join(',');
     list.innerHTML = '';
@@ -972,6 +985,7 @@ async function resolvePlace(key, inputId) {
   if (!q) throw new Error('Falta ' + (key === 'o' ? 'el origen' : 'el destino'));
   const res = await geocode(q);
   if (!res.length) throw new Error('No encuentro: ' + q);
+  if (['city', 'town', 'village', 'municipality'].includes(res[0].kind)) await centrar(res[0]);
   state[key] = res[0];
   $(inputId).value = res[0].name.split(',').slice(0, 2).join(',');
   return res[0];
