@@ -876,7 +876,9 @@ async function geocode(q) {
   const url = 'https://nominatim.openstreetmap.org/search?format=jsonv2&limit=5&countrycodes=es&accept-language=es&q=' + encodeURIComponent(q);
   const r = await fetch(url);
   if (!r.ok) throw new Error('Falló la búsqueda de lugares');
-  return (await r.json()).map((x) => ({ name: x.display_name, lat: +x.lat, lon: +x.lon }));
+  const seen = new Set();
+  // Nominatim devuelve a veces el municipio y la provincia con el mismo nombre: se queda el primero (el más relevante)
+  return (await r.json()).map((x) => ({ name: x.display_name, lat: +x.lat, lon: +x.lon })).filter((x) => !seen.has(x.name) && seen.add(x.name));
 }
 
 function showResults(prefix, key, res) {
