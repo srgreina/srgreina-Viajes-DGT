@@ -878,7 +878,24 @@ async function geocode(q) {
   if (!r.ok) throw new Error('Falló la búsqueda de lugares');
   const seen = new Set();
   // Nominatim devuelve a veces el municipio y la provincia con el mismo nombre: se queda el primero (el más relevante)
-  return (await r.json()).map((x) => ({ name: x.display_name, lat: +x.lat, lon: +x.lon })).filter((x) => !seen.has(x.name) && seen.add(x.name));
+  const res = (await r.json()).map((x) => ({ name: x.display_name, lat: +x.lat, lon: +x.lon, kind: x.addresstype }))
+    .filter((x) => !seen.has(x.name) && seen.add(x.name));
+  await Promise.all(res.filter((x) => ['city', 'town', 'village', 'municipality'].includes(x.kind)).map(centrar));
+  return res;
+}
+
+// Nominatim da para un municipio el centroide de su término (puede caer a km del casco urbano).
+// Open-Meteo (GeoNames) da el punto del núcleo urbano: se usa si queda a menos de 20 km del de Nominatim.
+async function centrar(x) {
+  try {
+    const nombre = x.name.split(',')[0].trim();
+    const r = await fetch('https://geocoding-api.open-meteo.com/v1/search?count=10&language=es&format=json&name=' + encodeURIComponent(nombre));
+    if (!r.ok) return;
+    const c = ((await r.json()).results || [])
+      .filter((g) => /^PPL/.test(g.feature_code || '') && Math.hypot((g.latitude - x.lat) * 111, (g.longitude - x.lon) * 89) < 20)
+      .sort((a, b) => (b.population || 0) - (a.population || 0))[0];
+    if (c) { x.lat = c.latitude; x.lon = c.longitude; }
+  } catch (e) { /* se queda con el punto de Nominatim */ }
 }
 
 function showResults(prefix, key, res) {
