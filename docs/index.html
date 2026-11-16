@@ -74,8 +74,8 @@ body { margin: 0; background: var(--concreto); color: var(--text); font: 400 15.
   #map { position: relative; inset: auto; flex: 1; min-width: 0; height: 100%; }
   #grip { display: none; }
   #sheetBody { padding-top: 20px; padding-bottom: 28px; zoom: var(--z, 1); }
-  #resizer { display: block; position: absolute; top: 0; bottom: 0; right: -5px; width: 10px; z-index: 10; cursor: col-resize; touch-action: none; }
-  #resizer::after { content: ""; position: absolute; top: 50%; left: 3px; width: 4px; height: 44px; margin-top: -22px; border-radius: 2px; background: var(--linea); opacity: 0; transition: opacity .15s; }
+  #resizer { display: block; position: absolute; top: 0; bottom: 0; right: -8px; width: 16px; z-index: 50; cursor: col-resize; touch-action: none; }
+  #resizer::after { content: ""; position: absolute; top: 50%; left: 6px; width: 4px; height: 44px; margin-top: -22px; border-radius: 2px; background: var(--linea); opacity: 0; transition: opacity .15s; }
   #resizer:hover::after, #resizer:focus-visible::after, #resizer.on::after { opacity: 1; }
   #layers { flex-wrap: wrap; overflow: visible; margin: 0; padding: 4px 0 10px; }
   #bar { left: calc(var(--panel-w, 420px) + 16px); right: 12px; max-width: 520px; z-index: 500; }
@@ -942,7 +942,9 @@ function showResults(prefix, key, res) {
 function bindPlace(prefix, key) {
   const input = $(prefix);
   const list = $(prefix + 'Res');
-  const search = async () => {
+  let inflight = null;
+  const search = () => inflight || (inflight = run().finally(() => { inflight = null; }));
+  const run = async () => {
     const q = input.value.trim();
     if (!q) return;
     list.innerHTML = '';
@@ -954,6 +956,12 @@ function bindPlace(prefix, key) {
     } catch (e) { setStatus(e.message, true); }
   };
   $(prefix + 'Btn').addEventListener('click', search);
+  // Al salir del campo se despliegan las opciones (una sola petición, no al teclear: Nominatim no admite autocompletar)
+  input.addEventListener('blur', (ev) => {
+    const to = ev.relatedTarget;
+    if (to && (list.contains(to) || to.id === 'go')) return;
+    if (input.value.trim() && !state[key] && !list.children.length) search();
+  });
   input.addEventListener('keydown', (ev) => { if (ev.key === 'Enter') { ev.preventDefault(); search(); } });
   input.addEventListener('input', () => { state[key] = null; });
 }
