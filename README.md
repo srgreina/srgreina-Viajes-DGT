@@ -8,7 +8,7 @@ Planificador de trayectos con datos oficiales de la DGT (NAP, `nap.dgt.es`): est
 
 HTML único con Leaflet, instalable como PWA. Se publica con GitHub Pages (Settings → Pages → *Deploy from a branch* → `main` → `/docs`): `https://srgreina.github.io/srgreina-Viajes-DGT/`.
 
-1. Origen y destino con Nominatim (solo al pulsar Buscar o Intro, sin autocompletar) o tu ubicación. Salida configurable.
+1. Origen y destino en dos campos de solo texto. Al tocarlos se despliega: *Mi ubicación* (solo origen), tus favoritos y los lugares recientes (se filtran al escribir). La búsqueda con Nominatim va con Intro o al salir del campo (sin autocompletar); cada resultado lleva una estrella para guardarlo como favorito. Los municipios se centran en su núcleo urbano (Open-Meteo/GeoNames). Favoritos, rutas recientes y corredores se guardan solo en el navegador. Salida configurable.
 2. Ruta en coche con el servidor público de OSRM; de ahí salen los kilómetros y la hora estimada de paso (sin tráfico).
 3. Cruce de la ruta con incidencias, paneles, radares fijos y cámaras a menos de 150 m del trazado (rejilla espacial; tramos de incidencia muestreados cada 120 m).
 4. Resumen ordenado por kilómetro de ruta, con hora de paso, gravedad (corte o accidente = grave) y mapa. Las capas se eligen con interruptores y se guardan en el móvil; cada feed solo se descarga cuando su capa está activa. La interfaz es un mapa a pantalla completa con panel inferior de tres alturas (lateral en escritorio) y línea de PK con los avisos colgados de la ruta.
@@ -18,7 +18,10 @@ HTML único con Leaflet, instalable como PWA. Se publica con GitHub Pages (Setti
 8. **Carga VE** (capa opcional, desactivada): puntos de recarga del NAP con ≥ 50 kW a menos de 1,5 km de la ruta (potencia, conectores, operador, 24 h).
 9. **Tramos de riesgo** (capa opcional, desactivada): tramos de 1 km con ≥ 3 incidencias no planificadas repetidas (accidentes, averías, objetos en calzada, retenciones; las obras no cuentan). Avisa si hay menos de 30 días de histórico.
 10. **Corredores** (panel "Mis corredores"): guarda un trayecto con días y hora habitual (se almacena solo en el móvil). "Ver" lo recalcula para su próxima salida. "Copiar para avisos al móvil" exporta los corredores para el servidor (ver abajo).
-11. Lee los datos de la rama `latest` (`raw.githubusercontent.com`) y avisa si tienen más de 30 min.
+11. Botón para limpiar la ruta, panel lateral ajustable en escritorio (el tamaño de letra escala con el ancho) y etiqueta con los datos del trayecto al pasar el ratón por la ruta.
+12. Lee los datos de la rama `latest` (`raw.githubusercontent.com`) y avisa si tienen más de 30 min.
+
+El service worker (`docs/sw.js`) va a la red primero con `cache: 'no-store'` (evita la caché de 10 min de GitHub Pages); Leaflet y la tipografía van de caché. Tras un despliegue puede hacer falta recargar dos veces (Ctrl+F5). Cada cambio del front sube la versión `CACHE`.
 
 Tests de la lógica de cruce: `node --test tests/core.test.mjs` (extrae el bloque `<core>` de `index.html`).
 
