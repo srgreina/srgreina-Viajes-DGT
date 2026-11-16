@@ -9,27 +9,27 @@
 <link rel="icon" href="icon-192.png">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600;700&family=Barlow+Semi+Condensed:wght@600;700&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap">
 <style>
-/* Viajes DGT: lenguaje de señalización viaria (cartel azul de autovía, amarillo de obras, rojo de peligro, mojón de PK) */
+/* Viajes DGT: Inter, superficies suaves y color solo donde informa (azul de ruta, rojo de peligro, verde de vía libre) */
 :root {
-  --concreto: #e9ecef; --papel: #ffffff; --asfalto: #1f262d; --suave: #56626e; --linea: #d4d9de;
+  --concreto: #f1f3f5; --papel: #ffffff; --asfalto: #1f262d; --suave: #56626e; --linea: #d4d9de;
   --autovia: #0a4c94; --obras: #ffc20e; --peligro: #c8102e; --carretera: #0b6b3a;
   /* nombres que usa el JS */
-  --bg: #e9ecef; --card: #ffffff; --text: #1f262d; --muted: #56626e; --line: #d4d9de;
+  --bg: #f1f3f5; --card: #ffffff; --text: #1f262d; --muted: #56626e; --line: #d4d9de;
   --primary: #0a4c94; --on-primary: #ffffff;
   --high: #c8102e; --mid: #d98300; --low: #7c7a3a; --ok: #0b6b3a;
   --pan: #5e35b1; --rad: #ad1457; --cam: #00796b; --ev: #0b6b3a; --rie: #e65100;
   --peek: 244px;
-  --font: "Barlow", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
-  --font-cond: "Barlow Semi Condensed", "Barlow", system-ui, sans-serif;
+  --font: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --font-cond: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
   color-scheme: light;
 }
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
-    --concreto: #161a1f; --papel: #1f252c; --asfalto: #e8ecef; --suave: #a0abb7; --linea: #333c46;
+    --concreto: #2a323b; --papel: #1b2128; --asfalto: #e8ecef; --suave: #a0abb7; --linea: #333c46;
     --autovia: #1260b8;
-    --bg: #161a1f; --card: #1f252c; --text: #e8ecef; --muted: #a0abb7; --line: #333c46;
+    --bg: #2a323b; --card: #1b2128; --text: #e8ecef; --muted: #a0abb7; --line: #333c46;
     --primary: #7fb2f0; --on-primary: #0a1d36;
     --high: #ff8a80; --mid: #ffb74d; --low: #d6c668; --ok: #81c784;
     --pan: #b39ddb; --rad: #f48fb1; --cam: #4db6ac; --ev: #81c784; --rie: #ffb74d;
@@ -39,7 +39,7 @@
 * { box-sizing: border-box; }
 [hidden] { display: none !important; }
 html, body { height: 100%; }
-body { margin: 0; background: var(--concreto); color: var(--text); font: 400 16px/1.4 var(--font); overflow: hidden; -webkit-text-size-adjust: 100%; }
+body { margin: 0; background: var(--concreto); color: var(--text); font: 400 15.5px/1.45 var(--font); letter-spacing: -.005em; overflow: hidden; -webkit-text-size-adjust: 100%; }
 .sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
 :focus-visible { outline: 3px solid var(--primary); outline-offset: 2px; }
 
@@ -48,31 +48,31 @@ body { margin: 0; background: var(--concreto); color: var(--text); font: 400 16p
 
 /* barra flotante */
 #bar { position: absolute; z-index: 500; top: max(10px, env(safe-area-inset-top)); left: 10px; right: 10px; display: flex; gap: 8px; align-items: center; }
-#barBtn { flex: 1; min-width: 0; min-height: 50px; display: flex; align-items: center; gap: 12px; padding: 0 18px; border: 0; border-radius: 25px; background: var(--papel); color: var(--text); box-shadow: 0 2px 12px rgba(0, 0, 0, .28); font: 600 17px var(--font); text-align: left; cursor: pointer; }
+#barBtn { flex: 1; min-width: 0; min-height: 52px; display: flex; align-items: center; gap: 12px; padding: 0 20px; border: 0; border-radius: 26px; background: var(--papel); color: var(--text); box-shadow: 0 2px 14px rgba(0, 0, 0, .22); font: 600 16px var(--font); text-align: left; cursor: pointer; }
 #barText { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .rd { flex: none; width: 12px; height: 12px; border-radius: 50%; border: 3.5px solid var(--primary); }
-#corBtn, #clearBtn { flex: none; width: 50px; height: 50px; min-height: 50px; padding: 0; display: grid; place-items: center; border: 0; border-radius: 50%; background: var(--papel); color: var(--text); box-shadow: 0 2px 12px rgba(0, 0, 0, .28); cursor: pointer; }
+#corBtn, #clearBtn { flex: none; width: 52px; height: 52px; min-height: 52px; padding: 0; display: grid; place-items: center; border: 0; border-radius: 50%; background: var(--papel); color: var(--text); box-shadow: 0 2px 14px rgba(0, 0, 0, .22); cursor: pointer; }
 #corBtn svg, #clearBtn svg { width: 22px; height: 22px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linejoin: round; }
-#fresh { position: absolute; z-index: 500; top: calc(max(10px, env(safe-area-inset-top)) + 58px); left: 14px; max-width: calc(100% - 28px); padding: 3px 9px; border-radius: 6px; background: color-mix(in srgb, var(--papel) 90%, transparent); color: var(--suave); font: 500 12.5px var(--font); }
+#fresh { position: absolute; z-index: 500; top: calc(max(10px, env(safe-area-inset-top)) + 60px); left: 14px; max-width: calc(100% - 28px); padding: 3px 9px; border-radius: 999px; background: color-mix(in srgb, var(--papel) 92%, transparent); color: var(--suave); font: 500 12px var(--font); }
 #fresh.stale { color: var(--high); font-weight: 700; }
 
 /* panel inferior (lateral en escritorio) */
 #sheet { position: absolute; z-index: 600; left: 0; right: 0; bottom: 0; height: 90vh; height: 90dvh; display: flex; flex-direction: column;
-  background: var(--papel); border-radius: 18px 18px 0 0; box-shadow: 0 -4px 26px rgba(0, 0, 0, .3);
+  background: var(--papel); border-radius: 22px 22px 0 0; box-shadow: 0 -4px 28px rgba(0, 0, 0, .25);
   transform: translateY(var(--ty, calc(100% - var(--peek)))); transition: transform .26s cubic-bezier(.2, .8, .2, 1); }
 #sheet[data-level="half"] { --ty: 46%; }
 #sheet[data-level="full"] { --ty: 0px; }
 #grip { flex: none; width: 100%; height: 30px; min-height: 30px; padding: 0; border: 0; background: transparent; display: grid; place-items: center; cursor: grab; touch-action: none; }
 #grip::before { content: ""; width: 42px; height: 5px; border-radius: 3px; background: var(--linea); }
-#sheetBody { flex: 1; overflow-x: hidden; overflow-y: auto; overscroll-behavior: contain; padding: 0 16px calc(var(--hid, 0px) + 28px); }
+#sheetBody { flex: 1; overflow-x: hidden; overflow-y: auto; overscroll-behavior: contain; padding: 0 18px calc(var(--hid, 0px) + 28px); }
 
 @media (min-width: 900px) {
   /* escritorio: panel y mapa son columnas hermanas (sin superponer capas sobre Leaflet) */
   #app { display: flex; }
-  #sheet { position: relative; order: -1; flex: none; z-index: auto; left: auto; right: auto; bottom: auto; width: 420px; height: 100%; border-radius: 0; transform: none; box-shadow: none; border-right: 1px solid var(--linea); transition: none; }
+  #sheet { position: relative; order: -1; flex: none; z-index: auto; left: auto; right: auto; bottom: auto; width: 420px; height: 100%; border-radius: 0; transform: none; box-shadow: none; border-right: 1px solid color-mix(in srgb, var(--linea) 60%, transparent); transition: none; }
   #map { position: relative; inset: auto; flex: 1; min-width: 0; height: 100%; }
   #grip { display: none; }
-  #sheetBody { padding-top: 16px; padding-bottom: 28px; }
+  #sheetBody { padding-top: 20px; padding-bottom: 28px; }
   #layers { flex-wrap: wrap; overflow: visible; margin: 0; padding: 4px 0 10px; }
   #bar { left: 436px; right: 12px; max-width: 520px; z-index: 500; }
   #fresh { left: 450px; }
@@ -80,101 +80,113 @@ body { margin: 0; background: var(--concreto); color: var(--text); font: 400 16p
 
 /* formulario */
 form { margin: 0; }
-.field { margin-bottom: 12px; }
-label.l { display: block; margin-bottom: 4px; color: var(--suave); font: 500 14px var(--font); }
-.row { display: flex; gap: 8px; }
+.field { margin-bottom: 14px; }
+label.l { display: block; margin-bottom: 6px; color: var(--suave); font: 500 13px var(--font); }
+.row { display: flex; gap: 6px; align-items: center; }
 .row > input { flex: 1; min-width: 0; }
-input[type=text], input[type=datetime-local], input[type=time] { width: 100%; min-height: 48px; padding: 8px 12px; font: 500 16px var(--font); color: var(--text); background: var(--concreto); border: 1.5px solid transparent; border-radius: 10px; }
-input[type=text]:focus, input[type=datetime-local]:focus, input[type=time]:focus { border-color: var(--primary); outline: none; }
-button { min-height: 44px; padding: 0 16px; font: 600 15px var(--font); border-radius: 10px; border: 1.5px solid var(--linea); background: transparent; color: var(--text); cursor: pointer; }
-button.primary { width: 100%; min-height: 52px; margin: 4px 0 14px; background: var(--primary); border-color: var(--primary); color: var(--on-primary); font-size: 17px; }
+input[type=text], input[type=datetime-local], input[type=time] { width: 100%; min-height: 50px; padding: 8px 14px; font: 500 16px var(--font); color: var(--text); background: var(--concreto); border: 2px solid transparent; border-radius: 14px; }
+input[type=text]:focus, input[type=datetime-local]:focus, input[type=time]:focus { border-color: var(--primary); background: var(--papel); outline: none; }
+button { min-height: 44px; padding: 0 16px; font: 600 14.5px var(--font); border-radius: 12px; border: 0; background: var(--concreto); color: var(--text); cursor: pointer; }
+button:hover { background: color-mix(in srgb, var(--concreto) 80%, var(--text) 8%); }
+button.primary { width: 100%; min-height: 54px; margin: 6px 0 18px; border-radius: 16px; background: var(--primary); color: var(--on-primary); font-size: 16.5px; font-weight: 700; }
+button.primary:hover { background: color-mix(in srgb, var(--primary) 88%, #000); }
 button:disabled { opacity: .6; cursor: default; }
-button.icon { flex: none; width: 48px; padding: 0; display: grid; place-items: center; }
-button.icon svg { width: 22px; height: 22px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linejoin: round; }
+button.icon { flex: none; width: 44px; padding: 0; display: grid; place-items: center; background: transparent; }
+button.icon svg { width: 21px; height: 21px; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linejoin: round; }
 button.icon.on svg { fill: var(--obras); stroke: var(--text); }
-.favs { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 8px; }
+
+/* tarjeta de ruta: origen y destino juntos, con su raíl de puntos */
+.routecard { display: grid; grid-template-columns: 26px 1fr; column-gap: 4px; margin-bottom: 14px; padding: 6px 6px 6px 10px; border-radius: 18px; background: var(--concreto); }
+.routecard .rail { display: flex; flex-direction: column; align-items: center; padding: 22px 0; }
+.routecard .rail i { flex: none; width: 12px; height: 12px; border-radius: 50%; border: 3.5px solid var(--primary); background: var(--concreto); }
+.routecard .rail i:last-child { border-radius: 3px; border-color: var(--peligro); }
+.routecard .rail b { flex: 1; width: 2px; margin: 4px 0; background: repeating-linear-gradient(var(--suave) 0 3px, transparent 3px 7px); opacity: .6; }
+.routecard .fld + .fld { border-top: 1px solid var(--linea); }
+.routecard input[type=text] { background: transparent; border-radius: 12px; min-height: 52px; }
+.routecard input[type=text]:focus { background: var(--papel); }
+.routecard button:not(.icon) { background: var(--papel); }
+.favs { display: flex; flex-wrap: wrap; gap: 8px; }
 .favs:empty { display: none; }
-.favs button { min-height: 36px; padding: 0 12px; border-radius: 18px; font: 500 14.5px var(--font); }
+.favs button { min-height: 36px; padding: 0 14px; border-radius: 999px; font: 500 14px var(--font); }
 #recentList li { cursor: pointer; }
-.res { list-style: none; margin: 6px 0 0; padding: 0; border: 1px solid var(--linea); border-radius: 10px; overflow: hidden; }
+.res { list-style: none; margin: 2px 0 8px; padding: 4px; border-radius: 12px; background: var(--papel); box-shadow: 0 1px 8px rgba(0, 0, 0, .12); overflow: hidden; }
 .res:empty { display: none; }
-.res button { width: 100%; min-height: 46px; text-align: left; border: 0; border-bottom: 1px solid var(--linea); border-radius: 0; font: 500 15px var(--font); }
-.res li:last-child button { border-bottom: 0; }
-#status { min-height: 1.3em; margin: 0 0 6px; color: var(--suave); font: 500 14.5px var(--font); }
+.res button { width: 100%; min-height: 46px; text-align: left; border-radius: 8px; background: transparent; font: 500 14.5px var(--font); }
+.res li { list-style: none; }
+#status { min-height: 1.3em; margin: 0 0 10px; color: var(--suave); font: 500 14px var(--font); }
 #status:empty { display: none; }
-#status.err { color: var(--high); font-weight: 700; }
+#status.err { color: var(--high); font-weight: 600; }
 
 /* capas */
-.layersLabel { margin: 14px 0 2px; color: var(--suave); font: 500 14px var(--font); }
-#layers { display: flex; gap: 8px; overflow-x: auto; margin: 0 -16px; padding: 4px 16px 10px; scrollbar-width: none; }
+.layersLabel { margin: 18px 0 4px; color: var(--suave); font: 500 13px var(--font); }
+#layers { display: flex; gap: 8px; overflow-x: auto; margin: 0 -18px; padding: 4px 18px 12px; scrollbar-width: none; }
 #layers::-webkit-scrollbar { display: none; }
-.chip { position: relative; flex: none; display: inline-flex; align-items: center; gap: 8px; min-height: 42px; padding: 0 14px; border: 1.5px solid var(--linea); border-radius: 10px; color: var(--suave); font: 500 15px var(--font); cursor: pointer; user-select: none; }
+.chip { position: relative; flex: none; display: inline-flex; align-items: center; justify-content: center; gap: 8px; min-height: 40px; padding: 0 15px; border-radius: 999px; background: var(--concreto); color: var(--suave); font: 500 14px var(--font); cursor: pointer; user-select: none; }
 .chip input { position: absolute; opacity: 0; pointer-events: none; }
-.chip .dot { width: 11px; height: 11px; border-radius: 50%; opacity: .35; }
+.chip .dot { width: 10px; height: 10px; border-radius: 50%; opacity: .45; }
 .chip input:checked + .dot { opacity: 1; }
-.chip.on { color: var(--text); border-color: var(--text); }
+.chip.on { background: var(--text); color: var(--papel); }
 .chip:focus-within { outline: 3px solid var(--primary); outline-offset: 2px; }
-.chip.day { justify-content: center; min-width: 44px; padding: 0 10px; }
-.chip.day.on { background: var(--text); }
-.chip.day.on span { color: var(--papel); font-weight: 700; }
+.chip.day { min-width: 44px; padding: 0 12px; }
 
 /* cartel de ruta */
-#sum { margin: 2px 0 6px; }
-.cartel { display: grid; grid-template-columns: 1fr auto; align-items: end; gap: 0 14px; padding: 13px 16px 12px; border-radius: 10px; background: var(--autovia); color: #fff; outline: 2px solid rgba(255, 255, 255, .92); outline-offset: -6px; }
-.cartel .desde { grid-column: 1; font: 500 14px var(--font); opacity: .92; }
-.cartel .to { grid-column: 1; font: 700 32px/1.02 var(--font-cond); overflow-wrap: anywhere; }
-.cartel .km { grid-column: 2; grid-row: 1 / span 2; font: 700 44px/1 var(--font-cond); font-variant-numeric: tabular-nums; text-align: right; }
-.cartel .km small { margin-left: 3px; font: 600 17px var(--font-cond); }
-.cartel .meta { grid-column: 1 / -1; display: flex; flex-wrap: wrap; gap: 2px 18px; margin-top: 8px; font: 500 16px var(--font); font-variant-numeric: tabular-nums; }
-.flags { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 10px; }
-.flag { display: inline-flex; align-items: center; gap: 7px; padding: 4px 11px 4px 9px; border-radius: 6px; font: 700 14.5px var(--font); }
+#sum { margin: 2px 0 8px; }
+.cartel { display: grid; grid-template-columns: 1fr auto; align-items: end; gap: 0 14px; padding: 18px 20px 16px; border-radius: 22px; background: var(--autovia); color: #fff; }
+.cartel .desde { grid-column: 1; font: 500 13.5px var(--font); opacity: .85; }
+.cartel .to { grid-column: 1; font: 800 28px/1.1 var(--font); letter-spacing: -.025em; overflow-wrap: anywhere; }
+.cartel .km { grid-column: 2; grid-row: 1 / span 2; font: 800 38px/1 var(--font); letter-spacing: -.03em; font-variant-numeric: tabular-nums; text-align: right; }
+.cartel .km small { margin-left: 3px; font: 600 15px var(--font); letter-spacing: 0; opacity: .85; }
+.cartel .meta { grid-column: 1 / -1; display: flex; flex-wrap: wrap; gap: 2px 18px; margin-top: 12px; padding-top: 12px; border-top: 1px solid rgba(255, 255, 255, .22); font: 500 15px var(--font); font-variant-numeric: tabular-nums; }
+.flags { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; }
+.flag { display: inline-flex; align-items: center; gap: 8px; padding: 6px 14px 6px 11px; border-radius: 999px; font: 600 14px var(--font); }
 .flag::before { content: ""; width: 13px; height: 12px; background: currentColor; }
 .flag.high { background: var(--peligro); color: #fff; }
 .flag.high::before { clip-path: polygon(50% 0, 100% 100%, 0 100%); }
-.flag.ok { background: var(--carretera); color: #fff; }
+.flag.ok { background: color-mix(in srgb, var(--ok) 16%, transparent); color: var(--ok); }
 .flag.ok::before { clip-path: polygon(14% 52%, 0 66%, 38% 100%, 100% 22%, 86% 8%, 38% 70%); }
-.stats { display: flex; flex-wrap: wrap; gap: 2px 16px; margin: 10px 0 2px; color: var(--suave); font: 500 14.5px var(--font); }
+.stats { display: flex; flex-wrap: wrap; gap: 2px 16px; margin: 12px 0 2px; color: var(--suave); font: 400 14px var(--font); }
 .stats b { color: var(--text); font-weight: 700; font-variant-numeric: tabular-nums; }
-.warns p { margin: 8px 0 0; padding-left: 10px; border-left: 4px solid var(--high); font: 500 15px/1.35 var(--font); }
-.warns p.soft { border-left-color: var(--linea); color: var(--suave); }
+.warns p { margin: 10px 0 0; padding: 10px 12px; border-radius: 12px; background: color-mix(in srgb, var(--high) 9%, transparent); font: 500 14px/1.4 var(--font); }
+.warns p.soft { background: var(--concreto); color: var(--suave); font-weight: 400; }
 
 /* línea de PK: la ruta de arriba abajo con los avisos colgados de ella */
-#list { list-style: none; margin: 6px 0 0; padding: 0; }
-#list li { display: grid; grid-template-columns: 58px 22px 1fr; column-gap: 9px; padding: 11px 0 13px; cursor: pointer;
-  background: linear-gradient(var(--linea), var(--linea)) 76px 0 / 2.5px 100% no-repeat; }
-#list li:first-child { background-position: 76px 24px; background-size: 2.5px calc(100% - 24px); }
-#list li:last-child { background-size: 2.5px 24px; }
+#list { list-style: none; margin: 8px 0 0; padding: 0; }
+#list li { display: grid; grid-template-columns: 54px 22px 1fr; column-gap: 10px; padding: 12px 0 14px; cursor: pointer;
+  background: linear-gradient(var(--linea), var(--linea)) 74px 0 / 2px 100% no-repeat; }
+#list li:first-child { background-position: 74px 24px; background-size: 2px calc(100% - 24px); }
+#list li:last-child { background-size: 2px 24px; }
 #list li:first-child:last-child { background: none; }
 #list li.empty { display: block; cursor: default; color: var(--suave); background: none; }
-.when { display: flex; flex-direction: column; align-items: flex-start; gap: 5px; }
-.hora { font: 700 21px/1 var(--font); font-variant-numeric: tabular-nums; }
-.pk { padding: 2px 5px; border: 1px solid #b9bec4; border-top: 4px solid var(--peligro); border-radius: 2px; background: #fff; color: #20262c; font: 600 11.5px/1.15 var(--font); font-variant-numeric: tabular-nums; }
+.when { display: flex; flex-direction: column; align-items: flex-start; gap: 3px; }
+.hora { font: 700 17px/1.2 var(--font); font-variant-numeric: tabular-nums; letter-spacing: -.02em; }
+.pk { color: var(--suave); font: 500 12px/1.2 var(--font); font-variant-numeric: tabular-nums; }
 .node { width: 22px; height: 24px; display: grid; place-items: center; background: var(--papel); }
-.node i { display: block; width: 14px; height: 14px; border-radius: 50%; background: var(--c); }
-.sev-high .node i { width: 19px; height: 17px; border-radius: 0; clip-path: polygon(50% 0, 100% 100%, 0 100%); }
-.sev-mid .node i { width: 13px; height: 13px; border-radius: 2px; transform: rotate(45deg); }
+.node i { display: block; width: 12px; height: 12px; border-radius: 50%; background: var(--c); }
+.sev-high .node i { width: 18px; height: 16px; border-radius: 0; clip-path: polygon(50% 0, 100% 100%, 0 100%); }
+.sev-mid .node i { width: 12px; height: 12px; border-radius: 3px; transform: rotate(45deg); }
 .what { min-width: 0; }
-.ttl { display: flex; align-items: center; flex-wrap: wrap; gap: 4px; font: 600 17.5px/1.25 var(--font); }
-.sub { margin-top: 1px; color: var(--suave); font: 400 14.5px/1.35 var(--font); }
-.txt { margin-top: 3px; font: 400 14.5px/1.35 var(--font); }
-.pic { height: 30px; vertical-align: middle; }
+.ttl { display: flex; align-items: center; flex-wrap: wrap; gap: 4px; font: 600 15.5px/1.3 var(--font); }
+.sub { margin-top: 2px; color: var(--suave); font: 400 13.5px/1.4 var(--font); }
+.txt { margin-top: 3px; font: 400 13.5px/1.4 var(--font); }
+.pic { height: 28px; vertical-align: middle; }
 
 /* corredores */
-h2.sec { margin: 4px 0 6px; font: 700 20px var(--font-cond); }
+h2.sec { margin: 6px 0 8px; font: 700 17px var(--font); letter-spacing: -.015em; }
 #cor { margin-bottom: 12px; }
 .corlist { list-style: none; margin: 0 0 10px; padding: 0; }
-.corlist li { display: flex; align-items: center; gap: 8px; padding: 9px 0; border-bottom: 1px solid var(--linea); }
+.corlist li { display: flex; align-items: center; gap: 10px; padding: 10px 0; border-bottom: 1px solid var(--linea); }
+.corlist li:last-child { border-bottom: 0; }
 .corlist .info { flex: 1; min-width: 0; }
-.corlist .info strong { display: block; font: 600 16.5px var(--font); overflow-wrap: anywhere; }
-.corlist .info span { color: var(--suave); font: 400 14px var(--font); }
+.corlist .info strong { display: block; font: 600 15px var(--font); overflow-wrap: anywhere; }
+.corlist .info span { color: var(--suave); font: 400 13px var(--font); }
 #corSave { margin: 8px 0 0; padding: 0; border-top: 1px solid var(--linea); }
-#corSave summary { min-height: 44px; display: flex; align-items: center; cursor: pointer; font: 600 15.5px var(--font); color: var(--primary); }
+#corSave summary { min-height: 44px; display: flex; align-items: center; cursor: pointer; font: 600 14.5px var(--font); color: var(--primary); }
 #corSave > div { padding-bottom: 10px; }
 #corNote textarea { width: 100%; min-height: 90px; font: 12px monospace; }
 
-.note { margin: 18px 0 0; color: var(--suave); font: 400 13px/1.4 var(--font); }
-#tip { position: fixed; z-index: 800; max-width: 330px; padding: 10px 12px 11px; border-radius: 10px; background: var(--papel); color: var(--text); box-shadow: 0 3px 16px rgba(0, 0, 0, .32); pointer-events: none; font: 400 14px/1.35 var(--font); }
-#tip .h { font: 700 17px var(--font-cond); font-variant-numeric: tabular-nums; }
+.note { margin: 20px 0 0; color: var(--suave); font: 400 12.5px/1.5 var(--font); }
+#tip { position: fixed; z-index: 800; max-width: 330px; padding: 12px 14px 13px; border-radius: 14px; background: var(--papel); color: var(--text); box-shadow: 0 3px 16px rgba(0, 0, 0, .32); pointer-events: none; font: 400 13.5px/1.4 var(--font); }
+#tip .h { font: 700 15.5px var(--font); letter-spacing: -.015em; font-variant-numeric: tabular-nums; }
 #tip .m { color: var(--suave); font-variant-numeric: tabular-nums; }
 #tip .it { display: grid; grid-template-columns: 10px 1fr; gap: 0 8px; margin-top: 7px; padding-top: 7px; border-top: 1px solid var(--linea); }
 #tip .it i { width: 10px; height: 10px; margin-top: 5px; border-radius: 50%; background: var(--c); }
@@ -184,7 +196,7 @@ h2.sec { margin: 4px 0 6px; font: 700 20px var(--font-cond); }
 #list li.hl { background-color: color-mix(in srgb, var(--primary) 12%, transparent); }
 .leaflet-container { font-family: var(--font); }
 @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .leaflet-tile-pane { filter: invert(1) hue-rotate(180deg) brightness(.9) contrast(.9); } }
-.leaflet-popup-content { font: 400 14.5px/1.35 var(--font); }
+.leaflet-popup-content { font: 400 14px/1.4 var(--font); }
 .leaflet-popup-content img { max-width: 100%; height: auto; }
 
 @media (prefers-reduced-motion: reduce) {
@@ -218,27 +230,32 @@ h2.sec { margin: 4px 0 6px; font: 700 20px var(--font-cond); }
       </section>
 
       <form id="f" autocomplete="off">
-        <div class="field">
-          <label class="l" for="o">Origen</label>
-          <div class="row">
-            <input type="text" id="o" placeholder="Ciudad, calle o lugar" enterkeyhint="search">
-            <button type="button" id="oBtn">Buscar</button>
-            <button type="button" id="oStar" class="icon" title="Guardar como favorito" aria-label="Guardar como favorito"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l2.7 5.6 6.1.8-4.5 4.3 1.1 6.1L12 17l-5.4 2.8 1.1-6.1L3.2 9.4l6.1-.8z"/></svg></button>
-            <button type="button" id="oGeo" class="icon" title="Usar mi ubicación" aria-label="Usar mi ubicación"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v4M12 18v4M2 12h4M18 12h4"/></svg></button>
+        <div class="routecard">
+          <div class="rail" aria-hidden="true"><i></i><b></b><i></i></div>
+          <div>
+            <div class="fld">
+              <label class="sr" for="o">Origen</label>
+              <div class="row">
+                <input type="text" id="o" placeholder="Origen" enterkeyhint="search">
+                <button type="button" id="oBtn">Buscar</button>
+                <button type="button" id="oStar" class="icon" title="Guardar como favorito" aria-label="Guardar origen como favorito"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l2.7 5.6 6.1.8-4.5 4.3 1.1 6.1L12 17l-5.4 2.8 1.1-6.1L3.2 9.4l6.1-.8z"/></svg></button>
+                <button type="button" id="oGeo" class="icon" title="Usar mi ubicación" aria-label="Usar mi ubicación"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v4M12 18v4M2 12h4M18 12h4"/></svg></button>
+              </div>
+              <ul class="res" id="oRes"></ul>
+            </div>
+            <div class="fld">
+              <label class="sr" for="d">Destino</label>
+              <div class="row">
+                <input type="text" id="d" placeholder="Destino" enterkeyhint="search">
+                <button type="button" id="dBtn">Buscar</button>
+                <button type="button" id="dStar" class="icon" title="Guardar como favorito" aria-label="Guardar destino como favorito"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l2.7 5.6 6.1.8-4.5 4.3 1.1 6.1L12 17l-5.4 2.8 1.1-6.1L3.2 9.4l6.1-.8z"/></svg></button>
+              </div>
+              <ul class="res" id="dRes"></ul>
+            </div>
           </div>
-          <ul class="res" id="oRes"></ul>
-        </div>
-        <div class="field">
-          <label class="l" for="d">Destino</label>
-          <div class="row">
-            <input type="text" id="d" placeholder="Ciudad, calle o lugar" enterkeyhint="search">
-            <button type="button" id="dBtn">Buscar</button>
-            <button type="button" id="dStar" class="icon" title="Guardar como favorito" aria-label="Guardar como favorito"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l2.7 5.6 6.1.8-4.5 4.3 1.1 6.1L12 17l-5.4 2.8 1.1-6.1L3.2 9.4l6.1-.8z"/></svg></button>
-          </div>
-          <ul class="res" id="dRes"></ul>
         </div>
         <div class="field" id="favField" hidden>
-          <label class="l">Favoritos (se aplican al campo en el que estés)</label>
+          <label class="l">Favoritos: se aplican al campo donde estés</label>
           <div class="favs" id="favRow"></div>
         </div>
         <div class="field">
@@ -993,14 +1010,15 @@ function bindFavs() {
 
 function pushRecent(o, d) {
   const item = { o: { name: o.name, lat: o.lat, lon: o.lon }, d: { name: d.name, lat: d.lat, lon: d.lon } };
-  const list = jget('recent').filter((r) => !(samePlace(r.o, o) && samePlace(r.d, d)));
+  const list = jget('recent').filter((r) => !(r.o.name === o.name && r.d.name === d.name) && !(samePlace(r.o, o) && samePlace(r.d, d)));
   list.unshift(item);
   storeSet('recent', JSON.stringify(list.slice(0, 8)));
   renderRecent();
 }
 
 function renderRecent() {
-  const list = jget('recent');
+  const seenR = new Set();
+  const list = jget('recent').filter((r) => { const k = r.o.name + '|' + r.d.name; return !seenR.has(k) && seenR.add(k); });
   $('recentList').innerHTML = list.map((r, i) => `<li data-i="${i}"><div class="info"><strong>${esc(shortName(r.o.name))} › ${esc(shortName(r.d.name))}</strong></div><button type="button" data-act="go">Ir</button></li>`).join('');
   syncPanels();
 }
