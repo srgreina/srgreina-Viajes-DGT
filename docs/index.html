@@ -900,7 +900,15 @@ async function showFreshness() {
 }
 
 // ---- geocodificación (Nominatim, solo al pulsar Buscar o Intro)
+const geoCache = new Map();
 async function geocode(q) {
+  const key = q.trim().toLowerCase();
+  if (geoCache.has(key)) return geoCache.get(key).map((x) => ({ ...x }));
+  const res = await geocodeNet(q);
+  geoCache.set(key, res.map((x) => ({ ...x })));
+  return res;
+}
+async function geocodeNet(q) {
   const url = 'https://nominatim.openstreetmap.org/search?format=jsonv2&limit=5&countrycodes=es&accept-language=es&q=' + encodeURIComponent(q);
   const r = await fetch(url);
   if (!r.ok) throw new Error('Falló la búsqueda de lugares');
