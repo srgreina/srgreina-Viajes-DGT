@@ -1,6 +1,6 @@
 // Service worker mínimo: hace la app instalable y permite abrirla sin conexión.
 // Los datos de la DGT, las rutas y los mapas nunca se cachean aquí: siempre van a la red.
-const CACHE = 'viajes-dgt-v2';
+const CACHE = 'viajes-dgt-v3';
 const SHELL = ['./', 'index.html', 'manifest.json', 'icon-192.png', 'icon-512.png'];
 
 self.addEventListener('install', (e) => {

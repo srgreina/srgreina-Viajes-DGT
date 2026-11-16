@@ -166,6 +166,7 @@ h2.sec { margin: 4px 0 6px; font: 700 20px var(--font-cond); }
 
 .note { margin: 18px 0 0; color: var(--suave); font: 400 13px/1.4 var(--font); }
 .leaflet-container { font-family: var(--font); }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .leaflet-tile-pane { filter: invert(1) hue-rotate(180deg) brightness(.9) contrast(.9); } }
 .leaflet-popup-content { font: 400 14.5px/1.35 var(--font); }
 .leaflet-popup-content img { max-width: 100%; height: auto; }
 
@@ -240,7 +241,7 @@ h2.sec { margin: 4px 0 6px; font: 700 20px var(--font-cond); }
       <div id="layers"></div>
 
       <ol id="list"></ol>
-      <p class="note">Datos de la DGT (NAP, CC-BY), AEMET y Open-Meteo. Mapa © OpenStreetMap © CARTO. La duración es sin tráfico. Incidencias y paneles muestran el estado actual, no una previsión.</p>
+      <p class="note">Datos de la DGT (NAP, CC-BY), AEMET y Open-Meteo. Mapa © OpenStreetMap. La duración es sin tráfico. Incidencias y paneles muestran el estado actual, no una previsión.</p>
     </div>
   </section>
 </div>
@@ -848,6 +849,20 @@ async function geocode(q) {
   return (await r.json()).map((x) => ({ name: x.display_name, lat: +x.lat, lon: +x.lon }));
 }
 
+function showResults(prefix, key, res) {
+  const input = $(prefix);
+  const list = $(prefix + 'Res');
+  list.innerHTML = res.map((r, i) => `<li><button type="button" data-i="${i}">${esc(r.name)}</button></li>`).join('');
+  list.onclick = (ev) => {
+    const b = ev.target.closest('button');
+    if (!b) return;
+    const r = res[+b.dataset.i];
+    state[key] = r;
+    input.value = r.name.split(',').slice(0, 2).join(',');
+    list.innerHTML = '';
+  };
+}
+
 function bindPlace(prefix, key) {
   const input = $(prefix);
   const list = $(prefix + 'Res');
@@ -858,16 +873,8 @@ function bindPlace(prefix, key) {
     setStatus('Buscando…');
     try {
       const res = await geocode(q);
-      setStatus(res.length ? '' : 'Sin resultados para ese lugar', !res.length);
-      list.innerHTML = res.map((r, i) => `<li><button type="button" data-i="${i}">${esc(r.name)}</button></li>`).join('');
-      list.onclick = (ev) => {
-        const b = ev.target.closest('button');
-        if (!b) return;
-        const r = res[+b.dataset.i];
-        state[key] = r;
-        input.value = r.name.split(',').slice(0, 2).join(',');
-        list.innerHTML = '';
-      };
+      setStatus(res.length ? 'Elige el lugar de la lista' : 'Sin resultados para ese lugar. Prueba con la ciudad o con otro nombre.', !res.length);
+      if (res.length) showResults(prefix, key, res);
     } catch (e) { setStatus(e.message, true); }
   };
   $(prefix + 'Btn').addEventListener('click', search);
@@ -881,8 +888,9 @@ async function resolvePlace(key, inputId) {
   if (!q) throw new Error('Falta ' + (key === 'o' ? 'el origen' : 'el destino'));
   const res = await geocode(q);
   if (!res.length) throw new Error('No encuentro: ' + q);
-  state[key] = res[0];
-  return res[0];
+  if (res.length === 1) { state[key] = res[0]; return res[0]; }
+  showResults(inputId, key, res);
+  throw new Error(`Hay varios sitios para "${q}": elige ${key === 'o' ? 'el origen' : 'el destino'} de la lista`);
 }
 
 // ---- ruta (OSRM público)
@@ -1221,8 +1229,7 @@ function nowLocalInput() {
 
 function init() {
   map = L.map('map', { zoomControl: false }).setView([40.0, -3.7], 6);
-  const dark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
-  L.tileLayer(`https://{s}.basemaps.cartocdn.com/${dark ? 'dark_all' : 'rastertiles/voyager'}/{z}/{x}/{y}{r}.png`, { subdomains: 'abcd', maxZoom: 19, attribution: '© OpenStreetMap © CARTO' }).addTo(map);
+  L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', { maxZoom: 19, attribution: '© OpenStreetMap' }).addTo(map);
   markerGroup = L.layerGroup().addTo(map);
   $('dep').value = nowLocalInput();
   initLayers();
