@@ -51,8 +51,8 @@ body { margin: 0; background: var(--concreto); color: var(--text); font: 400 16p
 #barBtn { flex: 1; min-width: 0; min-height: 50px; display: flex; align-items: center; gap: 12px; padding: 0 18px; border: 0; border-radius: 25px; background: var(--papel); color: var(--text); box-shadow: 0 2px 12px rgba(0, 0, 0, .28); font: 600 17px var(--font); text-align: left; cursor: pointer; }
 #barText { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .rd { flex: none; width: 12px; height: 12px; border-radius: 50%; border: 3.5px solid var(--primary); }
-#corBtn { flex: none; width: 50px; height: 50px; min-height: 50px; padding: 0; display: grid; place-items: center; border: 0; border-radius: 50%; background: var(--papel); color: var(--text); box-shadow: 0 2px 12px rgba(0, 0, 0, .28); cursor: pointer; }
-#corBtn svg { width: 22px; height: 22px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linejoin: round; }
+#corBtn, #clearBtn { flex: none; width: 50px; height: 50px; min-height: 50px; padding: 0; display: grid; place-items: center; border: 0; border-radius: 50%; background: var(--papel); color: var(--text); box-shadow: 0 2px 12px rgba(0, 0, 0, .28); cursor: pointer; }
+#corBtn svg, #clearBtn svg { width: 22px; height: 22px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linejoin: round; }
 #fresh { position: absolute; z-index: 500; top: calc(max(10px, env(safe-area-inset-top)) + 58px); left: 14px; max-width: calc(100% - 28px); padding: 3px 9px; border-radius: 6px; background: color-mix(in srgb, var(--papel) 90%, transparent); color: var(--suave); font: 500 12.5px var(--font); }
 #fresh.stale { color: var(--high); font-weight: 700; }
 
@@ -199,6 +199,7 @@ h2.sec { margin: 4px 0 6px; font: 700 20px var(--font-cond); }
 
   <div id="bar">
     <button type="button" id="barBtn" aria-label="Cambiar origen, destino o salida"><span class="rd" aria-hidden="true"></span><span id="barText">¿A dónde vas?</span></button>
+    <button type="button" id="clearBtn" hidden aria-label="Limpiar ruta" title="Limpiar ruta"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
     <button type="button" id="corBtn" aria-label="Mis corredores"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 3h12v18l-6-4.5L6 21z"/></svg></button>
   </div>
   <div id="tip" hidden></div>
@@ -1354,6 +1355,7 @@ function syncPanels() {
   $('layers').previousElementSibling.hidden = !has;
   $('layers').hidden = !has;
   $('list').hidden = !has;
+  $('clearBtn').hidden = !has;
   repaintSheet();
 }
 // Chrome a veces deja el panel sin pintar tras mostrar/ocultar bloques: se fuerza un repintado completo
@@ -1370,7 +1372,32 @@ function fitRoute() {
     ? { paddingTopLeft: [30, 90], paddingBottomRight: [30, 30] }
     : { paddingTopLeft: [20, 80], paddingBottomRight: [20, 270] });
 }
+function clearRoute() {
+  for (const l of [routeLine, hitLine, endMarks]) if (l && l.remove) l.remove();
+  routeLine = hitLine = endMarks = null;
+  markerGroup.clearLayers();
+  hideTip();
+  Object.assign(state, { route: null, routeWide: null, latlngs: null, hits: [], points: [], wx: null, avPoints: [], av: null, o: null, d: null, hasRoute: false, editing: false, showCor: false });
+  $('o').value = '';
+  $('d').value = '';
+  $('oRes').innerHTML = '';
+  $('dRes').innerHTML = '';
+  $('dep').value = nowLocalInput();
+  $('sum').hidden = true;
+  $('sum').innerHTML = '';
+  $('list').innerHTML = '';
+  $('corSave').open = false;
+  $('corSave').hidden = true;
+  $('barText').textContent = '¿A dónde vas?';
+  setStatus('');
+  renderFavs();
+  syncPanels();
+  setSheet('half');
+  map.setView([40.0, -3.7], 6);
+}
+
 function initSheet() {
+  $('clearBtn').addEventListener('click', clearRoute);
   const sh = $('sheet');
   const grip = $('grip');
   const levels = ['peek', 'half', 'full'];
