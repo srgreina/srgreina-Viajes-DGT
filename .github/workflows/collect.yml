@@ -1,0 +1,62 @@
+name: collect
+
+on:
+  schedule:
+    - cron: "*/10 * * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+# Mismo grupo que static.yml para que no se pisen los push a main
+concurrency:
+  group: repo-writes
+  cancel-in-progress: false
+
+jobs:
+  collect:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Estado anterior (rama latest)
+        run: |
+          mkdir -p prev
+          if git ls-remote --exit-code --heads origin latest >/dev/null 2>&1; then
+            git fetch --depth=1 origin latest
+            git archive FETCH_HEAD | tar -x -C prev
+          fi
+
+      - name: Recolectar incidencias y paneles
+        run: python collector/realtime.py --prev prev --out latest --history data/history --samples data/samples
+
+      - name: Guardar histórico en main
+        run: |
+          git config user.name "viajes-dgt-bot"
+          git config user.email "viajes-dgt-bot@users.noreply.github.com"
+          git add data
+          if ! git diff --cached --quiet; then
+            git commit -m "histórico $(date -u +%Y-%m-%dT%H:%M:%SZ)"
+            git pull --rebase origin main
+            git push origin HEAD:main
+          fi
+
+      - name: Publicar estado actual en la rama latest
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          if [ -d data/static ]; then
+            mkdir -p latest/static
+            cp -r data/static/. latest/static/
+          fi
+          cd latest
+          git init -q -b latest
+          git add -A
+          git -c user.name="viajes-dgt-bot" -c user.email="viajes-dgt-bot@users.noreply.github.com" \
+            commit -qm "latest $(date -u +%Y-%m-%dT%H:%M:%SZ)"
+          git push -qf "https://x-access-token:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git" latest
