@@ -31,6 +31,11 @@ jobs:
       - name: Descargar capas estáticas
         run: python collector/static_layers.py --out data/static --samples data/samples
 
+      # Incremental: solo procesa los días completos nuevos del histórico (estado en data/history/riesgo_estado.json)
+      - name: Tramos de riesgo
+        continue-on-error: true
+        run: python collector/riesgo.py --history data/history --out data/static
+
       - name: Guardar cambios en main
         run: |
           git config user.name "viajes-dgt-bot"

@@ -6,7 +6,7 @@ import assert from 'node:assert/strict';
 const html = readFileSync(new URL('../docs/index.html', import.meta.url), 'utf8');
 const core = html.slice(html.indexOf('// <core>'), html.indexOf('// </core>'));
 const api = new Function(
-  `${core}; return { buildRoute, nearest, nearestLine, collectHits, describe, fmtDur, fmtKm, fmtPk, samplePoints, pickHour, weatherAt, weatherAlerts, buildWeatherHits, weatherSummary, pointInRing, buildAvisoHits, avisoSummary, calidadResumen, collectCharge };`,
+  `${core}; return { buildRoute, nearest, nearestLine, collectHits, describe, fmtDur, fmtKm, fmtPk, samplePoints, pickHour, weatherAt, weatherAlerts, buildWeatherHits, weatherSummary, pointInRing, buildAvisoHits, avisoSummary, calidadResumen, collectCharge, collectRisk };`,
 )();
 
 // Ruta recta de oeste a este por Málaga: lon -4.50 -> -4.40 a lat 36.70 (~8,9 km), 10 tramos.
@@ -278,4 +278,23 @@ test('collectCharge: potencia mínima, buffer amplio y descripción', () => {
   assert.equal(d.text, 'Calle Mayor 1, Málaga');
   assert.equal(api.describe(hits[1]).sub, 'otro · 1 punto · a 0 m de la ruta');
   assert.deepEqual(api.collectCharge(wide, undefined), []);
+});
+
+test('collectRisk: tramos cerca de la ruta y aviso de poca muestra', () => {
+  const wide = api.buildRoute(coords, null, { distance: totalM, duration: 3600 }, 1500, 1500);
+  const doc = { days: 3, reliable_days: 30, items: [
+    { road: 'A-7', pk: 100, n: 4, acc: 2, score: 9, last: '2026-11-15', lat: offsetLat(300), lon: -4.45 },
+    { road: 'A-7', pk: 140, n: 3, acc: 0, score: 3, last: '2026-11-14', lat: offsetLat(1200), lon: -4.45 }, // dentro del índice pero a >400 m
+    { road: 'N-340', pk: 5, n: 3, acc: 0, score: 3, last: '2026-11-10', lat: offsetLat(9000), lon: -4.45 },
+  ] };
+  const hits = api.collectRisk(wide, doc);
+  assert.equal(hits.length, 1);
+  const d = api.describe(hits[0]);
+  assert.equal(d.title, 'Tramo con incidencias repetidas · A-7');
+  assert.equal(d.sub, 'PK 100–101 · 4 incidencias (2 accidentes) · última 2026-11-15');
+  assert.equal(d.text, 'Solo 3 días de histórico: poco fiable');
+  assert.equal(d.sev, 'mid');
+  const ok = api.describe(api.collectRisk(wide, { ...doc, days: 45 })[0]);
+  assert.equal(ok.text, 'Histórico de 45 días');
+  assert.deepEqual(api.collectRisk(wide, null), []);
 });

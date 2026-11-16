@@ -13,14 +13,14 @@
   --bg: #f6f7f9; --card: #ffffff; --text: #1b1f24; --muted: #5d6673; --line: #dfe3e8;
   --primary: #0b57d0; --on-primary: #ffffff;
   --high: #c62828; --mid: #ef6c00; --low: #8d6e00; --ok: #2e7d32;
-  --pan: #6a1b9a; --rad: #ad1457; --cam: #00796b; --ev: #1565c0;
+  --pan: #6a1b9a; --rad: #ad1457; --cam: #00796b; --ev: #1565c0; --rie: #e65100;
 }
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
     --bg: #12151a; --card: #1b2027; --text: #e8eaed; --muted: #a2abb8; --line: #2d343d;
     --primary: #8ab4f8; --on-primary: #0b1a33;
     --high: #ff8a80; --mid: #ffb74d; --low: #e6c449; --ok: #81c784;
-    --pan: #ce93d8; --rad: #f48fb1; --cam: #4db6ac; --ev: #64b5f6;
+    --pan: #ce93d8; --rad: #f48fb1; --cam: #4db6ac; --ev: #64b5f6; --rie: #ffb74d;
   }
 }
 * { box-sizing: border-box; }
@@ -435,6 +435,16 @@ function collectCharge(routeWide, items, minKw = EV_MIN_KW) {
   return hits.sort((a, b) => a.s - b.s);
 }
 
+// ---- tramos de riesgo (riesgo.json: tramos de 1 km con incidencias no planificadas repetidas)
+function collectRisk(routeWide, doc, maxDist = 400) {
+  const hits = [];
+  for (const it of (doc && doc.items) || []) {
+    const h = nearest(routeWide, it.lat, it.lon);
+    if (h && h.dist <= maxDist) hits.push({ layer: 'rie', ...h, lat: it.lat, lon: it.lon, item: it, days: doc.days || 0, reliable: doc.reliable_days || 30 });
+  }
+  return hits.sort((a, b) => a.s - b.s);
+}
+
 // Resumen de calidad.json (lo genera collector/calidad.py) para mostrarlo en cabecera y resumen.
 function calidadResumen(cal) {
   if (!cal || !cal.feeds || !cal.nivel) return null;
@@ -487,6 +497,15 @@ function describe(hit) {
     };
   }
   const it = hit.item;
+  if (hit.layer === 'rie') {
+    const acc = it.acc ? ` (${it.acc} accidente${it.acc === 1 ? '' : 's'})` : '';
+    return {
+      title: `Tramo con incidencias repetidas · ${it.road}`,
+      sub: `PK ${it.pk}–${it.pk + 1} · ${it.n} incidencias${acc} · última ${it.last}`,
+      text: hit.days < hit.reliable ? `Solo ${hit.days} día${hit.days === 1 ? '' : 's'} de histórico: poco fiable` : `Histórico de ${hit.days} días`,
+      sev: it.score >= 9 ? 'mid' : 'info',
+    };
+  }
   if (hit.layer === 'ev') {
     const cons = [...new Set((it.con || []).map((c) => CON_ES[c] || c))];
     return {
@@ -541,7 +560,7 @@ function describe(hit) {
 
 // ---------------------------------------------------------------- aplicación
 const BASE = 'https://raw.githubusercontent.com/srgreina/srgreina-Viajes-DGT/latest/';
-const SRC = { inc: 'incidencias.json', pan: 'paneles.json', panLoc: 'static/paneles_loc.json', rad: 'static/radares.json', cam: 'static/camaras.json', avi: 'avisos.json', cal: 'calidad.json', ev: 'static/recarga.json' };
+const SRC = { inc: 'incidencias.json', pan: 'paneles.json', panLoc: 'static/paneles_loc.json', rad: 'static/radares.json', cam: 'static/camaras.json', avi: 'avisos.json', cal: 'calidad.json', ev: 'static/recarga.json', rie: 'static/riesgo.json' };
 const LAYERS = [
   { id: 'wx', label: 'Tiempo', color: 'var(--primary)', on: true, needs: [] },
   { id: 'avi', label: 'Avisos AEMET', color: 'var(--high)', on: true, needs: [] },
@@ -549,6 +568,7 @@ const LAYERS = [
   { id: 'pan', label: 'Paneles', color: 'var(--pan)', on: true, needs: ['pan', 'panLoc'] },
   { id: 'rad', label: 'Radares fijos', color: 'var(--rad)', on: true, needs: ['rad'] },
   { id: 'cam', label: 'Cámaras', color: 'var(--cam)', on: false, needs: ['cam'] },
+  { id: 'rie', label: 'Tramos de riesgo', color: 'var(--rie)', on: false, needs: [] },
   { id: 'ev', label: 'Carga VE ≥ 50 kW', color: 'var(--ev)', on: false, needs: ['ev'] },
 ];
 const $ = (id) => document.getElementById(id);
@@ -744,7 +764,7 @@ function render() {
   $('sum').hidden = false;
   $('sum').innerHTML = `<h2>${esc($('o').value)} → ${esc($('d').value)}</h2>
     <p>${fmtKm(route.totalD)} km · ${fmtDur(route.totalT)} · llegada ${fmtClock(depMs + route.totalT * 1000)}</p>
-    <p>${count('inc')} incidencias · ${count('pan')} paneles · ${count('rad')} radares · ${count('cam')} cámaras${$('chk-ev').checked ? ` · ${count('ev')} cargadores` : ''}${wxOn ? ` · tiempo en ${wxCount} puntos` : ''}</p>
+    <p>${count('inc')} incidencias · ${count('pan')} paneles · ${count('rad')} radares · ${count('cam')} cámaras${$('chk-ev').checked ? ` · ${count('ev')} cargadores` : ''}${$('chk-rie').checked ? ` · ${count('rie')} tramos de riesgo` : ''}${wxOn ? ` · tiempo en ${wxCount} puntos` : ''}</p>
     ${calLines.map((t) => `<p class="warn">${esc(t)}</p>`).join('')}
     ${avLines.map((t) => `<p class="warn">${esc(t)}</p>`).join('')}
     ${wxLines.map((t) => `<p class="warn">${esc(t)}</p>`).join('')}
@@ -766,6 +786,14 @@ async function refresh() {
     let wxHits = [];
     let avHits = [];
     const evHits = enabled.ev && ds.ev ? collectCharge(state.routeWide, ds.ev.items) : [];
+    let rieHits = [];
+    if (enabled.rie) {
+      try {
+        const doc = await load('rie');
+        rieHits = collectRisk(state.routeWide, doc);
+        if (doc.days < (doc.reliable_days || 30)) note += doc.days ? `Tramos de riesgo: solo ${doc.days} día(s) de histórico, poco fiable. ` : 'Tramos de riesgo: aún sin histórico suficiente. ';
+      } catch (e) { note += 'Tramos de riesgo no disponibles todavía. '; }
+    }
     if (enabled.avi) {
       if (!state.av) {
         try {
@@ -792,7 +820,7 @@ async function refresh() {
       }
       wxHits = state.wx || [];
     }
-    state.hits = collectHits(state.route, ds, enabled).concat(wxHits, avHits, evHits).sort((a, b) => a.s - b.s);
+    state.hits = collectHits(state.route, ds, enabled).concat(wxHits, avHits, evHits, rieHits).sort((a, b) => a.s - b.s);
     render();
     setStatus(note.trim(), noteErr);
   } catch (e) { setStatus(e.message, true); }
