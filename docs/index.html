@@ -63,19 +63,23 @@ body { margin: 0; background: var(--concreto); color: var(--text); font: 400 15.
 #sheet[data-level="half"] { --ty: 46%; }
 #sheet[data-level="full"] { --ty: 0px; }
 #grip { flex: none; width: 100%; height: 30px; min-height: 30px; padding: 0; border: 0; background: transparent; display: grid; place-items: center; cursor: grab; touch-action: none; }
+#resizer { display: none; }
 #grip::before { content: ""; width: 42px; height: 5px; border-radius: 3px; background: var(--linea); }
 #sheetBody { flex: 1; overflow-x: hidden; overflow-y: auto; overscroll-behavior: contain; padding: 0 18px calc(var(--hid, 0px) + 28px); }
 
 @media (min-width: 900px) {
   /* escritorio: panel y mapa son columnas hermanas (sin superponer capas sobre Leaflet) */
   #app { display: flex; }
-  #sheet { position: relative; order: -1; flex: none; z-index: auto; left: auto; right: auto; bottom: auto; width: 420px; height: 100%; border-radius: 0; transform: none; box-shadow: none; border-right: 1px solid color-mix(in srgb, var(--linea) 60%, transparent); transition: none; }
+  #sheet { position: relative; order: -1; flex: none; z-index: auto; left: auto; right: auto; bottom: auto; width: var(--panel-w, 420px); height: 100%; border-radius: 0; transform: none; box-shadow: none; border-right: 1px solid color-mix(in srgb, var(--linea) 60%, transparent); transition: none; }
   #map { position: relative; inset: auto; flex: 1; min-width: 0; height: 100%; }
   #grip { display: none; }
-  #sheetBody { padding-top: 20px; padding-bottom: 28px; }
+  #sheetBody { padding-top: 20px; padding-bottom: 28px; zoom: var(--z, 1); }
+  #resizer { display: block; position: absolute; top: 0; bottom: 0; right: -5px; width: 10px; z-index: 10; cursor: col-resize; touch-action: none; }
+  #resizer::after { content: ""; position: absolute; top: 50%; left: 3px; width: 4px; height: 44px; margin-top: -22px; border-radius: 2px; background: var(--linea); opacity: 0; transition: opacity .15s; }
+  #resizer:hover::after, #resizer:focus-visible::after, #resizer.on::after { opacity: 1; }
   #layers { flex-wrap: wrap; overflow: visible; margin: 0; padding: 4px 0 10px; }
-  #bar { left: 436px; right: 12px; max-width: 520px; z-index: 500; }
-  #fresh { left: 450px; }
+  #bar { left: calc(var(--panel-w, 420px) + 16px); right: 12px; max-width: 520px; z-index: 500; }
+  #fresh { left: calc(var(--panel-w, 420px) + 30px); }
 }
 
 /* formulario */
@@ -219,6 +223,7 @@ h2.sec { margin: 6px 0 8px; font: 700 17px var(--font); letter-spacing: -.015em;
 
   <section id="sheet" data-level="half" aria-label="Detalle de la ruta">
     <button type="button" id="grip" aria-label="Subir o bajar el panel"></button>
+    <div id="resizer" role="separator" aria-orientation="vertical" aria-label="Ajustar el ancho del panel (doble clic para restablecer)" tabindex="0" title="Arrastra para ajustar el ancho; doble clic para restablecer"></div>
     <div id="sheetBody">
       <div id="status" role="status"></div>
 
@@ -1415,7 +1420,39 @@ function clearRoute() {
   map.setView([40.0, -3.7], 6);
 }
 
+// ---- ancho del panel en escritorio: se arrastra el borde; el tamaño de letra escala con el ancho
+function setPanelW(w, save) {
+  const max = Math.max(340, Math.min(720, window.innerWidth - 320));
+  w = Math.round(Math.max(320, Math.min(max, w)));
+  const root = document.documentElement.style;
+  root.setProperty('--panel-w', w + 'px');
+  root.setProperty('--z', String(Math.round(Math.min(1.45, Math.max(0.85, 1 + (w - 420) / 420 * 0.7)) * 100) / 100));
+  if (save) storeSet('panelW', String(w));
+  if (map) map.invalidateSize();
+  return w;
+}
+function initResizer() {
+  const r = $('resizer');
+  const saved = +storeGet('panelW');
+  if (saved) setPanelW(saved, false);
+  let drag = false;
+  r.addEventListener('pointerdown', (e) => { drag = true; r.classList.add('on'); try { r.setPointerCapture(e.pointerId); } catch (err) { /* sin captura */ } e.preventDefault(); });
+  r.addEventListener('pointermove', (e) => { if (drag) setPanelW(e.clientX, false); });
+  const end = (e) => { if (!drag) return; drag = false; r.classList.remove('on'); setPanelW(e.clientX, true); };
+  r.addEventListener('pointerup', end);
+  r.addEventListener('pointercancel', () => { drag = false; r.classList.remove('on'); });
+  r.addEventListener('dblclick', () => { setPanelW(420, true); });
+  r.addEventListener('keydown', (e) => {
+    if (e.key !== 'ArrowLeft' && e.key !== 'ArrowRight') return;
+    e.preventDefault();
+    const cur = $('sheet').getBoundingClientRect().width;
+    setPanelW(cur + (e.key === 'ArrowRight' ? 20 : -20), true);
+  });
+  window.addEventListener('resize', () => { const cur = +storeGet('panelW'); if (cur) setPanelW(cur, false); });
+}
+
 function initSheet() {
+  initResizer();
   $('clearBtn').addEventListener('click', clearRoute);
   const sh = $('sheet');
   const grip = $('grip');
