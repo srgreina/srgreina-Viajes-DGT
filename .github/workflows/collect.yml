@@ -13,9 +13,11 @@ permissions:
   contents: write
   actions: write   # para que el job "siguiente" pueda relanzar este workflow
 
-# Mismo grupo que static.yml para que no se pisen los push a main
+# Grupo propio: la cadena de ejecuciones (job "siguiente") lo mantiene ocupado casi siempre, y si static.yml
+# compartiera grupo se quedaría pendiente y sería descartada por cada relanzamiento. Los push a main se
+# protegen con reintentos (pull --rebase + push) en vez de con el grupo.
 concurrency:
-  group: repo-writes
+  group: collect
   cancel-in-progress: false
 
 jobs:
@@ -54,8 +56,10 @@ jobs:
           git add data
           if ! git diff --cached --quiet; then
             git commit -m "histórico $(date -u +%Y-%m-%dT%H:%M:%SZ)"
-            git pull --rebase origin main
-            git push origin HEAD:main
+            for i in 1 2 3 4 5; do
+              git pull -q --rebase origin main && git push origin HEAD:main && break
+              sleep $((i * 4))
+            done
           fi
 
       - name: Publicar estado actual en la rama latest
