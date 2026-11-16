@@ -172,6 +172,10 @@ button:disabled { opacity: .6; cursor: default; }
 .sub { margin-top: 2px; color: var(--suave); font: 400 13.5px/1.4 var(--font); }
 .txt { margin-top: 3px; font: 400 13.5px/1.4 var(--font); }
 .pic { height: 28px; vertical-align: middle; }
+.cam { margin-top: 6px; }
+.cam summary { cursor: pointer; color: var(--primary); font: 600 13.5px var(--font); }
+.camimg { display: block; max-width: 100%; height: auto; margin-top: 6px; border-radius: 8px; background: var(--concreto); }
+.cam a { display: block; margin-top: 6px; font-size: 13.5px; }
 
 /* corredores */
 h2.sec { margin: 6px 0 8px; font: 700 17px var(--font); letter-spacing: -.015em; }
@@ -1094,12 +1098,27 @@ function hitColor(h, desc) {
 }
 function cssVar(v) { return v.startsWith('var(') ? getComputedStyle(document.documentElement).getPropertyValue(v.slice(4, -1)).trim() : v; }
 
+// Cámaras: la DGT renueva la foto cada pocos minutos; el parámetro t evita que el navegador sirva una antigua
+const camUrl = (h) => {
+  const u = h.layer === 'cam' && h.item.urls && h.item.urls[0];
+  return u && /^https:\/\/etraffic\.dgt\.es\//.test(u) ? u : null;
+};
+const camImg = (h, w) => {
+  const u = camUrl(h);
+  return u ? `<img class="camimg" src="${esc(u)}?t=${Math.floor(Date.now() / 60000)}" width="${w}" data-u="${esc(u)}" alt="Cámara" onerror="camFail(this)">` : '';
+};
+function camFail(img) {
+  const a = document.createElement('a');
+  a.href = img.dataset.u; a.target = '_blank'; a.rel = 'noopener';
+  a.textContent = 'Imagen no disponible: abrir en etraffic';
+  img.replaceWith(a);
+}
+
 function popupHtml(h, d) {
   let html = `<strong>${esc(d.title)}</strong><br>${esc(d.sub)}`;
   if (d.text) html += `<br>${esc(d.text)}`;
-  if (h.layer === 'cam' && h.item.urls && /^https:\/\/etraffic\.dgt\.es\//.test(h.item.urls[0])) {
-    html += `<br><img src="${esc(h.item.urls[0])}" width="240" loading="lazy" referrerpolicy="no-referrer" alt="Cámara">`;
-  }
+  const img = camImg(h, 240);
+  if (img) html += `<br>${img}<br><small>Foto fija, se renueva cada pocos minutos</small>`;
   return html;
 }
 
@@ -1172,7 +1191,7 @@ function render() {
     const d = describe(h);
     const color = cssVar(hitColor(h, d) || 'var(--primary)');
     const m = L.circleMarker([h.lat, h.lon], { radius: 7, color: '#fff', weight: 2, fillColor: color, fillOpacity: 1 })
-      .bindPopup(popupHtml(h, d)).addTo(markerGroup);
+      .bindPopup(() => popupHtml(h, d)).addTo(markerGroup);
     markers[idx] = m;
     if (canHover() && typeof m.on === 'function') {
       m.on('mouseover', (ev) => { showTip(`<div class="h">${esc(d.title)}</div><div class="m">PK ${fmtKm(h.s)} · paso ${fmtClock(depMs + h.t * 1000)}</div><div class="m">${esc(d.sub)}</div>${d.text ? `<div>${esc(d.text)}</div>` : ''}`, ev.originalEvent); highlightRow(idx); });
@@ -1183,10 +1202,16 @@ function render() {
       <div class="when"><span class="hora">${fmtClock(depMs + h.t * 1000)}</span><span class="pk">PK ${fmtKm(h.s)}</span></div>
       <div class="node"><i style="--c:${hitColor(h, d) || 'var(--primary)'}"></i></div>
       <div class="what"><div class="ttl">${picsHtml(h)}${esc(d.title)}</div>
-      <div class="sub">${esc(d.sub)}</div>${d.text ? `<div class="txt">${esc(d.text)}</div>` : ''}</div></li>`);
+      <div class="sub">${esc(d.sub)}</div>${d.text ? `<div class="txt">${esc(d.text)}</div>` : ''}${camUrl(h) ? `<details class="cam" data-i="${idx}"><summary>Ver imagen</summary></details>` : ''}</div></li>`);
   });
   $('list').innerHTML = rows.join('') || '<li class="empty">Sin elementos en la ruta con las capas elegidas.</li>';
+  // la foto se pide solo al desplegarla (puede haber decenas de cámaras en la ruta)
+  $('list').addEventListener('toggle', (ev) => {
+    const dt = ev.target;
+    if (dt.open && !dt.querySelector('img,a')) dt.insertAdjacentHTML('beforeend', camImg(state.hits[+dt.dataset.i], 260));
+  }, true);
   $('list').onclick = (ev) => {
+    if (ev.target.closest('details')) return;
     const li = ev.target.closest('li[data-i]');
     if (!li) return;
     const m = markers[+li.dataset.i];
