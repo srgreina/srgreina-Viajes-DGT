@@ -173,6 +173,15 @@ h2.sec { margin: 4px 0 6px; font: 700 20px var(--font-cond); }
 #corNote textarea { width: 100%; min-height: 90px; font: 12px monospace; }
 
 .note { margin: 18px 0 0; color: var(--suave); font: 400 13px/1.4 var(--font); }
+#tip { position: fixed; z-index: 800; max-width: 330px; padding: 10px 12px 11px; border-radius: 10px; background: var(--papel); color: var(--text); box-shadow: 0 3px 16px rgba(0, 0, 0, .32); pointer-events: none; font: 400 14px/1.35 var(--font); }
+#tip .h { font: 700 17px var(--font-cond); font-variant-numeric: tabular-nums; }
+#tip .m { color: var(--suave); font-variant-numeric: tabular-nums; }
+#tip .it { display: grid; grid-template-columns: 10px 1fr; gap: 0 8px; margin-top: 7px; padding-top: 7px; border-top: 1px solid var(--linea); }
+#tip .it i { width: 10px; height: 10px; margin-top: 5px; border-radius: 50%; background: var(--c); }
+#tip .it b { font-weight: 600; }
+#tip .it span { grid-column: 2; color: var(--suave); }
+#tip .more { margin-top: 6px; color: var(--suave); }
+#list li.hl { background-color: color-mix(in srgb, var(--primary) 12%, transparent); }
 .leaflet-container { font-family: var(--font); }
 @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .leaflet-tile-pane { filter: invert(1) hue-rotate(180deg) brightness(.9) contrast(.9); } }
 .leaflet-popup-content { font: 400 14.5px/1.35 var(--font); }
@@ -192,6 +201,7 @@ h2.sec { margin: 4px 0 6px; font: 700 20px var(--font-cond); }
     <button type="button" id="barBtn" aria-label="Cambiar origen, destino o salida"><span class="rd" aria-hidden="true"></span><span id="barText">¿A dónde vas?</span></button>
     <button type="button" id="corBtn" aria-label="Mis corredores"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 3h12v18l-6-4.5L6 21z"/></svg></button>
   </div>
+  <div id="tip" hidden></div>
   <div id="fresh">Cargando estado de la DGT…</div>
 
   <section id="sheet" data-level="half" aria-label="Detalle de la ruta">
@@ -796,7 +806,7 @@ const $ = (id) => document.getElementById(id);
 const esc = (s) => String(s ?? '').replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
 const state = { o: null, d: null, route: null, latlngs: null, depMs: Date.now(), hits: [], points: [], wx: null, avPoints: [], av: null, cal: null, routeWide: null };
 const cache = {};
-let map, routeLine, markerGroup;
+let map, routeLine, hitLine, markerGroup;
 
 function storeGet(k) { try { return localStorage.getItem(k); } catch (e) { return null; } }
 function storeSet(k, v) { try { localStorage.setItem(k, v); } catch (e) { /* sin almacenamiento */ } }
@@ -1014,6 +1024,60 @@ function picsHtml(h) {
     `<img class="pic" src="https://etraffic.dgt.es/estaticosEtraffic/Iconografia/pictogramas/${c}.png" alt="" referrerpolicy="no-referrer" onerror="this.remove()">`).join('');
 }
 
+// ---- etiqueta al pasar el ratón por la ruta y los marcadores (solo con ratón)
+const canHover = () => !!window.matchMedia && window.matchMedia('(hover: hover)').matches;
+function showTip(html, ev) {
+  const t = $('tip');
+  t.innerHTML = html;
+  t.hidden = false;
+  const w = t.offsetWidth, h = t.offsetHeight;
+  t.style.left = Math.max(8, Math.min(ev.clientX + 16, window.innerWidth - w - 8)) + 'px';
+  t.style.top = Math.max(8, Math.min(ev.clientY + 16, window.innerHeight - h - 8)) + 'px';
+}
+function hideTip() { $('tip').hidden = true; }
+function highlightRow(i) {
+  document.querySelectorAll('#list li.hl').forEach((e) => e.classList.remove('hl'));
+  if (i < 0) return;
+  const li = $('list').querySelector(`li[data-i="${i}"]`);
+  if (!li) return;
+  li.classList.add('hl');
+  const b = $('sheetBody'), lr = li.getBoundingClientRect(), br = b.getBoundingClientRect();
+  if (lr.top < br.top || lr.bottom > br.bottom) b.scrollTop += lr.top - br.top - br.height / 3;
+}
+// Punto de la ruta más cercano al cursor: devuelve {s (m desde el origen), t (s)}
+function routeProbe(lat, lon) {
+  const r = state.route;
+  const [x, y] = r.proj(lat, lon);
+  let best = Infinity, bs = 0, bt = 0;
+  for (let i = 0; i < r.pts.length - 1; i++) {
+    const [x1, y1] = r.pts[i], [x2, y2] = r.pts[i + 1];
+    const dx = x2 - x1, dy = y2 - y1, l2 = dx * dx + dy * dy;
+    const u = l2 ? Math.max(0, Math.min(1, ((x - x1) * dx + (y - y1) * dy) / l2)) : 0;
+    const d = Math.hypot(x - (x1 + u * dx), y - (y1 + u * dy));
+    if (d < best) { best = d; bs = r.cumD[i] + u * (r.cumD[i + 1] - r.cumD[i]); bt = r.cumT[i] + u * (r.cumT[i + 1] - r.cumT[i]); }
+  }
+  return { s: bs, t: bt };
+}
+let probeBusy = false;
+function onRouteMove(e) {
+  if (probeBusy || !state.route) return;
+  probeBusy = true;
+  const ev = e.originalEvent, ll = e.latlng;
+  requestAnimationFrame(() => {
+    probeBusy = false;
+    const { route, depMs } = state;
+    const p = routeProbe(ll.lat, ll.lng);
+    const near = state.hits.filter((h) => Math.abs(h.s - p.s) <= 3000).sort((a, b) => Math.abs(a.s - p.s) - Math.abs(b.s - p.s));
+    const items = near.slice(0, 4).map((h) => {
+      const d = describe(h);
+      return `<div class="it" style="--c:${hitColor(h, d) || 'var(--primary)'}"><i></i><b>${esc(d.title)}</b><span>PK ${fmtKm(h.s)} · ${esc(d.sub)}</span></div>`;
+    }).join('');
+    showTip(`<div class="h">PK ${fmtKm(p.s)} · paso ${fmtClock(depMs + p.t * 1000)}</div>
+      <div class="m">Quedan ${fmtKm(route.totalD - p.s)} km · llegada ${fmtClock(depMs + route.totalT * 1000)}</div>${items}
+      ${near.length > 4 ? `<div class="more">y ${near.length - 4} más a menos de 3 km</div>` : ''}`, ev);
+  });
+}
+
 function render() {
   const { route, hits, depMs } = state;
   markerGroup.clearLayers();
@@ -1025,6 +1089,10 @@ function render() {
     const m = L.circleMarker([h.lat, h.lon], { radius: 7, color: '#fff', weight: 2, fillColor: color, fillOpacity: 1 })
       .bindPopup(popupHtml(h, d)).addTo(markerGroup);
     markers[idx] = m;
+    if (canHover() && typeof m.on === 'function') {
+      m.on('mouseover', (ev) => { showTip(`<div class="h">${esc(d.title)}</div><div class="m">PK ${fmtKm(h.s)} · paso ${fmtClock(depMs + h.t * 1000)}</div><div class="m">${esc(d.sub)}</div>${d.text ? `<div>${esc(d.text)}</div>` : ''}`, ev.originalEvent); highlightRow(idx); });
+      m.on('mouseout', () => { hideTip(); highlightRow(-1); });
+    }
     const sev = d.sev === 'high' ? 'high' : d.sev === 'mid' ? 'mid' : 'info';
     rows.push(`<li data-i="${idx}" class="sev-${sev}">
       <div class="when"><span class="hora">${fmtClock(depMs + h.t * 1000)}</span><span class="pk">PK ${fmtKm(h.s)}</span></div>
@@ -1140,6 +1208,9 @@ async function calculate(ev) {
     state.av = null;
     if (routeLine) routeLine.remove();
     routeLine = L.polyline(state.latlngs, { color: cssVar('var(--primary)'), weight: 5, opacity: .85 }).addTo(map);
+    if (hitLine && hitLine.remove) hitLine.remove();
+    hitLine = L.polyline(state.latlngs, { color: '#000', weight: 22, opacity: 0 }).addTo(map); // franja ancha invisible para el ratón
+    if (canHover() && typeof hitLine.on === 'function') { hitLine.on('mousemove', onRouteMove); hitLine.on('mouseout', hideTip); }
     state.hasRoute = true;
     state.editing = false;
     state.showCor = false;
