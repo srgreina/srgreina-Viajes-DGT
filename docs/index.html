@@ -1,0 +1,570 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#0b57d0">
+<title>Viajes DGT</title>
+<link rel="manifest" href="manifest.json">
+<link rel="icon" href="icon-192.png">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css">
+<style>
+:root {
+  --bg: #f6f7f9; --card: #ffffff; --text: #1b1f24; --muted: #5d6673; --line: #dfe3e8;
+  --primary: #0b57d0; --on-primary: #ffffff;
+  --high: #c62828; --mid: #ef6c00; --low: #8d6e00; --ok: #2e7d32;
+  --pan: #6a1b9a; --rad: #ad1457; --cam: #00796b;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #12151a; --card: #1b2027; --text: #e8eaed; --muted: #a2abb8; --line: #2d343d;
+    --primary: #8ab4f8; --on-primary: #0b1a33;
+    --high: #ff8a80; --mid: #ffb74d; --low: #e6c449; --ok: #81c784;
+    --pan: #ce93d8; --rad: #f48fb1; --cam: #4db6ac;
+  }
+}
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--bg); color: var(--text); font: 16px/1.4 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; }
+header { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; padding: 12px 16px 4px; }
+h1 { font-size: 1.25rem; margin: 0; }
+#fresh { font-size: .8rem; color: var(--muted); text-align: right; }
+#fresh.stale { color: var(--high); font-weight: 600; }
+main { padding: 0 16px 24px; max-width: 920px; margin: 0 auto; }
+form, .card { background: var(--card); border: 1px solid var(--line); border-radius: 12px; padding: 12px; margin-top: 12px; }
+label { display: block; font-size: .8rem; color: var(--muted); margin-bottom: 2px; }
+.row { display: flex; gap: 8px; }
+input[type=text], input[type=datetime-local] {
+  width: 100%; min-height: 44px; padding: 8px 10px; font: inherit; color: var(--text);
+  background: var(--bg); border: 1px solid var(--line); border-radius: 8px;
+}
+button { min-height: 44px; padding: 8px 12px; font: inherit; border-radius: 8px; border: 1px solid var(--line); background: var(--card); color: var(--text); cursor: pointer; }
+button.primary { background: var(--primary); color: var(--on-primary); border-color: var(--primary); font-weight: 600; width: 100%; margin-top: 12px; }
+button:disabled { opacity: .6; cursor: default; }
+.field { margin-bottom: 10px; }
+.res { list-style: none; margin: 4px 0 0; padding: 0; border: 1px solid var(--line); border-radius: 8px; overflow: hidden; }
+.res:empty { display: none; }
+.res button { width: 100%; text-align: left; border: 0; border-bottom: 1px solid var(--line); border-radius: 0; font-size: .9rem; }
+.res li:last-child button { border-bottom: 0; }
+.chips { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 4px; }
+.chip { display: inline-flex; align-items: center; gap: 6px; min-height: 40px; padding: 4px 12px; border: 1px solid var(--line); border-radius: 999px; background: var(--bg); font-size: .9rem; cursor: pointer; user-select: none; }
+.chip input { accent-color: var(--primary); width: 18px; height: 18px; margin: 0; }
+.dot { display: inline-block; width: 10px; height: 10px; border-radius: 50%; flex: none; }
+#status { margin-top: 12px; font-size: .9rem; color: var(--muted); min-height: 1.2em; }
+#status.err { color: var(--high); font-weight: 600; }
+#sum h2 { font-size: 1.05rem; margin: 0 0 4px; }
+#sum p { margin: 2px 0; font-size: .9rem; color: var(--muted); }
+#sum .warn { color: var(--high); font-weight: 600; }
+#map { height: 42vh; min-height: 280px; margin-top: 12px; border-radius: 12px; border: 1px solid var(--line); }
+#list { list-style: none; padding: 0; margin: 12px 0 0; }
+#list li { display: grid; grid-template-columns: 56px 1fr; gap: 4px 10px; padding: 10px 12px; background: var(--card); border: 1px solid var(--line); border-radius: 10px; margin-bottom: 8px; cursor: pointer; }
+.t { font-weight: 700; font-variant-numeric: tabular-nums; }
+.t small { display: block; font-weight: 400; color: var(--muted); font-size: .72rem; }
+.ttl { font-weight: 600; display: flex; align-items: center; gap: 6px; }
+.sub { font-size: .85rem; color: var(--muted); }
+.txt { font-size: .85rem; margin-top: 2px; }
+.pic { height: 28px; vertical-align: middle; margin-right: 4px; }
+.note { font-size: .8rem; color: var(--muted); margin-top: 10px; }
+.leaflet-popup-content img { max-width: 100%; height: auto; }
+</style>
+</head>
+<body>
+<header>
+  <h1>Viajes DGT</h1>
+  <div id="fresh">Cargando estado de la DGT…</div>
+</header>
+<main>
+  <form id="f" autocomplete="off">
+    <div class="field">
+      <label for="o">Origen</label>
+      <div class="row">
+        <input type="text" id="o" placeholder="Ciudad, calle o lugar" enterkeyhint="search">
+        <button type="button" id="oBtn">Buscar</button>
+        <button type="button" id="oGeo" title="Usar mi ubicación" aria-label="Usar mi ubicación">GPS</button>
+      </div>
+      <ul class="res" id="oRes"></ul>
+    </div>
+    <div class="field">
+      <label for="d">Destino</label>
+      <div class="row">
+        <input type="text" id="d" placeholder="Ciudad, calle o lugar" enterkeyhint="search">
+        <button type="button" id="dBtn">Buscar</button>
+      </div>
+      <ul class="res" id="dRes"></ul>
+    </div>
+    <div class="field">
+      <label for="dep">Salida</label>
+      <input type="datetime-local" id="dep">
+    </div>
+    <div>
+      <label>Qué quieres ver</label>
+      <div class="chips" id="layers"></div>
+    </div>
+    <button type="submit" class="primary" id="go">Calcular ruta</button>
+  </form>
+
+  <div id="status" role="status"></div>
+  <div id="sum" class="card" hidden></div>
+  <div id="map"></div>
+  <ol id="list"></ol>
+  <p class="note">Datos de la DGT (NAP, CC-BY) y mapa © OpenStreetMap. La duración es sin tráfico. Incidencias y paneles muestran el estado actual, no una previsión.</p>
+</main>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
+<script>
+// <core>
+// Lógica pura (sin DOM): proyección, cruce ruta/capas y formato. La prueban tests/core.test.mjs.
+const R_EARTH = 6371008.8;
+const RAD = Math.PI / 180;
+
+const TYPES_ES = {
+  roadworks: 'Obras', roadMaintenance: 'Mantenimiento', newRoadworksLayout: 'Nueva configuración por obras',
+  roadClosed: 'Carretera cortada', carriagewayClosures: 'Cierre de calzada', laneClosures: 'Cierre de carriles',
+  narrowLanes: 'Carriles estrechos', lanesDeviated: 'Carriles desviados',
+  singleAlternateLineTraffic: 'Circulación alternativa por un carril',
+  doNotUseSpecifiedLanesOrCarriageways: 'Carril o calzada cerrados',
+  useOfSpecifiedLanesOrCarriagewaysAllowed: 'Uso de carriles indicado',
+  intermittentShortTermClosures: 'Cortes intermitentes', contraflow: 'Circulación a contrasentido',
+  speedRestrictionInOperation: 'Limitación de velocidad', weightRestrictionInOperation: 'Restricción de peso',
+  accident: 'Accidente', abnormalTraffic: 'Tráfico anormal', slowTraffic: 'Tráfico lento', heavyTraffic: 'Tráfico denso',
+  vehicleStuck: 'Vehículo detenido', vehicleObstruction: 'Vehículo en la calzada', vehicleOnFire: 'Vehículo en llamas',
+  vehicleWithOverwideLoad: 'Vehículo con carga ancha', obstruction: 'Obstáculo',
+  obstructionOnTheRoad: 'Obstáculo en la calzada', objectOnTheRoad: 'Objeto en la calzada',
+  spillageOnTheRoad: 'Vertido en la calzada', environmentalObstruction: 'Obstáculo ambiental',
+  rockfalls: 'Desprendimientos', avalanches: 'Avalancha', flooding: 'Inundación',
+  infrastructureDamageObstruction: 'Daños en la infraestructura', damagedRoadSurface: 'Firme dañado',
+  roadSurfaceInPoorCondition: 'Firme en mal estado', poorEnvironment: 'Condiciones adversas',
+  strongWinds: 'Viento fuerte', fog: 'Niebla', visibilityReduced: 'Visibilidad reducida', badWeather: 'Mal tiempo',
+  driveCarefully: 'Conduzca con precaución', roadOrCarriagewayOrLaneManagement: 'Gestión de calzada o carril',
+  other: 'Otros',
+};
+// Tipos genéricos: se omiten cuando hay alguno más específico.
+const GENERIC_TYPES = new Set(['roadMaintenance', 'obstruction', 'roadOrCarriagewayOrLaneManagement',
+  'vehicleObstruction', 'environmentalObstruction', 'infrastructureDamageObstruction', 'poorEnvironment', 'other']);
+const HIGH_TYPES = new Set(['roadClosed', 'carriagewayClosures', 'accident', 'vehicleOnFire', 'rockfalls', 'avalanches', 'flooding']);
+const LOW_TYPES = new Set(['roadMaintenance', 'roadworks', 'narrowLanes', 'newRoadworksLayout',
+  'useOfSpecifiedLanesOrCarriagewaysAllowed', 'speedRestrictionInOperation', 'lanesDeviated']);
+
+function makeProjector(lat0) {
+  const c = Math.cos(lat0 * RAD);
+  return (lat, lon) => [R_EARTH * lon * RAD * c, R_EARTH * lat * RAD];
+}
+
+// coords: [[lon, lat], ...] (GeoJSON). ann: {distance:[], duration:[]} por tramo (opcional).
+// total: {distance, duration}. Devuelve la ruta con índice de rejilla para búsquedas rápidas.
+function buildRoute(coords, ann, total, buffer = 150, cell = 250) {
+  if (!coords || coords.length < 2) throw new Error('La ruta no tiene geometría');
+  const lat0 = coords.reduce((a, c) => a + c[1], 0) / coords.length;
+  const proj = makeProjector(lat0);
+  const pts = coords.map((c) => proj(c[1], c[0]));
+  const n = pts.length - 1;
+  const segLen = new Array(n);
+  let sumLen = 0;
+  for (let i = 0; i < n; i++) {
+    segLen[i] = Math.hypot(pts[i + 1][0] - pts[i][0], pts[i + 1][1] - pts[i][1]);
+    sumLen += segLen[i];
+  }
+  const haveAnn = !!(ann && ann.distance && ann.duration && ann.distance.length === n && ann.duration.length === n);
+  const totD = (total && total.distance) || sumLen;
+  const totT = (total && total.duration) || 0;
+  const cumD = [0];
+  const cumT = [0];
+  for (let i = 0; i < n; i++) {
+    const d = haveAnn ? ann.distance[i] : (sumLen ? (segLen[i] / sumLen) * totD : 0);
+    const t = haveAnn ? ann.duration[i] : (sumLen ? (segLen[i] / sumLen) * totT : 0);
+    cumD.push(cumD[i] + d);
+    cumT.push(cumT[i] + t);
+  }
+  const grid = new Map();
+  for (let i = 0; i < n; i++) {
+    const [x1, y1] = pts[i];
+    const [x2, y2] = pts[i + 1];
+    const x0 = Math.floor((Math.min(x1, x2) - buffer) / cell);
+    const xe = Math.floor((Math.max(x1, x2) + buffer) / cell);
+    const y0 = Math.floor((Math.min(y1, y2) - buffer) / cell);
+    const ye = Math.floor((Math.max(y1, y2) + buffer) / cell);
+    for (let cx = x0; cx <= xe; cx++) {
+      for (let cy = y0; cy <= ye; cy++) {
+        const key = cx * 1000003 + cy;
+        const arr = grid.get(key);
+        if (arr) arr.push(i); else grid.set(key, [i]);
+      }
+    }
+  }
+  return { proj, pts, cumD, cumT, grid, cell, buffer, totalD: cumD[n], totalT: cumT[n] };
+}
+
+// Punto más cercano de la ruta dentro del buffer. Devuelve {dist, s (m), t (s)} o null.
+function nearest(route, lat, lon) {
+  const [x, y] = route.proj(lat, lon);
+  const segs = route.grid.get(Math.floor(x / route.cell) * 1000003 + Math.floor(y / route.cell));
+  if (!segs) return null;
+  let best = null;
+  for (const i of segs) {
+    const [x1, y1] = route.pts[i];
+    const [x2, y2] = route.pts[i + 1];
+    const dx = x2 - x1;
+    const dy = y2 - y1;
+    const l2 = dx * dx + dy * dy;
+    let u = l2 ? ((x - x1) * dx + (y - y1) * dy) / l2 : 0;
+    u = Math.max(0, Math.min(1, u));
+    const d = Math.hypot(x - (x1 + u * dx), y - (y1 + u * dy));
+    if (d <= route.buffer && (!best || d < best.dist)) best = { dist: d, i, u };
+  }
+  if (!best) return null;
+  const { i, u } = best;
+  return {
+    dist: best.dist,
+    s: route.cumD[i] + u * (route.cumD[i + 1] - route.cumD[i]),
+    t: route.cumT[i] + u * (route.cumT[i + 1] - route.cumT[i]),
+  };
+}
+
+// Tramo a→b ([lat, lon]) muestreado cada `step` metros; devuelve el primer cruce con la ruta.
+function nearestLine(route, a, b, step = 120) {
+  const [x1, y1] = route.proj(a[0], a[1]);
+  const [x2, y2] = route.proj(b[0], b[1]);
+  const k = Math.min(400, Math.max(1, Math.ceil(Math.hypot(x2 - x1, y2 - y1) / step)));
+  let best = null;
+  for (let j = 0; j <= k; j++) {
+    const f = j / k;
+    const h = nearest(route, a[0] + (b[0] - a[0]) * f, a[1] + (b[1] - a[1]) * f);
+    if (h && (!best || h.s < best.s)) best = h;
+  }
+  return best;
+}
+
+// ds: {inc, pan, panLoc, rad, cam} (documentos JSON ya cargados). enabled: {inc, pan, rad, cam}.
+function collectHits(route, ds, enabled) {
+  const hits = [];
+  if (enabled.inc && ds.inc) {
+    for (const it of ds.inc.items) {
+      if (!it.a) continue;
+      const h = it.b ? nearestLine(route, it.a, it.b) : nearest(route, it.a[0], it.a[1]);
+      if (h) hits.push({ layer: 'inc', ...h, lat: it.a[0], lon: it.a[1], item: it });
+    }
+  }
+  if (enabled.pan && ds.pan && ds.panLoc) {
+    const loc = new Map(ds.panLoc.items.map((x) => [x.id, x]));
+    for (const it of ds.pan.items) {
+      const l = loc.get(it.ctrl);
+      if (!l) continue;
+      const h = nearest(route, l.lat, l.lon);
+      if (h) hits.push({ layer: 'pan', ...h, lat: l.lat, lon: l.lon, item: it, loc: l });
+    }
+  }
+  for (const layer of ['rad', 'cam']) {
+    if (!enabled[layer] || !ds[layer]) continue;
+    for (const it of ds[layer].items) {
+      const h = nearest(route, it.lat, it.lon);
+      if (h) hits.push({ layer, ...h, lat: it.lat, lon: it.lon, item: it });
+    }
+  }
+  hits.sort((p, q) => p.s - q.s);
+  return hits;
+}
+
+function humanize(t) {
+  return t.replace(/([a-z])([A-Z])/g, '$1 $2').toLowerCase().replace(/^./, (c) => c.toUpperCase());
+}
+function fmtNum(v, d = 1) { return Number(v).toFixed(d).replace('.', ','); }
+function fmtKm(m) { return fmtNum(m / 1000, 1); }
+function fmtDur(sec) {
+  const m = Math.round(sec / 60);
+  const h = Math.floor(m / 60);
+  return h ? `${h} h ${String(m % 60).padStart(2, '0')} min` : `${m} min`;
+}
+function fmtClock(ms) {
+  const d = new Date(ms);
+  return `${String(d.getHours()).padStart(2, '0')}:${String(d.getMinutes()).padStart(2, '0')}`;
+}
+function fmtPk(pk) {
+  if (!pk || !pk.length) return '';
+  const v = [...pk].sort((a, b) => a - b);
+  return v.length > 1 && v[0] !== v[1] ? `PK ${fmtNum(v[0])}–${fmtNum(v[1])}` : `PK ${fmtNum(v[0])}`;
+}
+const DIR_ES = { both: 'ambos sentidos', positive: 'sentido positivo', negative: 'sentido negativo' };
+
+// Texto y gravedad (high | mid | low | info) de un resultado.
+function describe(hit) {
+  const it = hit.item;
+  if (hit.layer === 'inc') {
+    const types = it.types || [];
+    const specific = types.filter((t) => !GENERIC_TYPES.has(t));
+    const shown = specific.length ? specific : types;
+    const labels = [...new Set(shown.map((t) => TYPES_ES[t] || humanize(t)))];
+    const g = it.geo || {};
+    const place = [g.municipality, g.province].filter(Boolean).join(', ');
+    let sev = 'mid';
+    if (types.some((t) => HIGH_TYPES.has(t))) sev = 'high';
+    else if (types.length && types.every((t) => LOW_TYPES.has(t) || t === 'roadOrCarriagewayOrLaneManagement')) sev = 'low';
+    return {
+      title: labels.join(' · ') || 'Incidencia',
+      sub: [it.road, fmtPk(it.pk), place, DIR_ES[it.dir]].filter(Boolean).join(' · '),
+      text: it.text || '',
+      sev,
+    };
+  }
+  if (hit.layer === 'pan') {
+    return {
+      title: (it.texts && it.texts.length ? it.texts.join(' | ') : 'Panel con pictograma'),
+      sub: [hit.loc && hit.loc.road, hit.loc && fmtPk(hit.loc.pk), hit.loc && hit.loc.dest ? '→ ' + hit.loc.dest : ''].filter(Boolean).join(' · '),
+      text: '',
+      sev: 'info',
+    };
+  }
+  const kind = hit.layer === 'rad' ? 'Radar fijo' : 'Cámara';
+  return {
+    title: kind,
+    sub: [it.road, fmtPk(it.pk), it.dest ? '→ ' + it.dest : ''].filter(Boolean).join(' · '),
+    text: '',
+    sev: 'info',
+  };
+}
+// </core>
+
+// ---------------------------------------------------------------- aplicación
+const BASE = 'https://raw.githubusercontent.com/srgreina/srgreina-Viajes-DGT/latest/';
+const SRC = { inc: 'incidencias.json', pan: 'paneles.json', panLoc: 'static/paneles_loc.json', rad: 'static/radares.json', cam: 'static/camaras.json' };
+const LAYERS = [
+  { id: 'inc', label: 'Incidencias', color: 'var(--mid)', on: true, needs: ['inc'] },
+  { id: 'pan', label: 'Paneles', color: 'var(--pan)', on: true, needs: ['pan', 'panLoc'] },
+  { id: 'rad', label: 'Radares fijos', color: 'var(--rad)', on: true, needs: ['rad'] },
+  { id: 'cam', label: 'Cámaras', color: 'var(--cam)', on: false, needs: ['cam'] },
+];
+const $ = (id) => document.getElementById(id);
+const esc = (s) => String(s ?? '').replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+const state = { o: null, d: null, route: null, latlngs: null, depMs: Date.now(), hits: [] };
+const cache = {};
+let map, routeLine, markerGroup;
+
+function storeGet(k) { try { return localStorage.getItem(k); } catch (e) { return null; } }
+function storeSet(k, v) { try { localStorage.setItem(k, v); } catch (e) { /* sin almacenamiento */ } }
+
+function load(key) {
+  if (!cache[key]) {
+    cache[key] = fetch(BASE + SRC[key]).then((r) => {
+      if (!r.ok) throw new Error(`No se pudo cargar ${SRC[key]} (${r.status})`);
+      return r.json();
+    }).catch((e) => { delete cache[key]; throw e; });
+  }
+  return cache[key];
+}
+
+function enabledMap() {
+  const e = {};
+  for (const l of LAYERS) e[l.id] = $('chk-' + l.id).checked;
+  return e;
+}
+
+function setStatus(msg, err) { const s = $('status'); s.textContent = msg || ''; s.className = err ? 'err' : ''; }
+
+function initLayers() {
+  const saved = JSON.parse(storeGet('layers') || 'null') || {};
+  $('layers').innerHTML = LAYERS.map((l) => `
+    <label class="chip"><input type="checkbox" id="chk-${l.id}" ${(saved[l.id] ?? l.on) ? 'checked' : ''}>
+    <span class="dot" style="background:${l.color}"></span>${esc(l.label)}</label>`).join('');
+  for (const l of LAYERS) {
+    $('chk-' + l.id).addEventListener('change', () => {
+      storeSet('layers', JSON.stringify(enabledMap()));
+      if (state.route) refresh();
+    });
+  }
+}
+
+async function showFreshness() {
+  try {
+    const inc = await load('inc');
+    const mins = Math.max(0, Math.round((Date.now() - Date.parse(inc.generated)) / 60000));
+    const el = $('fresh');
+    el.textContent = `Datos DGT de hace ${mins} min`;
+    el.className = mins > 30 ? 'stale' : '';
+    if (mins > 30) el.textContent += ' — recolector parado';
+  } catch (e) {
+    $('fresh').textContent = 'Sin datos de la DGT';
+    $('fresh').className = 'stale';
+  }
+}
+
+// ---- geocodificación (Nominatim, solo al pulsar Buscar o Intro)
+async function geocode(q) {
+  const url = 'https://nominatim.openstreetmap.org/search?format=jsonv2&limit=5&countrycodes=es&accept-language=es&q=' + encodeURIComponent(q);
+  const r = await fetch(url);
+  if (!r.ok) throw new Error('Falló la búsqueda de lugares');
+  return (await r.json()).map((x) => ({ name: x.display_name, lat: +x.lat, lon: +x.lon }));
+}
+
+function bindPlace(prefix, key) {
+  const input = $(prefix);
+  const list = $(prefix + 'Res');
+  const search = async () => {
+    const q = input.value.trim();
+    if (!q) return;
+    list.innerHTML = '';
+    setStatus('Buscando…');
+    try {
+      const res = await geocode(q);
+      setStatus(res.length ? '' : 'Sin resultados para ese lugar', !res.length);
+      list.innerHTML = res.map((r, i) => `<li><button type="button" data-i="${i}">${esc(r.name)}</button></li>`).join('');
+      list.onclick = (ev) => {
+        const b = ev.target.closest('button');
+        if (!b) return;
+        const r = res[+b.dataset.i];
+        state[key] = r;
+        input.value = r.name.split(',').slice(0, 2).join(',');
+        list.innerHTML = '';
+      };
+    } catch (e) { setStatus(e.message, true); }
+  };
+  $(prefix + 'Btn').addEventListener('click', search);
+  input.addEventListener('keydown', (ev) => { if (ev.key === 'Enter') { ev.preventDefault(); search(); } });
+  input.addEventListener('input', () => { state[key] = null; });
+}
+
+async function resolvePlace(key, inputId) {
+  if (state[key]) return state[key];
+  const q = $(inputId).value.trim();
+  if (!q) throw new Error('Falta ' + (key === 'o' ? 'el origen' : 'el destino'));
+  const res = await geocode(q);
+  if (!res.length) throw new Error('No encuentro: ' + q);
+  state[key] = res[0];
+  return res[0];
+}
+
+// ---- ruta (OSRM público)
+async function fetchRoute(o, d) {
+  const url = `https://router.project-osrm.org/route/v1/driving/${o.lon},${o.lat};${d.lon},${d.lat}?overview=full&geometries=geojson&annotations=duration,distance`;
+  const r = await fetch(url);
+  if (!r.ok) throw new Error('El servicio de rutas no responde (' + r.status + ')');
+  const j = await r.json();
+  if (j.code !== 'Ok' || !j.routes || !j.routes[0]) throw new Error('No hay ruta entre esos puntos');
+  const rt = j.routes[0];
+  const ann = rt.legs && rt.legs.length === 1 ? rt.legs[0].annotation : null;
+  return { coords: rt.geometry.coordinates, ann, total: { distance: rt.distance, duration: rt.duration } };
+}
+
+// ---- pintado
+const COLORS = { high: 'var(--high)', mid: 'var(--mid)', low: 'var(--low)', info: null };
+function hitColor(h, desc) {
+  if (h.layer === 'inc') return COLORS[desc.sev];
+  return LAYERS.find((l) => l.id === h.layer).color;
+}
+function cssVar(v) { return v.startsWith('var(') ? getComputedStyle(document.documentElement).getPropertyValue(v.slice(4, -1)).trim() : v; }
+
+function popupHtml(h, d) {
+  let html = `<strong>${esc(d.title)}</strong><br>${esc(d.sub)}`;
+  if (d.text) html += `<br>${esc(d.text)}`;
+  if (h.layer === 'cam' && h.item.urls && /^https:\/\/etraffic\.dgt\.es\//.test(h.item.urls[0])) {
+    html += `<br><img src="${esc(h.item.urls[0])}" width="240" loading="lazy" referrerpolicy="no-referrer" alt="Cámara">`;
+  }
+  return html;
+}
+
+function picsHtml(h) {
+  if (h.layer !== 'pan' || !h.item.picts) return '';
+  return h.item.picts.filter((c) => /^[A-Za-z0-9_-]+$/.test(c)).map((c) =>
+    `<img class="pic" src="https://etraffic.dgt.es/estaticosEtraffic/Iconografia/pictogramas/${c}.png" alt="" referrerpolicy="no-referrer" onerror="this.remove()">`).join('');
+}
+
+function render() {
+  const { route, hits, depMs } = state;
+  markerGroup.clearLayers();
+  const rows = [];
+  const markers = [];
+  hits.forEach((h, idx) => {
+    const d = describe(h);
+    const color = cssVar(hitColor(h, d) || 'var(--primary)');
+    const m = L.circleMarker([h.lat, h.lon], { radius: 7, color: '#fff', weight: 2, fillColor: color, fillOpacity: 1 })
+      .bindPopup(popupHtml(h, d)).addTo(markerGroup);
+    markers[idx] = m;
+    rows.push(`<li data-i="${idx}">
+      <div class="t">${fmtClock(depMs + h.t * 1000)}<small>km ${fmtKm(h.s)}</small></div>
+      <div><div class="ttl"><span class="dot" style="background:${hitColor(h, d) || 'var(--primary)'}"></span>${picsHtml(h)}${esc(d.title)}</div>
+      <div class="sub">${esc(d.sub)}</div>${d.text ? `<div class="txt">${esc(d.text)}</div>` : ''}</div></li>`);
+  });
+  $('list').innerHTML = rows.join('') || '<li style="display:block">Sin elementos en la ruta con las capas elegidas.</li>';
+  $('list').onclick = (ev) => {
+    const li = ev.target.closest('li[data-i]');
+    if (!li) return;
+    const m = markers[+li.dataset.i];
+    map.setView(m.getLatLng(), Math.max(map.getZoom(), 13));
+    m.openPopup();
+    $('map').scrollIntoView({ behavior: 'smooth', block: 'center' });
+  };
+
+  const count = (l) => hits.filter((h) => h.layer === l).length;
+  const closed = hits.filter((h) => h.layer === 'inc' && describe(h).sev === 'high').length;
+  const future = depMs - Date.now() > 2 * 3600 * 1000;
+  $('sum').hidden = false;
+  $('sum').innerHTML = `<h2>${esc($('o').value)} → ${esc($('d').value)}</h2>
+    <p>${fmtKm(route.totalD)} km · ${fmtDur(route.totalT)} · llegada ${fmtClock(depMs + route.totalT * 1000)}</p>
+    <p>${count('inc')} incidencias · ${count('pan')} paneles · ${count('rad')} radares · ${count('cam')} cámaras</p>
+    ${closed ? `<p class="warn">${closed} incidencia(s) graves en la ruta (corte o accidente)</p>` : ''}
+    ${future ? '<p>La salida es dentro de más de 2 h: incidencias y paneles son los de ahora.</p>' : ''}`;
+}
+
+async function refresh() {
+  const enabled = enabledMap();
+  const keys = [...new Set(LAYERS.filter((l) => enabled[l.id]).flatMap((l) => l.needs))];
+  setStatus('Cruzando la ruta con los datos de la DGT…');
+  try {
+    const docs = await Promise.all(keys.map((k) => load(k)));
+    const ds = {};
+    keys.forEach((k, i) => { ds[k] = docs[i]; });
+    state.hits = collectHits(state.route, ds, enabled);
+    render();
+    setStatus('');
+  } catch (e) { setStatus(e.message, true); }
+}
+
+async function calculate(ev) {
+  ev.preventDefault();
+  const go = $('go');
+  go.disabled = true;
+  setStatus('Calculando ruta…');
+  try {
+    const o = await resolvePlace('o', 'o');
+    const d = await resolvePlace('d', 'd');
+    const depVal = $('dep').value;
+    state.depMs = depVal ? new Date(depVal).getTime() : Date.now();
+    const r = await fetchRoute(o, d);
+    state.route = buildRoute(r.coords, r.ann, r.total);
+    state.latlngs = r.coords.map((c) => [c[1], c[0]]);
+    if (routeLine) routeLine.remove();
+    routeLine = L.polyline(state.latlngs, { color: cssVar('var(--primary)'), weight: 5, opacity: .85 }).addTo(map);
+    map.fitBounds(routeLine.getBounds(), { padding: [20, 20] });
+    await refresh();
+  } catch (e) { setStatus(e.message, true); } finally { go.disabled = false; }
+}
+
+function nowLocalInput() {
+  const d = new Date();
+  d.setMinutes(d.getMinutes() - d.getTimezoneOffset());
+  return d.toISOString().slice(0, 16);
+}
+
+function init() {
+  map = L.map('map', { zoomControl: true }).setView([40.0, -3.7], 6);
+  L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', { maxZoom: 19, attribution: '© OpenStreetMap' }).addTo(map);
+  markerGroup = L.layerGroup().addTo(map);
+  $('dep').value = nowLocalInput();
+  initLayers();
+  bindPlace('o', 'o');
+  bindPlace('d', 'd');
+  $('oGeo').addEventListener('click', () => {
+    if (!navigator.geolocation) return setStatus('Este navegador no da la ubicación', true);
+    setStatus('Obteniendo ubicación…');
+    navigator.geolocation.getCurrentPosition((p) => {
+      state.o = { name: 'Mi ubicación', lat: p.coords.latitude, lon: p.coords.longitude };
+      $('o').value = 'Mi ubicación';
+      $('oRes').innerHTML = '';
+      setStatus('');
+    }, () => setStatus('No pude obtener tu ubicación', true), { enableHighAccuracy: true, timeout: 15000 });
+  });
+  $('f').addEventListener('submit', calculate);
+  showFreshness();
+  if ('serviceWorker' in navigator) navigator.serviceWorker.register('sw.js').catch(() => {});
+}
+if (typeof document !== 'undefined' && typeof L !== 'undefined') init();
+</script>
+</body>
+</html>
