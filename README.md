@@ -22,7 +22,7 @@ Tests de la lógica de cruce: `node --test tests/core.test.mjs` (extrae el bloqu
 
 | Qué | Dónde | Frecuencia |
 |---|---|---|
-| Incidencias (DATEX II v3.7) y paneles de mensaje variable (v3.7) | `collector/realtime.py` → workflow `collect.yml` | cada 10 min (cron de Actions, no es puntual) |
+| Incidencias (DATEX II v3.7) y paneles de mensaje variable (v3.7) | `collector/realtime.py` → workflow `collect.yml` | cada ≈10 min: cada ejecución relanza la siguiente (job `siguiente`); el cron de Actions queda de respaldo |
 | Avisos meteorológicos de AEMET (CAP) | `collector/aemet.py`, paso opcional de `collect.yml` | cada ejecución, pero solo descarga si el estado tiene >25 min |
 | Radares fijos, cámaras y localizaciones de paneles | `collector/static_layers.py` → workflow `static.yml` | diario, 03:15 UTC |
 
@@ -67,7 +67,7 @@ python collector/static_layers.py --out data/static
 - Los parsers de **incidencias** y **paneles** están ajustados al XML real (muestras en `data/samples/`). El de las **capas estáticas** (radares, cámaras, localizaciones de paneles) es genérico y su salida está revisada, pero conviene reajustarlo si la DGT cambia el perfil. Los radares fijos solo se publican en DATEX II v2 y su fecha de publicación es antigua (2025-12).
 - OSRM y Nominatim públicos no tienen garantía de servicio ni admiten uso intensivo; el enrutador es fácil de cambiar (`fetchRoute`).
 - El planificador no filtra por sentido de circulación: una incidencia de la otra calzada puede aparecer (se indica el sentido en el texto).
-- El cron de GitHub Actions puede retrasarse varios minutos y no garantiza intervalo fijo; el histórico no es continuo.
+- El cron de GitHub Actions puede retrasarse o no dispararse; por eso `collect` se autoencadena. Aun así el intervalo no es exacto y el histórico no es continuo.
 - Los feeds de la DGT están sujetos a su [aviso legal](https://www.dgt.es/contenido/aviso-legal/) (CC-BY). Cubren la red estatal salvo País Vasco y Cataluña.
 
 ## Fases

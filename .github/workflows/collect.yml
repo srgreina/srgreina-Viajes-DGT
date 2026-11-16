@@ -11,6 +11,7 @@ on:
 
 permissions:
   contents: write
+  actions: write   # para que el job "siguiente" pueda relanzar este workflow
 
 # Mismo grupo que static.yml para que no se pisen los push a main
 concurrency:
@@ -71,3 +72,18 @@ jobs:
           git -c user.name="viajes-dgt-bot" -c user.email="viajes-dgt-bot@users.noreply.github.com" \
             commit -qm "latest $(date -u +%Y-%m-%dT%H:%M:%SZ)"
           git push -qf "https://x-access-token:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git" latest
+
+  # El cron de GitHub no es fiable: cada ejecución lanza la siguiente tras 9 min.
+  # El cron y el push de arriba quedan de respaldo; el grupo de concurrencia evita que se acumulen cadenas.
+  siguiente:
+    needs: collect
+    if: always()
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - name: Esperar y relanzar
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          sleep 540
+          gh workflow run collect.yml --repo "$GITHUB_REPOSITORY" --ref main
