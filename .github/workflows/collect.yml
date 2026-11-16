@@ -39,6 +39,13 @@ jobs:
       - name: Recolectar incidencias y paneles
         run: python collector/realtime.py --prev prev --out latest --history data/history --samples data/samples
 
+      # Opcional: sin el secreto AEMET_API_KEY se omite; un fallo no frena la recolección de la DGT
+      - name: Avisos AEMET
+        continue-on-error: true
+        env:
+          AEMET_API_KEY: ${{ secrets.AEMET_API_KEY }}
+        run: python collector/aemet.py --prev prev --out latest --samples data/samples
+
       - name: Guardar histórico en main
         run: |
           git config user.name "viajes-dgt-bot"

@@ -1,8 +1,8 @@
 # Viajes DGT
 
-Planificador de trayectos con datos oficiales de la DGT (NAP, `nap.dgt.es`): estado de la ruta, incidencias, paneles, radares fijos, cámaras y, más adelante, tiempo a lo largo del recorrido.
+Planificador de trayectos con datos oficiales de la DGT (NAP, `nap.dgt.es`): estado de la ruta, incidencias, paneles, radares fijos, cámaras, tiempo a lo largo del recorrido y avisos oficiales de AEMET.
 
-**Estado: fases 1 y 2.** Recolector con histórico y planificador web (`docs/`).
+**Estado: fases 1, 2 y 3.** Recolector con histórico, planificador web (`docs/`) y tiempo/avisos en ruta.
 
 ## Planificador web (`docs/index.html`)
 
@@ -12,7 +12,9 @@ HTML único con Leaflet, instalable como PWA. Se publica con GitHub Pages (Setti
 2. Ruta en coche con el servidor público de OSRM; de ahí salen los kilómetros y la hora estimada de paso (sin tráfico).
 3. Cruce de la ruta con incidencias, paneles, radares fijos y cámaras a menos de 150 m del trazado (rejilla espacial; tramos de incidencia muestreados cada 120 m).
 4. Resumen ordenado por kilómetro de ruta, con hora de paso, gravedad (corte o accidente = grave) y mapa. Las capas se eligen con interruptores y se guardan en el móvil; cada feed solo se descarga cuando su capa está activa.
-5. Lee los datos de la rama `latest` (`raw.githubusercontent.com`) y avisa si tienen más de 30 min.
+5. **Tiempo en ruta** (Open-Meteo, gratuito, sin clave, CC-BY 4.0): previsión horaria en puntos cada ≈25 km (máx. 40) a la hora de paso. Avisa de lluvia ≥5 mm/h, rachas ≥70 km/h, hielo o nieve, visibilidad <1 km y tormenta. Alcance: ≈15 días.
+6. **Avisos AEMET** (capa opcional): cruza la ruta (muestreo ≈1,5 km) con los polígonos de los avisos CAP vigentes a la hora de paso; amarillo = media, naranja/rojo = grave. Si no hay `avisos.json` (sin clave), el planificador lo indica y sigue.
+7. Lee los datos de la rama `latest` (`raw.githubusercontent.com`) y avisa si tienen más de 30 min.
 
 Tests de la lógica de cruce: `node --test tests/core.test.mjs` (extrae el bloque `<core>` de `index.html`).
 
@@ -21,6 +23,7 @@ Tests de la lógica de cruce: `node --test tests/core.test.mjs` (extrae el bloqu
 | Qué | Dónde | Frecuencia |
 |---|---|---|
 | Incidencias (DATEX II v3.7) y paneles de mensaje variable (v3.7) | `collector/realtime.py` → workflow `collect.yml` | cada 10 min (cron de Actions, no es puntual) |
+| Avisos meteorológicos de AEMET (CAP) | `collector/aemet.py`, paso opcional de `collect.yml` | cada ejecución, pero solo descarga si el estado tiene >25 min |
 | Radares fijos, cámaras y localizaciones de paneles | `collector/static_layers.py` → workflow `static.yml` | diario, 03:15 UTC |
 
 Solo usa la librería estándar de Python (3.11+). Sin dependencias.
@@ -33,6 +36,10 @@ Solo usa la librería estándar de Python (3.11+). Sin dependencias.
   - `incidencias/AAAA-MM-DD.jsonl` y `paneles/AAAA-MM-DD.jsonl`: eventos `open`, `change` y `close`. Los eventos de la primera ejecución llevan `"boot": true`.
   - `runs/AAAA-MM.jsonl`: una línea por ejecución y feed (`ok`, `ms`, `bytes`, `published`, `lag_s`, `count`, `opens`, `changes`, `closes`, `err`). Base de la calidad de dato.
 - **`data/samples/*.head.xml`**: primeros 40 KB del XML crudo de cada feed, guardados una sola vez para ajustar los parsers.
+
+### Avisos AEMET: clave
+
+Necesita el secreto del repo `AEMET_API_KEY` (Settings → Secrets and variables → Actions → New repository secret; clave gratuita de AEMET OpenData). Sin él, el paso se omite sin error. Salida `latest/avisos.json`: `items[{id, zone, ev, ph, lvl, area, desc, from, to, poly}]` (polígonos `[lat, lon]` a 3 decimales; se descartan cancelados, caducados y los sustituidos por una actualización). La primera ejecución guarda una muestra en `data/samples/aemet_cap.sample.xml`. El parser sigue el CAP 1.2 publicado por AEMET (bloque `es-ES`, nivel en `AEMET-Meteoalerta nivel`).
 
 ### Formato de `incidencias.json`
 
@@ -67,6 +74,6 @@ python collector/static_layers.py --out data/static
 
 1. Recolector, histórico y capas estáticas (hecha).
 2. Planificador web: ruta, cruce con capas y selector de capas (hecha).
-3. Tiempo a lo largo de la ruta según la hora de paso.
+3. Tiempo a lo largo de la ruta según la hora de paso y avisos AEMET (hecha).
 4. Calidad de dato y tramos de riesgo.
 5. Alertas de corredor, resumen semanal y modo conducción por voz.

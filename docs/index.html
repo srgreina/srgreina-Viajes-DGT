@@ -190,7 +190,7 @@ function buildRoute(coords, ann, total, buffer = 150, cell = 250) {
       }
     }
   }
-  return { proj, pts, cumD, cumT, grid, cell, buffer, totalD: cumD[n], totalT: cumT[n] };
+  return { proj, pts, ll: coords, cumD, cumT, grid, cell, buffer, totalD: cumD[n], totalT: cumT[n] };
 }
 
 // Punto más cercano de la ruta dentro del buffer. Devuelve {dist, s (m), t (s)} o null.
@@ -263,6 +263,160 @@ function collectHits(route, ds, enabled) {
   return hits;
 }
 
+// ---- tiempo a lo largo de la ruta
+const WMO_ES = {
+  0: 'Despejado', 1: 'Poco nuboso', 2: 'Parcialmente nuboso', 3: 'Cubierto', 45: 'Niebla', 48: 'Niebla con escarcha',
+  51: 'Llovizna débil', 53: 'Llovizna', 55: 'Llovizna intensa', 56: 'Llovizna helada', 57: 'Llovizna helada intensa',
+  61: 'Lluvia débil', 63: 'Lluvia', 65: 'Lluvia fuerte', 66: 'Lluvia helada', 67: 'Lluvia helada fuerte',
+  71: 'Nieve débil', 73: 'Nieve', 75: 'Nieve intensa', 77: 'Granos de nieve',
+  80: 'Chubascos débiles', 81: 'Chubascos', 82: 'Chubascos violentos', 85: 'Chubascos de nieve', 86: 'Chubascos de nieve fuertes',
+  95: 'Tormenta', 96: 'Tormenta con granizo', 99: 'Tormenta con granizo fuerte',
+};
+
+// Puntos equiespaciados (≈ stepM, máx. 40) con su hora relativa de paso: origen, intermedios y destino.
+function samplePoints(route, stepM = 25000, maxPts = 40) {
+  const total = route.totalD;
+  const at = (s) => {
+    let lo = 0;
+    let hi = route.cumD.length - 1;
+    while (hi - lo > 1) {
+      const mid = (lo + hi) >> 1;
+      if (route.cumD[mid] <= s) lo = mid; else hi = mid;
+    }
+    const span = route.cumD[hi] - route.cumD[lo];
+    const u = span > 0 ? Math.min(1, Math.max(0, (s - route.cumD[lo]) / span)) : 0;
+    const a = route.ll[lo];
+    const b = route.ll[hi];
+    return { s, t: route.cumT[lo] + u * (route.cumT[hi] - route.cumT[lo]), lat: a[1] + (b[1] - a[1]) * u, lon: a[0] + (b[0] - a[0]) * u };
+  };
+  if (!(total > 0)) return [at(0)];
+  const step = Math.max(stepM, total / maxPts);
+  const out = [];
+  for (let s = 0; s < total; s += step) out.push(at(s));
+  if (out.length > 1 && total - out[out.length - 1].s < step / 3) out.pop();
+  out.push(at(total));
+  return out;
+}
+
+// Índice de la hora más cercana (times en segundos Unix); null si queda a más de 1,5 h.
+function pickHour(times, ms) {
+  if (!times || !times.length) return null;
+  const sec = ms / 1000;
+  let best = 0;
+  let bd = Infinity;
+  for (let i = 0; i < times.length; i++) {
+    const d = Math.abs(times[i] - sec);
+    if (d < bd) { bd = d; best = i; }
+  }
+  return bd <= 5400 ? best : null;
+}
+
+// Respuesta de Open-Meteo para un punto -> valores a la hora de paso (o null).
+function weatherAt(resp, ms) {
+  const h = resp && resp.hourly;
+  if (!h) return null;
+  const i = pickHour(h.time, ms);
+  if (i === null) return null;
+  const g = (k) => (h[k] && h[k][i] !== undefined && h[k][i] !== null ? h[k][i] : null);
+  return {
+    temp: g('temperature_2m'), rain: g('precipitation'), prob: g('precipitation_probability'), snow: g('snowfall'),
+    wind: g('wind_speed_10m'), gust: g('wind_gusts_10m'), vis: g('visibility'), code: g('weather_code'),
+  };
+}
+
+function weatherAlerts(w) {
+  const a = [];
+  if (!w) return a;
+  if (w.code !== null && w.code >= 95) a.push({ key: 'storm', text: 'Tormenta' });
+  if (w.rain !== null && w.rain >= 5) a.push({ key: 'rain', text: `Lluvia fuerte (${fmtNum(w.rain, 1)} mm/h)` });
+  if (w.gust !== null && w.gust >= 70) a.push({ key: 'wind', text: `Rachas de ${Math.round(w.gust)} km/h` });
+  if ((w.snow || 0) > 0 || (w.temp !== null && w.temp <= 3 && (w.rain || 0) > 0)) a.push({ key: 'ice', text: 'Riesgo de hielo o nieve' });
+  if (w.vis !== null && w.vis < 1000) a.push({ key: 'vis', text: 'Visibilidad menor de 1 km' });
+  return a;
+}
+
+// resp: array (un elemento por punto) o un solo objeto, como devuelve Open-Meteo.
+function buildWeatherHits(points, resp, depMs) {
+  const list = Array.isArray(resp) ? resp : [resp];
+  const hits = [];
+  points.forEach((p, i) => {
+    const w = weatherAt(list[i], depMs + p.t * 1000);
+    if (w) hits.push({ layer: 'wx', s: p.s, t: p.t, dist: 0, lat: p.lat, lon: p.lon, w });
+  });
+  return hits;
+}
+
+// Primera aparición de cada tipo de aviso: "Tormenta hacia las 17:10 (km 120,0)".
+function weatherSummary(hits, depMs) {
+  const seen = new Set();
+  const out = [];
+  for (const h of hits) {
+    if (h.layer !== 'wx') continue;
+    for (const a of weatherAlerts(h.w)) {
+      if (seen.has(a.key)) continue;
+      seen.add(a.key);
+      out.push(`${a.text} hacia las ${fmtClock(depMs + h.t * 1000)} (km ${fmtKm(h.s)})`);
+    }
+  }
+  return out;
+}
+
+// ---- avisos AEMET (polígonos CAP: [[lat, lon], ...])
+function pointInRing(lat, lon, ring) {
+  let inside = false;
+  for (let i = 0, j = ring.length - 1; i < ring.length; j = i++) {
+    const [yi, xi] = ring[i];
+    const [yj, xj] = ring[j];
+    if ((yi > lat) !== (yj > lat) && lon < ((xj - xi) * (lat - yi)) / (yj - yi) + xi) inside = !inside;
+  }
+  return inside;
+}
+
+function ringBox(ring) {
+  let la0 = 90; let la1 = -90; let lo0 = 180; let lo1 = -180;
+  for (const [la, lo] of ring) {
+    if (la < la0) la0 = la;
+    if (la > la1) la1 = la;
+    if (lo < lo0) lo0 = lo;
+    if (lo > lo1) lo1 = lo;
+  }
+  return [la0, la1, lo0, lo1];
+}
+
+// Un hit por aviso: primer punto de la ruta dentro del polígono con el aviso vigente a la hora de paso.
+// sEnd = último punto en esas condiciones (para indicar el tramo afectado).
+function buildAvisoHits(points, avisos, depMs) {
+  const hits = [];
+  for (const av of avisos || []) {
+    const from = Date.parse(av.from);
+    const to = Date.parse(av.to);
+    const rings = (av.poly || []).map((r) => ({ r, b: ringBox(r) }));
+    let first = null;
+    let last = null;
+    for (const p of points) {
+      const eta = depMs + p.t * 1000;
+      if (eta < from || eta > to) continue;
+      if (rings.some(({ r, b }) => p.lat >= b[0] && p.lat <= b[1] && p.lon >= b[2] && p.lon <= b[3] && pointInRing(p.lat, p.lon, r))) {
+        if (!first) first = p;
+        last = p;
+      }
+    }
+    if (first) hits.push({ layer: 'avi', s: first.s, sEnd: last.s, t: first.t, dist: 0, lat: first.lat, lon: first.lon, item: av });
+  }
+  return hits.sort((a, b) => a.s - b.s);
+}
+
+function avisoSummary(hits, max = 4) {
+  const av = hits.filter((h) => h.layer === 'avi');
+  const lines = av.slice(0, max).map((h) => {
+    const it = h.item;
+    const tramo = h.sEnd > h.s ? `km ${fmtKm(h.s)}–${fmtKm(h.sEnd)}` : `km ${fmtKm(h.s)}`;
+    return `Aviso ${it.lvl}: ${(it.ph || it.ev).toLowerCase()} en ${it.area} (${tramo}, hasta las ${fmtClock(Date.parse(it.to))})`;
+  });
+  if (av.length > max) lines.push(`y ${av.length - max} aviso(s) más de AEMET`);
+  return lines;
+}
+
 function humanize(t) {
   return t.replace(/([a-z])([A-Z])/g, '$1 $2').toLowerCase().replace(/^./, (c) => c.toUpperCase());
 }
@@ -286,7 +440,28 @@ const DIR_ES = { both: 'ambos sentidos', positive: 'sentido positivo', negative:
 
 // Texto y gravedad (high | mid | low | info) de un resultado.
 function describe(hit) {
+  if (hit.layer === 'wx') {
+    const w = hit.w;
+    const al = weatherAlerts(w);
+    const parts = [];
+    if (w.rain !== null) parts.push(`Lluvia ${fmtNum(w.rain, 1)} mm/h${w.prob !== null ? ` (${Math.round(w.prob)} %)` : ''}`);
+    if (w.wind !== null) parts.push(`viento ${Math.round(w.wind)} km/h${w.gust !== null ? ` (rachas ${Math.round(w.gust)})` : ''}`);
+    return {
+      title: `${WMO_ES[w.code] || 'Sin datos'}${w.temp !== null ? ` · ${fmtNum(w.temp, 0)} °C` : ''}`,
+      sub: parts.join(' · '),
+      text: al.map((x) => x.text).join(' · '),
+      sev: al.length ? 'high' : 'info',
+    };
+  }
   const it = hit.item;
+  if (hit.layer === 'avi') {
+    return {
+      title: it.ev,
+      sub: `${it.area} · hasta las ${fmtClock(Date.parse(it.to))}`,
+      text: it.desc || '',
+      sev: it.lvl === 'amarillo' ? 'mid' : 'high',
+    };
+  }
   if (hit.layer === 'inc') {
     const types = it.types || [];
     const specific = types.filter((t) => !GENERIC_TYPES.has(t));
@@ -324,8 +499,10 @@ function describe(hit) {
 
 // ---------------------------------------------------------------- aplicación
 const BASE = 'https://raw.githubusercontent.com/srgreina/srgreina-Viajes-DGT/latest/';
-const SRC = { inc: 'incidencias.json', pan: 'paneles.json', panLoc: 'static/paneles_loc.json', rad: 'static/radares.json', cam: 'static/camaras.json' };
+const SRC = { inc: 'incidencias.json', pan: 'paneles.json', panLoc: 'static/paneles_loc.json', rad: 'static/radares.json', cam: 'static/camaras.json', avi: 'avisos.json' };
 const LAYERS = [
+  { id: 'wx', label: 'Tiempo', color: 'var(--primary)', on: true, needs: [] },
+  { id: 'avi', label: 'Avisos AEMET', color: 'var(--high)', on: true, needs: [] },
   { id: 'inc', label: 'Incidencias', color: 'var(--mid)', on: true, needs: ['inc'] },
   { id: 'pan', label: 'Paneles', color: 'var(--pan)', on: true, needs: ['pan', 'panLoc'] },
   { id: 'rad', label: 'Radares fijos', color: 'var(--rad)', on: true, needs: ['rad'] },
@@ -333,7 +510,7 @@ const LAYERS = [
 ];
 const $ = (id) => document.getElementById(id);
 const esc = (s) => String(s ?? '').replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
-const state = { o: null, d: null, route: null, latlngs: null, depMs: Date.now(), hits: [] };
+const state = { o: null, d: null, route: null, latlngs: null, depMs: Date.now(), hits: [], points: [], wx: null, avPoints: [], av: null };
 const cache = {};
 let map, routeLine, markerGroup;
 
@@ -442,10 +619,22 @@ async function fetchRoute(o, d) {
   return { coords: rt.geometry.coordinates, ann, total: { distance: rt.distance, duration: rt.duration } };
 }
 
+// ---- tiempo (Open-Meteo: gratuito, sin clave, CC-BY 4.0)
+async function fetchWeather(points) {
+  const q = (k) => points.map((p) => p[k].toFixed(3)).join(',');
+  const url = 'https://api.open-meteo.com/v1/forecast?latitude=' + q('lat') + '&longitude=' + q('lon')
+    + '&hourly=temperature_2m,precipitation,precipitation_probability,snowfall,wind_speed_10m,wind_gusts_10m,visibility,weather_code'
+    + '&timeformat=unixtime&timezone=GMT&forecast_days=16';
+  const r = await fetch(url);
+  if (!r.ok) throw new Error('El servicio del tiempo no responde (' + r.status + ')');
+  return r.json();
+}
+
 // ---- pintado
 const COLORS = { high: 'var(--high)', mid: 'var(--mid)', low: 'var(--low)', info: null };
 function hitColor(h, desc) {
-  if (h.layer === 'inc') return COLORS[desc.sev];
+  if (desc.sev === 'high') return COLORS.high;
+  if (h.layer === 'inc' || h.layer === 'avi') return COLORS[desc.sev];
   return LAYERS.find((l) => l.id === h.layer).color;
 }
 function cssVar(v) { return v.startsWith('var(') ? getComputedStyle(document.documentElement).getPropertyValue(v.slice(4, -1)).trim() : v; }
@@ -494,10 +683,17 @@ function render() {
   const count = (l) => hits.filter((h) => h.layer === l).length;
   const closed = hits.filter((h) => h.layer === 'inc' && describe(h).sev === 'high').length;
   const future = depMs - Date.now() > 2 * 3600 * 1000;
+  const wxOn = $('chk-wx').checked;
+  const wxLines = wxOn ? weatherSummary(hits, depMs) : [];
+  const wxCount = count('wx');
+  const avLines = $('chk-avi').checked ? avisoSummary(hits) : [];
   $('sum').hidden = false;
   $('sum').innerHTML = `<h2>${esc($('o').value)} → ${esc($('d').value)}</h2>
     <p>${fmtKm(route.totalD)} km · ${fmtDur(route.totalT)} · llegada ${fmtClock(depMs + route.totalT * 1000)}</p>
-    <p>${count('inc')} incidencias · ${count('pan')} paneles · ${count('rad')} radares · ${count('cam')} cámaras</p>
+    <p>${count('inc')} incidencias · ${count('pan')} paneles · ${count('rad')} radares · ${count('cam')} cámaras${wxOn ? ` · tiempo en ${wxCount} puntos` : ''}</p>
+    ${avLines.map((t) => `<p class="warn">${esc(t)}</p>`).join('')}
+    ${wxLines.map((t) => `<p class="warn">${esc(t)}</p>`).join('')}
+    ${wxOn && wxCount && !wxLines.length ? '<p>Sin avisos de tiempo en el recorrido.</p>' : ''}
     ${closed ? `<p class="warn">${closed} incidencia(s) graves en la ruta (corte o accidente)</p>` : ''}
     ${future ? '<p>La salida es dentro de más de 2 h: incidencias y paneles son los de ahora.</p>' : ''}`;
 }
@@ -510,9 +706,39 @@ async function refresh() {
     const docs = await Promise.all(keys.map((k) => load(k)));
     const ds = {};
     keys.forEach((k, i) => { ds[k] = docs[i]; });
-    state.hits = collectHits(state.route, ds, enabled);
+    let note = '';
+    let noteErr = false;
+    let wxHits = [];
+    let avHits = [];
+    if (enabled.avi) {
+      if (!state.av) {
+        try {
+          const doc = await load('avi');
+          state.av = buildAvisoHits(state.avPoints, doc.items, state.depMs);
+          const hrs = (Date.now() - Date.parse(doc.generated)) / 3600000;
+          if (hrs > 3) note = `Avisos de AEMET de hace ${Math.round(hrs)} h. `;
+        } catch (e) { note = 'Avisos de AEMET no disponibles. '; }
+      }
+      avHits = state.av || [];
+    }
+    if (enabled.wx) {
+      if (!state.wx) {
+        const arrival = state.depMs + state.route.totalT * 1000;
+        if (arrival - Date.now() > 15 * 86400000) {
+          state.wx = [];
+          note += 'La previsión del tiempo llega a unos 15 días: esa fecha queda fuera.';
+        } else {
+          try {
+            state.wx = buildWeatherHits(state.points, await fetchWeather(state.points), state.depMs);
+            if (!state.wx.length) note += 'No hay previsión del tiempo para esa hora de salida.';
+          } catch (e) { note += e.message; noteErr = true; }
+        }
+      }
+      wxHits = state.wx || [];
+    }
+    state.hits = collectHits(state.route, ds, enabled).concat(wxHits, avHits).sort((a, b) => a.s - b.s);
     render();
-    setStatus('');
+    setStatus(note.trim(), noteErr);
   } catch (e) { setStatus(e.message, true); }
 }
 
@@ -529,6 +755,10 @@ async function calculate(ev) {
     const r = await fetchRoute(o, d);
     state.route = buildRoute(r.coords, r.ann, r.total);
     state.latlngs = r.coords.map((c) => [c[1], c[0]]);
+    state.points = samplePoints(state.route);
+    state.wx = null;
+    state.avPoints = samplePoints(state.route, 1500, 400);
+    state.av = null;
     if (routeLine) routeLine.remove();
     routeLine = L.polyline(state.latlngs, { color: cssVar('var(--primary)'), weight: 5, opacity: .85 }).addTo(map);
     map.fitBounds(routeLine.getBounds(), { padding: [20, 20] });
