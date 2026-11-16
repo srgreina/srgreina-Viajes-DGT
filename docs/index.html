@@ -137,16 +137,16 @@ button.icon.on svg { fill: var(--obras); stroke: var(--text); }
 
 /* línea de PK: la ruta de arriba abajo con los avisos colgados de ella */
 #list { list-style: none; margin: 6px 0 0; padding: 0; }
-#list li { position: relative; display: grid; grid-template-columns: 58px 22px 1fr; column-gap: 9px; padding: 11px 0 13px; cursor: pointer; }
-#list li::before { content: ""; position: absolute; top: 0; bottom: 0; left: 76px; width: 2.5px; background: var(--linea); }
-#list li:first-child::before { top: 24px; }
-#list li:last-child::before { bottom: calc(100% - 24px); }
-#list li.empty { display: block; cursor: default; color: var(--suave); }
-#list li.empty::before { display: none; }
+#list li { display: grid; grid-template-columns: 58px 22px 1fr; column-gap: 9px; padding: 11px 0 13px; cursor: pointer;
+  background: linear-gradient(var(--linea), var(--linea)) 76px 0 / 2.5px 100% no-repeat; }
+#list li:first-child { background-position: 76px 24px; background-size: 2.5px calc(100% - 24px); }
+#list li:last-child { background-size: 2.5px 24px; }
+#list li:first-child:last-child { background: none; }
+#list li.empty { display: block; cursor: default; color: var(--suave); background: none; }
 .when { display: flex; flex-direction: column; align-items: flex-start; gap: 5px; }
 .hora { font: 700 21px/1 var(--font); font-variant-numeric: tabular-nums; }
 .pk { padding: 2px 5px; border: 1px solid #b9bec4; border-top: 4px solid var(--peligro); border-radius: 2px; background: #fff; color: #20262c; font: 600 11.5px/1.15 var(--font); font-variant-numeric: tabular-nums; }
-.node { position: relative; z-index: 1; width: 22px; height: 24px; display: grid; place-items: center; background: var(--papel); }
+.node { width: 22px; height: 24px; display: grid; place-items: center; background: var(--papel); }
 .node i { display: block; width: 14px; height: 14px; border-radius: 50%; background: var(--c); }
 .sev-high .node i { width: 19px; height: 17px; border-radius: 0; clip-path: polygon(50% 0, 100% 100%, 0 100%); }
 .sev-mid .node i { width: 13px; height: 13px; border-radius: 2px; transform: rotate(45deg); }
