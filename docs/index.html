@@ -226,7 +226,6 @@ h2.sec { margin: 4px 0 6px; font: 700 20px var(--font-cond); }
             <button type="button" id="oGeo" class="icon" title="Usar mi ubicación" aria-label="Usar mi ubicación"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v4M12 18v4M2 12h4M18 12h4"/></svg></button>
           </div>
           <ul class="res" id="oRes"></ul>
-          <div class="favs" id="oFav"></div>
         </div>
         <div class="field">
           <label class="l" for="d">Destino</label>
@@ -236,7 +235,10 @@ h2.sec { margin: 4px 0 6px; font: 700 20px var(--font-cond); }
             <button type="button" id="dStar" class="icon" title="Guardar como favorito" aria-label="Guardar como favorito"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l2.7 5.6 6.1.8-4.5 4.3 1.1 6.1L12 17l-5.4 2.8 1.1-6.1L3.2 9.4l6.1-.8z"/></svg></button>
           </div>
           <ul class="res" id="dRes"></ul>
-          <div class="favs" id="dFav"></div>
+        </div>
+        <div class="field" id="favField" hidden>
+          <label class="l">Favoritos (se aplican al campo en el que estés)</label>
+          <div class="favs" id="favRow"></div>
         </div>
         <div class="field">
           <label class="l" for="dep">Salida</label>
@@ -806,7 +808,7 @@ const $ = (id) => document.getElementById(id);
 const esc = (s) => String(s ?? '').replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
 const state = { o: null, d: null, route: null, latlngs: null, depMs: Date.now(), hits: [], points: [], wx: null, avPoints: [], av: null, cal: null, routeWide: null };
 const cache = {};
-let map, routeLine, hitLine, markerGroup;
+let map, routeLine, hitLine, markerGroup, endMarks;
 
 function storeGet(k) { try { return localStorage.getItem(k); } catch (e) { return null; } }
 function storeSet(k, v) { try { localStorage.setItem(k, v); } catch (e) { /* sin almacenamiento */ } }
@@ -948,27 +950,32 @@ const shortName = (s) => String(s || '').split(',')[0].trim();
 const jget = (k) => { try { return JSON.parse(storeGet(k) || '[]'); } catch (e) { return []; } };
 const samePlace = (a, b) => Math.abs(a.lat - b.lat) < 1e-4 && Math.abs(a.lon - b.lon) < 1e-4;
 
+let lastField = 'd';
 function renderFavs() {
   const favs = jget('favs');
+  $('favField').hidden = !favs.length;
+  $('favRow').innerHTML = favs.map((f, i) => `<button type="button" data-i="${i}">${esc(f.fav)}</button>`).join('');
   for (const k of ['o', 'd']) {
-    $(k + 'Fav').innerHTML = favs.map((f, i) => `<button type="button" data-i="${i}">${esc(f.fav)}</button>`).join('');
     const cur = state[k];
     $(k + 'Star').classList.toggle('on', !!cur && favs.some((f) => samePlace(f, cur)));
   }
 }
 
 function bindFavs() {
+  $('o').addEventListener('focus', () => { lastField = 'o'; });
+  $('d').addEventListener('focus', () => { lastField = 'd'; });
+  $('favRow').addEventListener('click', (ev) => {
+    const b = ev.target.closest('button');
+    if (!b) return;
+    const f = jget('favs')[+b.dataset.i];
+    if (!f) return;
+    const k = lastField;
+    state[k] = { name: f.name, lat: f.lat, lon: f.lon };
+    $(k).value = f.fav;
+    $(k + 'Res').innerHTML = '';
+    renderFavs();
+  });
   for (const k of ['o', 'd']) {
-    $(k + 'Fav').addEventListener('click', (ev) => {
-      const b = ev.target.closest('button');
-      if (!b) return;
-      const f = jget('favs')[+b.dataset.i];
-      if (!f) return;
-      state[k] = { name: f.name, lat: f.lat, lon: f.lon };
-      $(k).value = f.fav;
-      $(k + 'Res').innerHTML = '';
-      renderFavs();
-    });
     $(k + 'Star').addEventListener('click', () => {
       const cur = state[k];
       if (!cur) { setStatus('Elige primero el lugar (pulsa Buscar) para guardarlo como favorito', true); return; }
@@ -1227,6 +1234,14 @@ async function calculate(ev) {
     state.av = null;
     if (routeLine) routeLine.remove();
     routeLine = L.polyline(state.latlngs, { color: cssVar('var(--primary)'), weight: 5, opacity: .85 }).addTo(map);
+    if (endMarks && endMarks.remove) endMarks.remove();
+    endMarks = L.layerGroup().addTo(map);
+    const pin = (ll, fill, txt) => {
+      const m = L.circleMarker(ll, { radius: 10, color: '#fff', weight: 3, fillColor: fill, fillOpacity: 1 }).addTo(endMarks);
+      if (typeof m.bindTooltip === 'function') m.bindTooltip(txt, { permanent: true, direction: 'top', offset: [0, -8] });
+    };
+    pin(state.latlngs[0], cssVar('var(--carretera)'), 'Salida');
+    pin(state.latlngs[state.latlngs.length - 1], cssVar('var(--peligro)'), 'Llegada');
     if (hitLine && hitLine.remove) hitLine.remove();
     hitLine = L.polyline(state.latlngs, { color: '#000', weight: 22, opacity: 0 }).addTo(map); // franja ancha invisible para el ratón
     if (canHover() && typeof hitLine.on === 'function') { hitLine.on('mousemove', onRouteMove); hitLine.on('mouseout', hideTip); }
