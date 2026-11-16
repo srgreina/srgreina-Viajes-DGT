@@ -3,133 +3,247 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="theme-color" content="#0b57d0">
+<meta name="theme-color" content="#0a4c94">
 <title>Viajes DGT</title>
 <link rel="manifest" href="manifest.json">
 <link rel="icon" href="icon-192.png">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600;700&family=Barlow+Semi+Condensed:wght@600;700&display=swap">
 <style>
+/* Viajes DGT: lenguaje de señalización viaria (cartel azul de autovía, amarillo de obras, rojo de peligro, mojón de PK) */
 :root {
-  --bg: #f6f7f9; --card: #ffffff; --text: #1b1f24; --muted: #5d6673; --line: #dfe3e8;
-  --primary: #0b57d0; --on-primary: #ffffff;
-  --high: #c62828; --mid: #ef6c00; --low: #8d6e00; --ok: #2e7d32;
-  --pan: #6a1b9a; --rad: #ad1457; --cam: #00796b; --ev: #1565c0; --rie: #e65100;
+  --concreto: #e9ecef; --papel: #ffffff; --asfalto: #1f262d; --suave: #56626e; --linea: #d4d9de;
+  --autovia: #0a4c94; --obras: #ffc20e; --peligro: #c8102e; --carretera: #0b6b3a;
+  /* nombres que usa el JS */
+  --bg: #e9ecef; --card: #ffffff; --text: #1f262d; --muted: #56626e; --line: #d4d9de;
+  --primary: #0a4c94; --on-primary: #ffffff;
+  --high: #c8102e; --mid: #d98300; --low: #7c7a3a; --ok: #0b6b3a;
+  --pan: #5e35b1; --rad: #ad1457; --cam: #00796b; --ev: #0b6b3a; --rie: #e65100;
+  --peek: 244px;
+  --font: "Barlow", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --font-cond: "Barlow Semi Condensed", "Barlow", system-ui, sans-serif;
+  color-scheme: light;
 }
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
-    --bg: #12151a; --card: #1b2027; --text: #e8eaed; --muted: #a2abb8; --line: #2d343d;
-    --primary: #8ab4f8; --on-primary: #0b1a33;
-    --high: #ff8a80; --mid: #ffb74d; --low: #e6c449; --ok: #81c784;
-    --pan: #ce93d8; --rad: #f48fb1; --cam: #4db6ac; --ev: #64b5f6; --rie: #ffb74d;
+    --concreto: #161a1f; --papel: #1f252c; --asfalto: #e8ecef; --suave: #a0abb7; --linea: #333c46;
+    --autovia: #1260b8;
+    --bg: #161a1f; --card: #1f252c; --text: #e8ecef; --muted: #a0abb7; --line: #333c46;
+    --primary: #7fb2f0; --on-primary: #0a1d36;
+    --high: #ff8a80; --mid: #ffb74d; --low: #d6c668; --ok: #81c784;
+    --pan: #b39ddb; --rad: #f48fb1; --cam: #4db6ac; --ev: #81c784; --rie: #ffb74d;
+    color-scheme: dark;
   }
 }
 * { box-sizing: border-box; }
-body { margin: 0; background: var(--bg); color: var(--text); font: 16px/1.4 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; }
-header { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; padding: 12px 16px 4px; }
-h1 { font-size: 1.25rem; margin: 0; }
-#fresh { font-size: .8rem; color: var(--muted); text-align: right; }
-#fresh.stale { color: var(--high); font-weight: 600; }
-main { padding: 0 16px 24px; max-width: 920px; margin: 0 auto; }
-form, .card { background: var(--card); border: 1px solid var(--line); border-radius: 12px; padding: 12px; margin-top: 12px; }
-label { display: block; font-size: .8rem; color: var(--muted); margin-bottom: 2px; }
-.row { display: flex; gap: 8px; }
-input[type=text], input[type=datetime-local], input[type=time] {
-  width: 100%; min-height: 44px; padding: 8px 10px; font: inherit; color: var(--text);
-  background: var(--bg); border: 1px solid var(--line); border-radius: 8px;
+[hidden] { display: none !important; }
+html, body { height: 100%; }
+body { margin: 0; background: var(--concreto); color: var(--text); font: 400 16px/1.4 var(--font); overflow: hidden; -webkit-text-size-adjust: 100%; }
+.sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+:focus-visible { outline: 3px solid var(--primary); outline-offset: 2px; }
+
+#app { position: fixed; inset: 0; }
+#map { position: absolute; inset: 0; z-index: 0; background: var(--concreto); }
+
+/* barra flotante */
+#bar { position: absolute; z-index: 500; top: max(10px, env(safe-area-inset-top)); left: 10px; right: 10px; display: flex; gap: 8px; align-items: center; }
+#barBtn { flex: 1; min-width: 0; min-height: 50px; display: flex; align-items: center; gap: 12px; padding: 0 18px; border: 0; border-radius: 25px; background: var(--papel); color: var(--text); box-shadow: 0 2px 12px rgba(0, 0, 0, .28); font: 600 17px var(--font); text-align: left; cursor: pointer; }
+#barText { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.rd { flex: none; width: 12px; height: 12px; border-radius: 50%; border: 3.5px solid var(--primary); }
+#corBtn { flex: none; width: 50px; height: 50px; min-height: 50px; padding: 0; display: grid; place-items: center; border: 0; border-radius: 50%; background: var(--papel); color: var(--text); box-shadow: 0 2px 12px rgba(0, 0, 0, .28); cursor: pointer; }
+#corBtn svg { width: 22px; height: 22px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linejoin: round; }
+#fresh { position: absolute; z-index: 500; top: calc(max(10px, env(safe-area-inset-top)) + 58px); left: 14px; max-width: calc(100% - 28px); padding: 3px 9px; border-radius: 6px; background: color-mix(in srgb, var(--papel) 90%, transparent); color: var(--suave); font: 500 12.5px var(--font); }
+#fresh.stale { color: var(--high); font-weight: 700; }
+
+/* panel inferior (lateral en escritorio) */
+#sheet { position: absolute; z-index: 600; left: 0; right: 0; bottom: 0; height: 90vh; height: 90dvh; display: flex; flex-direction: column;
+  background: var(--papel); border-radius: 18px 18px 0 0; box-shadow: 0 -4px 26px rgba(0, 0, 0, .3);
+  transform: translateY(var(--ty, calc(100% - var(--peek)))); transition: transform .26s cubic-bezier(.2, .8, .2, 1); }
+#sheet[data-level="half"] { --ty: 46%; }
+#sheet[data-level="full"] { --ty: 0px; }
+#grip { flex: none; width: 100%; height: 30px; min-height: 30px; padding: 0; border: 0; background: transparent; display: grid; place-items: center; cursor: grab; touch-action: none; }
+#grip::before { content: ""; width: 42px; height: 5px; border-radius: 3px; background: var(--linea); }
+#sheetBody { flex: 1; overflow-y: auto; overscroll-behavior: contain; padding: 0 16px calc(var(--hid, 0px) + 28px); }
+
+@media (min-width: 900px) {
+  #sheet { top: 0; width: 420px; right: auto; height: auto; border-radius: 0; transform: none; box-shadow: 4px 0 24px rgba(0, 0, 0, .22); transition: none; }
+  #grip { display: none; }
+  #sheetBody { padding-top: 16px; padding-bottom: 28px; }
+  #layers { flex-wrap: wrap; overflow: visible; margin: 0; padding: 4px 0 10px; }
+  #bar { left: 436px; right: 12px; max-width: 520px; }
+  #fresh { left: 450px; }
 }
-button { min-height: 44px; padding: 8px 12px; font: inherit; border-radius: 8px; border: 1px solid var(--line); background: var(--card); color: var(--text); cursor: pointer; }
-button.primary { background: var(--primary); color: var(--on-primary); border-color: var(--primary); font-weight: 600; width: 100%; margin-top: 12px; }
+
+/* formulario */
+form { margin: 0; }
+.field { margin-bottom: 12px; }
+label.l { display: block; margin-bottom: 4px; color: var(--suave); font: 500 14px var(--font); }
+.row { display: flex; gap: 8px; }
+input[type=text], input[type=datetime-local], input[type=time] { width: 100%; min-height: 48px; padding: 8px 12px; font: 500 16px var(--font); color: var(--text); background: var(--concreto); border: 1.5px solid transparent; border-radius: 10px; }
+input[type=text]:focus, input[type=datetime-local]:focus, input[type=time]:focus { border-color: var(--primary); outline: none; }
+button { min-height: 44px; padding: 0 16px; font: 600 15px var(--font); border-radius: 10px; border: 1.5px solid var(--linea); background: transparent; color: var(--text); cursor: pointer; }
+button.primary { width: 100%; min-height: 52px; margin: 4px 0 14px; background: var(--primary); border-color: var(--primary); color: var(--on-primary); font-size: 17px; }
 button:disabled { opacity: .6; cursor: default; }
-.field { margin-bottom: 10px; }
-.res { list-style: none; margin: 4px 0 0; padding: 0; border: 1px solid var(--line); border-radius: 8px; overflow: hidden; }
+button.icon { flex: none; width: 48px; padding: 0; display: grid; place-items: center; }
+button.icon svg { width: 22px; height: 22px; fill: none; stroke: currentColor; stroke-width: 2; }
+.res { list-style: none; margin: 6px 0 0; padding: 0; border: 1px solid var(--linea); border-radius: 10px; overflow: hidden; }
 .res:empty { display: none; }
-.res button { width: 100%; text-align: left; border: 0; border-bottom: 1px solid var(--line); border-radius: 0; font-size: .9rem; }
+.res button { width: 100%; min-height: 46px; text-align: left; border: 0; border-bottom: 1px solid var(--linea); border-radius: 0; font: 500 15px var(--font); }
 .res li:last-child button { border-bottom: 0; }
-.chips { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 4px; }
-.chip { display: inline-flex; align-items: center; gap: 6px; min-height: 40px; padding: 4px 12px; border: 1px solid var(--line); border-radius: 999px; background: var(--bg); font-size: .9rem; cursor: pointer; user-select: none; }
-.chip input { accent-color: var(--primary); width: 18px; height: 18px; margin: 0; }
-.dot { display: inline-block; width: 10px; height: 10px; border-radius: 50%; flex: none; }
-#status { margin-top: 12px; font-size: .9rem; color: var(--muted); min-height: 1.2em; }
-#status.err { color: var(--high); font-weight: 600; }
-#sum h2 { font-size: 1.05rem; margin: 0 0 4px; }
-#sum p { margin: 2px 0; font-size: .9rem; color: var(--muted); }
-#sum .warn { color: var(--high); font-weight: 600; }
-#map { height: 42vh; min-height: 280px; margin-top: 12px; border-radius: 12px; border: 1px solid var(--line); }
-#list { list-style: none; padding: 0; margin: 12px 0 0; }
-#list li { display: grid; grid-template-columns: 56px 1fr; gap: 4px 10px; padding: 10px 12px; background: var(--card); border: 1px solid var(--line); border-radius: 10px; margin-bottom: 8px; cursor: pointer; }
-.t { font-weight: 700; font-variant-numeric: tabular-nums; }
-.t small { display: block; font-weight: 400; color: var(--muted); font-size: .72rem; }
-.ttl { font-weight: 600; display: flex; align-items: center; gap: 6px; }
-.sub { font-size: .85rem; color: var(--muted); }
-.txt { font-size: .85rem; margin-top: 2px; }
-.pic { height: 28px; vertical-align: middle; margin-right: 4px; }
-.note { font-size: .8rem; color: var(--muted); margin-top: 10px; }
-.corlist { list-style: none; margin: 4px 0 8px; padding: 0; }
-.corlist li { display: flex; align-items: center; gap: 8px; padding: 8px 0; border-bottom: 1px solid var(--line); }
-.corlist li:last-child { border-bottom: 0; }
+#status { min-height: 1.3em; margin: 0 0 6px; color: var(--suave); font: 500 14.5px var(--font); }
+#status:empty { display: none; }
+#status.err { color: var(--high); font-weight: 700; }
+
+/* capas */
+.layersLabel { margin: 14px 0 2px; color: var(--suave); font: 500 14px var(--font); }
+#layers { display: flex; gap: 8px; overflow-x: auto; margin: 0 -16px; padding: 4px 16px 10px; scrollbar-width: none; }
+#layers::-webkit-scrollbar { display: none; }
+.chip { position: relative; flex: none; display: inline-flex; align-items: center; gap: 8px; min-height: 42px; padding: 0 14px; border: 1.5px solid var(--linea); border-radius: 10px; color: var(--suave); font: 500 15px var(--font); cursor: pointer; user-select: none; }
+.chip input { position: absolute; opacity: 0; pointer-events: none; }
+.chip .dot { width: 11px; height: 11px; border-radius: 50%; opacity: .35; }
+.chip input:checked + .dot { opacity: 1; }
+.chip:has(input:checked) { color: var(--text); border-color: var(--text); }
+.chip:has(input:focus-visible) { outline: 3px solid var(--primary); outline-offset: 2px; }
+.chip.day { justify-content: center; min-width: 44px; padding: 0 10px; }
+.chip.day input:checked + span { font-weight: 700; color: var(--text); }
+.chip.day:has(input:checked) { background: var(--text); }
+.chip.day:has(input:checked) span { color: var(--papel); }
+
+/* cartel de ruta */
+#sum { margin: 2px 0 6px; }
+.cartel { display: grid; grid-template-columns: 1fr auto; align-items: end; gap: 0 14px; padding: 13px 16px 12px; border-radius: 10px; background: var(--autovia); color: #fff; outline: 2px solid rgba(255, 255, 255, .92); outline-offset: -6px; }
+.cartel .desde { grid-column: 1; font: 500 14px var(--font); opacity: .92; }
+.cartel .to { grid-column: 1; font: 700 32px/1.02 var(--font-cond); overflow-wrap: anywhere; }
+.cartel .km { grid-column: 2; grid-row: 1 / span 2; font: 700 44px/1 var(--font-cond); font-variant-numeric: tabular-nums; text-align: right; }
+.cartel .km small { margin-left: 3px; font: 600 17px var(--font-cond); }
+.cartel .meta { grid-column: 1 / -1; display: flex; flex-wrap: wrap; gap: 2px 18px; margin-top: 8px; font: 500 16px var(--font); font-variant-numeric: tabular-nums; }
+.flags { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 10px; }
+.flag { display: inline-flex; align-items: center; gap: 7px; padding: 4px 11px 4px 9px; border-radius: 6px; font: 700 14.5px var(--font); }
+.flag::before { content: ""; width: 13px; height: 12px; background: currentColor; }
+.flag.high { background: var(--peligro); color: #fff; }
+.flag.high::before { clip-path: polygon(50% 0, 100% 100%, 0 100%); }
+.flag.ok { background: var(--carretera); color: #fff; }
+.flag.ok::before { clip-path: polygon(14% 52%, 0 66%, 38% 100%, 100% 22%, 86% 8%, 38% 70%); }
+.stats { display: flex; flex-wrap: wrap; gap: 2px 16px; margin: 10px 0 2px; color: var(--suave); font: 500 14.5px var(--font); }
+.stats b { color: var(--text); font-weight: 700; font-variant-numeric: tabular-nums; }
+.warns p { margin: 8px 0 0; padding-left: 10px; border-left: 4px solid var(--high); font: 500 15px/1.35 var(--font); }
+.warns p.soft { border-left-color: var(--linea); color: var(--suave); }
+
+/* línea de PK: la ruta de arriba abajo con los avisos colgados de ella */
+#list { list-style: none; margin: 6px 0 0; padding: 0; }
+#list li { position: relative; display: grid; grid-template-columns: 58px 22px 1fr; column-gap: 9px; padding: 11px 0 13px; cursor: pointer; }
+#list li::before { content: ""; position: absolute; top: 0; bottom: 0; left: 76px; width: 2.5px; background: var(--linea); }
+#list li:first-child::before { top: 24px; }
+#list li:last-child::before { bottom: calc(100% - 24px); }
+#list li.empty { display: block; cursor: default; color: var(--suave); }
+#list li.empty::before { display: none; }
+.when { display: flex; flex-direction: column; align-items: flex-start; gap: 5px; }
+.hora { font: 700 21px/1 var(--font); font-variant-numeric: tabular-nums; }
+.pk { padding: 2px 5px; border: 1px solid #b9bec4; border-top: 4px solid var(--peligro); border-radius: 2px; background: #fff; color: #20262c; font: 600 11.5px/1.15 var(--font); font-variant-numeric: tabular-nums; }
+.node { position: relative; z-index: 1; width: 22px; height: 24px; display: grid; place-items: center; background: var(--papel); }
+.node i { display: block; width: 14px; height: 14px; border-radius: 50%; background: var(--c); }
+.sev-high .node i { width: 19px; height: 17px; border-radius: 0; clip-path: polygon(50% 0, 100% 100%, 0 100%); }
+.sev-mid .node i { width: 13px; height: 13px; border-radius: 2px; transform: rotate(45deg); }
+.what { min-width: 0; }
+.ttl { display: flex; align-items: center; flex-wrap: wrap; gap: 4px; font: 600 17.5px/1.25 var(--font); }
+.sub { margin-top: 1px; color: var(--suave); font: 400 14.5px/1.35 var(--font); }
+.txt { margin-top: 3px; font: 400 14.5px/1.35 var(--font); }
+.pic { height: 30px; vertical-align: middle; }
+
+/* corredores */
+h2.sec { margin: 4px 0 6px; font: 700 20px var(--font-cond); }
+#cor { margin-bottom: 12px; }
+.corlist { list-style: none; margin: 0 0 10px; padding: 0; }
+.corlist li { display: flex; align-items: center; gap: 8px; padding: 9px 0; border-bottom: 1px solid var(--linea); }
 .corlist .info { flex: 1; min-width: 0; }
-.corlist .info strong { display: block; overflow-wrap: anywhere; }
-.corlist .info span { font-size: .8rem; color: var(--muted); }
-#corNote textarea { width: 100%; min-height: 90px; font: .75rem monospace; }
+.corlist .info strong { display: block; font: 600 16.5px var(--font); overflow-wrap: anywhere; }
+.corlist .info span { color: var(--suave); font: 400 14px var(--font); }
+#corSave { margin: 8px 0 0; padding: 0; border-top: 1px solid var(--linea); }
+#corSave summary { min-height: 44px; display: flex; align-items: center; cursor: pointer; font: 600 15.5px var(--font); color: var(--primary); }
+#corSave > div { padding-bottom: 10px; }
+#corNote textarea { width: 100%; min-height: 90px; font: 12px monospace; }
+
+.note { margin: 18px 0 0; color: var(--suave); font: 400 13px/1.4 var(--font); }
+.leaflet-container { font-family: var(--font); }
+.leaflet-popup-content { font: 400 14.5px/1.35 var(--font); }
 .leaflet-popup-content img { max-width: 100%; height: auto; }
+
+@media (prefers-reduced-motion: reduce) {
+  #sheet { transition: none; }
+}
 </style>
 </head>
 <body>
-<header>
-  <h1>Viajes DGT</h1>
-  <div id="fresh">Cargando estado de la DGT…</div>
-</header>
-<main>
-  <section id="cor" class="card" hidden>
-    <label>Mis corredores</label>
-    <ul class="corlist" id="corList"></ul>
-    <button type="button" id="corCopy">Copiar para avisos al móvil</button>
-    <p class="note" id="corNote"></p>
-  </section>
-  <form id="f" autocomplete="off">
-    <div class="field">
-      <label for="o">Origen</label>
-      <div class="row">
-        <input type="text" id="o" placeholder="Ciudad, calle o lugar" enterkeyhint="search">
-        <button type="button" id="oBtn">Buscar</button>
-        <button type="button" id="oGeo" title="Usar mi ubicación" aria-label="Usar mi ubicación">GPS</button>
-      </div>
-      <ul class="res" id="oRes"></ul>
-    </div>
-    <div class="field">
-      <label for="d">Destino</label>
-      <div class="row">
-        <input type="text" id="d" placeholder="Ciudad, calle o lugar" enterkeyhint="search">
-        <button type="button" id="dBtn">Buscar</button>
-      </div>
-      <ul class="res" id="dRes"></ul>
-    </div>
-    <div class="field">
-      <label for="dep">Salida</label>
-      <input type="datetime-local" id="dep">
-    </div>
-    <div>
-      <label>Qué quieres ver</label>
-      <div class="chips" id="layers"></div>
-    </div>
-    <button type="submit" class="primary" id="go">Calcular ruta</button>
-  </form>
-
-  <div id="status" role="status"></div>
-  <div id="sum" class="card" hidden></div>
-  <section id="corSave" class="card" hidden>
-    <label for="corName">Guardar este trayecto como corredor (avisos al móvil antes de salir)</label>
-    <div class="field"><input type="text" id="corName" placeholder="Nombre del corredor"></div>
-    <div class="chips" id="corDays"></div>
-    <div class="row" style="margin-top:8px">
-      <input type="time" id="corTime" aria-label="Hora habitual de salida">
-      <button type="button" id="corSaveBtn">Guardar</button>
-    </div>
-  </section>
+<h1 class="sr">Viajes DGT</h1>
+<div id="app">
   <div id="map"></div>
-  <ol id="list"></ol>
-  <p class="note">Datos de la DGT (NAP, CC-BY) y mapa © OpenStreetMap. La duración es sin tráfico. Incidencias y paneles muestran el estado actual, no una previsión.</p>
-</main>
+
+  <div id="bar">
+    <button type="button" id="barBtn" aria-label="Cambiar origen, destino o salida"><span class="rd" aria-hidden="true"></span><span id="barText">¿A dónde vas?</span></button>
+    <button type="button" id="corBtn" aria-label="Mis corredores"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 3h12v18l-6-4.5L6 21z"/></svg></button>
+  </div>
+  <div id="fresh">Cargando estado de la DGT…</div>
+
+  <section id="sheet" data-level="half" aria-label="Detalle de la ruta">
+    <button type="button" id="grip" aria-label="Subir o bajar el panel"></button>
+    <div id="sheetBody">
+      <div id="status" role="status"></div>
+
+      <section id="cor" hidden>
+        <h2 class="sec">Mis corredores</h2>
+        <ul class="corlist" id="corList"></ul>
+        <button type="button" id="corCopy">Copiar para avisos al móvil</button>
+        <p class="note" id="corNote"></p>
+      </section>
+
+      <form id="f" autocomplete="off">
+        <div class="field">
+          <label class="l" for="o">Origen</label>
+          <div class="row">
+            <input type="text" id="o" placeholder="Ciudad, calle o lugar" enterkeyhint="search">
+            <button type="button" id="oBtn">Buscar</button>
+            <button type="button" id="oGeo" class="icon" title="Usar mi ubicación" aria-label="Usar mi ubicación"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v4M12 18v4M2 12h4M18 12h4"/></svg></button>
+          </div>
+          <ul class="res" id="oRes"></ul>
+        </div>
+        <div class="field">
+          <label class="l" for="d">Destino</label>
+          <div class="row">
+            <input type="text" id="d" placeholder="Ciudad, calle o lugar" enterkeyhint="search">
+            <button type="button" id="dBtn">Buscar</button>
+          </div>
+          <ul class="res" id="dRes"></ul>
+        </div>
+        <div class="field">
+          <label class="l" for="dep">Salida</label>
+          <input type="datetime-local" id="dep">
+        </div>
+        <button type="submit" class="primary" id="go">Calcular ruta</button>
+      </form>
+
+      <div id="sum" hidden></div>
+
+      <details id="corSave" hidden>
+        <summary>Guardar como corredor</summary>
+        <div>
+          <div class="field"><label class="l" for="corName">Nombre</label><input type="text" id="corName" placeholder="Nombre del corredor"></div>
+          <div class="chips row" id="corDays" style="flex-wrap:wrap"></div>
+          <div class="row" style="margin-top:10px">
+            <input type="time" id="corTime" aria-label="Hora habitual de salida">
+            <button type="button" id="corSaveBtn">Guardar</button>
+          </div>
+        </div>
+      </details>
+
+      <p class="layersLabel">Qué quieres ver</p>
+      <div id="layers"></div>
+
+      <ol id="list"></ol>
+      <p class="note">Datos de la DGT (NAP, CC-BY), AEMET y Open-Meteo. Mapa © OpenStreetMap © CARTO. La duración es sin tráfico. Incidencias y paneles muestran el estado actual, no una previsión.</p>
+    </div>
+  </section>
+</div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
 <script>
@@ -829,19 +943,21 @@ function render() {
     const m = L.circleMarker([h.lat, h.lon], { radius: 7, color: '#fff', weight: 2, fillColor: color, fillOpacity: 1 })
       .bindPopup(popupHtml(h, d)).addTo(markerGroup);
     markers[idx] = m;
-    rows.push(`<li data-i="${idx}">
-      <div class="t">${fmtClock(depMs + h.t * 1000)}<small>km ${fmtKm(h.s)}</small></div>
-      <div><div class="ttl"><span class="dot" style="background:${hitColor(h, d) || 'var(--primary)'}"></span>${picsHtml(h)}${esc(d.title)}</div>
+    const sev = d.sev === 'high' ? 'high' : d.sev === 'mid' ? 'mid' : 'info';
+    rows.push(`<li data-i="${idx}" class="sev-${sev}">
+      <div class="when"><span class="hora">${fmtClock(depMs + h.t * 1000)}</span><span class="pk">PK ${fmtKm(h.s)}</span></div>
+      <div class="node"><i style="--c:${hitColor(h, d) || 'var(--primary)'}"></i></div>
+      <div class="what"><div class="ttl">${picsHtml(h)}${esc(d.title)}</div>
       <div class="sub">${esc(d.sub)}</div>${d.text ? `<div class="txt">${esc(d.text)}</div>` : ''}</div></li>`);
   });
-  $('list').innerHTML = rows.join('') || '<li style="display:block">Sin elementos en la ruta con las capas elegidas.</li>';
+  $('list').innerHTML = rows.join('') || '<li class="empty">Sin elementos en la ruta con las capas elegidas.</li>';
   $('list').onclick = (ev) => {
     const li = ev.target.closest('li[data-i]');
     if (!li) return;
     const m = markers[+li.dataset.i];
     map.setView(m.getLatLng(), Math.max(map.getZoom(), 13));
     m.openPopup();
-    $('map').scrollIntoView({ behavior: 'smooth', block: 'center' });
+    if (!isDesktop()) setSheet('peek');
   };
 
   const count = (l) => hits.filter((h) => h.layer === l).length;
@@ -853,16 +969,18 @@ function render() {
   const avLines = $('chk-avi').checked ? avisoSummary(hits) : [];
   const q = calidadResumen(state.cal);
   const calLines = q && q.nivel !== 'buena' ? [`Fiabilidad de los datos ${q.nivel}: ${q.avisos.join('; ') || 'revisa la cabecera'}`] : [];
+  const nOf = (t) => t.split(',')[0].trim();
+  const stat = (n, t) => n ? `<span><b>${n}</b> ${t}</span>` : '';
+  const warns = [...calLines, ...avLines, ...wxLines].map((t) => `<p>${esc(t)}</p>`).join('')
+    + (wxOn && wxCount && !wxLines.length ? '<p class="soft">Sin avisos de tiempo en el recorrido.</p>' : '')
+    + (future ? '<p class="soft">La salida es dentro de más de 2 h: incidencias y paneles son los de ahora.</p>' : '');
   $('sum').hidden = false;
-  $('sum').innerHTML = `<h2>${esc($('o').value)} → ${esc($('d').value)}</h2>
-    <p>${fmtKm(route.totalD)} km · ${fmtDur(route.totalT)} · llegada ${fmtClock(depMs + route.totalT * 1000)}</p>
-    <p>${count('inc')} incidencias · ${count('pan')} paneles · ${count('rad')} radares · ${count('cam')} cámaras${$('chk-ev').checked ? ` · ${count('ev')} cargadores` : ''}${$('chk-rie').checked ? ` · ${count('rie')} tramos de riesgo` : ''}${wxOn ? ` · tiempo en ${wxCount} puntos` : ''}</p>
-    ${calLines.map((t) => `<p class="warn">${esc(t)}</p>`).join('')}
-    ${avLines.map((t) => `<p class="warn">${esc(t)}</p>`).join('')}
-    ${wxLines.map((t) => `<p class="warn">${esc(t)}</p>`).join('')}
-    ${wxOn && wxCount && !wxLines.length ? '<p>Sin avisos de tiempo en el recorrido.</p>' : ''}
-    ${closed ? `<p class="warn">${closed} incidencia(s) graves en la ruta (corte o accidente)</p>` : ''}
-    ${future ? '<p>La salida es dentro de más de 2 h: incidencias y paneles son los de ahora.</p>' : ''}`;
+  $('sum').innerHTML = `<div class="cartel"><div class="desde">desde ${esc(nOf($('o').value))}</div><div class="to">${esc(nOf($('d').value))}</div>
+    <div class="km">${fmtKm(route.totalD)}<small>km</small></div>
+    <div class="meta"><span>${fmtDur(route.totalT)}</span><span>llegada ${fmtClock(depMs + route.totalT * 1000)}</span></div></div>
+    <div class="flags">${closed ? `<span class="flag high">${closed} grave${closed > 1 ? 's' : ''} en la ruta</span>` : '<span class="flag ok">Sin cortes ni accidentes</span>'}</div>
+    <div class="stats">${stat(count('inc'), 'incidencias')}${stat(count('pan'), 'paneles')}${stat(count('rad'), 'radares')}${stat(count('cam'), 'cámaras')}${$('chk-ev').checked ? stat(count('ev'), 'cargadores') : ''}${$('chk-rie').checked ? stat(count('rie'), 'tramos de riesgo') : ''}${wxOn ? stat(wxCount, 'puntos de tiempo') : ''}</div>
+    <div class="warns">${warns}</div>`;
 }
 
 async function refresh() {
@@ -939,7 +1057,13 @@ async function calculate(ev) {
     state.av = null;
     if (routeLine) routeLine.remove();
     routeLine = L.polyline(state.latlngs, { color: cssVar('var(--primary)'), weight: 5, opacity: .85 }).addTo(map);
-    map.fitBounds(routeLine.getBounds(), { padding: [20, 20] });
+    state.hasRoute = true;
+    state.editing = false;
+    state.showCor = false;
+    $('barText').textContent = `${$('o').value.split(',')[0].trim()} › ${$('d').value.split(',')[0].trim()}`;
+    syncPanels();
+    setSheet(isDesktop() ? 'half' : 'peek');
+    fitRoute();
     await refresh();
   } catch (e) { setStatus(e.message, true); } finally { go.disabled = false; }
 }
@@ -959,7 +1083,9 @@ function prepareCorSave() {
 
 function renderCorridors() {
   const list = corLoad();
-  $('cor').hidden = !list.length;
+  state.nCor = list.length;
+  $('corBtn').hidden = !list.length;
+  syncPanels();
   $('corList').innerHTML = list.map((c, i) => {
     const next = nextDeparture(c, Date.now());
     const when = next ? new Date(next).toLocaleDateString('es-ES', { weekday: 'short', day: 'numeric', month: 'short' }) + ' ' + fmtClock(next) : '—';
@@ -970,7 +1096,7 @@ function renderCorridors() {
 
 function initCorridors() {
   const L = ['L', 'M', 'X', 'J', 'V', 'S', 'D'];
-  $('corDays').innerHTML = L.map((l, i) => `<label class="chip"><input type="checkbox" value="${i + 1}">${l}</label>`).join('');
+  $('corDays').innerHTML = L.map((l, i) => `<label class="chip day"><input type="checkbox" value="${i + 1}"><span>${l}</span></label>`).join('');
   $('corSaveBtn').addEventListener('click', () => {
     if (!state.route || !state.latlngs) return;
     const days = [...$('corDays').querySelectorAll('input')].filter((c) => c.checked).map((c) => +c.value);
@@ -981,6 +1107,7 @@ function initCorridors() {
     list.push({ n: name, d: days, h: hour, o: state.o, dd: state.d, l: simplifyLine(state.latlngs), dur: state.route.totalT, dist: state.route.totalD });
     corStore(list);
     renderCorridors();
+    $('corSave').open = false;
     $('corSave').hidden = true;
     setStatus('Corredor guardado');
   });
@@ -999,6 +1126,7 @@ function initCorridors() {
     const dt = new Date(next);
     dt.setMinutes(dt.getMinutes() - dt.getTimezoneOffset());
     $('dep').value = dt.toISOString().slice(0, 16);
+    state.showCor = false;
     calculate({ preventDefault() {} });
   });
   $('corCopy').addEventListener('click', async () => {
@@ -1017,6 +1145,74 @@ function initCorridors() {
   renderCorridors();
 }
 
+// ---- panel inferior: tres alturas en móvil, columna lateral en escritorio
+const isDesktop = () => window.matchMedia('(min-width: 900px)').matches;
+let sheetLevel = 'half';
+function setSheet(level) {
+  sheetLevel = level;
+  const sh = $('sheet');
+  sh.dataset.level = level;
+  sh.style.removeProperty('--ty');
+}
+function syncPanels() {
+  const has = !!state.hasRoute;
+  const editing = !!state.editing;
+  $('f').hidden = has && !editing;
+  $('cor').hidden = !(state.nCor && (state.showCor || !has));
+  $('layers').previousElementSibling.hidden = !has;
+  $('layers').hidden = !has;
+  $('list').hidden = !has;
+}
+function fitRoute() {
+  if (!routeLine) return;
+  const d = isDesktop();
+  map.fitBounds(routeLine.getBounds(), d
+    ? { paddingTopLeft: [440, 90], paddingBottomRight: [30, 30] }
+    : { paddingTopLeft: [20, 80], paddingBottomRight: [20, 270] });
+}
+function initSheet() {
+  const sh = $('sheet');
+  const grip = $('grip');
+  const levels = ['peek', 'half', 'full'];
+  grip.addEventListener('click', () => setSheet(levels[(levels.indexOf(sheetLevel) + 1) % 3]));
+  let startY = null, startTop = 0;
+  const height = () => sh.getBoundingClientRect().height;
+  const topFor = (lv) => lv === 'full' ? 0 : lv === 'half' ? height() * 0.46 : height() - 244;
+  grip.addEventListener('pointerdown', (e) => {
+    startY = e.clientY; startTop = topFor(sheetLevel);
+    sh.style.transition = 'none';
+    try { grip.setPointerCapture(e.pointerId); } catch (err) { /* sin captura */ }
+  });
+  grip.addEventListener('pointermove', (e) => {
+    if (startY === null) return;
+    const top = Math.min(height() - 244, Math.max(0, startTop + e.clientY - startY));
+    sh.style.setProperty('--ty', top + 'px');
+  });
+  const end = (e) => {
+    if (startY === null) return;
+    const moved = e.clientY - startY;
+    const top = Math.min(height() - 244, Math.max(0, startTop + moved));
+    startY = null;
+    sh.style.transition = '';
+    if (Math.abs(moved) < 6) { sh.style.removeProperty('--ty'); return; }
+    setSheet(levels.reduce((best, lv) => Math.abs(topFor(lv) - top) < Math.abs(topFor(best) - top) ? lv : best, 'peek'));
+  };
+  grip.addEventListener('pointerup', end);
+  grip.addEventListener('pointercancel', end);
+  $('barBtn').addEventListener('click', () => {
+    state.editing = true;
+    state.showCor = false;
+    syncPanels();
+    setSheet('full');
+    $('d').focus();
+  });
+  $('corBtn').addEventListener('click', () => {
+    state.showCor = !state.showCor;
+    syncPanels();
+    if (state.showCor) setSheet('half');
+  });
+}
+
 function nowLocalInput() {
   const d = new Date();
   d.setMinutes(d.getMinutes() - d.getTimezoneOffset());
@@ -1024,8 +1220,9 @@ function nowLocalInput() {
 }
 
 function init() {
-  map = L.map('map', { zoomControl: true }).setView([40.0, -3.7], 6);
-  L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', { maxZoom: 19, attribution: '© OpenStreetMap' }).addTo(map);
+  map = L.map('map', { zoomControl: false }).setView([40.0, -3.7], 6);
+  const dark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+  L.tileLayer(`https://{s}.basemaps.cartocdn.com/${dark ? 'dark_all' : 'rastertiles/voyager'}/{z}/{x}/{y}{r}.png`, { subdomains: 'abcd', maxZoom: 19, attribution: '© OpenStreetMap © CARTO' }).addTo(map);
   markerGroup = L.layerGroup().addTo(map);
   $('dep').value = nowLocalInput();
   initLayers();
@@ -1042,7 +1239,9 @@ function init() {
     }, () => setStatus('No pude obtener tu ubicación', true), { enableHighAccuracy: true, timeout: 15000 });
   });
   $('f').addEventListener('submit', calculate);
+  initSheet();
   initCorridors();
+  setSheet('half');
   showFreshness();
   if ('serviceWorker' in navigator) navigator.serviceWorker.register('sw.js').catch(() => {});
 }
