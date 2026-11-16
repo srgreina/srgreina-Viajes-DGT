@@ -6,7 +6,7 @@ import assert from 'node:assert/strict';
 const html = readFileSync(new URL('../docs/index.html', import.meta.url), 'utf8');
 const core = html.slice(html.indexOf('// <core>'), html.indexOf('// </core>'));
 const api = new Function(
-  `${core}; return { buildRoute, nearest, nearestLine, collectHits, describe, fmtDur, fmtKm, fmtPk, samplePoints, pickHour, weatherAt, weatherAlerts, buildWeatherHits, weatherSummary, pointInRing, buildAvisoHits, avisoSummary, calidadResumen, collectCharge, collectRisk };`,
+  `${core}; return { buildRoute, nearest, nearestLine, collectHits, describe, fmtDur, fmtKm, fmtPk, samplePoints, pickHour, weatherAt, weatherAlerts, buildWeatherHits, weatherSummary, pointInRing, buildAvisoHits, avisoSummary, calidadResumen, collectCharge, collectRisk, simplifyLine, nextDeparture, corridorsExport, fmtDays };`,
 )();
 
 // Ruta recta de oeste a este por Málaga: lon -4.50 -> -4.40 a lat 36.70 (~8,9 km), 10 tramos.
@@ -297,4 +297,43 @@ test('collectRisk: tramos cerca de la ruta y aviso de poca muestra', () => {
   const ok = api.describe(api.collectRisk(wide, { ...doc, days: 45 })[0]);
   assert.equal(ok.text, 'Histórico de 45 días');
   assert.deepEqual(api.collectRisk(wide, null), []);
+});
+
+test('simplifyLine conserva extremos y forma, y respeta el máximo', () => {
+  const small = [[36.7, -4.5], [36.70001234, -4.4]];
+  assert.deepEqual(api.simplifyLine(small), [[36.7, -4.5], [36.70001, -4.4]]);
+  // 2000 puntos con una curva en "L": debe quedarse con muy pocos y conservar la esquina
+  const ll = [];
+  for (let i = 0; i <= 1000; i++) ll.push([36.7, -4.5 + i * 0.0001]);
+  for (let i = 1; i <= 1000; i++) ll.push([36.7 + i * 0.0001, -4.4]);
+  const s = api.simplifyLine(ll, 50);
+  assert.ok(s.length <= 50 && s.length >= 3);
+  assert.deepEqual(s[0], [36.7, -4.5]);
+  assert.deepEqual(s[s.length - 1], [36.8, -4.4]);
+  assert.ok(s.some((p) => Math.abs(p[0] - 36.7) < 1e-6 && Math.abs(p[1] + 4.4) < 1e-6)); // la esquina
+  // ruido en zigzag: con tope bajo sigue devolviendo <= tope
+  const zig = Array.from({ length: 3000 }, (_, i) => [36.7 + (i % 2) * 0.0003, -4.5 + i * 0.00003]);
+  assert.ok(api.simplifyLine(zig, 100).length <= 100);
+});
+
+test('nextDeparture: días ISO, hora local y margen de 15 min', () => {
+  const c = { d: [1, 2, 3, 4, 5], h: '07:30' };
+  const lun = new Date(2026, 10, 16, 6, 50).getTime(); // lunes
+  assert.equal(api.nextDeparture(c, lun), new Date(2026, 10, 16, 7, 30).getTime());
+  assert.equal(api.nextDeparture(c, new Date(2026, 10, 16, 7, 40).getTime()), new Date(2026, 10, 16, 7, 30).getTime()); // aún dentro de margen
+  assert.equal(api.nextDeparture(c, new Date(2026, 10, 16, 8, 0).getTime()), new Date(2026, 10, 17, 7, 30).getTime());  // ya pasó: mañana
+  assert.equal(api.nextDeparture(c, new Date(2026, 10, 20, 9, 0).getTime()), new Date(2026, 10, 23, 7, 30).getTime()); // viernes tarde -> lunes
+  assert.equal(api.nextDeparture({ d: [7], h: '10:00' }, lun), new Date(2026, 10, 22, 10, 0).getTime()); // domingo = 7
+  assert.equal(api.nextDeparture({ d: [], h: '10:00' }, lun), null);
+  assert.equal(api.nextDeparture({ d: [1], h: 'xx' }, lun), null);
+});
+
+test('corridorsExport y fmtDays', () => {
+  const c = { n: 'A → B', d: [1, 2], h: '07:30', l: [[1, 2], [3, 4]], dur: 3600.4, dist: 8900.6, o: { name: 'secreto' }, dd: { name: 'secreto' } };
+  const out = JSON.parse(api.corridorsExport([c]));
+  assert.deepEqual(out, { v: 1, corredores: [{ n: 'A → B', d: [1, 2], h: '07:30', l: [[1, 2], [3, 4]], dur: 3600, dist: 8901 }] });
+  assert.ok(!JSON.stringify(out).includes('secreto')); // no se exportan los nombres de los lugares
+  assert.equal(api.fmtDays([5, 4, 3, 2, 1]), 'L-V');
+  assert.equal(api.fmtDays([1, 2, 3, 4, 5, 6, 7]), 'todos los días');
+  assert.equal(api.fmtDays([6, 1]), 'L S');
 });

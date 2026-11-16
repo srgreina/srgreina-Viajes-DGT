@@ -33,7 +33,7 @@ main { padding: 0 16px 24px; max-width: 920px; margin: 0 auto; }
 form, .card { background: var(--card); border: 1px solid var(--line); border-radius: 12px; padding: 12px; margin-top: 12px; }
 label { display: block; font-size: .8rem; color: var(--muted); margin-bottom: 2px; }
 .row { display: flex; gap: 8px; }
-input[type=text], input[type=datetime-local] {
+input[type=text], input[type=datetime-local], input[type=time] {
   width: 100%; min-height: 44px; padding: 8px 10px; font: inherit; color: var(--text);
   background: var(--bg); border: 1px solid var(--line); border-radius: 8px;
 }
@@ -64,6 +64,13 @@ button:disabled { opacity: .6; cursor: default; }
 .txt { font-size: .85rem; margin-top: 2px; }
 .pic { height: 28px; vertical-align: middle; margin-right: 4px; }
 .note { font-size: .8rem; color: var(--muted); margin-top: 10px; }
+.corlist { list-style: none; margin: 4px 0 8px; padding: 0; }
+.corlist li { display: flex; align-items: center; gap: 8px; padding: 8px 0; border-bottom: 1px solid var(--line); }
+.corlist li:last-child { border-bottom: 0; }
+.corlist .info { flex: 1; min-width: 0; }
+.corlist .info strong { display: block; overflow-wrap: anywhere; }
+.corlist .info span { font-size: .8rem; color: var(--muted); }
+#corNote textarea { width: 100%; min-height: 90px; font: .75rem monospace; }
 .leaflet-popup-content img { max-width: 100%; height: auto; }
 </style>
 </head>
@@ -73,6 +80,12 @@ button:disabled { opacity: .6; cursor: default; }
   <div id="fresh">Cargando estado de la DGT…</div>
 </header>
 <main>
+  <section id="cor" class="card" hidden>
+    <label>Mis corredores</label>
+    <ul class="corlist" id="corList"></ul>
+    <button type="button" id="corCopy">Copiar para avisos al móvil</button>
+    <p class="note" id="corNote"></p>
+  </section>
   <form id="f" autocomplete="off">
     <div class="field">
       <label for="o">Origen</label>
@@ -104,6 +117,15 @@ button:disabled { opacity: .6; cursor: default; }
 
   <div id="status" role="status"></div>
   <div id="sum" class="card" hidden></div>
+  <section id="corSave" class="card" hidden>
+    <label for="corName">Guardar este trayecto como corredor (avisos al móvil antes de salir)</label>
+    <div class="field"><input type="text" id="corName" placeholder="Nombre del corredor"></div>
+    <div class="chips" id="corDays"></div>
+    <div class="row" style="margin-top:8px">
+      <input type="time" id="corTime" aria-label="Hora habitual de salida">
+      <button type="button" id="corSaveBtn">Guardar</button>
+    </div>
+  </section>
   <div id="map"></div>
   <ol id="list"></ol>
   <p class="note">Datos de la DGT (NAP, CC-BY) y mapa © OpenStreetMap. La duración es sin tráfico. Incidencias y paneles muestran el estado actual, no una previsión.</p>
@@ -443,6 +465,76 @@ function collectRisk(routeWide, doc, maxDist = 400) {
     if (h && h.dist <= maxDist) hits.push({ layer: 'rie', ...h, lat: it.lat, lon: it.lon, item: it, days: doc.days || 0, reliable: doc.reliable_days || 30 });
   }
   return hits.sort((a, b) => a.s - b.s);
+}
+
+// ---- corredores guardados (avisos al móvil desde el servidor, ver collector/corredores.py)
+// Reduce la ruta [[lat, lon], ...] a <= maxPts puntos con Douglas-Peucker (iterativo, tolerancia creciente).
+function simplifyLine(ll, maxPts = 250) {
+  const round = (p) => [Math.round(p[0] * 1e5) / 1e5, Math.round(p[1] * 1e5) / 1e5];
+  if (ll.length <= maxPts) return ll.map(round);
+  const c = Math.cos((ll.reduce((a, p) => a + p[0], 0) / ll.length) * RAD);
+  const P = ll.map((p) => [p[1] * c * 111320, p[0] * 110540]);
+  const n = P.length;
+  const dist = (i, a, b) => {
+    const dx = P[b][0] - P[a][0];
+    const dy = P[b][1] - P[a][1];
+    const l2 = dx * dx + dy * dy;
+    const u = l2 ? Math.max(0, Math.min(1, ((P[i][0] - P[a][0]) * dx + (P[i][1] - P[a][1]) * dy) / l2)) : 0;
+    return Math.hypot(P[i][0] - (P[a][0] + u * dx), P[i][1] - (P[a][1] + u * dy));
+  };
+  let tol = 5;
+  for (let iter = 0; iter < 40; iter++) {
+    const keep = new Uint8Array(n);
+    keep[0] = 1;
+    keep[n - 1] = 1;
+    const stack = [[0, n - 1]];
+    while (stack.length) {
+      const [a, b] = stack.pop();
+      let best = -1;
+      let bd = tol;
+      for (let i = a + 1; i < b; i++) {
+        const d = dist(i, a, b);
+        if (d > bd) { bd = d; best = i; }
+      }
+      if (best >= 0) { keep[best] = 1; stack.push([a, best], [best, b]); }
+    }
+    const idx = [];
+    for (let i = 0; i < n; i++) if (keep[i]) idx.push(i);
+    if (idx.length <= maxPts) return idx.map((i) => round(ll[i]));
+    tol *= 1.5;
+  }
+  return [round(ll[0]), round(ll[n - 1])];
+}
+
+// Próxima salida (ms) del corredor {d: días ISO 1=lunes..7, h: "HH:MM"} desde nowMs, hora local del dispositivo.
+// Admite hasta 15 min de antelación sobre la hora para poder mirar el trayecto justo al salir.
+function nextDeparture(c, nowMs) {
+  const m = /^(\d{1,2}):(\d{2})$/.exec(c.h || '');
+  if (!m || !c.d || !c.d.length) return null;
+  for (let off = 0; off <= 7; off++) {
+    const d = new Date(nowMs);
+    d.setDate(d.getDate() + off);
+    d.setHours(+m[1], +m[2], 0, 0);
+    const iso = d.getDay() === 0 ? 7 : d.getDay();
+    if (c.d.includes(iso) && d.getTime() >= nowMs - 15 * 60000) return d.getTime();
+  }
+  return null;
+}
+
+// JSON para el secreto CORREDORES del repo: solo lo que necesita el servidor.
+function corridorsExport(list) {
+  return JSON.stringify({
+    v: 1,
+    corredores: list.map((c) => ({ n: c.n, d: c.d, h: c.h, l: c.l, dur: Math.round(c.dur), dist: Math.round(c.dist) })),
+  });
+}
+
+function fmtDays(d) {
+  const L = ['L', 'M', 'X', 'J', 'V', 'S', 'D'];
+  const s = [...d].sort((a, b) => a - b);
+  if (s.length === 7) return 'todos los días';
+  if (s.join() === '1,2,3,4,5') return 'L-V';
+  return s.map((i) => L[i - 1]).join(' ');
 }
 
 // Resumen de calidad.json (lo genera collector/calidad.py) para mostrarlo en cabecera y resumen.
@@ -840,6 +932,7 @@ async function calculate(ev) {
     state.route = buildRoute(r.coords, r.ann, r.total);
     state.routeWide = buildRoute(r.coords, r.ann, r.total, 1500, 1500); // índice con buffer amplio para cargadores
     state.latlngs = r.coords.map((c) => [c[1], c[0]]);
+    prepareCorSave();
     state.points = samplePoints(state.route);
     state.wx = null;
     state.avPoints = samplePoints(state.route, 1500, 400);
@@ -849,6 +942,79 @@ async function calculate(ev) {
     map.fitBounds(routeLine.getBounds(), { padding: [20, 20] });
     await refresh();
   } catch (e) { setStatus(e.message, true); } finally { go.disabled = false; }
+}
+
+// ---- corredores (localStorage; el servidor los recibe por el secreto CORREDORES, nunca por el repo)
+const corLoad = () => { try { return JSON.parse(storeGet('corridors') || '[]'); } catch (e) { return []; } };
+const corStore = (list) => storeSet('corridors', JSON.stringify(list));
+
+function prepareCorSave() {
+  $('corSave').hidden = false;
+  const short = (s) => String(s || '').split(',')[0].trim();
+  $('corName').value = `${short($('o').value)} → ${short($('d').value)}`;
+  $('corTime').value = ($('dep').value || '').slice(11, 16) || '07:30';
+  const chks = $('corDays').querySelectorAll('input');
+  chks.forEach((c) => { c.checked = +c.value <= 5; });
+}
+
+function renderCorridors() {
+  const list = corLoad();
+  $('cor').hidden = !list.length;
+  $('corList').innerHTML = list.map((c, i) => {
+    const next = nextDeparture(c, Date.now());
+    const when = next ? new Date(next).toLocaleDateString('es-ES', { weekday: 'short', day: 'numeric', month: 'short' }) + ' ' + fmtClock(next) : '—';
+    return `<li data-i="${i}"><div class="info"><strong>${esc(c.n)}</strong><span>${fmtDays(c.d)} · ${esc(c.h)} · próxima: ${esc(when)}</span></div>
+      <button type="button" data-act="ver">Ver</button><button type="button" data-act="del" aria-label="Borrar">✕</button></li>`;
+  }).join('');
+}
+
+function initCorridors() {
+  const L = ['L', 'M', 'X', 'J', 'V', 'S', 'D'];
+  $('corDays').innerHTML = L.map((l, i) => `<label class="chip"><input type="checkbox" value="${i + 1}">${l}</label>`).join('');
+  $('corSaveBtn').addEventListener('click', () => {
+    if (!state.route || !state.latlngs) return;
+    const days = [...$('corDays').querySelectorAll('input')].filter((c) => c.checked).map((c) => +c.value);
+    const hour = $('corTime').value;
+    const name = $('corName').value.trim();
+    if (!name || !hour || !days.length) { setStatus('El corredor necesita nombre, hora y algún día', true); return; }
+    const list = corLoad();
+    list.push({ n: name, d: days, h: hour, o: state.o, dd: state.d, l: simplifyLine(state.latlngs), dur: state.route.totalT, dist: state.route.totalD });
+    corStore(list);
+    renderCorridors();
+    $('corSave').hidden = true;
+    setStatus('Corredor guardado');
+  });
+  $('corList').addEventListener('click', (ev) => {
+    const b = ev.target.closest('button[data-act]');
+    if (!b) return;
+    const list = corLoad();
+    const i = +b.closest('li').dataset.i;
+    if (b.dataset.act === 'del') { list.splice(i, 1); corStore(list); renderCorridors(); return; }
+    const c = list[i];
+    state.o = c.o;
+    state.d = c.dd;
+    $('o').value = c.o.name.split(',').slice(0, 2).join(',');
+    $('d').value = c.dd.name.split(',').slice(0, 2).join(',');
+    const next = nextDeparture(c, Date.now()) || Date.now();
+    const dt = new Date(next);
+    dt.setMinutes(dt.getMinutes() - dt.getTimezoneOffset());
+    $('dep').value = dt.toISOString().slice(0, 16);
+    calculate({ preventDefault() {} });
+  });
+  $('corCopy').addEventListener('click', async () => {
+    const text = corridorsExport(corLoad());
+    const note = $('corNote');
+    try {
+      await navigator.clipboard.writeText(text);
+      note.textContent = 'Copiado. Pégalo en GitHub → Settings → Secrets and variables → Actions → secreto CORREDORES.';
+    } catch (e) {
+      note.innerHTML = 'No pude copiar solo: selecciona todo el texto, cópialo y pégalo en el secreto CORREDORES.<textarea readonly></textarea>';
+      const ta = note.querySelector('textarea');
+      ta.value = text;
+      ta.select();
+    }
+  });
+  renderCorridors();
 }
 
 function nowLocalInput() {
@@ -876,6 +1042,7 @@ function init() {
     }, () => setStatus('No pude obtener tu ubicación', true), { enableHighAccuracy: true, timeout: 15000 });
   });
   $('f').addEventListener('submit', calculate);
+  initCorridors();
   showFreshness();
   if ('serviceWorker' in navigator) navigator.serviceWorker.register('sw.js').catch(() => {});
 }

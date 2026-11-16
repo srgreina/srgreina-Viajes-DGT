@@ -2,7 +2,7 @@
 
 Planificador de trayectos con datos oficiales de la DGT (NAP, `nap.dgt.es`): estado de la ruta, incidencias, paneles, radares fijos, cámaras, tiempo a lo largo del recorrido y avisos oficiales de AEMET.
 
-**Estado: fases 1 a 4.** Recolector con histórico, planificador web (`docs/`), tiempo/avisos en ruta, calidad de dato, tramos de riesgo y carga VE.
+**Estado: fases 1 a 4 y alertas de corredor (fase 5, parte 1).** Recolector con histórico, planificador web (`docs/`), tiempo/avisos en ruta, calidad de dato, tramos de riesgo y carga VE.
 
 ## Planificador web (`docs/index.html`)
 
@@ -17,7 +17,8 @@ HTML único con Leaflet, instalable como PWA. Se publica con GitHub Pages (Setti
 7. **Calidad de dato**: la cabecera muestra la fiabilidad (buena/media/baja) y el resumen avisa si no es buena (huecos del recolector, retraso del feed, paneles sin localización, incidencias con fin previsto vencido, marcadas en la lista).
 8. **Carga VE** (capa opcional, desactivada): puntos de recarga del NAP con ≥ 50 kW a menos de 1,5 km de la ruta (potencia, conectores, operador, 24 h).
 9. **Tramos de riesgo** (capa opcional, desactivada): tramos de 1 km con ≥ 3 incidencias no planificadas repetidas (accidentes, averías, objetos en calzada, retenciones; las obras no cuentan). Avisa si hay menos de 30 días de histórico.
-10. Lee los datos de la rama `latest` (`raw.githubusercontent.com`) y avisa si tienen más de 30 min.
+10. **Corredores** (panel "Mis corredores"): guarda un trayecto con días y hora habitual (se almacena solo en el móvil). "Ver" lo recalcula para su próxima salida. "Copiar para avisos al móvil" exporta los corredores para el servidor (ver abajo).
+11. Lee los datos de la rama `latest` (`raw.githubusercontent.com`) y avisa si tienen más de 30 min.
 
 Tests de la lógica de cruce: `node --test tests/core.test.mjs` (extrae el bloque `<core>` de `index.html`).
 
@@ -41,6 +42,16 @@ Solo usa la librería estándar de Python (3.11+). Sin dependencias.
   - `incidencias/AAAA-MM-DD.jsonl` y `paneles/AAAA-MM-DD.jsonl`: eventos `open`, `change` y `close`. Los eventos de la primera ejecución llevan `"boot": true`.
   - `runs/AAAA-MM.jsonl`: una línea por ejecución y feed (`ok`, `ms`, `bytes`, `published`, `lag_s`, `count`, `opens`, `changes`, `closes`, `err`). Base de la calidad de dato.
 - **`data/samples/*.head.xml`**: primeros 40 KB del XML crudo de cada feed, guardados una sola vez para ajustar los parsers.
+
+### Avisos de corredor al móvil (ntfy)
+
+`collector/corredores.py` (paso de `collect.yml`) avisa por [ntfy.sh](https://ntfy.sh) cuando, entre 15 min antes y 90 min después de la hora habitual de un corredor, hay en su ruta: incidencias graves (corte, accidente, vehículo en llamas, desprendimientos, avalancha, inundación) a menos de 150 m, avisos AEMET naranja/rojo vigentes a la hora de paso, o tiempo adverso (lluvia ≥ 5 mm/h, rachas ≥ 70 km/h, hielo o nieve, visibilidad < 1 km, tormenta). Solo repite el aviso si el conjunto de alertas cambia.
+
+Dos secretos del repo (Settings → Secrets and variables → Actions); sin ellos el paso se omite:
+- `NTFY_TOPIC`: tema de ntfy, largo y aleatorio (quien lo conozca puede leer tus avisos). Se suscribe la app ntfy del móvil al mismo tema.
+- `CORREDORES`: el JSON que copia el planificador. **El repo es público: el recorrido solo vive en el secreto y en el navegador.** El estado de avisos enviados (`latest/corredores_estado.json`) solo guarda hashes. Si guardas o borras corredores en la app, hay que volver a copiar y pegar el secreto. La línea se simplifica a ≤ 250 puntos, así que la precisión del cruce es algo menor que en la app.
+
+Los mensajes pasan por los servidores de ntfy.sh (con el tema como única "contraseña").
 
 ### Avisos AEMET: clave
 
@@ -69,6 +80,7 @@ python collector/static_layers.py --out data/static
 
 ## Limitaciones conocidas
 
+- **Corredores:** el servidor usa duración sin tráfico y la zona horaria Europe/Madrid; el aviso depende de que el cron/cadena de `collect` esté activo en esa ventana (cada ≈10 min).
 - **Parking:** el NAP solo publica la ocupación de aparcamientos urbanos de ayuntamientos; no hay datos de aparcamientos o áreas de descanso en carretera, así que esa capa no se ha hecho.
 - **Carga VE:** feed estático (se actualiza cada 24 h), sin disponibilidad en tiempo real. Unos 12.000 sitios, fusionados por punto y operador; `static/recarga.json` pesa unos MB y solo se descarga al activar la capa.
 - **Tramos de riesgo:** el histórico empieza el 2026-11-16 y crece ≈1,5 MB/día en `data/history/` (vigila el tamaño del repo a medio plazo). Hasta acumular semanas, los tramos son poco fiables.

@@ -53,6 +53,14 @@ jobs:
         continue-on-error: true
         run: python collector/calidad.py --latest latest --history data/history --static data/static --out latest
 
+      # Opcional: sin los secretos CORREDORES y NTFY_TOPIC se omite. Solo imprime recuentos (el repo y los logs son públicos).
+      - name: Avisos de corredores (ntfy)
+        continue-on-error: true
+        env:
+          CORREDORES: ${{ secrets.CORREDORES }}
+          NTFY_TOPIC: ${{ secrets.NTFY_TOPIC }}
+        run: python collector/corredores.py --latest latest --prev prev
+
       - name: Guardar histórico en main
         run: |
           git config user.name "viajes-dgt-bot"
