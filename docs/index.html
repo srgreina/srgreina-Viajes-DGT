@@ -1228,7 +1228,7 @@ function initCorridors() {
 }
 
 // ---- panel inferior: tres alturas en móvil, columna lateral en escritorio
-const isDesktop = () => window.matchMedia('(min-width: 900px)').matches;
+const isDesktop = () => !!window.matchMedia && window.matchMedia('(min-width: 900px)').matches;
 let sheetLevel = 'half';
 function setSheet(level) {
   sheetLevel = level;
