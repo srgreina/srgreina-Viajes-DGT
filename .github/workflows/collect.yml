@@ -49,6 +49,10 @@ jobs:
           AEMET_API_KEY: ${{ secrets.AEMET_API_KEY }}
         run: python collector/aemet.py --prev prev --out latest --samples data/samples
 
+      - name: Calidad de dato
+        continue-on-error: true
+        run: python collector/calidad.py --latest latest --history data/history --static data/static --out latest
+
       - name: Guardar histórico en main
         run: |
           git config user.name "viajes-dgt-bot"

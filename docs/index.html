@@ -417,6 +417,21 @@ function avisoSummary(hits, max = 4) {
   return lines;
 }
 
+// Resumen de calidad.json (lo genera collector/calidad.py) para mostrarlo en cabecera y resumen.
+function calidadResumen(cal) {
+  if (!cal || !cal.feeds || !cal.nivel) return null;
+  const f = cal.feeds.incidencias || {};
+  const inc = (cal.dato && cal.dato.incidencias) || {};
+  const pan = (cal.dato && cal.dato.paneles) || {};
+  const detalle = [];
+  if (f.lag_p50_s !== null && f.lag_p50_s !== undefined) detalle.push(`retraso típico del feed ${f.lag_p50_s} s`);
+  if (f.ok_pct !== null && f.ok_pct !== undefined) detalle.push(`${fmtNum(f.ok_pct, 0)} % de descargas correctas en ${cal.window_h} h`);
+  const avisos = [...(cal.motivos || [])];
+  if (inc.caducadas) avisos.push(`${inc.caducadas} incidencias con fin previsto vencido`);
+  if (pan.sin_localizacion) avisos.push(`${pan.sin_localizacion} paneles sin localización (no se pueden situar)`);
+  return { nivel: cal.nivel, detalle, avisos };
+}
+
 function humanize(t) {
   return t.replace(/([a-z])([A-Z])/g, '$1 $2').toLowerCase().replace(/^./, (c) => c.toUpperCase());
 }
@@ -474,7 +489,7 @@ function describe(hit) {
     else if (types.length && types.every((t) => LOW_TYPES.has(t) || t === 'roadOrCarriagewayOrLaneManagement')) sev = 'low';
     return {
       title: labels.join(' · ') || 'Incidencia',
-      sub: [it.road, fmtPk(it.pk), place, DIR_ES[it.dir]].filter(Boolean).join(' · '),
+      sub: [it.road, fmtPk(it.pk), place, DIR_ES[it.dir], it.end && Date.parse(it.end) < Date.now() ? 'fin previsto vencido' : ''].filter(Boolean).join(' · '),
       text: it.text || '',
       sev,
     };
@@ -499,7 +514,7 @@ function describe(hit) {
 
 // ---------------------------------------------------------------- aplicación
 const BASE = 'https://raw.githubusercontent.com/srgreina/srgreina-Viajes-DGT/latest/';
-const SRC = { inc: 'incidencias.json', pan: 'paneles.json', panLoc: 'static/paneles_loc.json', rad: 'static/radares.json', cam: 'static/camaras.json', avi: 'avisos.json' };
+const SRC = { inc: 'incidencias.json', pan: 'paneles.json', panLoc: 'static/paneles_loc.json', rad: 'static/radares.json', cam: 'static/camaras.json', avi: 'avisos.json', cal: 'calidad.json' };
 const LAYERS = [
   { id: 'wx', label: 'Tiempo', color: 'var(--primary)', on: true, needs: [] },
   { id: 'avi', label: 'Avisos AEMET', color: 'var(--high)', on: true, needs: [] },
@@ -510,7 +525,7 @@ const LAYERS = [
 ];
 const $ = (id) => document.getElementById(id);
 const esc = (s) => String(s ?? '').replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
-const state = { o: null, d: null, route: null, latlngs: null, depMs: Date.now(), hits: [], points: [], wx: null, avPoints: [], av: null };
+const state = { o: null, d: null, route: null, latlngs: null, depMs: Date.now(), hits: [], points: [], wx: null, avPoints: [], av: null, cal: null };
 const cache = {};
 let map, routeLine, markerGroup;
 
@@ -556,6 +571,15 @@ async function showFreshness() {
     el.textContent = `Datos DGT de hace ${mins} min`;
     el.className = mins > 30 ? 'stale' : '';
     if (mins > 30) el.textContent += ' — recolector parado';
+    try {
+      state.cal = await load('cal');
+      const q = calidadResumen(state.cal);
+      if (q) {
+        el.textContent += ` · fiabilidad ${q.nivel}`;
+        el.title = [...q.detalle, ...q.avisos].join('\n');
+        if (q.nivel === 'baja') el.className = 'stale';
+      }
+    } catch (e) { /* calidad.json aún no existe: no pasa nada */ }
   } catch (e) {
     $('fresh').textContent = 'Sin datos de la DGT';
     $('fresh').className = 'stale';
@@ -687,10 +711,13 @@ function render() {
   const wxLines = wxOn ? weatherSummary(hits, depMs) : [];
   const wxCount = count('wx');
   const avLines = $('chk-avi').checked ? avisoSummary(hits) : [];
+  const q = calidadResumen(state.cal);
+  const calLines = q && q.nivel !== 'buena' ? [`Fiabilidad de los datos ${q.nivel}: ${q.avisos.join('; ') || 'revisa la cabecera'}`] : [];
   $('sum').hidden = false;
   $('sum').innerHTML = `<h2>${esc($('o').value)} → ${esc($('d').value)}</h2>
     <p>${fmtKm(route.totalD)} km · ${fmtDur(route.totalT)} · llegada ${fmtClock(depMs + route.totalT * 1000)}</p>
     <p>${count('inc')} incidencias · ${count('pan')} paneles · ${count('rad')} radares · ${count('cam')} cámaras${wxOn ? ` · tiempo en ${wxCount} puntos` : ''}</p>
+    ${calLines.map((t) => `<p class="warn">${esc(t)}</p>`).join('')}
     ${avLines.map((t) => `<p class="warn">${esc(t)}</p>`).join('')}
     ${wxLines.map((t) => `<p class="warn">${esc(t)}</p>`).join('')}
     ${wxOn && wxCount && !wxLines.length ? '<p>Sin avisos de tiempo en el recorrido.</p>' : ''}

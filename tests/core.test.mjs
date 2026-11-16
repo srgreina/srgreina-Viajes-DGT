@@ -6,7 +6,7 @@ import assert from 'node:assert/strict';
 const html = readFileSync(new URL('../docs/index.html', import.meta.url), 'utf8');
 const core = html.slice(html.indexOf('// <core>'), html.indexOf('// </core>'));
 const api = new Function(
-  `${core}; return { buildRoute, nearest, nearestLine, collectHits, describe, fmtDur, fmtKm, fmtPk, samplePoints, pickHour, weatherAt, weatherAlerts, buildWeatherHits, weatherSummary, pointInRing, buildAvisoHits, avisoSummary };`,
+  `${core}; return { buildRoute, nearest, nearestLine, collectHits, describe, fmtDur, fmtKm, fmtPk, samplePoints, pickHour, weatherAt, weatherAlerts, buildWeatherHits, weatherSummary, pointInRing, buildAvisoHits, avisoSummary, calidadResumen };`,
 )();
 
 // Ruta recta de oeste a este por Málaga: lon -4.50 -> -4.40 a lat 36.70 (~8,9 km), 10 tramos.
@@ -239,4 +239,22 @@ test('avisoSummary y describe de avisos', () => {
   assert.match(d.sub, /^Litoral de prueba · hasta las \d\d:\d\d$/);
   assert.equal(d.sev, 'high');
   assert.equal(api.describe({ layer: 'avi', item: av({ lvl: 'amarillo' }) }).sev, 'mid');
+});
+
+test('calidadResumen y marca de fin previsto vencido', () => {
+  assert.equal(api.calidadResumen(null), null);
+  assert.equal(api.calidadResumen({}), null);
+  const cal = {
+    nivel: 'media', window_h: 24, motivos: ['incidencias: hueco de 124 min entre ejecuciones'],
+    feeds: { incidencias: { lag_p50_s: 42, ok_pct: 100 } },
+    dato: { incidencias: { caducadas: 6 }, paneles: { sin_localizacion: 2 } },
+  };
+  const q = api.calidadResumen(cal);
+  assert.equal(q.nivel, 'media');
+  assert.deepEqual(q.detalle, ['retraso típico del feed 42 s', '100 % de descargas correctas en 24 h']);
+  assert.deepEqual(q.avisos, ['incidencias: hueco de 124 min entre ejecuciones', '6 incidencias con fin previsto vencido', '2 paneles sin localización (no se pueden situar)']);
+  const base = { id: '1', types: ['roadworks'], road: 'N-332', a: [38.7, 0.1] };
+  assert.match(api.describe({ layer: 'inc', item: { ...base, end: '2020-01-01T00:00:00Z' } }).sub, /fin previsto vencido/);
+  assert.doesNotMatch(api.describe({ layer: 'inc', item: { ...base, end: '2999-01-01T00:00:00Z' } }).sub, /vencido/);
+  assert.doesNotMatch(api.describe({ layer: 'inc', item: base }).sub, /vencido/);
 });
