@@ -28,18 +28,25 @@ INCIDENCIAS = f"""<?xml version="1.0" encoding="UTF-8"?>
           <com:overallStartTime>2025-12-12T08:05:19+01:00</com:overallStartTime>
         </com:validityTimeSpecification>
       </sit:validity>
+      <sit:causeType>roadMaintenance</sit:causeType>
+      <sit:roadMaintenanceType>roadworks</sit:roadMaintenanceType>
+      <sit:vehicleType>anyVehicle</sit:vehicleType>
+      <sit:laneUsage>allLanesCompleteCarriageway</sit:laneUsage>
       <sit:roadOrCarriagewayOrLaneManagementType>narrowLanes</sit:roadOrCarriagewayOrLaneManagementType>
       <sit:groupOfLocations>
         <loc:linearLocation>
-          <loc:roadNumber>N-400</loc:roadNumber>
-          <loc:from>
-            <loc:pointCoordinates><loc:latitude>39.993732</loc:latitude><loc:longitude>-3.6074991</loc:longitude></loc:pointCoordinates>
-            <loc:kilometrePoint>37.1</loc:kilometrePoint>
-          </loc:from>
+          <loc:roadName>N-400</loc:roadName>
+          <loc:tpegDirectionRoad>both</loc:tpegDirectionRoad>
+          <loc:tpegLinearLocationType>segment</loc:tpegLinearLocationType>
           <loc:to>
             <loc:pointCoordinates><loc:latitude>39.994446</loc:latitude><loc:longitude>-3.6054852</loc:longitude></loc:pointCoordinates>
             <loc:kilometrePoint>37.3</loc:kilometrePoint>
           </loc:to>
+          <loc:from>
+            <loc:pointCoordinates><loc:latitude>39.993732</loc:latitude><loc:longitude>-3.6074991</loc:longitude></loc:pointCoordinates>
+            <loc:kilometrePoint>37.1</loc:kilometrePoint>
+          </loc:from>
+          
         </loc:linearLocation>
       </sit:groupOfLocations>
     </sit:situationRecord>
@@ -54,12 +61,43 @@ INCIDENCIAS = f"""<?xml version="1.0" encoding="UTF-8"?>
 """
 
 PANELES = f"""<?xml version="1.0" encoding="UTF-8"?>
-<d2:payload {NS}>
+<d2:payload {NS} xmlns:vms="http://levelC/schema/3/vms">
   <com:publicationTime>2026-11-15T20:20:00+01:00</com:publicationTime>
-  <vmsUnit id="VMS-1">
-    <vmsMessage><textLine>RETENCION KM 12</textLine><textLine>PRECAUCION</textLine></vmsMessage>
-  </vmsUnit>
-  <vmsUnit id="VMS-2"><timeLastSet>x</timeLastSet></vmsUnit>
+  <vms:vmsControllerStatus>
+    <vms:vmsControllerReference targetClass="vms:VmsController" id="167938"/>
+    <vms:vmsStatus vmsIndex="1"><vms:vmsStatus/></vms:vmsStatus>
+  </vms:vmsControllerStatus>
+  <vms:vmsControllerStatus>
+    <vms:vmsControllerReference targetClass="vms:VmsController" id="61441"/>
+    <vms:vmsStatus vmsIndex="1">
+      <vms:vmsStatus>
+        <vms:vmsMessage messageIndex="1">
+          <vms:vmsMessage>
+            <vms:timeLastSet>2026-11-16T06:05:49.000+01:00</vms:timeLastSet>
+            <vms:displayAreaSettings displayAreaIndex="1">
+              <vms:displayAreaSettings xsi:type="vms:PictogramDisplay">
+                <vms:pictogram xsi:type="vms:RegularPictogram">
+                  <vms:customPictogramCode>R301100I</vms:customPictogramCode>
+                </vms:pictogram>
+              </vms:displayAreaSettings>
+            </vms:displayAreaSettings>
+            <vms:displayAreaSettings displayAreaIndex="2">
+              <vms:displayAreaSettings xsi:type="vms:TextDisplay">
+                <vms:textLine lineIndex="1">
+                  <vms:textLine>
+                    <vms:textLine> VELOCIDAD
+CONTROLADA
+POR RADAR</vms:textLine>
+                    <vms:lineFlashing>false</vms:lineFlashing>
+                  </vms:textLine>
+                </vms:textLine>
+              </vms:displayAreaSettings>
+            </vms:displayAreaSettings>
+          </vms:vmsMessage>
+        </vms:vmsMessage>
+      </vms:vmsStatus>
+    </vms:vmsStatus>
+  </vms:vmsControllerStatus>
 </d2:payload>
 """
 
@@ -71,6 +109,10 @@ LOCATED = f"""<?xml version="1.0" encoding="UTF-8"?>
     <loc:pointCoordinates><loc:latitude>36.7</loc:latitude><loc:longitude>-4.4</loc:longitude></loc:pointCoordinates>
     <loc:kilometrePoint>230</loc:kilometrePoint>
     <stillImageUrl>https://example.invalid/cam1.jpg</stillImageUrl>
+  </device>
+  <device id="CAM-1">
+    <roadName>A-62</roadName><roadDestination>BURGOS</roadDestination>
+    <pointCoordinates><latitude>42.2624</latitude><longitude>-3.9403</longitude></pointCoordinates>
   </device>
   <device id="SIN-COORD"><name><com:value>sin posicion</com:value></name></device>
 </d2:payload>
@@ -90,17 +132,26 @@ class TestParsers(unittest.TestCase):
         self.assertEqual(a["b"], [39.994446, -3.605485])
         self.assertEqual(a["status"], "active")
         self.assertEqual(a["start"], "2025-12-12T08:05:19+01:00")
-        self.assertIn("narrowLanes", a["types"])
+        self.assertEqual(a["types"], ["roadMaintenance", "roadworks", "narrowLanes"])
+        self.assertEqual(a["dir"], "both")
+        self.assertEqual(a["lanes"], "allLanesCompleteCarriageway")
+        self.assertNotIn("veh", a)  # anyVehicle no se guarda
         self.assertEqual(items[1]["types"], ["roadworks"])
 
     def test_paneles(self):
         items, _ = parse_paneles(PANELES.encode())
-        self.assertEqual([i["id"] for i in items], ["VMS-1"])
-        self.assertEqual(items[0]["texts"], ["RETENCION KM 12", "PRECAUCION"])
+        self.assertEqual([i["id"] for i in items], ["61441.1"])  # sin mensaje -> no aparece
+        p = items[0]
+        self.assertEqual(p["ctrl"], "61441")
+        self.assertEqual(p["texts"], ["VELOCIDAD / CONTROLADA / POR RADAR"])
+        self.assertEqual(p["picts"], ["R301100I"])
+        self.assertEqual(p["time"], "2026-11-16T06:05:49.000+01:00")
 
     def test_located(self):
         items, _ = parse_located(LOCATED.encode())
-        self.assertEqual(len(items), 1)
+        self.assertEqual(len(items), 2)
+        c = items[1]
+        self.assertEqual((c["id"], c["road"], c["dest"]), ("CAM-1", "A-62", "BURGOS"))
         r = items[0]
         self.assertEqual((r["id"], r["road"], r["pk"]), ("RAD-1", "A-7", [230.0]))
         self.assertEqual(r["urls"], ["https://example.invalid/cam1.jpg"])

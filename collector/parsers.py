@@ -23,7 +23,6 @@ from common import (
 )
 
 GEO_RE = re.compile(r"(provinc|communit|comunidad|municip|town|^ine)", re.I)
-TEXT_RE = re.compile(r"(text|message|pictogram|legend)", re.I)
 NAME_TAGS = {"value", "name"}
 EXTRA_RE = re.compile(r"(provinc|municip|orientation|direction|speed|limit|type|kind)", re.I)
 
@@ -41,6 +40,28 @@ def _round_pk(pks):
     return [round(p, 3) for p in pks[:2]]
 
 
+TYPE_EXCLUDE = {"vehicleType", "locationType"}
+
+
+def _veh(v):
+    return None if v in (None, "anyVehicle") else v
+
+
+def _endpoint(rec, name):
+    """Punto inicial ('from') o final ('to') del tramo: coordenadas y PK."""
+    el = next(iter_local(rec, name), None)
+    out = {"pt": None, "pk": None}
+    if el is None:
+        return out
+    pts = coords(el)
+    if pts:
+        out["pt"] = list(pts[0])
+    pks = kilometre_points(el)
+    if pks:
+        out["pk"] = round(pks[0], 3)
+    return out
+
+
 def parse_incidencias(data):
     """Devuelve (items, meta). Un item por situationRecord."""
     root = ET.fromstring(data)
@@ -56,8 +77,11 @@ def parse_incidencias(data):
             types = _unique(
                 t
                 for name, t in leaf_items(rec)
-                if name.endswith("Type") and name != "locationType"
+                if name.endswith("Type")
+                and not name.startswith("tpeg")
+                and name not in TYPE_EXCLUDE
             )[:4]
+            frm, to = _endpoint(rec, "from"), _endpoint(rec, "to")
             pts = coords(rec)
             geo = {}
             for name, text in leaf_items(rec):
@@ -78,11 +102,14 @@ def parse_incidencias(data):
                 "created": first_text(rec, "situationRecordCreationTime"),
                 "start": first_text(rec, "overallStartTime"),
                 "end": first_text(rec, "overallEndTime"),
-                "road": first_text(rec, "roadNumber"),
-                "dir": first_text(rec, "directionRelative", "directionBound"),
-                "pk": _round_pk(kilometre_points(rec)),
-                "a": list(pts[0]) if pts else None,
-                "b": list(pts[-1]) if len(pts) > 1 else None,
+                "road": first_text(rec, "roadName", "roadNumber"),
+                "dir": first_text(rec, "tpegDirectionRoad", "directionRelative", "directionBound"),
+                "lanes": first_text(rec, "laneUsage"),
+                "veh": _veh(first_text(rec, "vehicleType")),
+                "pk": [x for x in (frm["pk"], to["pk"]) if x is not None]
+                or _round_pk(kilometre_points(rec)),
+                "a": frm["pt"] or (list(pts[0]) if pts else None),
+                "b": to["pt"] or (list(pts[-1]) if len(pts) > 1 else None),
                 "geo": geo or None,
                 "text": comment,
             }
@@ -92,29 +119,39 @@ def parse_incidencias(data):
 
 
 def parse_paneles(data):
-    """Estado en tiempo real de los paneles de mensaje variable (parser genérico)."""
+    """Estado en tiempo real de los paneles de mensaje variable (VmsPublication v3.7).
+
+    Un item por controlador y vmsStatus con mensaje activo (texto y/o pictogramas).
+    El id del controlador coincide con el id de data/static/paneles_loc.json.
+    """
     root = ET.fromstring(data)
     published = first_text(root, "publicationTime")
-
-    def has_message(el):
-        return any(
-            TEXT_RE.search(name) for name, _ in leaf_items(el)
-        )
-
     items = []
-    for el in smallest_matching(root, has_message):
-        texts = _unique(
-            t for name, t in leaf_items(el) if TEXT_RE.search(name)
-        )
-        pts = coords(el)
-        item = {
-            "id": el.get("id"),
-            "kind": local(el.tag),
-            "texts": texts[:6],
-            "time": first_text(el, "timeLastSet", "vmsMessageTimeLastSet", "publicationTime"),
-            "a": list(pts[0]) if pts else None,
-        }
-        items.append({k: v for k, v in item.items() if v not in (None, [], {}, "")})
+    for st in iter_local(root, "vmsControllerStatus"):
+        ref = next(iter_local(st, "vmsControllerReference"), None)
+        ctrl = ref.get("id") if ref is not None else None
+        if not ctrl:
+            continue
+        for vs in children_local(st, "vmsStatus"):
+            idx = vs.get("vmsIndex") or "1"
+            texts, picts = [], []
+            for name, text in leaf_items(vs):
+                if name == "textLine":
+                    line = " / ".join(p.strip() for p in text.splitlines() if p.strip())
+                    if line:
+                        texts.append(line)
+                elif name == "customPictogramCode":
+                    picts.append(text)
+            if not texts and not picts:
+                continue
+            item = {
+                "id": f"{ctrl}.{idx}",
+                "ctrl": ctrl,
+                "texts": texts,
+                "picts": _unique(picts),
+                "time": first_text(vs, "timeLastSet"),
+            }
+            items.append({k: v for k, v in item.items() if v not in (None, [], {}, "")})
     meta = {"published": published, "leaf_tags": leaf_tag_counts(root)}
     return items, meta
 
@@ -145,7 +182,8 @@ def parse_located(data):
             "lat": lat,
             "lon": lon,
             "names": names,
-            "road": first_text(el, "roadNumber"),
+            "road": first_text(el, "roadNumber", "roadName"),
+            "dest": first_text(el, "roadDestination"),
             "pk": _round_pk(kilometre_points(el)),
             "urls": urls,
             "extra": extra,

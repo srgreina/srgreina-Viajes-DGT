@@ -27,9 +27,9 @@ Solo usa la librería estándar de Python (3.11+). Sin dependencias.
 ```json
 {"generated":"…Z","published":"…","count":123,"meta":{"leaf_tags":{}},
  "items":[{"id":"18811074","sit":"2816645","ver":"2","kind":"MaintenanceWorks",
-           "types":["roadworks"],"status":"active","created":"…","start":"…",
-           "road":"N-400","dir":"…","pk":[37.1,37.3],"a":[lat,lon],"b":[lat,lon],
-           "geo":{"…":"…"},"text":"…"}]}
+           "types":["roadMaintenance","roadworks","narrowLanes"],"status":"active","created":"…","start":"…",
+           "road":"N-400","dir":"both","lanes":"…","pk":[37.1,37.3],"a":[lat,lon],"b":[lat,lon],
+           "geo":{"province":"…","municipality":"…","autonomousCommunity":"…"},"text":"…"}]}
 ```
 
 Los campos vacíos se omiten. Coordenadas a 6 decimales.
@@ -44,7 +44,7 @@ python collector/static_layers.py --out data/static
 
 ## Limitaciones conocidas
 
-- Los parsers de **paneles** y de las **capas estáticas** son genéricos: se escribieron sin ver el XML real. Se ajustan con `data/samples/` y `meta.leaf_tags` tras la primera ejecución.
+- Los parsers de **incidencias** y **paneles** están ajustados al XML real (muestras en `data/samples/`). El de las **capas estáticas** (radares, cámaras, localizaciones de paneles) es genérico y su salida está revisada, pero conviene reajustarlo si la DGT cambia el perfil. Los radares fijos solo se publican en DATEX II v2 y su fecha de publicación es antigua (2025-12).
 - El cron de GitHub Actions puede retrasarse varios minutos y no garantiza intervalo fijo; el histórico no es continuo.
 - Los feeds de la DGT están sujetos a su [aviso legal](https://www.dgt.es/contenido/aviso-legal/) (CC-BY). Cubren la red estatal salvo País Vasco y Cataluña.
 
