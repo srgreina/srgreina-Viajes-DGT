@@ -6,7 +6,7 @@ import assert from 'node:assert/strict';
 const html = readFileSync(new URL('../docs/index.html', import.meta.url), 'utf8');
 const core = html.slice(html.indexOf('// <core>'), html.indexOf('// </core>'));
 const api = new Function(
-  `${core}; return { buildRoute, nearest, nearestLine, collectHits, describe, fmtDur, fmtKm, fmtPk, samplePoints, pickHour, weatherAt, weatherAlerts, buildWeatherHits, weatherSummary, pointInRing, buildAvisoHits, avisoSummary, calidadResumen, collectCharge, collectRisk, simplifyLine, nextDeparture, corridorsExport, fmtDays };`,
+  `${core}; return { buildRoute, nearest, nearestLine, collectHits, describe, fmtDur, fmtKm, fmtPk, samplePoints, pickHour, weatherAt, weatherAlerts, buildWeatherHits, weatherSummary, pointInRing, buildAvisoHits, avisoSummary, calidadResumen, collectCharge, collectRisk, simplifyLine, nextDeparture, corridorsExport, fmtDays, driveStep, driveSpeech };`,
 )();
 
 // Ruta recta de oeste a este por Málaga: lon -4.50 -> -4.40 a lat 36.70 (~8,9 km), 10 tramos.
@@ -336,4 +336,55 @@ test('corridorsExport y fmtDays', () => {
   assert.equal(api.fmtDays([5, 4, 3, 2, 1]), 'L-V');
   assert.equal(api.fmtDays([1, 2, 3, 4, 5, 6, 7]), 'todos los días');
   assert.equal(api.fmtDays([6, 1]), 'L S');
+});
+
+// ---- modo conducción: anuncios a 5 km, sin repetir, por gravedad, y salida de ruta
+const km = (k) => k * 1000;
+const lonAt = (m) => -4.5 + (m / totalM) * 0.1; // lon del punto a m metros del origen
+const inc = (id, types, m, extra = {}) => ({ layer: 'inc', s: m, t: 0, item: { id, types, road: 'A-7', pk: [10], ...extra } });
+const rad = (id, m) => ({ layer: 'rad', s: m, t: 0, item: { id, road: 'A-7', pk: [12] } });
+const wxHit = (m, rain) => ({ layer: 'wx', s: m, t: 0, w: { rain, wind: 10, gust: 20, prob: 80, temp: 12, code: 63, vis: 20000, snow: 0 } });
+
+test('anuncia solo lo que queda por delante a menos de 5 km', () => {
+  const hits = [inc('a', ['accident'], km(2)), inc('b', ['accident'], km(8)), inc('c', ['accident'], 100)];
+  const r1 = api.driveStep(route, hits, LAT, lonAt(500), new Set());
+  assert.equal(r1.off, false);
+  assert.equal(r1.say.length, 1); // 'c' (100 m) ya queda atrás y 'b' (8 km) aún está lejos
+});
+
+test('prioriza lo grave y respeta el máximo por lectura', () => {
+  const hits = [rad('r', km(1)), inc('g', ['accident'], km(4)), inc('o', ['roadworks'], km(2))];
+  const r = api.driveStep(route, hits, LAT, lonAt(0), new Set(), 5000, 2);
+  assert.equal(r.say.length, 2);
+  assert.match(r.say[0].text, /accidente/i);
+});
+
+test('una vez dicho no se repite y al avanzar entra el siguiente', () => {
+  const hits = [inc('a', ['accident'], km(2)), inc('b', ['accident'], km(7))];
+  const said = new Set();
+  const r1 = api.driveStep(route, hits, LAT, lonAt(0), said);
+  r1.say.forEach((x) => said.add(x.key));
+  assert.equal(r1.say.length, 1);
+  assert.equal(api.driveStep(route, hits, LAT, lonAt(0), said).say.length, 0);
+  const r2 = api.driveStep(route, hits, LAT, lonAt(km(3)), said);
+  assert.equal(r2.say.length, 1);
+});
+
+test('del tiempo solo se dice lo adverso y lo ya pasado no se dice', () => {
+  const hits = [wxHit(km(1), 0), wxHit(km(2), 8), inc('p', ['accident'], km(1))];
+  const r = api.driveStep(route, hits, LAT, lonAt(0), new Set(), 5000, 5);
+  assert.equal(r.say.length, 2); // accidente y lluvia fuerte; la lluvia 0 no
+  assert.ok(r.say.every((x) => !/Lluvia 0,0/.test(x.text)));
+  assert.equal(api.driveStep(route, hits, LAT, lonAt(km(2.5)), new Set(), 5000, 5).say.length, 0); // todo queda atrás
+});
+
+test('fuera de la ruta no anuncia nada', () => {
+  const r = api.driveStep(route, [inc('a', ['accident'], km(2))], offsetLat(2000), lonAt(0), new Set());
+  assert.equal(r.off, true);
+  assert.equal(r.say.length, 0);
+});
+
+test('frase en español con distancia', () => {
+  assert.match(api.driveSpeech(4800, { title: 'Accidente', sub: 'A-7 · PK 10,0', text: '' }), /^En 5 kilómetros\. Accidente\. A-7 , punto kilométrico 10,0/);
+  assert.match(api.driveSpeech(600, { title: 'Radar fijo', sub: '', text: '' }), /^En 600 metros\. Radar fijo/);
 });

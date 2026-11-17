@@ -1,7 +1,7 @@
 // Service worker mínimo: hace la app instalable y permite abrirla sin conexión.
 // Los datos de la DGT, las rutas y los mapas nunca se cachean aquí: siempre van a la red.
 // Leaflet y la tipografía (versión fija, no cambian) van de caché primero: la app abre al instante.
-const CACHE = 'viajes-dgt-v21';
+const CACHE = 'viajes-dgt-v22';
 const STATIC_HOSTS = ['cdnjs.cloudflare.com', 'fonts.googleapis.com', 'fonts.gstatic.com'];
 const SHELL = ['./', 'index.html', 'manifest.json', 'icon-192.png', 'icon-512.png'];
 
