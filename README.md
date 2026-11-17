@@ -46,6 +46,10 @@ Solo usa la librería estándar de Python (3.11+). Sin dependencias.
   - `runs/AAAA-MM.jsonl`: una línea por ejecución y feed (`ok`, `ms`, `bytes`, `published`, `lag_s`, `count`, `opens`, `changes`, `closes`, `err`). Base de la calidad de dato.
 - **`data/samples/*.head.xml`**: primeros 40 KB del XML crudo de cada feed, guardados una sola vez para ajustar los parsers.
 
+### Resumen semanal de cortes (ntfy)
+
+`collector/resumen.py` (workflow `resumen.yml`, lunes ≈08:00 hora de Madrid, también manual) lee los últimos 7 días del histórico y manda por ntfy los cortes (`roadClosed`/`carriagewayClosures`) de Andalucía —por carretera, con horas cortadas y si siguen abiertos— y los que han caído sobre tus corredores si existe el secreto `CORREDORES`. Los cortes por obras se cuentan aparte. Sin `NTFY_TOPIC` solo imprime el resumen.
+
 ### Avisos de corredor al móvil (ntfy)
 
 `collector/corredores.py` (paso de `collect.yml`) avisa por [ntfy.sh](https://ntfy.sh) cuando, entre 15 min antes y 90 min después de la hora habitual de un corredor, hay en su ruta: incidencias graves (corte, accidente, vehículo en llamas, desprendimientos, avalancha, inundación) a menos de 150 m, avisos AEMET naranja/rojo vigentes a la hora de paso, o tiempo adverso (lluvia ≥ 5 mm/h, rachas ≥ 70 km/h, hielo o nieve, visibilidad < 1 km, tormenta). Solo repite el aviso si el conjunto de alertas cambia.
@@ -99,4 +103,4 @@ python collector/static_layers.py --out data/static
 2. Planificador web: ruta, cruce con capas y selector de capas (hecha).
 3. Tiempo a lo largo de la ruta según la hora de paso y avisos AEMET (hecha).
 4. Calidad de dato, tramos de riesgo y carga VE (hecha).
-5. Alertas de corredor, resumen semanal y modo conducción por voz.
+5. Alertas de corredor y resumen semanal (hechos); modo conducción por voz (pendiente).
