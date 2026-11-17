@@ -5,7 +5,7 @@
 - Sale del histórico de incidencias (data/history/incidencias/AAAA-MM-DD.jsonl, días UTC): une open/change/close por
   id y cuenta como corte lo que lleva `roadClosed` o `carriagewayClosures`. Los de obras (roadworks) se cuentan aparte y no entran en el ranking. Duración = de su inicio (recortado a la
   ventana) al cierre, o hasta ahora si sigue abierto.
-- Sin NTFY_TOPIC imprime el resumen y no envía nada. Sin CORREDORES solo lleva la parte de Andalucía.
+- Sin NTFY_TOPIC imprime el resumen y no envía nada; con él solo imprime recuentos (los logs de Actions son públicos). Sin CORREDORES solo lleva la parte de Andalucía.
 - Los corredores son privados (el repo es público): solo se leen del secreto, nunca de un fichero.
 """
 import argparse
@@ -125,12 +125,13 @@ def main():
         except ValueError:
             print("resumen: el secreto CORREDORES no es un JSON válido; solo se incluye Andalucía", file=sys.stderr)
     title, body = build(load_cuts(args.history, now_utc()), corridors)
-    print(title + "\n" + body)
     topic = os.environ.get("NTFY_TOPIC", "").strip()
     if topic:
+        # El log de Actions es público: con tema de ntfy solo se imprimen recuentos (el contenido puede llevar nombres de corredores)
         send_ntfy(topic, title, body, priority=3)
-        print("resumen: enviado")
+        print(f"resumen: enviado ({len(corridors)} corredores)")
     else:
+        print(title + "\n" + body)
         print("resumen: sin NTFY_TOPIC, no se envía")
     return 0
 
