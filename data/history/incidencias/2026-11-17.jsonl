@@ -641,3 +641,16 @@
 {"t":"2026-11-17T03:58:18Z","ev":"close","id":"30103682"}
 {"t":"2026-11-17T03:58:18Z","ev":"close","id":"30103720"}
 {"t":"2026-11-17T03:58:18Z","ev":"close","id":"30103753"}
+{"t":"2026-11-17T04:07:37Z","ev":"open","id":"30103777","sit":"25683105","ver":"1","kind":"GenericSituationRecord","types":["vehicleObstruction","vehicleStuck"],"status":"active","created":"2026-11-17T04:59:31.000+01:00","start":"2026-11-17T04:59:31.000+01:00","road":"M-40","dir":"positive","pk":[52.288],"a":[40.48702,-3.74154],"geo":{"autonomousCommunity":"Madrid, Comunidad de","municipality":"Madrid","province":"Madrid"}}
+{"t":"2026-11-17T04:07:37Z","ev":"open","id":"30103780","sit":"25683108","ver":"1","kind":"GenericSituationRecord","types":["vehicleObstruction","vehicleStuck"],"status":"active","created":"2026-11-17T05:01:26.000+01:00","start":"2026-11-17T05:01:26.000+01:00","road":"N-435","dir":"positive","pk":[48.096],"a":[38.50813,-6.85391],"geo":{"autonomousCommunity":"Extremadura","municipality":"Barcarrota","province":"Badajoz"}}
+{"t":"2026-11-17T04:07:37Z","ev":"open","id":"30103750","sit":"25683078","ver":"2","kind":"RoadOrCarriagewayOrLaneManagement","types":["roadMaintenance","roadworks","laneClosures"],"status":"active","created":"2026-11-17T05:02:22.000+01:00","start":"2026-11-17T05:02:00.000+01:00","end":"2026-11-17T06:00:00.000+01:00","road":"A-7","dir":"positive","lanes":"_extended","pk":[546.1],"a":[38.126564,-0.959468],"geo":{"autonomousCommunity":"Comunitat Valenciana","municipality":"Orihuela","province":"Alacant/Alicante"}}
+{"t":"2026-11-17T04:07:37Z","ev":"open","id":"30103788","sit":"25683114","ver":"1","kind":"GenericSituationRecord","types":["obstruction","objectOnTheRoad"],"status":"active","created":"2026-11-17T05:05:12.000+01:00","start":"2026-11-17T05:03:00.000+01:00","road":"N-330","dir":"negative","pk":[102.987],"a":[38.966526,-1.077534],"geo":{"autonomousCommunity":"Comunitat Valenciana","municipality":"Ayora","province":"València/Valencia"}}
+{"t":"2026-11-17T04:07:37Z","ev":"close","id":"30082906"}
+{"t":"2026-11-17T04:07:37Z","ev":"close","id":"30100359"}
+{"t":"2026-11-17T04:07:37Z","ev":"close","id":"30100449"}
+{"t":"2026-11-17T04:07:37Z","ev":"close","id":"30103419"}
+{"t":"2026-11-17T04:07:37Z","ev":"close","id":"30103483"}
+{"t":"2026-11-17T04:07:37Z","ev":"close","id":"30103562"}
+{"t":"2026-11-17T04:07:37Z","ev":"close","id":"30103662"}
+{"t":"2026-11-17T04:07:37Z","ev":"close","id":"30103703"}
+{"t":"2026-11-17T04:07:37Z","ev":"close","id":"30103774"}
