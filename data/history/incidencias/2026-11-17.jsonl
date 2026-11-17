@@ -488,3 +488,15 @@
 {"t":"2026-11-17T02:43:47Z","ev":"close","id":"30103399"}
 {"t":"2026-11-17T02:43:47Z","ev":"close","id":"30103400"}
 {"t":"2026-11-17T02:43:47Z","ev":"close","id":"30101890"}
+{"t":"2026-11-17T02:53:04Z","ev":"open","id":"30103433","sit":"25682944","ver":"1","kind":"GenericSituationRecord","types":["vehicleObstruction","vehicleStuck"],"status":"active","created":"2026-11-17T03:45:35.000+01:00","start":"2026-11-17T03:45:35.000+01:00","road":"M-503","dir":"negative","pk":[12.426],"a":[40.45385,-3.88058],"geo":{"autonomousCommunity":"Madrid, Comunidad de","municipality":"Majadahonda","province":"Madrid"}}
+{"t":"2026-11-17T02:53:04Z","ev":"open","id":"30103434","sit":"25682945","ver":"1","kind":"GenericSituationRecord","types":["vehicleObstruction","vehicleStuck"],"status":"active","created":"2026-11-17T03:45:54.000+01:00","start":"2026-11-17T03:45:54.000+01:00","road":"A-338","dir":"negative","pk":[2.324],"a":[37.13973,-3.65054],"geo":{"autonomousCommunity":"Andalucía","municipality":"Las Gabias","province":"Granada"}}
+{"t":"2026-11-17T02:53:04Z","ev":"open","id":"30103440","sit":"25682951","ver":"1","kind":"GenericSituationRecord","types":["vehicleObstruction","vehicleStuck"],"status":"active","created":"2026-11-17T03:48:55.000+01:00","start":"2026-11-17T03:48:55.000+01:00","road":"M-40","dir":"negative","pk":[29.948],"a":[40.36169,-3.77801],"geo":{"autonomousCommunity":"Madrid, Comunidad de","municipality":"Madrid","province":"Madrid"}}
+{"t":"2026-11-17T02:53:04Z","ev":"open","id":"30103442","sit":"25682953","ver":"1","kind":"GenericSituationRecord","types":["vehicleObstruction","vehicleStuck"],"status":"active","created":"2026-11-17T03:49:52.000+01:00","start":"2026-11-17T03:49:52.000+01:00","road":"VS-V-30-D","dir":"negative","pk":[3.563],"a":[39.43554,-0.38048],"geo":{"autonomousCommunity":"Comunitat Valenciana","municipality":"València","province":"València/Valencia"}}
+{"t":"2026-11-17T02:53:04Z","ev":"open","id":"30103446","sit":"25682957","ver":"1","kind":"GenericSituationRecord","types":["vehicleObstruction","vehicleStuck"],"status":"active","created":"2026-11-17T03:52:00.000+01:00","start":"2026-11-17T03:52:00.000+01:00","road":"AP-7","dir":"positive","pk":[560.889],"a":[39.111317,-0.272793],"geo":{"autonomousCommunity":"Comunitat Valenciana","municipality":"Tavernes de la Valldigna","province":"València/Valencia"}}
+{"t":"2026-11-17T02:53:04Z","ev":"close","id":"30102634"}
+{"t":"2026-11-17T02:53:04Z","ev":"close","id":"30101495"}
+{"t":"2026-11-17T02:53:04Z","ev":"close","id":"30101778"}
+{"t":"2026-11-17T02:53:04Z","ev":"close","id":"30103262"}
+{"t":"2026-11-17T02:53:04Z","ev":"close","id":"30103420"}
+{"t":"2026-11-17T02:53:04Z","ev":"close","id":"30103421"}
+{"t":"2026-11-17T02:53:04Z","ev":"close","id":"30103425"}
