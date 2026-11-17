@@ -59,10 +59,6 @@ Solo usa la librería estándar de Python (3.11+). Sin dependencias.
 
 `compactar.yml` (1 de mayo y 1 de noviembre; manual con `dry_run`) quita `data/history` de todo el historial de Git y lo repone en un commit nuevo con los últimos 8 días y el estado de riesgo. Se conserva el historial del código. **Reescribe `main` (force push): después hay que volver a clonar.** GitHub libera el espacio con retraso.
 
-### Recordatorio anual
-
-`recordatorio.yml` manda por ntfy cada 17 de noviembre el tamaño del repo (el histórico crece ≈ 1,5 MB/día) y recuerda revisar la clave de AEMET.
-
 ### Avisos de corredor al móvil (ntfy)
 
 `collector/corredores.py` (paso de `collect.yml`) avisa por [ntfy.sh](https://ntfy.sh) cuando, entre 15 min antes y 90 min después de la hora habitual de un corredor, hay en su ruta: incidencias graves (corte, accidente, vehículo en llamas, desprendimientos, avalancha, inundación) a menos de 150 m, avisos AEMET naranja/rojo vigentes a la hora de paso, o tiempo adverso (lluvia ≥ 5 mm/h, rachas ≥ 70 km/h, hielo o nieve, visibilidad < 1 km, tormenta). Solo repite el aviso si el conjunto de alertas cambia.

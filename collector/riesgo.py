@@ -15,7 +15,7 @@ import glob
 import json
 import os
 import sys
-from datetime import datetime, timezone
+from datetime import datetime
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from common import iso, now_utc, read_json, write_json  # noqa: E402

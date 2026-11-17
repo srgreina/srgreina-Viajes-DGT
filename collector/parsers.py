@@ -13,12 +13,10 @@ from common import (
     children_local,
     coords,
     first_text,
-    is_leaf_with_text,
     iter_local,
     kilometre_points,
     leaf_items,
     leaf_tag_counts,
-    local,
     smallest_matching,
 )
 

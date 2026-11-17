@@ -19,7 +19,7 @@ import math
 import os
 import sys
 import urllib.request
-from datetime import datetime, timedelta, timezone
+from datetime import timedelta, timezone
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from common import UA, iso, now_utc, parse_dt, read_json, write_json  # noqa: E402
