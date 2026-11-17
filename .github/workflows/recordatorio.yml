@@ -1,0 +1,38 @@
+# Recordatorio anual por ntfy (17 de noviembre): revisar el tamaño del repo, porque el histórico crece cada día
+name: recordatorio
+
+on:
+  schedule:
+    - cron: "23 7 17 11 *"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  recordatorio:
+    runs-on: ubuntu-latest
+    timeout-minutes: 3
+    steps:
+      - name: Avisar por ntfy
+        env:
+          NTFY_TOPIC: ${{ secrets.NTFY_TOPIC }}
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          python3 - <<'PY'
+          import json, os, urllib.request
+          topic = os.environ.get("NTFY_TOPIC", "").strip()
+          if not topic:
+              print("recordatorio: sin NTFY_TOPIC, se omite")
+              raise SystemExit(0)
+          req = urllib.request.Request(
+              "https://api.github.com/repos/" + os.environ["GITHUB_REPOSITORY"],
+              headers={"Authorization": "Bearer " + os.environ["GH_TOKEN"], "Accept": "application/vnd.github+json", "User-Agent": "viajes-dgt"})
+          mb = json.load(urllib.request.urlopen(req, timeout=20)).get("size", 0) / 1024
+          msg = (f"Revisión anual de Viajes DGT: el repo pesa {mb:.0f} MB (GitHub recomienda < 1 GB). "
+                 "Si se acerca, mueve el histórico fuera de main (ver CLAUDE.md). Revisa también las claves: AEMET_API_KEY.")
+          body = json.dumps({"topic": topic, "title": "Viajes DGT: revisión anual", "message": msg, "priority": 3, "tags": ["calendar"]}).encode()
+          post = urllib.request.Request("https://ntfy.sh/", data=body, headers={"Content-Type": "application/json", "User-Agent": "viajes-dgt"}, method="POST")
+          urllib.request.urlopen(post, timeout=20)
+          print(f"recordatorio: enviado ({mb:.0f} MB)")
+          PY
