@@ -1,0 +1,31 @@
+# Resumen semanal de cortes (Andalucía y tus corredores) por ntfy. Lunes ≈08:00 hora de Madrid (cron en UTC, sin ajuste de horario de verano)
+name: resumen
+
+on:
+  schedule:
+    - cron: "37 6 * * 1"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: resumen
+  cancel-in-progress: false
+
+jobs:
+  resumen:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Resumen semanal
+        env:
+          CORREDORES: ${{ secrets.CORREDORES }}
+          NTFY_TOPIC: ${{ secrets.NTFY_TOPIC }}
+        run: python collector/resumen.py --history data/history
