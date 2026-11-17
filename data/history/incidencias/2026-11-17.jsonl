@@ -623,3 +623,21 @@
 {"t":"2026-11-17T03:48:59Z","ev":"close","id":"30103453"}
 {"t":"2026-11-17T03:48:59Z","ev":"close","id":"30103723"}
 {"t":"2026-11-17T03:48:59Z","ev":"close","id":"30081209"}
+{"t":"2026-11-17T03:58:18Z","ev":"open","id":"30103762","sit":"25683090","ver":"1","kind":"GenericSituationRecord","types":["vehicleObstruction","vehicleStuck"],"status":"active","created":"2026-11-17T04:49:31.000+01:00","start":"2026-11-17T04:49:31.000+01:00","road":"M-501","dir":"positive","pk":[3.893],"a":[40.39786,-3.8784],"geo":{"autonomousCommunity":"Madrid, Comunidad de","municipality":"Boadilla del Monte","province":"Madrid"}}
+{"t":"2026-11-17T03:58:18Z","ev":"open","id":"30103763","sit":"25683091","ver":"1","kind":"GenericSituationRecord","types":["vehicleObstruction","vehicleStuck"],"status":"active","created":"2026-11-17T04:51:55.000+01:00","start":"2026-11-17T04:51:55.000+01:00","road":"A-7","dir":"positive","pk":[300.035],"a":[39.69085,-0.285695],"geo":{"autonomousCommunity":"Comunitat Valenciana","municipality":"Sagunt/Sagunto","province":"València/Valencia"}}
+{"t":"2026-11-17T03:58:18Z","ev":"open","id":"30103766","sit":"25683094","ver":"1","kind":"GenericSituationRecord","types":["obstruction","objectOnTheRoad"],"status":"active","created":"2026-11-17T04:52:23.000+01:00","start":"2026-11-17T04:52:00.000+01:00","road":"N-640","dir":"negative","pk":[208.0],"a":[42.682808,-8.526177],"geo":{"autonomousCommunity":"Galicia","municipality":"A Estrada","province":"Pontevedra"}}
+{"t":"2026-11-17T03:58:18Z","ev":"open","id":"30103768","sit":"25683096","ver":"1","kind":"GenericSituationRecord","types":["obstruction","objectOnTheRoad"],"status":"active","created":"2026-11-17T04:55:24.000+01:00","start":"2026-11-17T04:55:00.000+01:00","road":"DP-0106","dir":"negative","pk":[2.496],"a":[43.246376,-8.283638],"geo":{"autonomousCommunity":"Galicia","municipality":"Abegondo","province":"A Coruña"}}
+{"t":"2026-11-17T03:58:18Z","ev":"open","id":"30103769","sit":"25683097","ver":"1","kind":"GenericSituationRecord","types":["vehicleObstruction","vehicleStuck"],"status":"active","created":"2026-11-17T04:55:46.000+01:00","start":"2026-11-17T04:55:46.000+01:00","road":"M-50","dir":"negative","pk":[27.7],"a":[40.38482,-3.54252],"geo":{"autonomousCommunity":"Madrid, Comunidad de","municipality":"Rivas-Vaciamadrid","province":"Madrid"}}
+{"t":"2026-11-17T03:58:18Z","ev":"open","id":"30103770","sit":"25683098","ver":"1","kind":"GenericSituationRecord","types":["obstruction","objectOnTheRoad"],"status":"active","created":"2026-11-17T04:56:18.000+01:00","start":"2026-11-17T04:55:00.000+01:00","road":"AP-7","dir":"positive","pk":[440.995],"a":[39.92807,-0.136184],"geo":{"autonomousCommunity":"Comunitat Valenciana","municipality":"Vila-real","province":"Castelló/Castellón"}}
+{"t":"2026-11-17T03:58:18Z","ev":"open","id":"30103774","sit":"25683102","ver":"1","kind":"GenericSituationRecord","types":["vehicleObstruction","vehicleStuck"],"status":"active","created":"2026-11-17T04:56:41.000+01:00","start":"2026-11-17T04:56:41.000+01:00","road":"C-15","dir":"negative","pk":[23.836],"a":[41.41786,1.694483],"geo":{"autonomousCommunity":"Cataluña","municipality":"Torrelavit","province":"Barcelona"}}
+{"t":"2026-11-17T03:58:18Z","ev":"close","id":"29994871"}
+{"t":"2026-11-17T03:58:18Z","ev":"close","id":"30065552"}
+{"t":"2026-11-17T03:58:18Z","ev":"close","id":"30103351"}
+{"t":"2026-11-17T03:58:18Z","ev":"close","id":"30102279"}
+{"t":"2026-11-17T03:58:18Z","ev":"close","id":"30102743"}
+{"t":"2026-11-17T03:58:18Z","ev":"close","id":"30102889"}
+{"t":"2026-11-17T03:58:18Z","ev":"close","id":"30102890"}
+{"t":"2026-11-17T03:58:18Z","ev":"close","id":"30103434"}
+{"t":"2026-11-17T03:58:18Z","ev":"close","id":"30103682"}
+{"t":"2026-11-17T03:58:18Z","ev":"close","id":"30103720"}
+{"t":"2026-11-17T03:58:18Z","ev":"close","id":"30103753"}
