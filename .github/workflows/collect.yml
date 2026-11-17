@@ -14,7 +14,7 @@ permissions:
   actions: write   # para que el job "siguiente" pueda relanzar este workflow
 
 # Grupo propio: la cadena de ejecuciones (job "siguiente") lo mantiene ocupado casi siempre, y si static.yml
-# compartiera grupo se quedaría pendiente y sería descartada por cada relanzamiento. Los push a main se
+# compartiera grupo se quedaría pendiente y sería descartada por cada relanzamiento. Los push a la rama data se
 # protegen con reintentos (pull --rebase + push) en vez de con el grupo.
 concurrency:
   group: collect
@@ -26,6 +26,12 @@ jobs:
     timeout-minutes: 8
     steps:
       - uses: actions/checkout@v4
+
+      # El histórico y las capas estáticas viven en la rama `data` (no en main: así main solo cambia con el código)
+      - uses: actions/checkout@v4
+        with:
+          ref: data
+          path: data
 
       - uses: actions/setup-python@v5
         with:
@@ -61,15 +67,16 @@ jobs:
           NTFY_TOPIC: ${{ secrets.NTFY_TOPIC }}
         run: python collector/corredores.py --latest latest --prev prev
 
-      - name: Guardar histórico en main
+      - name: Guardar histórico en la rama data
         run: |
+          cd data
           git config user.name "viajes-dgt-bot"
           git config user.email "viajes-dgt-bot@users.noreply.github.com"
-          git add data
+          git add -A
           if ! git diff --cached --quiet; then
             git commit -m "histórico $(date -u +%Y-%m-%dT%H:%M:%SZ)"
             for i in 1 2 3 4 5; do
-              git pull -q --rebase origin main && git push origin HEAD:main && break
+              git pull -q --rebase origin data && git push origin HEAD:data && break
               sleep $((i * 4))
             done
           fi

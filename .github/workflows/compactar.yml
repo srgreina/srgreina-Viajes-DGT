@@ -1,18 +1,12 @@
-# Compactación semestral: quita data/history de TODO el historial de Git (ahí está casi todo el peso: una versión
-# por cada ejecución del recolector) y lo vuelve a poner en un commit nuevo con lo que hay ahora (últimos 8 días y
-# riesgo_estado.json). Se conserva el historial del código. Reescribe los SHA de main (force push con lease).
-# Manual con dry_run=true: hace todo igual pero sube a la rama `prueba-compactacion` y no toca main.
+# Compactación mensual de la rama `data`: sustituye todo su historial por un único commit con lo que hay ahora
+# (últimos 8 días, riesgo_estado.json, capas estáticas y muestras). `main` (el código) no se toca nunca.
+# Reescribe la rama data (force push con lease); nada la clona fuera de los workflows.
 name: compactar
 
 on:
   schedule:
-    - cron: "17 4 1 5,11 *"
+    - cron: "17 4 1 * *"
   workflow_dispatch:
-    inputs:
-      dry_run:
-        description: "Probar sin tocar main (sube a prueba-compactacion)"
-        type: boolean
-        default: true
 
 permissions:
   contents: write
@@ -24,46 +18,30 @@ concurrency:
 jobs:
   compactar:
     runs-on: ubuntu-latest
-    timeout-minutes: 15
+    timeout-minutes: 10
     env:
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      DRY_RUN: ${{ github.event_name == 'workflow_dispatch' && inputs.dry_run || 'false' }}
     steps:
-      - uses: actions/setup-python@v5
-        with:
-          python-version: "3.12"
-
-      - name: Instalar git-filter-repo
-        run: pip install git-filter-repo
-
-      - name: Compactar el historial
+      - name: Compactar la rama data
         run: |
           set -euo pipefail
           URL="https://x-access-token:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git"
-          TARGET=main
-          if [ "$DRY_RUN" = "true" ]; then TARGET=prueba-compactacion; fi
           ok=0
           for i in 1 2 3; do
-            cd "$RUNNER_TEMP" && rm -rf work hist
-            git clone -q "$URL" work
+            cd "$RUNNER_TEMP" && rm -rf work
+            git clone -q --depth 1 --branch data "$URL" work
             cd work
             base=$(git rev-parse HEAD)
             before=$(du -sk .git | cut -f1)
-            cp -r data/history ../hist
-            git filter-repo --path data/history --invert-paths --force
-            git remote add origin "$URL"
-            mkdir -p data && cp -r ../hist data/history
-            git add data/history
+            git checkout -q --orphan compactada
+            git add -A
             git -c user.name="viajes-dgt-bot" -c user.email="viajes-dgt-bot@users.noreply.github.com" \
               commit -q -m "histórico compactado $(date -u +%Y-%m-%d)"
-            git gc -q --aggressive --prune=now
-            after=$(du -sk .git | cut -f1)
-            echo "compactar: .git de ${before} kB a ${after} kB (clon local)"
+            echo "compactar: archivos $(git ls-files | wc -l), .git ${before} kB (clon superficial)"
             # El lease evita pisar un commit que el recolector haya subido mientras tanto; si falla, se repite todo
-            if [ "$TARGET" = main ]; then lease="--force-with-lease=main:${base}"; else lease="--force"; fi
-            if git push $lease origin "HEAD:refs/heads/${TARGET}"; then ok=1; break; fi
+            if git push --force-with-lease="data:${base}" origin HEAD:refs/heads/data; then ok=1; break; fi
             echo "compactar: el recolector subió algo entre medias, reintento $i"
             sleep 20
           done
           [ "$ok" = 1 ] || { echo "compactar: no se pudo subir"; exit 1; }
-          echo "compactar: subido a ${TARGET}"
+          echo "compactar: rama data compactada"

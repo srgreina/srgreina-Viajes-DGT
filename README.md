@@ -41,8 +41,8 @@ Solo usa la librería estándar de Python (3.11+). Sin dependencias.
 ### Dónde quedan los datos
 
 - **Rama `latest`** (se sobrescribe en cada ejecución, sin historial): `incidencias.json`, `paneles.json` y `static/*.json`. Es lo que leerá el frontend.
-- **`data/static/`** (rama `main`): capas estáticas; solo cambian cuando cambian los datos de origen.
-- **`data/history/`** (rama `main`): solo diferencias, nunca instantáneas completas.
+- **`data/static/`** (rama `data`): capas estáticas; solo cambian cuando cambian los datos de origen.
+- **`data/history/`** (rama `data`): solo diferencias, nunca instantáneas completas.
   - `incidencias/AAAA-MM-DD.jsonl` y `paneles/AAAA-MM-DD.jsonl`: eventos `open`, `change` y `close`. Los eventos de la primera ejecución llevan `"boot": true`.
   - `runs/AAAA-MM.jsonl`: una línea por ejecución y feed (`ok`, `ms`, `bytes`, `published`, `lag_s`, `count`, `opens`, `changes`, `closes`, `err`). Base de la calidad de dato.
 - **`data/samples/*.head.xml`**: primeros 40 KB del XML crudo de cada feed, guardados una sola vez para ajustar los parsers.
@@ -53,11 +53,11 @@ Solo usa la librería estándar de Python (3.11+). Sin dependencias.
 
 ### Limpieza del histórico
 
-`collector/limpieza.py` (workflow `limpieza.yml`, domingos por la noche, también manual) borra de `data/history/` las incidencias y paneles de más de 8 días —así siempre queda la semana del resumen— y solo si `riesgo.py` ya procesó ese día; de `runs/` conserva el mes actual y el anterior. No toca `riesgo_estado.json`. Git conserva el pasado: frena el crecimiento del repo, no lo reduce.
+`collector/limpieza.py` (workflow `limpieza.yml`, domingos por la noche, también manual) borra de `data/history/` las incidencias y paneles de más de 8 días —así siempre queda la semana del resumen— y solo si `riesgo.py` ya procesó ese día; de `runs/` conserva el mes actual y el anterior. No toca `riesgo_estado.json`.
 
-### Compactación semestral
+### Rama `data` y compactación mensual
 
-`compactar.yml` (1 de mayo y 1 de noviembre; manual con `dry_run`) quita `data/history` de todo el historial de Git y lo repone en un commit nuevo con los últimos 8 días y el estado de riesgo. Se conserva el historial del código. **Reescribe `main` (force push): después hay que volver a clonar.** GitHub libera el espacio con retraso.
+El histórico, las capas estáticas y las muestras viven en la rama **`data`** (raíz: `history/`, `static/`, `samples/`; los workflows la sacan en `./data`). `main` solo cambia con el código, así que Pages no se reconstruye cada 10 min. `compactar.yml` (día 1 de cada mes, también manual) sustituye todo el historial de `data` por un único commit con lo que hay ahora, para que el repo no crezca (≈1,5 MB/día sin compactar). `main` no se toca. GitHub libera el espacio con retraso.
 
 ### Avisos de corredor al móvil (ntfy)
 
@@ -99,7 +99,7 @@ python collector/static_layers.py --out data/static
 - **Corredores:** el servidor usa duración sin tráfico y la zona horaria Europe/Madrid; el aviso depende de que el cron/cadena de `collect` esté activo en esa ventana (cada ≈10 min).
 - **Parking:** el NAP solo publica la ocupación de aparcamientos urbanos de ayuntamientos; no hay datos de aparcamientos o áreas de descanso en carretera, así que esa capa no se ha hecho.
 - **Carga VE:** feed estático (se actualiza cada 24 h), sin disponibilidad en tiempo real. Unos 12.000 sitios, fusionados por punto y operador; `static/recarga.json` pesa unos MB y solo se descarga al activar la capa.
-- **Tramos de riesgo:** el histórico empieza el 2026-11-16 y crece ≈1,5 MB/día en `data/history/` (vigila el tamaño del repo a medio plazo). Hasta acumular semanas, los tramos son poco fiables.
+- **Tramos de riesgo:** el histórico empieza el 2026-11-16 y crece ≈1,5 MB/día en la rama `data` (se compacta cada mes). Hasta acumular semanas, los tramos son poco fiables.
 - Los parsers de **incidencias** y **paneles** están ajustados al XML real (muestras en `data/samples/`). El de las **capas estáticas** (radares, cámaras, localizaciones de paneles) es genérico y su salida está revisada, pero conviene reajustarlo si la DGT cambia el perfil. Los radares fijos solo se publican en DATEX II v2 y su fecha de publicación es antigua (2025-12).
 - OSRM y Nominatim públicos no tienen garantía de servicio ni admiten uso intensivo; el enrutador es fácil de cambiar (`fetchRoute`).
 - El planificador no filtra por sentido de circulación: una incidencia de la otra calzada puede aparecer (se indica el sentido en el texto).
