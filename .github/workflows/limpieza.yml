@@ -1,0 +1,41 @@
+# Limpieza semanal del histórico: borra incidencias/paneles de más de 8 días (ya procesados por riesgo) y runs antiguos
+name: limpieza
+
+on:
+  schedule:
+    - cron: "41 21 * * 0"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: limpieza
+  cancel-in-progress: false
+
+jobs:
+  limpieza:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Limpiar histórico
+        run: python collector/limpieza.py --history data/history
+
+      - name: Guardar cambios en main
+        run: |
+          git config user.name "viajes-dgt-bot"
+          git config user.email "viajes-dgt-bot@users.noreply.github.com"
+          git add -A data
+          if ! git diff --cached --quiet; then
+            git commit -m "limpieza histórico $(date -u +%Y-%m-%d)"
+            for i in 1 2 3 4 5; do
+              git pull -q --rebase origin main && git push origin HEAD:main && break
+              sleep $((i * 4))
+            done
+          fi

@@ -51,6 +51,10 @@ Solo usa la librería estándar de Python (3.11+). Sin dependencias.
 
 `collector/resumen.py` (workflow `resumen.yml`, lunes ≈08:00 hora de Madrid, también manual) lee los últimos 7 días del histórico y manda por ntfy los cortes (`roadClosed`/`carriagewayClosures`) de Andalucía —por carretera, con horas cortadas y si siguen abiertos— y los que han caído sobre tus corredores si existe el secreto `CORREDORES`. Los cortes por obras se cuentan aparte. Sin `NTFY_TOPIC` solo imprime el resumen.
 
+### Limpieza del histórico
+
+`collector/limpieza.py` (workflow `limpieza.yml`, domingos por la noche, también manual) borra de `data/history/` las incidencias y paneles de más de 8 días —así siempre queda la semana del resumen— y solo si `riesgo.py` ya procesó ese día; de `runs/` conserva el mes actual y el anterior. No toca `riesgo_estado.json`. Git conserva el pasado: frena el crecimiento del repo, no lo reduce.
+
 ### Avisos de corredor al móvil (ntfy)
 
 `collector/corredores.py` (paso de `collect.yml`) avisa por [ntfy.sh](https://ntfy.sh) cuando, entre 15 min antes y 90 min después de la hora habitual de un corredor, hay en su ruta: incidencias graves (corte, accidente, vehículo en llamas, desprendimientos, avalancha, inundación) a menos de 150 m, avisos AEMET naranja/rojo vigentes a la hora de paso, o tiempo adverso (lluvia ≥ 5 mm/h, rachas ≥ 70 km/h, hielo o nieve, visibilidad < 1 km, tormenta). Solo repite el aviso si el conjunto de alertas cambia.
