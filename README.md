@@ -55,6 +55,10 @@ Solo usa la librería estándar de Python (3.11+). Sin dependencias.
 
 `collector/limpieza.py` (workflow `limpieza.yml`, domingos por la noche, también manual) borra de `data/history/` las incidencias y paneles de más de 8 días —así siempre queda la semana del resumen— y solo si `riesgo.py` ya procesó ese día; de `runs/` conserva el mes actual y el anterior. No toca `riesgo_estado.json`. Git conserva el pasado: frena el crecimiento del repo, no lo reduce.
 
+### Compactación semestral
+
+`compactar.yml` (1 de mayo y 1 de noviembre; manual con `dry_run`) quita `data/history` de todo el historial de Git y lo repone en un commit nuevo con los últimos 8 días y el estado de riesgo. Se conserva el historial del código. **Reescribe `main` (force push): después hay que volver a clonar.** GitHub libera el espacio con retraso.
+
 ### Recordatorio anual
 
 `recordatorio.yml` manda por ntfy cada 17 de noviembre el tamaño del repo (el histórico crece ≈ 1,5 MB/día) y recuerda revisar la clave de AEMET.
