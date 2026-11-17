@@ -154,3 +154,36 @@
 {"t":"2026-11-17T00:41:48Z","ev":"close","id":"30103032"}
 {"t":"2026-11-17T00:41:48Z","ev":"close","id":"30103048"}
 {"t":"2026-11-17T00:41:48Z","ev":"close","id":"30103063"}
+{"t":"2026-11-17T00:51:20Z","ev":"open","id":"30103114","sit":"25682643","ver":"1","kind":"GenericSituationRecord","types":["vehicleObstruction","vehicleStuck"],"status":"active","created":"2026-11-17T01:45:46.000+01:00","start":"2026-11-17T01:45:46.000+01:00","road":"M-21","dir":"positive","pk":[5.964],"a":[40.44474,-3.53362],"geo":{"autonomousCommunity":"Madrid, Comunidad de","municipality":"Coslada","province":"Madrid"}}
+{"t":"2026-11-17T00:51:20Z","ev":"open","id":"30103115","sit":"25682644","ver":"1","kind":"GenericSituationRecord","types":["vehicleObstruction","vehicleStuck"],"status":"active","created":"2026-11-17T01:45:55.000+01:00","start":"2026-11-17T01:45:55.000+01:00","road":"M-14","dir":"positive","pk":[0.264],"a":[40.44055,-3.59252],"geo":{"autonomousCommunity":"Madrid, Comunidad de","municipality":"Madrid","province":"Madrid"}}
+{"t":"2026-11-17T00:51:20Z","ev":"open","id":"30103121","sit":"25682649","ver":"1","kind":"AbnormalTraffic","types":["accident","slowTraffic"],"status":"active","created":"2026-11-17T01:46:57.000+01:00","start":"2026-11-17T01:46:57.000+01:00","road":"AP-1","dir":"negative","lanes":"allLanesCompleteCarriageway","pk":[45.0,43.0],"a":[42.57921,-3.252014],"b":[42.564526,-3.266282],"geo":{"autonomousCommunity":"Castilla y León","municipality":"Briviesca","province":"Burgos"}}
+{"t":"2026-11-17T00:51:20Z","ev":"open","id":"30103122","sit":"25682649","ver":"1","kind":"RoadOrCarriagewayOrLaneManagement","types":["accident","narrowLanes"],"status":"active","created":"2026-11-17T01:46:57.000+01:00","start":"2026-11-17T01:46:57.000+01:00","road":"AP-1","dir":"negative","lanes":"rightLane","pk":[44.5,43.0],"a":[42.5758,-3.256071],"b":[42.564526,-3.266282],"geo":{"autonomousCommunity":"Castilla y León","municipality":"Briviesca","province":"Burgos"}}
+{"t":"2026-11-17T00:51:20Z","ev":"open","id":"30103120","sit":"25682649","ver":"1","kind":"RoadOrCarriagewayOrLaneManagement","types":["accident","laneClosures"],"status":"active","created":"2026-11-17T01:46:57.000+01:00","start":"2026-11-17T01:46:57.000+01:00","road":"AP-1","dir":"negative","lanes":"rightLane","pk":[44.5,43.0],"a":[42.5758,-3.256071],"b":[42.564526,-3.266282],"geo":{"autonomousCommunity":"Castilla y León","municipality":"Briviesca","province":"Burgos"}}
+{"t":"2026-11-17T00:51:20Z","ev":"open","id":"30103123","sit":"25682650","ver":"1","kind":"GenericSituationRecord","types":["vehicleObstruction","vehicleStuck"],"status":"active","created":"2026-11-17T01:47:05.000+01:00","start":"2026-11-17T01:47:05.000+01:00","road":"A-6050R1","dir":"negative","pk":[5.067],"a":[37.78081,-3.818474],"geo":{"autonomousCommunity":"Andalucía","municipality":"Jaén","province":"Jaén"}}
+{"t":"2026-11-17T00:51:20Z","ev":"open","id":"30103124","sit":"25682651","ver":"1","kind":"RoadOrCarriagewayOrLaneManagement","types":["roadMaintenance","roadworks","laneClosures"],"status":"active","created":"2026-11-17T01:47:37.000+01:00","start":"2026-11-17T01:47:37.000+01:00","road":"A-376","dir":"negative","lanes":"rightLane","pk":[6.0,3.0],"a":[37.326588,-5.903351],"b":[37.341976,-5.929271],"geo":{"autonomousCommunity":"Andalucía","municipality":"Dos Hermanas","province":"Sevilla"}}
+{"t":"2026-11-17T00:51:20Z","ev":"open","id":"30103126","sit":"25682653","ver":"1","kind":"GenericSituationRecord","types":["vehicleObstruction","vehicleStuck"],"status":"active","created":"2026-11-17T01:47:57.000+01:00","start":"2026-11-17T01:47:57.000+01:00","road":"SE-30","dir":"positive","pk":[2.816],"a":[37.3818,-5.94276],"geo":{"autonomousCommunity":"Andalucía","municipality":"Sevilla","province":"Sevilla"}}
+{"t":"2026-11-17T00:51:20Z","ev":"open","id":"30103128","sit":"25682655","ver":"1","kind":"GenericSituationRecord","types":["vehicleObstruction","vehicleStuck"],"status":"active","created":"2026-11-17T01:48:26.000+01:00","start":"2026-11-17T01:48:26.000+01:00","road":"CV-62","dir":"negative","pk":[0.877],"a":[38.833843,-0.504057],"geo":{"autonomousCommunity":"Comunitat Valenciana","municipality":"Albaida","province":"València/Valencia"}}
+{"t":"2026-11-17T00:51:20Z","ev":"open","id":"30103130","sit":"25682657","ver":"1","kind":"GenericSituationRecord","types":["vehicleObstruction","vehicleStuck"],"status":"active","created":"2026-11-17T01:49:09.000+01:00","start":"2026-11-17T01:49:09.000+01:00","road":"A-6","dir":"positive","pk":[256.695],"a":[41.9748,-5.60541],"geo":{"autonomousCommunity":"Castilla y León","municipality":"Castrogonzalo","province":"Zamora"}}
+{"t":"2026-11-17T00:51:20Z","ev":"open","id":"30103131","sit":"25682658","ver":"1","kind":"GenericSituationRecord","types":["vehicleObstruction","vehicleStuck"],"status":"active","created":"2026-11-17T01:49:55.000+01:00","start":"2026-11-17T01:49:55.000+01:00","road":"A-5","dir":"positive","pk":[12.682],"a":[40.35681,-3.82004],"geo":{"autonomousCommunity":"Madrid, Comunidad de","municipality":"Alcorcón","province":"Madrid"}}
+{"t":"2026-11-17T00:51:20Z","ev":"open","id":"30103132","sit":"25682659","ver":"1","kind":"GenericSituationRecord","types":["vehicleObstruction","vehicleStuck"],"status":"active","created":"2026-11-17T01:50:11.000+01:00","start":"2026-11-17T01:50:11.000+01:00","road":"A-309a","dir":"positive","pk":[5.755],"a":[37.57849,-4.650815],"geo":{"autonomousCommunity":"Andalucía","municipality":"Montilla","province":"Córdoba"}}
+{"t":"2026-11-17T00:51:20Z","ev":"open","id":"30103133","sit":"25682660","ver":"1","kind":"GenericSituationRecord","types":["vehicleObstruction","vehicleStuck"],"status":"active","created":"2026-11-17T01:50:13.000+01:00","start":"2026-11-17T01:50:13.000+01:00","road":"A-5","dir":"positive","pk":[18.265],"a":[40.336567,-3.880822],"geo":{"autonomousCommunity":"Madrid, Comunidad de","municipality":"Móstoles","province":"Madrid"}}
+{"t":"2026-11-17T00:51:20Z","ev":"close","id":"30088254"}
+{"t":"2026-11-17T00:51:20Z","ev":"close","id":"30088069"}
+{"t":"2026-11-17T00:51:20Z","ev":"close","id":"30101770"}
+{"t":"2026-11-17T00:51:20Z","ev":"close","id":"30101833"}
+{"t":"2026-11-17T00:51:20Z","ev":"close","id":"30102817"}
+{"t":"2026-11-17T00:51:20Z","ev":"close","id":"30102835"}
+{"t":"2026-11-17T00:51:20Z","ev":"close","id":"30102860"}
+{"t":"2026-11-17T00:51:20Z","ev":"close","id":"30102934"}
+{"t":"2026-11-17T00:51:20Z","ev":"close","id":"30102947"}
+{"t":"2026-11-17T00:51:20Z","ev":"close","id":"30103018"}
+{"t":"2026-11-17T00:51:20Z","ev":"close","id":"30103054"}
+{"t":"2026-11-17T00:51:20Z","ev":"close","id":"30103087"}
+{"t":"2026-11-17T00:51:20Z","ev":"close","id":"30103089"}
+{"t":"2026-11-17T00:51:20Z","ev":"close","id":"30103090"}
+{"t":"2026-11-17T00:51:20Z","ev":"close","id":"30103091"}
+{"t":"2026-11-17T00:51:20Z","ev":"close","id":"30103094"}
+{"t":"2026-11-17T00:51:20Z","ev":"close","id":"30103098"}
+{"t":"2026-11-17T00:51:20Z","ev":"close","id":"30103100"}
+{"t":"2026-11-17T00:51:20Z","ev":"close","id":"30103102"}
+{"t":"2026-11-17T00:51:20Z","ev":"close","id":"30103103"}
