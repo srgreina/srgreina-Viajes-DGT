@@ -538,3 +538,27 @@
 {"t":"2026-11-17T03:11:46Z","ev":"close","id":"30103649"}
 {"t":"2026-11-17T03:11:46Z","ev":"close","id":"30103651"}
 {"t":"2026-11-17T03:11:46Z","ev":"close","id":"30103654"}
+{"t":"2026-11-17T03:21:03Z","ev":"open","id":"30103650","sit":"25681002","ver":"22","kind":"RoadOrCarriagewayOrLaneManagement","types":["roadMaintenance","roadworks","laneClosures"],"status":"active","created":"2026-11-17T04:14:27.000+01:00","start":"2026-11-17T04:14:00.000+01:00","end":"2026-11-17T05:30:00.000+01:00","road":"A-5","dir":"negative","lanes":"leftLane","pk":[20.0,19.0],"a":[40.32472,-3.893822],"b":[40.332253,-3.887336],"geo":{"autonomousCommunity":"Madrid, Comunidad de","municipality":"Móstoles","province":"Madrid"}}
+{"t":"2026-11-17T03:21:03Z","ev":"open","id":"30103679","sit":"25683008","ver":"1","kind":"GenericSituationRecord","types":["vehicleObstruction","vehicleStuck"],"status":"active","created":"2026-11-17T04:12:02.000+01:00","start":"2026-11-17T04:12:02.000+01:00","road":"N-6","dir":"negative","pk":[405.534],"a":[42.59939,-6.807942],"geo":{"autonomousCommunity":"Castilla y León","municipality":"Villafranca del Bierzo","province":"León"}}
+{"t":"2026-11-17T03:21:03Z","ev":"open","id":"30103682","sit":"25683011","ver":"1","kind":"GenericSituationRecord","types":["vehicleObstruction","vehicleStuck"],"status":"active","created":"2026-11-17T04:13:16.000+01:00","start":"2026-11-17T04:13:16.000+01:00","road":"VS-A-2-C","dir":"positive","pk":[17.453],"a":[40.45335,-3.510292],"geo":{"autonomousCommunity":"Madrid, Comunidad de","municipality":"San Fernando de Henares","province":"Madrid"}}
+{"t":"2026-11-17T03:21:03Z","ev":"open","id":"30103683","sit":"25683012","ver":"1","kind":"GenericSituationRecord","types":["vehicleObstruction","vehicleStuck"],"status":"active","created":"2026-11-17T04:13:19.000+01:00","start":"2026-11-17T04:13:19.000+01:00","road":"M-600","dir":"positive","pk":[9.423],"a":[40.58458,-4.12516],"geo":{"autonomousCommunity":"Madrid, Comunidad de","municipality":"El Escorial","province":"Madrid"}}
+{"t":"2026-11-17T03:21:03Z","ev":"open","id":"30103686","sit":"25683015","ver":"1","kind":"GenericSituationRecord","types":["vehicleObstruction","vehicleStuck"],"status":"active","created":"2026-11-17T04:15:03.000+01:00","start":"2026-11-17T04:15:03.000+01:00","road":"GR-30","dir":"positive","pk":[12.52],"a":[37.1769,-3.61495],"geo":{"autonomousCommunity":"Andalucía","municipality":"Granada","province":"Granada"}}
+{"t":"2026-11-17T03:21:03Z","ev":"open","id":"30103688","sit":"25683017","ver":"1","kind":"GenericSituationRecord","types":["vehicleObstruction","vehicleStuck"],"status":"active","created":"2026-11-17T04:15:48.000+01:00","start":"2026-11-17T04:15:48.000+01:00","road":"N-6","dir":"positive","pk":[261.474],"a":[41.999027,-5.66382],"geo":{"autonomousCommunity":"Castilla y León","municipality":"Benavente","province":"Zamora"}}
+{"t":"2026-11-17T03:21:03Z","ev":"open","id":"30103689","sit":"25683018","ver":"1","kind":"GenericSituationRecord","types":["vehicleObstruction","vehicleStuck"],"status":"active","created":"2026-11-17T04:16:04.000+01:00","start":"2026-11-17T04:16:04.000+01:00","road":"Z-40","dir":"negative","pk":[24.057],"a":[41.60566,-0.88588],"geo":{"autonomousCommunity":"Aragón","municipality":"Zaragoza","province":"Zaragoza"}}
+{"t":"2026-11-17T03:21:03Z","ev":"open","id":"30103693","sit":"25683022","ver":"1","kind":"GenericSituationRecord","types":["vehicleObstruction","vehicleStuck"],"status":"active","created":"2026-11-17T04:17:26.000+01:00","start":"2026-11-17T04:17:26.000+01:00","road":"M-505","dir":"negative","pk":[23.9],"a":[40.5784,-4.08643],"geo":{"autonomousCommunity":"Madrid, Comunidad de","municipality":"El Escorial","province":"Madrid"}}
+{"t":"2026-11-17T03:21:03Z","ev":"open","id":"30103694","sit":"25683023","ver":"1","kind":"GenericSituationRecord","types":["vehicleObstruction","vehicleStuck"],"status":"active","created":"2026-11-17T04:17:54.000+01:00","start":"2026-11-17T04:17:54.000+01:00","road":"Ma-30","dir":"negative","pk":[6.603],"a":[39.60899,2.71335],"geo":{"autonomousCommunity":"Balears, Illes","municipality":"Marratxí","province":"Illes Balears"}}
+{"t":"2026-11-17T03:21:03Z","ev":"open","id":"30103696","sit":"25683025","ver":"1","kind":"GenericSituationRecord","types":["vehicleObstruction","vehicleStuck"],"status":"active","created":"2026-11-17T04:18:39.000+01:00","start":"2026-11-17T04:18:39.000+01:00","road":"N-340a","dir":"negative","pk":[253.396],"a":[36.71537,-4.2857],"geo":{"autonomousCommunity":"Andalucía","municipality":"Rincón de la Victoria","province":"Málaga"}}
+{"t":"2026-11-17T03:21:03Z","ev":"close","id":"30065540"}
+{"t":"2026-11-17T03:21:03Z","ev":"close","id":"30065545"}
+{"t":"2026-11-17T03:21:03Z","ev":"close","id":"30065548"}
+{"t":"2026-11-17T03:21:03Z","ev":"close","id":"30065543"}
+{"t":"2026-11-17T03:21:03Z","ev":"close","id":"30096659"}
+{"t":"2026-11-17T03:21:03Z","ev":"close","id":"30103336"}
+{"t":"2026-11-17T03:21:03Z","ev":"close","id":"30103337"}
+{"t":"2026-11-17T03:21:03Z","ev":"close","id":"30103341"}
+{"t":"2026-11-17T03:21:03Z","ev":"close","id":"30103413"}
+{"t":"2026-11-17T03:21:03Z","ev":"close","id":"30103658"}
+{"t":"2026-11-17T03:21:03Z","ev":"close","id":"30103667"}
+{"t":"2026-11-17T03:21:03Z","ev":"close","id":"30103668"}
+{"t":"2026-11-17T03:21:03Z","ev":"close","id":"30103670"}
+{"t":"2026-11-17T03:21:03Z","ev":"close","id":"30103671"}
