@@ -422,3 +422,26 @@
 {"t":"2026-11-18T02:25:02Z","ev":"close","id":"29899860"}
 {"t":"2026-11-18T02:25:02Z","ev":"close","id":"30140945"}
 {"t":"2026-11-18T02:25:02Z","ev":"close","id":"30141078"}
+{"t":"2026-11-18T02:34:36Z","ev":"open","id":"30141094","sit":"25718491","ver":"1","kind":"GenericSituationRecord","types":["accident"],"status":"active","created":"2026-11-18T03:24:46.000+01:00","start":"2026-11-18T03:23:00.000+01:00","road":"A-3","dir":"positive","pk":[301.986],"a":[39.458363,-0.950419],"geo":{"autonomousCommunity":"Comunitat Valenciana","municipality":"Siete Aguas","province":"València/Valencia"}}
+{"t":"2026-11-18T02:34:36Z","ev":"open","id":"30141097","sit":"25718494","ver":"1","kind":"GenericSituationRecord","types":["vehicleObstruction","vehicleStuck"],"status":"active","created":"2026-11-18T03:26:45.000+01:00","start":"2026-11-18T03:26:45.000+01:00","road":"N-330","dir":"negative","pk":[490.213],"a":[41.61015,-0.92769],"geo":{"autonomousCommunity":"Aragón","municipality":"Zaragoza","province":"Zaragoza"}}
+{"t":"2026-11-18T02:34:36Z","ev":"open","id":"30141098","sit":"25718495","ver":"1","kind":"GenericSituationRecord","types":["vehicleObstruction","vehicleStuck"],"status":"active","created":"2026-11-18T03:28:34.000+01:00","start":"2026-11-18T03:28:34.000+01:00","road":"N-525","dir":"negative","pk":[234.804],"a":[42.31675,-7.86844],"geo":{"autonomousCommunity":"Galicia","municipality":"San Cibrao das Viñas","province":"Ourense"}}
+{"t":"2026-11-18T02:34:36Z","ev":"open","id":"30141099","sit":"25718496","ver":"1","kind":"RoadOrCarriagewayOrLaneManagement","types":["roadMaintenance","roadworks","laneClosures"],"status":"active","created":"2026-11-18T03:28:56.000+01:00","start":"2026-11-18T03:28:56.000+01:00","road":"A-7","dir":"negative","lanes":"rightLane","pk":[568.7,568.5],"a":[38.019253,-1.165478],"b":[38.021366,-1.165239],"geo":{"autonomousCommunity":"Murcia, Región de","municipality":"Murcia","province":"Murcia"}}
+{"t":"2026-11-18T02:34:36Z","ev":"open","id":"30141101","sit":"25717537","ver":"14","kind":"RoadOrCarriagewayOrLaneManagement","types":["roadMaintenance","roadworks","laneClosures"],"status":"active","created":"2026-11-18T03:30:07.000+01:00","start":"2026-11-18T03:30:00.000+01:00","end":"2026-11-18T05:30:00.000+01:00","road":"A-5","dir":"positive","lanes":"leftLane","pk":[24.0,25.0],"a":[40.301743,-3.929143],"b":[40.298634,-3.94052],"geo":{"autonomousCommunity":"Madrid, Comunidad de","municipality":"Móstoles","province":"Madrid"}}
+{"t":"2026-11-18T02:34:36Z","ev":"open","id":"30141103","sit":"25718499","ver":"1","kind":"GenericSituationRecord","types":["vehicleObstruction","vehicleStuck"],"status":"active","created":"2026-11-18T03:30:23.000+01:00","start":"2026-11-18T03:30:23.000+01:00","road":"AS-323","dir":"negative","pk":[5.468],"a":[43.33635,-5.63431],"geo":{"autonomousCommunity":"Asturias, Principado de","municipality":"Siero","province":"Asturias"}}
+{"t":"2026-11-18T02:34:36Z","ev":"open","id":"30141104","sit":"25718500","ver":"1","kind":"GenericSituationRecord","types":["vehicleObstruction","vehicleStuck"],"status":"active","created":"2026-11-18T03:31:59.000+01:00","start":"2026-11-18T03:31:59.000+01:00","road":"N-330","dir":"positive","pk":[489.944],"a":[41.60798,-0.9294],"geo":{"autonomousCommunity":"Aragón","municipality":"Cuarte de Huerva","province":"Zaragoza"}}
+{"t":"2026-11-18T02:34:36Z","ev":"open","id":"30141105","sit":"25718501","ver":"1","kind":"GenericSituationRecord","types":["vehicleObstruction","vehicleStuck"],"status":"active","created":"2026-11-18T03:32:07.000+01:00","start":"2026-11-18T03:32:07.000+01:00","road":"A-384","dir":"negative","pk":[93.309],"a":[37.00666,-4.997159],"geo":{"autonomousCommunity":"Andalucía","municipality":"Almargen","province":"Málaga"}}
+{"t":"2026-11-18T02:34:36Z","ev":"open","id":"30141111","sit":"25718507","ver":"1","kind":"GenericSituationRecord","types":["vehicleObstruction","vehicleStuck"],"status":"active","created":"2026-11-18T03:33:48.000+01:00","start":"2026-11-18T03:33:48.000+01:00","road":"A-5055","dir":"positive","pk":[4.174],"a":[37.209435,-7.213097],"geo":{"autonomousCommunity":"Andalucía","municipality":"Lepe","province":"Huelva"}}
+{"t":"2026-11-18T02:34:36Z","ev":"close","id":"29899481"}
+{"t":"2026-11-18T02:34:36Z","ev":"close","id":"29899697"}
+{"t":"2026-11-18T02:34:36Z","ev":"close","id":"29899783"}
+{"t":"2026-11-18T02:34:36Z","ev":"close","id":"30002659"}
+{"t":"2026-11-18T02:34:36Z","ev":"close","id":"30137730"}
+{"t":"2026-11-18T02:34:36Z","ev":"close","id":"30140109"}
+{"t":"2026-11-18T02:34:36Z","ev":"close","id":"30140627"}
+{"t":"2026-11-18T02:34:36Z","ev":"close","id":"30140970"}
+{"t":"2026-11-18T02:34:36Z","ev":"close","id":"30140973"}
+{"t":"2026-11-18T02:34:36Z","ev":"close","id":"30140977"}
+{"t":"2026-11-18T02:34:36Z","ev":"close","id":"30141013"}
+{"t":"2026-11-18T02:34:36Z","ev":"close","id":"30141016"}
+{"t":"2026-11-18T02:34:36Z","ev":"close","id":"30141025"}
+{"t":"2026-11-18T02:34:36Z","ev":"close","id":"30141093"}
