@@ -659,3 +659,22 @@
 {"t":"2026-11-18T04:27:28Z","ev":"close","id":"30141394"}
 {"t":"2026-11-18T04:27:28Z","ev":"close","id":"30141398"}
 {"t":"2026-11-18T04:27:28Z","ev":"close","id":"30141481"}
+{"t":"2026-11-18T04:36:52Z","ev":"open","id":"30141549","sit":"25718742","ver":"1","kind":"GenericSituationRecord","types":["vehicleObstruction","vehicleStuck"],"status":"active","created":"2026-11-18T05:32:24.000+01:00","start":"2026-11-18T05:32:24.000+01:00","road":"M-40","dir":"negative","pk":[21.146],"a":[40.36066,-3.67626],"geo":{"autonomousCommunity":"Madrid, Comunidad de","municipality":"Madrid","province":"Madrid"}}
+{"t":"2026-11-18T04:36:52Z","ev":"open","id":"30141552","sit":"25718744","ver":"1","kind":"GenericSituationRecord","types":["vehicleObstruction","vehicleStuck"],"status":"active","created":"2026-11-18T05:32:58.000+01:00","start":"2026-11-18T05:32:58.000+01:00","road":"A-3","dir":"negative","pk":[257.512],"a":[39.52617,-1.407958],"geo":{"autonomousCommunity":"Comunitat Valenciana","municipality":"Villargordo del Cabriel","province":"València/Valencia"}}
+{"t":"2026-11-18T04:36:52Z","ev":"open","id":"30141562","sit":"25718750","ver":"1","kind":"GenericSituationRecord","types":["vehicleObstruction","vehicleStuck"],"status":"active","created":"2026-11-18T05:35:28.000+01:00","start":"2026-11-18T05:35:28.000+01:00","road":"CM-4006","dir":"positive","pk":[11.572],"a":[39.94453,-3.992807],"geo":{"autonomousCommunity":"Castilla - La Mancha","municipality":"Olías del Rey","province":"Toledo"}}
+{"t":"2026-11-18T04:36:52Z","ev":"open","id":"30141564","sit":"25718751","ver":"1","kind":"GenericSituationRecord","types":["accident"],"status":"active","created":"2026-11-18T05:35:46.000+01:00","start":"2026-11-18T05:33:00.000+01:00","road":"N-234","dir":"positive","pk":[3.285],"a":[39.672577,-0.312331],"geo":{"autonomousCommunity":"Comunitat Valenciana","municipality":"Sagunt/Sagunto","province":"València/Valencia"}}
+{"t":"2026-11-18T04:36:52Z","ev":"close","id":"30138623"}
+{"t":"2026-11-18T04:36:52Z","ev":"close","id":"30137483"}
+{"t":"2026-11-18T04:36:52Z","ev":"close","id":"30138622"}
+{"t":"2026-11-18T04:36:52Z","ev":"close","id":"30137482"}
+{"t":"2026-11-18T04:36:52Z","ev":"close","id":"30140774"}
+{"t":"2026-11-18T04:36:52Z","ev":"close","id":"30140918"}
+{"t":"2026-11-18T04:36:52Z","ev":"close","id":"30141405"}
+{"t":"2026-11-18T04:36:52Z","ev":"close","id":"30141407"}
+{"t":"2026-11-18T04:36:52Z","ev":"close","id":"30141411"}
+{"t":"2026-11-18T04:36:52Z","ev":"close","id":"30141479"}
+{"t":"2026-11-18T04:36:52Z","ev":"close","id":"30141490"}
+{"t":"2026-11-18T04:36:52Z","ev":"close","id":"30141503"}
+{"t":"2026-11-18T04:36:52Z","ev":"close","id":"30141506"}
+{"t":"2026-11-18T04:36:52Z","ev":"close","id":"30141507"}
+{"t":"2026-11-18T04:36:52Z","ev":"close","id":"30141508"}
