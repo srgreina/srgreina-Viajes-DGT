@@ -1,0 +1,8 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">Viajes DGT</string>
+    <string name="title_activity_main">Viajes DGT</string>
+    <string name="package_name">es.srgreina.viajesdgt</string>
+    <string name="custom_url_scheme">es.srgreina.viajesdgt</string>
+    <string name="capacitor_background_geolocation_notification_channel_name">Modo conducción</string>
+</resources>

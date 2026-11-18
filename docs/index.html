@@ -1513,14 +1513,23 @@ function clearRoute() {
 }
 
 // ---- modo conducción (voz del navegador + GPS; la lógica de qué decir está en <core>)
-const drive = { on: false, watch: null, wake: null, said: new Set(), off: false };
+const drive = { on: false, watch: null, wake: null, said: new Set(), off: false, nativeId: null };
+// Dentro de la app Android (Capacitor) el GPS y la voz son nativos y siguen con la pantalla apagada; en el navegador, los de siempre.
+const NATIVE = !!(window.Capacitor && typeof window.Capacitor.isNativePlatform === 'function' && window.Capacitor.isNativePlatform());
+const plug = (n) => (window.Capacitor && window.Capacitor.Plugins && window.Capacitor.Plugins[n]) || null;
 function speak(text) {
+  if (NATIVE) {
+    const tts = plug('TextToSpeech');
+    if (tts) tts.speak({ text, lang: 'es-ES', rate: 1.0, queueStrategy: 1 }).catch(() => {});
+    return;
+  }
   if (!('speechSynthesis' in window)) return;
   const u = new SpeechSynthesisUtterance(text);
   u.lang = 'es-ES';
   speechSynthesis.speak(u);
 }
 async function driveWake() {
+  if (NATIVE) return; // la app Android no necesita mantener la pantalla encendida
   try { if (drive.on && !drive.wake && navigator.wakeLock) drive.wake = await navigator.wakeLock.request('screen'); } catch (e) { /* sin bloqueo de pantalla */ }
 }
 function driveInfo(msg) { $('drive').textContent = msg; $('drive').hidden = !msg; }
@@ -1541,12 +1550,36 @@ function driveStop() {
   drive.on = false;
   if (drive.watch !== null) navigator.geolocation.clearWatch(drive.watch);
   drive.watch = null;
+  if (drive.nativeId !== null) { const bg = plug('BackgroundGeolocation'); if (bg) bg.removeWatcher({ id: drive.nativeId }).catch(() => {}); drive.nativeId = null; }
+  if (NATIVE) { const tts = plug('TextToSpeech'); if (tts) tts.stop().catch(() => {}); }
   if ('speechSynthesis' in window) speechSynthesis.cancel();
   if (drive.wake) { drive.wake.release().catch(() => {}); drive.wake = null; }
   $('driveBtn').setAttribute('aria-pressed', 'false');
   driveInfo('');
 }
+async function driveStartNative() {
+  const bg = plug('BackgroundGeolocation');
+  if (!bg || !plug('TextToSpeech')) return setStatus('Falta un componente de la app: reinstala la última versión', true);
+  try { const ln = plug('LocalNotifications'); if (ln) await ln.requestPermissions(); } catch (e) { /* sin aviso en barra: el servicio sigue funcionando */ }
+  drive.on = true; drive.off = false; drive.said.clear();
+  $('driveBtn').setAttribute('aria-pressed', 'true');
+  speak('Modo conducción activado');
+  driveInfo('Buscando tu posición…');
+  try {
+    drive.nativeId = await bg.addWatcher(
+      { backgroundTitle: 'Viajes DGT · modo conducción', backgroundMessage: 'Avisos de ruta activos. Toca para abrir.', requestPermissions: true, stale: false, distanceFilter: 10 },
+      (loc, err) => {
+        if (err) {
+          if (err.code === 'NOT_AUTHORIZED') { setStatus('Falta el permiso de ubicación: en Ajustes elige «Permitir siempre»', true); bg.openSettings(); driveStop(); } else driveInfo('Sin señal GPS…');
+          return;
+        }
+        if (loc) driveTick({ coords: { latitude: loc.latitude, longitude: loc.longitude } });
+      });
+  } catch (e) { setStatus('No se pudo iniciar el GPS en segundo plano', true); driveStop(); }
+  if (!isDesktop()) setSheet('peek');
+}
 function driveStart() {
+  if (NATIVE) return driveStartNative();
   if (!navigator.geolocation) return setStatus('Este navegador no da la ubicación', true);
   if (!('speechSynthesis' in window)) return setStatus('Este navegador no tiene voz', true);
   drive.on = true; drive.off = false; drive.said.clear();

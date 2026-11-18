@@ -1,0 +1,54 @@
+# Compila la app Android (Capacitor) y la publica como descarga directa en la release "apk".
+# Enlace fijo: https://github.com/srgreina/srgreina-Viajes-DGT/releases/download/apk/viajes-dgt.apk
+name: APK Android
+
+on:
+  push:
+    branches: [main]
+    paths: ["app/**", ".github/workflows/apk.yml"]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: apk
+  cancel-in-progress: true
+
+jobs:
+  apk:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v5
+
+      - uses: actions/setup-node@v5
+        with:
+          node-version: "22"
+          cache: npm
+          cache-dependency-path: app/package-lock.json
+
+      - uses: actions/setup-java@v5
+        with:
+          distribution: temurin
+          java-version: "21"
+
+      - name: Dependencias y sincronización
+        working-directory: app
+        run: |
+          npm ci
+          npx cap sync android
+
+      - name: Compilar APK
+        working-directory: app/android
+        run: ./gradlew --no-daemon assembleDebug
+
+      - name: Publicar en la release "apk"
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          cp app/android/app/build/outputs/apk/debug/app-debug.apk viajes-dgt.apk
+          gh release delete apk --yes --cleanup-tag 2>/dev/null || true
+          gh release create apk viajes-dgt.apk --title "App Android (APK)" \
+            --notes "Compilada el $(date -u +%Y-%m-%d\ %H:%M) UTC desde $(git rev-parse --short HEAD). Instálala permitiendo orígenes desconocidos; las nuevas versiones se instalan encima de la anterior." \
+            --latest=false

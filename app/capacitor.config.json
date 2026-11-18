@@ -1,0 +1,13 @@
+{
+  "appId": "es.srgreina.viajesdgt",
+  "appName": "Viajes DGT",
+  "webDir": "www",
+  "server": {
+    "url": "https://srgreina.github.io/srgreina-Viajes-DGT/",
+    "androidScheme": "https",
+    "allowNavigation": ["srgreina.github.io", "router.project-osrm.org", "nominatim.openstreetmap.org", "api.open-meteo.com", "*.tile.openstreetmap.org", "*.basemaps.cartocdn.com", "raw.githubusercontent.com", "unpkg.com", "cdnjs.cloudflare.com", "fonts.googleapis.com", "fonts.gstatic.com"]
+  },
+  "android": {
+    "useLegacyBridge": true
+  }
+}
