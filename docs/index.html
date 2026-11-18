@@ -132,6 +132,7 @@ button:disabled { opacity: .6; cursor: default; }
 .chip .dot { width: 10px; height: 10px; border-radius: 50%; opacity: .45; }
 .chip input:checked + .dot { opacity: 1; }
 .chip.on { background: var(--text); color: var(--papel); }
+.chip.dirchip.on { background: var(--primary); color: var(--on-primary); }
 .chip:focus-within { outline: 3px solid var(--primary); outline-offset: 2px; }
 .chip.day { min-width: 44px; padding: 0 12px; }
 
@@ -733,7 +734,7 @@ function fmtPk(pk) {
   const v = [...pk].sort((a, b) => a - b);
   return v.length > 1 && v[0] !== v[1] ? `PK ${fmtNum(v[0])}–${fmtNum(v[1])}` : `PK ${fmtNum(v[0])}`;
 }
-const DIR_ES = { both: 'ambos sentidos', positive: 'sentido positivo', negative: 'sentido negativo' };
+const DIR_ES = { both: 'ambos sentidos', positive: 'sentido PK creciente', negative: 'sentido PK decreciente' };
 
 // Texto y gravedad (high | mid | low | info) de un resultado.
 function describe(hit) {
@@ -838,6 +839,144 @@ function driveStep(routeWide, hits, lat, lon, said, ahead = 5000, max = 2, offM 
 
 // ---- refresco automático: cuándo toca volver a pedir los datos (lógica pura)
 const dueRefresh = (lastMs, nowMs, everyMs = 300000) => !lastMs || nowMs - lastMs >= everyMs;
+
+// ---- solo mi sentido. En la DGT, "positive" = sentido de PK creciente (comprobado con radares C/D,
+// tramos de radar, orden de PK de las incidencias y destinos de paneles y cámaras).
+// Regla: ante cualquier duda, se muestra.
+const normRoad = (r) => String(r || '').toUpperCase().replace(/\s+/g, '');
+const DUAL_RE = /^(A|AP|R)-\d{1,2}[A-Z]?$/; // autovías y autopistas estatales: calzadas separadas
+// En autovía, lo del otro sentido que no afecta a tu calzada (todos sus tipos deben estar aquí)
+const DIR_HIDE_TYPES = new Set(['roadworks', 'roadMaintenance', 'laneClosures', 'narrowLanes', 'mobile',
+  'vehicleStuck', 'vehicleObstruction', 'slowTraffic', 'abnormalTraffic', 'heavyTraffic', 'objectOnTheRoad',
+  'obstructionOnTheRoad', 'speedRestrictionInOperation', 'damagedRoadSurface', 'roadSurfaceInPoorCondition']);
+const DIR_GENERIC_OK = new Set(['obstruction', 'roadOrCarriagewayOrLaneManagement']); // solo acompañando a uno de los anteriores
+const DIR_KEEP_LANES = new Set(['tidalFlowLane', 'centralReservation']); // carril reversible o mediana: pueden afectar a ambos
+
+// steps de OSRM [{ref, d}] -> tramos [{roads, s0, s1}] con la carretera por la que va la ruta
+function routeStretches(steps, totalD) {
+  const sum = (steps || []).reduce((a, x) => a + (x.d || 0), 0);
+  const k = sum && totalD ? totalD / sum : 1;
+  const out = [];
+  let s = 0;
+  for (const st of steps || []) {
+    const roads = [...new Set(String(st.ref || '').split(';').map(normRoad).filter(Boolean))];
+    const key = roads.join(';');
+    const d = (st.d || 0) * k;
+    const last = out[out.length - 1];
+    if (last && last.key === key) last.s1 = s + d;
+    else out.push({ key, roads, s0: s, s1: s + d });
+    s += d;
+  }
+  return out.filter((x) => x.roads.length);
+}
+
+// Referencias de PK (carretera, posición, PK) de cámaras, paneles e incidencias
+function pkRefs(ds) {
+  const out = [];
+  const add = (road, lat, lon, pk) => { if (road && Number.isFinite(lat) && Number.isFinite(lon) && Number.isFinite(pk)) out.push({ road: normRoad(road), lat, lon, pk }); };
+  for (const x of (ds.cam && ds.cam.items) || []) add(x.road, x.lat, x.lon, x.pk && x.pk[0]);
+  for (const x of (ds.panLoc && ds.panLoc.items) || []) add(x.road, x.lat, x.lon, x.pk && x.pk[0]);
+  for (const x of (ds.inc && ds.inc.items) || []) {
+    if (!x.pk || !x.a) continue;
+    add(x.road, x.a[0], x.a[1], x.pk[0]);
+    if (x.b && x.pk.length > 1) add(x.road, x.b[0], x.b[1], x.pk[1]);
+  }
+  return out;
+}
+
+// Por tramo y carretera: sign 1 si avanzas con PK creciente, -1 decreciente, 0 si no se sabe.
+// Se comparan todos los pares de referencias (≥500 m entre sí en ruta y en PK); hace falta un 90 % de acuerdo.
+function stretchSenses(route, stretches, refs, minPairs = 3, minFrac = 0.9) {
+  const byRoad = new Map();
+  for (const r of refs) { const a = byRoad.get(r.road); if (a) a.push(r); else byRoad.set(r.road, [r]); }
+  return stretches.map((st) => {
+    const signs = new Map();
+    for (const road of st.roads) {
+      const obs = [];
+      for (const r of byRoad.get(road) || []) {
+        const h = nearest(route, r.lat, r.lon);
+        if (h && h.s >= st.s0 - 300 && h.s <= st.s1 + 300) obs.push([h.s, r.pk * 1000]);
+      }
+      // votos por par (+1 PK crece al avanzar, -1 decrece); una referencia que contradice la mayoría de sus pares se descarta
+      const votes = (keep) => {
+        const per = obs.map(() => [0, 0]);
+        let up = 0, down = 0;
+        for (let i = 0; i < obs.length; i++) {
+          if (!keep[i]) continue;
+          for (let j = i + 1; j < obs.length; j++) {
+            if (!keep[j]) continue;
+            const ds = obs[j][0] - obs[i][0];
+            const dp = obs[j][1] - obs[i][1];
+            if (Math.abs(ds) < 500 || Math.abs(dp) < 500) continue;
+            const k = (ds > 0) === (dp > 0) ? 0 : 1;
+            per[i][k]++; per[j][k]++;
+            if (k) down++; else up++;
+          }
+        }
+        return { up, down, per };
+      };
+      let v = votes(obs.map(() => true));
+      const maj = v.up >= v.down ? 0 : 1;
+      const keep = v.per.map((p) => p[1 - maj] <= p[maj]);
+      const dropped = keep.filter((k) => !k).length;
+      if (dropped > Math.max(1, Math.floor(obs.length * 0.2))) { signs.set(road, 0); continue; } // demasiadas contradicciones
+      v = votes(keep);
+      const n = v.up + v.down;
+      signs.set(road, n < minPairs ? 0 : v.up / n >= minFrac ? 1 : v.down / n >= minFrac ? -1 : 0);
+    }
+    return { ...st, signs };
+  });
+}
+
+function travelSign(senses, road, s) {
+  const r = normRoad(road);
+  for (const st of senses) if (s >= st.s0 - 300 && s <= st.s1 + 300 && st.signs.get(r)) return st.signs.get(r);
+  return 0;
+}
+
+function dirHideableInc(it) {
+  const types = it.types || [];
+  return DUAL_RE.test(normRoad(it.road)) && !DIR_KEEP_LANES.has(it.lanes)
+    && types.some((t) => DIR_HIDE_TYPES.has(t)) && types.every((t) => DIR_HIDE_TYPES.has(t) || DIR_GENERIC_OK.has(t));
+}
+
+// ¿Es del otro sentido y se puede ocultar? Radares y paneles en cualquier vía; incidencias según dirHideableInc.
+function isOpposite(route, senses, h) {
+  let road, dir;
+  if (h.layer === 'rad') { road = h.item.road; dir = h.item.extra && h.item.extra.directionRelative; }
+  else if (h.layer === 'pan') { road = h.loc && h.loc.road; dir = h.loc && h.loc.extra && h.loc.extra.tpegDirectionRoad; }
+  else if (h.layer === 'inc') { if (!dirHideableInc(h.item)) return false; road = h.item.road; dir = h.item.dir; }
+  else return false;
+  if (dir !== 'positive' && dir !== 'negative') return false;
+  const sign = travelSign(senses, road, h.s);
+  if (!sign || (dir === 'positive') === (sign > 0)) return false;
+  if (h.layer === 'inc' && h.item.b) { // su inicio→fin sigue su sentido de circulación: si la ruta lo recorre así, hay contradicción
+    const a = nearest(route, h.item.a[0], h.item.a[1]);
+    const b = nearest(route, h.item.b[0], h.item.b[1]);
+    if (a && b && b.s - a.s >= 100) return false;
+  }
+  return true;
+}
+
+function splitBySense(route, senses, hits) {
+  const shown = [];
+  const hidden = [];
+  for (const h of hits) (isOpposite(route, senses, h) ? hidden : shown).push(h);
+  return { shown, hidden };
+}
+
+// "A-45 PK↓ · A-92 PK↓" en orden de ruta (sin repetir tramos seguidos iguales)
+function senseSummary(senses) {
+  const out = [];
+  for (const st of senses) {
+    for (const [road, sg] of st.signs) {
+      if (!sg) continue;
+      const t = `${road} PK${sg > 0 ? '↑' : '↓'}`;
+      if (out[out.length - 1] !== t) out.push(t);
+    }
+  }
+  return out;
+}
 // </core>
 
 // ---------------------------------------------------------------- aplicación
@@ -853,6 +992,7 @@ const LAYERS = [
   { id: 'rie', label: 'Tramos de riesgo', color: 'var(--rie)', on: false, needs: [] },
   { id: 'ev', label: 'Carga VE ≥ 50 kW', color: 'var(--ev)', on: false, needs: ['ev'] },
 ];
+const DIR_NEEDS = ['cam', 'panLoc', 'inc']; // referencias de PK para saber tu sentido
 const $ = (id) => document.getElementById(id);
 const esc = (s) => String(s ?? '').replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
 const state = { o: null, d: null, route: null, latlngs: null, depMs: Date.now(), hits: [], points: [], wx: null, avPoints: [], av: null, cal: null, routeWide: null };
@@ -893,11 +1033,17 @@ document.addEventListener('change', (e) => { if (e.target.closest && e.target.cl
 function setStatus(msg, err) { const s = $('status'); s.textContent = msg || ''; s.className = err ? 'err' : ''; }
 
 function initLayers() {
-  const saved = JSON.parse(storeGet('layers') || 'null') || {};
-  $('layers').innerHTML = LAYERS.map((l) => `
+  let saved = {};
+  try { saved = JSON.parse(storeGet('layers') || 'null') || {}; } catch (e) { /* guardado dañado: valores por defecto */ }
+  $('layers').innerHTML = `<label class="chip dirchip" title="Oculta radares, paneles y obras del otro sentido; accidentes y cortes se ven siempre"><input type="checkbox" id="chk-dir" ${storeGet('onlyDir') !== '0' ? 'checked' : ''}>Solo mi sentido</label>`
+    + LAYERS.map((l) => `
     <label class="chip"><input type="checkbox" id="chk-${l.id}" ${(saved[l.id] ?? l.on) ? 'checked' : ''}>
     <span class="dot" style="background:${l.color}"></span>${esc(l.label)}</label>`).join('');
   syncChips();
+  $('chk-dir').addEventListener('change', () => {
+    storeSet('onlyDir', $('chk-dir').checked ? '1' : '0');
+    if (state.route) refresh();
+  });
   for (const l of LAYERS) {
     $('chk-' + l.id).addEventListener('change', () => {
       storeSet('layers', JSON.stringify(enabledMap()));
@@ -1101,23 +1247,27 @@ function pushRecent(o, d) {
   renderRecent();
 }
 
+function recentList() {
+  const seen = new Set();
+  return jget('recent').filter((r) => { const k = r.o.name + '|' + r.d.name; return !seen.has(k) && seen.add(k); });
+}
 function renderRecent() {
-  const seenR = new Set();
-  const list = jget('recent').filter((r) => { const k = r.o.name + '|' + r.d.name; return !seenR.has(k) && seenR.add(k); });
+  const list = recentList();
   $('recentList').innerHTML = list.map((r, i) => `<li data-i="${i}"><div class="info"><strong>${esc(shortName(r.o.name))} › ${esc(shortName(r.d.name))}</strong></div><button type="button" data-act="go">Ir</button></li>`).join('');
   syncPanels();
 }
 
 // ---- ruta (OSRM público)
 async function fetchRoute(o, d) {
-  const url = `https://router.project-osrm.org/route/v1/driving/${o.lon},${o.lat};${d.lon},${d.lat}?overview=full&geometries=geojson&annotations=duration,distance`;
+  const url = `https://router.project-osrm.org/route/v1/driving/${o.lon},${o.lat};${d.lon},${d.lat}?overview=full&geometries=geojson&annotations=duration,distance&steps=true`;
   const r = await fetch(url);
   if (!r.ok) throw new Error('El servicio de rutas no responde (' + r.status + ')');
   const j = await r.json();
   if (j.code !== 'Ok' || !j.routes || !j.routes[0]) throw new Error('No hay ruta entre esos puntos');
   const rt = j.routes[0];
   const ann = rt.legs && rt.legs.length === 1 ? rt.legs[0].annotation : null;
-  return { coords: rt.geometry.coordinates, ann, total: { distance: rt.distance, duration: rt.duration } };
+  const steps = (rt.legs || []).flatMap((l) => l.steps || []).map((x) => ({ ref: x.ref || '', d: x.distance || 0 }));
+  return { coords: rt.geometry.coordinates, ann, steps, total: { distance: rt.distance, duration: rt.duration } };
 }
 
 // ---- tiempo (Open-Meteo: gratuito, sin clave, CC-BY 4.0)
@@ -1247,11 +1397,6 @@ function render() {
       <div class="sub">${esc(d.sub)}</div>${d.text ? `<div class="txt">${esc(d.text)}</div>` : ''}${camUrl(h) ? `<details class="cam" data-i="${idx}"><summary>Ver imagen</summary></details>` : ''}</div></li>`);
   });
   $('list').innerHTML = rows.join('') || '<li class="empty">Sin elementos en la ruta con las capas elegidas.</li>';
-  // la foto se pide solo al desplegarla (puede haber decenas de cámaras en la ruta)
-  $('list').addEventListener('toggle', (ev) => {
-    const dt = ev.target;
-    if (dt.open && !dt.querySelector('img,a')) dt.insertAdjacentHTML('beforeend', camImg(state.hits[+dt.dataset.i], 260));
-  }, true);
   $('list').onclick = (ev) => {
     if (ev.target.closest('details')) return;
     const li = ev.target.closest('li[data-i]');
@@ -1273,7 +1418,12 @@ function render() {
   const calLines = q && q.nivel !== 'buena' ? [`Fiabilidad de los datos ${q.nivel}: ${q.avisos.join('; ') || 'revisa la cabecera'}`] : [];
   const nOf = (t) => t.split(',')[0].trim();
   const stat = (n, t) => n ? `<span><b>${n}</b> ${t}</span>` : '';
+  const di = state.dirInfo;
+  const dirLine = di ? (di.roads.length
+    ? `Tu sentido: ${di.roads.join(' · ')}${di.hidden ? ` · ${di.hidden} del otro sentido ocultos` : ''}`
+    : 'No se pudo determinar tu sentido: se muestran ambos.') : '';
   const warns = [...calLines, ...avLines, ...wxLines].map((t) => `<p>${esc(t)}</p>`).join('')
+    + (dirLine ? `<p class="soft">${esc(dirLine)}</p>` : '')
     + (wxOn && wxCount && !wxLines.length ? '<p class="soft">Sin avisos de tiempo en el recorrido.</p>' : '')
     + (future ? '<p class="soft">La salida es dentro de más de 2 h: incidencias y paneles son los de ahora.</p>' : '');
   $('sum').hidden = false;
@@ -1291,7 +1441,8 @@ async function refresh(silent) {
   if (refreshing) return;
   refreshing = true;
   const enabled = enabledMap();
-  const keys = [...new Set(LAYERS.filter((l) => enabled[l.id]).flatMap((l) => l.needs))];
+  const dirOn = $('chk-dir').checked;
+  const keys = [...new Set([...LAYERS.filter((l) => enabled[l.id]).flatMap((l) => l.needs), ...(dirOn ? DIR_NEEDS : [])])];
   if (!silent) setStatus('Cruzando la ruta con los datos de la DGT…');
   try {
     const docs = await Promise.all(keys.map((k) => load(k)));
@@ -1316,8 +1467,8 @@ async function refresh(silent) {
           const doc = await load('avi');
           state.av = buildAvisoHits(state.avPoints, doc.items, state.depMs);
           const hrs = (Date.now() - Date.parse(doc.generated)) / 3600000;
-          if (hrs > 3) note = `Avisos de AEMET de hace ${Math.round(hrs)} h. `;
-        } catch (e) { note = 'Avisos de AEMET no disponibles. '; }
+          if (hrs > 3) note += `Avisos de AEMET de hace ${Math.round(hrs)} h. `;
+        } catch (e) { note += 'Avisos de AEMET no disponibles. '; }
       }
       avHits = state.av || [];
     }
@@ -1337,7 +1488,15 @@ async function refresh(silent) {
       }
       wxHits = state.wx || [];
     }
-    state.hits = collectHits(state.route, ds, enabled).concat(wxHits, avHits, evHits, rieHits).sort((a, b) => a.s - b.s);
+    let hits = collectHits(state.route, ds, enabled);
+    state.dirInfo = null;
+    if (dirOn) {
+      const senses = stretchSenses(state.route, state.stretches || [], pkRefs(ds));
+      const r = splitBySense(state.route, senses, hits);
+      hits = r.shown;
+      state.dirInfo = { roads: senseSummary(senses), hidden: r.hidden.length };
+    }
+    state.hits = hits.concat(wxHits, avHits, evHits, rieHits).sort((a, b) => a.s - b.s);
     render();
     setStatus(note.trim(), noteErr);
     lastRefresh = Date.now();
@@ -1371,6 +1530,7 @@ async function calculate(ev) {
     const r = await fetchRoute(o, d);
     state.route = buildRoute(r.coords, r.ann, r.total);
     state.routeWide = buildRoute(r.coords, r.ann, r.total, 1500, 1500); // índice con buffer amplio para cargadores
+    state.stretches = routeStretches(r.steps, state.route.totalD);
     state.latlngs = r.coords.map((c) => [c[1], c[0]]);
     prepareCorSave();
     pushRecent(o, d);
@@ -1526,7 +1686,7 @@ function clearRoute() {
   routeLine = hitLine = endMarks = null;
   markerGroup.clearLayers();
   hideTip();
-  Object.assign(state, { route: null, routeWide: null, latlngs: null, hits: [], points: [], wx: null, avPoints: [], av: null, o: null, d: null, hasRoute: false, editing: false, showCor: false });
+  Object.assign(state, { route: null, routeWide: null, stretches: [], dirInfo: null, latlngs: null, hits: [], points: [], wx: null, avPoints: [], av: null, o: null, d: null, hasRoute: false, editing: false, showCor: false });
   $('o').value = '';
   $('d').value = '';
   paintMenu('o', [], '');
@@ -1545,7 +1705,7 @@ function clearRoute() {
 }
 
 // ---- modo conducción (voz del navegador + GPS; la lógica de qué decir está en <core>)
-const VERSION = 'v24'; // mantener igual que CACHE en sw.js (lo vigila tests/core.test.mjs)
+const VERSION = 'v25'; // mantener igual que CACHE en sw.js (lo vigila tests/core.test.mjs)
 const drive = { on: false, watch: null, wake: null, said: new Set(), off: false, nativeId: null };
 // Dentro de la app Android (Capacitor) el GPS y la voz son nativos y siguen con la pantalla apagada; en el navegador, los de siempre.
 const NATIVE = !!(window.Capacitor && typeof window.Capacitor.isNativePlatform === 'function' && window.Capacitor.isNativePlatform());
@@ -1677,6 +1837,11 @@ function initResizer() {
 function initSheet() {
   initResizer();
   $('clearBtn').addEventListener('click', clearRoute);
+  // la foto de una cámara se pide solo al desplegarla (puede haber decenas en la ruta)
+  $('list').addEventListener('toggle', (ev) => {
+    const dt = ev.target;
+    if (dt.open && !dt.querySelector('img,a')) dt.insertAdjacentHTML('beforeend', camImg(state.hits[+dt.dataset.i], 260));
+  }, true);
   $('driveBtn').addEventListener('click', () => (drive.on ? driveStop() : driveStart()));
   $('verTxt').textContent = VERSION;
   $('testVoice').hidden = !(NATIVE || 'speechSynthesis' in window);
@@ -1745,7 +1910,7 @@ function init() {
   $('recentList').addEventListener('click', (ev) => {
     const li = ev.target.closest('li[data-i]');
     if (!li) return;
-    const r = jget('recent')[+li.dataset.i];
+    const r = recentList()[+li.dataset.i];
     if (!r) return;
     state.o = r.o; state.d = r.d;
     $('o').value = r.o.name.split(',').slice(0, 2).join(',');

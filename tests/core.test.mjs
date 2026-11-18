@@ -6,7 +6,7 @@ import assert from 'node:assert/strict';
 const html = readFileSync(new URL('../docs/index.html', import.meta.url), 'utf8');
 const core = html.slice(html.indexOf('// <core>'), html.indexOf('// </core>'));
 const api = new Function(
-  `${core}; return { buildRoute, nearest, nearestLine, collectHits, describe, fmtDur, fmtKm, fmtPk, samplePoints, pickHour, weatherAt, weatherAlerts, buildWeatherHits, weatherSummary, pointInRing, buildAvisoHits, avisoSummary, calidadResumen, collectCharge, collectRisk, simplifyLine, nextDeparture, corridorsExport, fmtDays, driveStep, driveSpeech, dueRefresh };`,
+  `${core}; return { buildRoute, nearest, nearestLine, collectHits, describe, fmtDur, fmtKm, fmtPk, samplePoints, pickHour, weatherAt, weatherAlerts, buildWeatherHits, weatherSummary, pointInRing, buildAvisoHits, avisoSummary, calidadResumen, collectCharge, collectRisk, simplifyLine, nextDeparture, corridorsExport, fmtDays, driveStep, driveSpeech, dueRefresh, routeStretches, pkRefs, stretchSenses, travelSign, dirHideableInc, isOpposite, splitBySense, senseSummary };`,
 )();
 
 // Ruta recta de oeste a este por Málaga: lon -4.50 -> -4.40 a lat 36.70 (~8,9 km), 10 tramos.
@@ -400,4 +400,79 @@ test('la versión visible coincide con la caché del service worker', () => {
   const sw = readFileSync(new URL('../docs/sw.js', import.meta.url), 'utf8');
   const v = html.match(/const VERSION = '(v\d+)'/)[1];
   assert.equal(sw.match(/viajes-dgt-(v\d+)/)[1], v);
+});
+
+// ---- solo mi sentido. Ruta de oeste a este (la de arriba); la A-92 ficticia tiene el PK creciendo hacia el oeste,
+// así que la ruta avanza con PK decreciente (como Málaga→Sevilla al revés de geografía, da igual: se prueba el signo).
+const lonAtM = (m) => -4.5 + m / (KM_PER_DEG_LON * 1000);
+const STEPS = [{ ref: 'A-92;E-902', d: totalM / 2 }, { ref: 'A-92', d: totalM / 2 }];
+const stretches = api.routeStretches(STEPS, totalM);
+const camRef = (m, pk, road = 'A-92', off = 20) => ({ road, lat: offsetLat(off), lon: lonAtM(m), pk: [pk] });
+// referencias cada 800 m: PK 100 en el oeste, baja hacia el este
+const refDocs = { cam: { items: Array.from({ length: 11 }, (_, i) => camRef(i * 800, 100 - i * 0.8)) } };
+const senses = api.stretchSenses(route, stretches, api.pkRefs(refDocs));
+const hitOf = (layer, m, extra) => ({ layer, s: m, lat: LAT, lon: lonAtM(m), ...extra });
+const radar = (m, dir, road = 'A-92') => hitOf('rad', m, { item: { id: 'r' + m, road, extra: { directionRelative: dir } } });
+const panel = (m, dir) => hitOf('pan', m, { item: { id: 'p' + m, texts: [] }, loc: { road: 'A-92', extra: { tpegDirectionRoad: dir } } });
+const incid = (m, dir, types, road = 'A-92', more = {}) => hitOf('inc', m, { item: { id: 'i' + m, road, dir, types, a: [LAT, lonAtM(m)], pk: [50], ...more } });
+
+test('tramos de ruta por carretera: une pasos seguidos iguales y escala a la longitud de la ruta', () => {
+  const st = api.routeStretches([{ ref: 'A-45', d: 10 }, { ref: 'A-45', d: 10 }, { ref: '', d: 5 }, { ref: 'a-92; E-902', d: 25 }], 100);
+  assert.deepEqual(st.map((x) => [x.key, Math.round(x.s0), Math.round(x.s1)]), [['A-45', 0, 40], ['A-92;E-902', 50, 100]]);
+});
+
+test('sentido de marcha: PK decreciente con referencias limpias', () => {
+  assert.deepEqual(senses.map((x) => x.signs.get('A-92')), [-1, -1]);
+  assert.deepEqual(api.senseSummary(senses), ['A-92 PK↓']);
+  assert.equal(api.travelSign(senses, 'a-92', 1000), -1);
+  assert.equal(api.travelSign(senses, 'N-340', 1000), 0);
+});
+
+test('sentido de marcha: aguanta un PK erróneo y se abstiene con pocas referencias o contradictorias', () => {
+  const noisy = { cam: { items: refDocs.cam.items.map((x, i) => (i === 4 ? { ...x, pk: [300] } : x)) } };
+  assert.equal(api.stretchSenses(route, stretches, api.pkRefs(noisy))[0].signs.get('A-92'), -1);
+  const few = { cam: { items: refDocs.cam.items.slice(0, 2) } };
+  assert.equal(api.stretchSenses(route, stretches, api.pkRefs(few))[0].signs.get('A-92'), 0);
+  const mixed = { cam: { items: refDocs.cam.items.map((x, i) => ({ ...x, pk: [i % 2 ? 100 - i : 100 + i] })) } };
+  assert.equal(api.stretchSenses(route, stretches, api.pkRefs(mixed))[0].signs.get('A-92'), 0);
+  // referencias de otra carretera no cuentan
+  const other = { cam: { items: refDocs.cam.items.map((x) => ({ ...x, road: 'N-331' })) } };
+  assert.equal(api.stretchSenses(route, stretches, api.pkRefs(other))[0].signs.get('A-92'), 0);
+});
+
+test('radares y paneles: solo los de mi sentido, en cualquier vía', () => {
+  assert.equal(api.isOpposite(route, senses, radar(2000, 'positive')), true);
+  assert.equal(api.isOpposite(route, senses, radar(2000, 'negative')), false);
+  assert.equal(api.isOpposite(route, senses, radar(2000, 'both')), false);
+  assert.equal(api.isOpposite(route, senses, radar(2000, 'positive', 'N-331')), false); // otra carretera: no se sabe
+  assert.equal(api.isOpposite(route, senses, panel(3000, 'positive')), true);
+  assert.equal(api.isOpposite(route, senses, panel(3000, 'unknown')), false);
+});
+
+test('incidencias: accidentes, cortes y convencionales se ven siempre; obras del otro sentido en autovía, no', () => {
+  assert.equal(api.isOpposite(route, senses, incid(4000, 'positive', ['roadMaintenance', 'roadworks', 'laneClosures'])), true);
+  assert.equal(api.isOpposite(route, senses, incid(4000, 'positive', ['vehicleObstruction', 'vehicleStuck'])), true);
+  assert.equal(api.isOpposite(route, senses, incid(4000, 'negative', ['roadworks'])), false); // mi sentido
+  assert.equal(api.isOpposite(route, senses, incid(4000, 'positive', ['accident'])), false);
+  assert.equal(api.isOpposite(route, senses, incid(4000, 'positive', ['roadworks', 'carriagewayClosures'])), false);
+  assert.equal(api.isOpposite(route, senses, incid(4000, 'positive', ['obstruction'])), false); // genérico solo: no se sabe qué es
+  assert.equal(api.isOpposite(route, senses, incid(4000, 'positive', ['roadworks'], 'A-92', { lanes: 'tidalFlowLane' })), false);
+  assert.equal(api.isOpposite(route, senses, incid(4000, 'both', ['roadworks'])), false);
+  for (const road of ['N-340', 'A-357', 'MA-20', 'A-381']) assert.equal(api.dirHideableInc({ road, types: ['roadworks'] }), false, road);
+  for (const road of ['A-92', 'A-92N', 'AP-7', 'A-7', 'R-2']) assert.equal(api.dirHideableInc({ road, types: ['roadworks'] }), true, road);
+});
+
+test('incidencia lineal que la ruta recorre en su sentido: contradicción, se muestra', () => {
+  const a = [LAT, lonAtM(3000)];
+  const b = [LAT, lonAtM(4000)]; // de oeste a este, como la ruta
+  assert.equal(api.isOpposite(route, senses, incid(3000, 'positive', ['roadworks'], 'A-92', { a, b, pk: [50, 51] })), false);
+  assert.equal(api.isOpposite(route, senses, incid(3000, 'positive', ['roadworks'], 'A-92', { a: b, b: a, pk: [50, 51] })), true);
+});
+
+test('sin sentido conocido no se oculta nada', () => {
+  const none = api.stretchSenses(route, api.routeStretches([], totalM), []);
+  const hits = [radar(2000, 'positive'), panel(3000, 'positive'), incid(4000, 'positive', ['roadworks'])];
+  const r = api.splitBySense(route, none, hits);
+  assert.equal(r.shown.length, 3);
+  assert.equal(r.hidden.length, 0);
 });

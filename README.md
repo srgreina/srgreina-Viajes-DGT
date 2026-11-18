@@ -21,9 +21,10 @@ HTML único con Leaflet, instalable como PWA. Se publica con GitHub Pages (Setti
 11. Botón para limpiar la ruta, panel lateral ajustable en escritorio (el tamaño de letra escala con el ancho) y etiqueta con los datos del trayecto al pasar el ratón por la ruta.
 12. **Modo conducción** (botón del altavoz, con ruta calculada): sigue tu GPS sobre la ruta y dice en voz alta (voz del navegador, en español) lo que hay a menos de 5 km por delante: incidencias, avisos AEMET, tiempo adverso, radares, paneles y tramos de riesgo; primero lo grave, máx. 2 por lectura y sin repetir. Avisa si te sales de la ruta (>300 m) y cuando vuelves. Mantiene la pantalla encendida (con la pantalla apagada el móvil pausa GPS y voz).
 13. **Refresco automático:** con ruta calculada y la pantalla visible, cada 5 min (y al volver a la pestaña) vuelve a pedir incidencias, paneles, avisos AEMET y fiabilidad, y recalcula lo que cae en la ruta; el tiempo se renueva cada 15 min. En modo conducción no repite lo ya dicho. Si un refresco falla, se conservan los datos anteriores.
-14. Lee los datos de la rama `latest` (`raw.githubusercontent.com`) y avisa si tienen más de 30 min.
+14. **Solo mi sentido** (activado por defecto, conmutador junto a las capas): oculta lo del otro sentido. Tu sentido se calcula por tramo con la carretera que da OSRM (`steps`) y los PK de cámaras, paneles e incidencias cercanos (≥90 % de pares de acuerdo, se descartan como mucho un 20 % de referencias atípicas; si no, «sin determinar» y se muestra todo). Radares y paneles: solo los de tu sentido en cualquier vía. Incidencias: solo se ocultan obras, carriles cortados, averías, retenciones y similares del otro sentido en autovía o autopista estatal (A-, AP-, R- de 1–2 cifras); accidentes, cortes, desvíos, meteo, convencionales y «ambos sentidos» se ven siempre. Cámaras sin filtro. En la DGT «positive» = PK creciente (comprobado con radares C/D, tramos de radar y orden de PK de las incidencias). El resumen muestra el sentido calculado y cuántos elementos oculta. El modo conducción usa la misma lista. Versión visible al pie del panel, con el botón «Probar voz y GPS».
+15. Lee los datos de la rama `latest` (`raw.githubusercontent.com`) y avisa si tienen más de 30 min.
 
-El service worker (`docs/sw.js`) va a la red primero con `cache: 'no-store'` (evita la caché de 10 min de GitHub Pages); Leaflet y la tipografía van de caché. Tras un despliegue puede hacer falta recargar dos veces (Ctrl+F5). Cada cambio del front sube la versión `CACHE`.
+El service worker (`docs/sw.js`) va a la red primero con `cache: 'no-store'` (evita la caché de 10 min de GitHub Pages); Leaflet y la tipografía van de caché. Tras un despliegue puede hacer falta recargar dos veces (Ctrl+F5). Cada cambio del front sube la versión `CACHE` y `VERSION` de `index.html` a la vez (un test lo comprueba).
 
 Tests de la lógica de cruce: `node --test tests/core.test.mjs` (extrae el bloque `<core>` de `index.html`).
 
@@ -103,7 +104,7 @@ python collector/static_layers.py --out data/static
 - **Tramos de riesgo:** el histórico empieza el 2026-11-16 y crece ≈1,5 MB/día en la rama `data` (se compacta cada mes). Hasta acumular semanas, los tramos son poco fiables.
 - Los parsers de **incidencias** y **paneles** están ajustados al XML real (muestras en `data/samples/`). El de las **capas estáticas** (radares, cámaras, localizaciones de paneles) es genérico y su salida está revisada, pero conviene reajustarlo si la DGT cambia el perfil. Los radares fijos solo se publican en DATEX II v2 y su fecha de publicación es antigua (2025-12).
 - OSRM y Nominatim públicos no tienen garantía de servicio ni admiten uso intensivo; el enrutador es fácil de cambiar (`fetchRoute`).
-- El planificador no filtra por sentido de circulación: una incidencia de la otra calzada puede aparecer (se indica el sentido en el texto).
+- Filtro por sentido: depende de que la DGT etiquete bien el sentido (en paneles y cámaras ~3 % incoherente) y de que OSRM dé la carretera de cada tramo; ante la duda se muestra.
 - El cron de GitHub Actions puede retrasarse o no dispararse; por eso `collect` se autoencadena. Aun así el intervalo no es exacto y el histórico no es continuo.
 - Los feeds de la DGT están sujetos a su [aviso legal](https://www.dgt.es/contenido/aviso-legal/) (CC-BY). Cubren la red estatal salvo País Vasco y Cataluña.
 
