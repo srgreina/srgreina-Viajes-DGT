@@ -573,3 +573,14 @@
 {"t":"2026-11-18T03:40:28Z","ev":"close","id":"30141133"}
 {"t":"2026-11-18T03:40:28Z","ev":"close","id":"30141155"}
 {"t":"2026-11-18T03:40:28Z","ev":"close","id":"30141386"}
+{"t":"2026-11-18T03:49:56Z","ev":"open","id":"30141422","sit":"25718633","ver":"1","kind":"GenericSituationRecord","types":["vehicleObstruction","vehicleStuck"],"status":"active","created":"2026-11-18T04:42:27.000+01:00","start":"2026-11-18T04:42:27.000+01:00","road":"A-23","dir":"positive","pk":[295.275],"a":[41.70865,-0.84572],"geo":{"autonomousCommunity":"Aragón","municipality":"Zaragoza","province":"Zaragoza"}}
+{"t":"2026-11-18T03:49:56Z","ev":"open","id":"30141426","sit":"25718637","ver":"1","kind":"GenericSituationRecord","types":["vehicleObstruction","vehicleStuck"],"status":"active","created":"2026-11-18T04:44:20.000+01:00","start":"2026-11-18T04:44:20.000+01:00","road":"A-23","dir":"positive","pk":[298.073],"a":[41.73225,-0.84656],"geo":{"autonomousCommunity":"Aragón","municipality":"Zaragoza","province":"Zaragoza"}}
+{"t":"2026-11-18T03:49:56Z","ev":"open","id":"30141434","sit":"25718645","ver":"1","kind":"GenericSituationRecord","types":["vehicleObstruction","vehicleStuck"],"status":"active","created":"2026-11-18T04:48:54.000+01:00","start":"2026-11-18T04:48:54.000+01:00","road":"A-68","dir":"positive","pk":[266.343],"a":[41.76158,-1.16072],"geo":{"autonomousCommunity":"Aragón","municipality":"Figueruelas","province":"Zaragoza"}}
+{"t":"2026-11-18T03:49:56Z","ev":"close","id":"30105512"}
+{"t":"2026-11-18T03:49:56Z","ev":"close","id":"30141084"}
+{"t":"2026-11-18T03:49:56Z","ev":"close","id":"30141114"}
+{"t":"2026-11-18T03:49:56Z","ev":"close","id":"30141122"}
+{"t":"2026-11-18T03:49:56Z","ev":"close","id":"30141350"}
+{"t":"2026-11-18T03:49:56Z","ev":"close","id":"30141414"}
+{"t":"2026-11-18T03:49:56Z","ev":"close","id":"30141416"}
+{"t":"2026-11-18T03:49:56Z","ev":"close","id":"30141419"}
