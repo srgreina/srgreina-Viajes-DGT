@@ -390,3 +390,20 @@
 {"t":"2026-11-18T01:56:58Z","ev":"close","id":"30141018"}
 {"t":"2026-11-18T01:56:58Z","ev":"close","id":"30141021"}
 {"t":"2026-11-18T01:56:58Z","ev":"close","id":"30141023"}
+{"t":"2026-11-18T02:06:20Z","ev":"open","id":"30141024","sit":"25718031","ver":"12","kind":"GeneralObstruction","types":["roadMaintenance","roadworks","obstructionOnTheRoad"],"status":"active","created":"2026-11-18T02:53:15.000+01:00","start":"2026-11-18T02:53:00.000+01:00","end":"2026-11-18T06:30:00.000+01:00","road":"A-4","dir":"positive","lanes":"leftLane","pk":[45.3,47.5],"a":[40.037262,-3.662273],"b":[40.02217,-3.647362],"geo":{"autonomousCommunity":"Madrid, Comunidad de","municipality":"Aranjuez","province":"Madrid"}}
+{"t":"2026-11-18T02:06:20Z","ev":"open","id":"30141059","sit":"25718456","ver":"1","kind":"GenericSituationRecord","types":["vehicleObstruction","vehicleStuck"],"status":"active","created":"2026-11-18T02:58:12.000+01:00","start":"2026-11-18T02:58:12.000+01:00","road":"V-30","dir":"positive","pk":[10.328],"a":[39.47807,-0.42702],"geo":{"autonomousCommunity":"Comunitat Valenciana","municipality":"Quart de Poblet","province":"València/Valencia"}}
+{"t":"2026-11-18T02:06:20Z","ev":"open","id":"30141064","sit":"25718461","ver":"1","kind":"GenericSituationRecord","types":["vehicleObstruction","vehicleStuck"],"status":"active","created":"2026-11-18T03:03:21.000+01:00","start":"2026-11-18T03:03:21.000+01:00","road":"A-3","dir":"negative","pk":[302.682],"a":[39.45487,-0.943779],"geo":{"autonomousCommunity":"Comunitat Valenciana","municipality":"Siete Aguas","province":"València/Valencia"}}
+{"t":"2026-11-18T02:06:20Z","ev":"open","id":"30141065","sit":"25718462","ver":"1","kind":"GenericSituationRecord","types":["vehicleObstruction","vehicleStuck"],"status":"active","created":"2026-11-18T03:05:14.000+01:00","start":"2026-11-18T03:05:14.000+01:00","road":"N-330","dir":"positive","pk":[502.682],"a":[41.67875,-0.87828],"geo":{"autonomousCommunity":"Aragón","municipality":"Zaragoza","province":"Zaragoza"}}
+{"t":"2026-11-18T02:06:20Z","ev":"open","id":"30141066","sit":"25718463","ver":"1","kind":"GenericSituationRecord","types":["vehicleObstruction","vehicleStuck"],"status":"active","created":"2026-11-18T03:05:21.000+01:00","start":"2026-11-18T03:05:21.000+01:00","road":"A-7","dir":"negative","pk":[283.228],"a":[39.82094,-0.209108],"geo":{"autonomousCommunity":"Comunitat Valenciana","municipality":"la Vall d'Uixó","province":"Castelló/Castellón"}}
+{"t":"2026-11-18T02:06:20Z","ev":"close","id":"30124922"}
+{"t":"2026-11-18T02:06:20Z","ev":"close","id":"30140926"}
+{"t":"2026-11-18T02:06:20Z","ev":"close","id":"30140930"}
+{"t":"2026-11-18T02:06:20Z","ev":"close","id":"30140935"}
+{"t":"2026-11-18T02:06:20Z","ev":"close","id":"30140989"}
+{"t":"2026-11-18T02:06:20Z","ev":"close","id":"30141027"}
+{"t":"2026-11-18T02:06:20Z","ev":"close","id":"30141036"}
+{"t":"2026-11-18T02:06:20Z","ev":"close","id":"30141039"}
+{"t":"2026-11-18T02:06:20Z","ev":"close","id":"30141040"}
+{"t":"2026-11-18T02:06:20Z","ev":"close","id":"30141046"}
+{"t":"2026-11-18T02:06:20Z","ev":"close","id":"30141047"}
+{"t":"2026-11-18T02:06:20Z","ev":"close","id":"30141048"}
