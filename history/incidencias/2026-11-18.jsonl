@@ -584,3 +584,16 @@
 {"t":"2026-11-18T03:49:56Z","ev":"close","id":"30141414"}
 {"t":"2026-11-18T03:49:56Z","ev":"close","id":"30141416"}
 {"t":"2026-11-18T03:49:56Z","ev":"close","id":"30141419"}
+{"t":"2026-11-18T03:59:20Z","ev":"open","id":"30141439","sit":"25718650","ver":"1","kind":"GenericSituationRecord","types":["accident"],"status":"active","created":"2026-11-18T04:52:14.000+01:00","start":"2026-11-18T04:52:00.000+01:00","road":"PO-241","dir":"negative","pk":[4.115],"a":[42.406345,-8.434079],"geo":{"autonomousCommunity":"Galicia","municipality":"A Lama","province":"Pontevedra"}}
+{"t":"2026-11-18T03:59:20Z","ev":"open","id":"30141444","sit":"25718655","ver":"1","kind":"GenericSituationRecord","types":["vehicleObstruction","vehicleStuck"],"status":"active","created":"2026-11-18T04:55:15.000+01:00","start":"2026-11-18T04:55:15.000+01:00","road":"M-300","dir":"positive","pk":[30.56],"a":[40.469833,-3.416918],"geo":{"autonomousCommunity":"Madrid, Comunidad de","municipality":"Alcalá de Henares","province":"Madrid"}}
+{"t":"2026-11-18T03:59:20Z","ev":"open","id":"30141448","sit":"25718658","ver":"1","kind":"GenericSituationRecord","types":["vehicleObstruction","vehicleStuck"],"status":"active","created":"2026-11-18T04:56:15.000+01:00","start":"2026-11-18T04:56:15.000+01:00","road":"N-603","dir":"positive","pk":[82.36],"a":[40.8471,-4.13425],"geo":{"autonomousCommunity":"Castilla y León","municipality":"La Losa","province":"Segovia"}}
+{"t":"2026-11-18T03:59:20Z","ev":"open","id":"30141452","sit":"25718662","ver":"1","kind":"PoorEnvironmentConditions","types":["poorEnvironment","fog","visibilityReduced"],"status":"active","created":"2026-11-18T04:57:42.000+01:00","start":"2026-11-18T04:57:42.000+01:00","road":"A-6","dir":"both","lanes":"allLanesCompleteCarriageway","pk":[24.0,27.0],"a":[40.538906,-3.890964],"b":[40.56324,-3.905618],"geo":{"autonomousCommunity":"Madrid, Comunidad de","municipality":"Las Rozas de Madrid","province":"Madrid"}}
+{"t":"2026-11-18T03:59:20Z","ev":"open","id":"30141453","sit":"25718663","ver":"1","kind":"GenericSituationRecord","types":["vehicleObstruction","vehicleStuck"],"status":"active","created":"2026-11-18T04:58:07.000+01:00","start":"2026-11-18T04:58:07.000+01:00","road":"A-68","dir":"positive","pk":[280.223],"a":[41.82659,-1.29058],"geo":{"autonomousCommunity":"Aragón","municipality":"Boquiñeni","province":"Zaragoza"}}
+{"t":"2026-11-18T03:59:20Z","ev":"close","id":"30104147"}
+{"t":"2026-11-18T03:59:20Z","ev":"close","id":"30139258"}
+{"t":"2026-11-18T03:59:20Z","ev":"close","id":"30141073"}
+{"t":"2026-11-18T03:59:20Z","ev":"close","id":"30141140"}
+{"t":"2026-11-18T03:59:20Z","ev":"close","id":"30141415"}
+{"t":"2026-11-18T03:59:20Z","ev":"close","id":"30141422"}
+{"t":"2026-11-18T03:59:20Z","ev":"close","id":"30141426"}
+{"t":"2026-11-18T03:59:20Z","ev":"close","id":"30141434"}
