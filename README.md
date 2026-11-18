@@ -20,7 +20,8 @@ HTML único con Leaflet, instalable como PWA. Se publica con GitHub Pages (Setti
 10. **Corredores** (panel "Mis corredores"): guarda un trayecto con días y hora habitual (se almacena solo en el móvil). "Ver" lo recalcula para su próxima salida. "Copiar para avisos al móvil" exporta los corredores para el servidor (ver abajo).
 11. Botón para limpiar la ruta, panel lateral ajustable en escritorio (el tamaño de letra escala con el ancho) y etiqueta con los datos del trayecto al pasar el ratón por la ruta.
 12. **Modo conducción** (botón del altavoz, con ruta calculada): sigue tu GPS sobre la ruta y dice en voz alta (voz del navegador, en español) lo que hay a menos de 5 km por delante: incidencias, avisos AEMET, tiempo adverso, radares, paneles y tramos de riesgo; primero lo grave, máx. 2 por lectura y sin repetir. Avisa si te sales de la ruta (>300 m) y cuando vuelves. Mantiene la pantalla encendida (con la pantalla apagada el móvil pausa GPS y voz).
-13. Lee los datos de la rama `latest` (`raw.githubusercontent.com`) y avisa si tienen más de 30 min.
+13. **Refresco automático:** con ruta calculada y la pantalla visible, cada 5 min (y al volver a la pestaña) vuelve a pedir incidencias, paneles, avisos AEMET y fiabilidad, y recalcula lo que cae en la ruta; el tiempo se renueva cada 15 min. En modo conducción no repite lo ya dicho. Si un refresco falla, se conservan los datos anteriores.
+14. Lee los datos de la rama `latest` (`raw.githubusercontent.com`) y avisa si tienen más de 30 min.
 
 El service worker (`docs/sw.js`) va a la red primero con `cache: 'no-store'` (evita la caché de 10 min de GitHub Pages); Leaflet y la tipografía van de caché. Tras un despliegue puede hacer falta recargar dos veces (Ctrl+F5). Cada cambio del front sube la versión `CACHE`.
 

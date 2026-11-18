@@ -6,7 +6,7 @@ import assert from 'node:assert/strict';
 const html = readFileSync(new URL('../docs/index.html', import.meta.url), 'utf8');
 const core = html.slice(html.indexOf('// <core>'), html.indexOf('// </core>'));
 const api = new Function(
-  `${core}; return { buildRoute, nearest, nearestLine, collectHits, describe, fmtDur, fmtKm, fmtPk, samplePoints, pickHour, weatherAt, weatherAlerts, buildWeatherHits, weatherSummary, pointInRing, buildAvisoHits, avisoSummary, calidadResumen, collectCharge, collectRisk, simplifyLine, nextDeparture, corridorsExport, fmtDays, driveStep, driveSpeech };`,
+  `${core}; return { buildRoute, nearest, nearestLine, collectHits, describe, fmtDur, fmtKm, fmtPk, samplePoints, pickHour, weatherAt, weatherAlerts, buildWeatherHits, weatherSummary, pointInRing, buildAvisoHits, avisoSummary, calidadResumen, collectCharge, collectRisk, simplifyLine, nextDeparture, corridorsExport, fmtDays, driveStep, driveSpeech, dueRefresh };`,
 )();
 
 // Ruta recta de oeste a este por Málaga: lon -4.50 -> -4.40 a lat 36.70 (~8,9 km), 10 tramos.
@@ -387,4 +387,11 @@ test('fuera de la ruta no anuncia nada', () => {
 test('frase en español con distancia', () => {
   assert.match(api.driveSpeech(4800, { title: 'Accidente', sub: 'A-7 · PK 10,0', text: '' }), /^En 5 kilómetros\. Accidente\. A-7 , punto kilométrico 10,0/);
   assert.match(api.driveSpeech(600, { title: 'Radar fijo', sub: '', text: '' }), /^En 600 metros\. Radar fijo/);
+});
+
+test('refresco automático: toca a los 5 min y la primera vez', () => {
+  assert.equal(api.dueRefresh(0, 1000), true);
+  assert.equal(api.dueRefresh(1000, 1000 + 299000), false);
+  assert.equal(api.dueRefresh(1000, 1000 + 300000), true);
+  assert.equal(api.dueRefresh(1000, 1000 + 600000, 900000), false);
 });

@@ -834,6 +834,8 @@ function driveStep(routeWide, hits, lat, lon, said, ahead = 5000, max = 2, offM 
   return { off: false, s: p.s, say: cand.slice(0, max).map((c) => ({ key: c.key, text: driveSpeech(c.gap, c.d) })) };
 }
 
+// ---- refresco automático: cuándo toca volver a pedir los datos (lógica pura)
+const dueRefresh = (lastMs, nowMs, everyMs = 300000) => !lastMs || nowMs - lastMs >= everyMs;
 // </core>
 
 // ---------------------------------------------------------------- aplicación
@@ -858,9 +860,16 @@ let map, routeLine, hitLine, markerGroup, endMarks;
 function storeGet(k) { try { return localStorage.getItem(k); } catch (e) { return null; } }
 function storeSet(k, v) { try { localStorage.setItem(k, v); } catch (e) { /* sin almacenamiento */ } }
 
+// Lo que cambia en minutos; el resto son capas estáticas que no hace falta volver a pedir
+const LIVE = ['inc', 'pan', 'avi', 'cal'];
+let liveBust = 0; // minuto de la última recarga: evita la caché de 5 min del CDN de raw.githubusercontent
+function reloadLive() {
+  for (const k of LIVE) delete cache[k];
+  liveBust = Math.floor(Date.now() / 60000);
+}
 function load(key) {
   if (!cache[key]) {
-    cache[key] = fetch(BASE + SRC[key]).then((r) => {
+    cache[key] = fetch(BASE + SRC[key] + (liveBust && LIVE.includes(key) ? `?t=${liveBust}` : '')).then((r) => {
       if (!r.ok) throw new Error(`No se pudo cargar ${SRC[key]} (${r.status})`);
       return r.json();
     }).catch((e) => { delete cache[key]; throw e; });
@@ -1274,10 +1283,14 @@ function render() {
     <div class="warns">${warns}</div>`;
 }
 
-async function refresh() {
+let lastRefresh = 0;
+let refreshing = false;
+async function refresh(silent) {
+  if (refreshing) return;
+  refreshing = true;
   const enabled = enabledMap();
   const keys = [...new Set(LAYERS.filter((l) => enabled[l.id]).flatMap((l) => l.needs))];
-  setStatus('Cruzando la ruta con los datos de la DGT…');
+  if (!silent) setStatus('Cruzando la ruta con los datos de la DGT…');
   try {
     const docs = await Promise.all(keys.map((k) => load(k)));
     const ds = {};
@@ -1309,6 +1322,7 @@ async function refresh() {
     if (enabled.wx) {
       if (!state.wx) {
         const arrival = state.depMs + state.route.totalT * 1000;
+        state.wxAt = Date.now();
         if (arrival - Date.now() > 15 * 86400000) {
           state.wx = [];
           note += 'La previsión del tiempo llega a unos 15 días: esa fecha queda fuera.';
@@ -1324,7 +1338,22 @@ async function refresh() {
     state.hits = collectHits(state.route, ds, enabled).concat(wxHits, avHits, evHits, rieHits).sort((a, b) => a.s - b.s);
     render();
     setStatus(note.trim(), noteErr);
-  } catch (e) { setStatus(e.message, true); }
+    lastRefresh = Date.now();
+  } catch (e) { if (!silent) setStatus(e.message, true); } finally { refreshing = false; } // en silencio, un fallo conserva los datos anteriores
+}
+
+// Cada 5 min (y al volver a la pestaña) con ruta calculada: vuelve a pedir lo que cambia en minutos.
+// El tiempo se renueva cada 15 min. En modo conducción lo ya dicho no se repite (las claves de `said` no cambian).
+async function autoRefresh() {
+  if (!state.hasRoute || refreshing || document.visibilityState !== 'visible' || !dueRefresh(lastRefresh, Date.now())) return;
+  reloadLive();
+  state.av = null;
+  if (dueRefresh(state.wxAt, Date.now(), 900000)) state.wx = null;
+  const body = $('sheetBody');
+  const top = body.scrollTop;
+  await refresh(true);
+  body.scrollTop = top;
+  showFreshness();
 }
 
 async function calculate(ev) {
@@ -1490,6 +1519,7 @@ function fitRoute() {
 }
 function clearRoute() {
   driveStop();
+  lastRefresh = 0;
   for (const l of [routeLine, hitLine, endMarks]) if (l && l.remove) l.remove();
   routeLine = hitLine = endMarks = null;
   markerGroup.clearLayers();
@@ -1628,7 +1658,8 @@ function initSheet() {
   initResizer();
   $('clearBtn').addEventListener('click', clearRoute);
   $('driveBtn').addEventListener('click', () => (drive.on ? driveStop() : driveStart()));
-  document.addEventListener('visibilitychange', () => { if (document.visibilityState === 'visible') { drive.wake = null; driveWake(); } });
+  document.addEventListener('visibilitychange', () => { if (document.visibilityState === 'visible') { drive.wake = null; driveWake(); autoRefresh(); } });
+  setInterval(autoRefresh, 30000);
   const sh = $('sheet');
   const grip = $('grip');
   const levels = ['peek', 'half', 'full'];
