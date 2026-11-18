@@ -194,6 +194,7 @@ h2.sec { margin: 6px 0 8px; font: 700 17px var(--font); letter-spacing: -.015em;
 #corSave > div { padding-bottom: 10px; }
 #corNote textarea { width: 100%; min-height: 90px; font: 12px monospace; }
 
+#testVoice { margin-right: 10px; padding: 6px 12px; min-height: 0; border: 1px solid var(--suave); border-radius: 16px; background: transparent; color: var(--text); font: 500 12.5px var(--font); cursor: pointer; }
 .note { margin: 20px 0 0; color: var(--suave); font: 400 12.5px/1.5 var(--font); }
 #tip { position: fixed; z-index: 800; max-width: 330px; padding: 12px 14px 13px; border-radius: 14px; background: var(--papel); color: var(--text); box-shadow: 0 3px 16px rgba(0, 0, 0, .32); pointer-events: none; font: 400 13.5px/1.4 var(--font); }
 #tip .h { font: 700 15.5px var(--font); letter-spacing: -.015em; font-variant-numeric: tabular-nums; }
@@ -285,6 +286,7 @@ h2.sec { margin: 6px 0 8px; font: 700 17px var(--font); letter-spacing: -.015em;
       <div id="layers"></div>
 
       <ol id="list"></ol>
+      <p class="note" id="ver"><button type="button" id="testVoice" hidden>Probar voz y GPS</button> <span id="verTxt"></span></p>
       <p class="note">Datos de la DGT (NAP, CC-BY), AEMET y Open-Meteo. Mapa © OpenStreetMap. La duración es sin tráfico. Incidencias y paneles muestran el estado actual, no una previsión.</p>
     </div>
   </section>
@@ -1543,6 +1545,7 @@ function clearRoute() {
 }
 
 // ---- modo conducción (voz del navegador + GPS; la lógica de qué decir está en <core>)
+const VERSION = 'v24'; // mantener igual que CACHE en sw.js (lo vigila tests/core.test.mjs)
 const drive = { on: false, watch: null, wake: null, said: new Set(), off: false, nativeId: null };
 // Dentro de la app Android (Capacitor) el GPS y la voz son nativos y siguen con la pantalla apagada; en el navegador, los de siempre.
 const NATIVE = !!(window.Capacitor && typeof window.Capacitor.isNativePlatform === 'function' && window.Capacitor.isNativePlatform());
@@ -1608,6 +1611,23 @@ async function driveStartNative() {
   } catch (e) { setStatus('No se pudo iniciar el GPS en segundo plano', true); driveStop(); }
   if (!isDesktop()) setSheet('peek');
 }
+async function testVoice() {
+  speak('Prueba de voz correcta');
+  if (!NATIVE) return setStatus('Voz probada. El GPS en segundo plano solo se prueba en la app Android');
+  const bg = plug('BackgroundGeolocation');
+  if (!bg) return setStatus('Falta un componente de la app: reinstala la última versión', true);
+  setStatus('Probando GPS…');
+  let id = null, done = false;
+  const end = (msg, bad) => { if (done) return; done = true; if (id !== null) bg.removeWatcher({ id }).catch(() => {}); setStatus(msg, bad); };
+  setTimeout(() => end('GPS sin señal tras 20 s: sal a un sitio abierto o revisa el permiso «Permitir siempre»', true), 20000);
+  try {
+    id = await bg.addWatcher({ requestPermissions: true, stale: false }, (loc, err) => {
+      if (err) return end(err.code === 'NOT_AUTHORIZED' ? 'Falta el permiso de ubicación: en Ajustes elige «Permitir siempre»' : 'Error de GPS', true);
+      if (loc) end(`GPS correcto (precisión ${Math.round(loc.accuracy || 0)} m)`);
+    });
+    if (done) bg.removeWatcher({ id }).catch(() => {});
+  } catch (e) { end('No se pudo probar el GPS', true); }
+}
 function driveStart() {
   if (NATIVE) return driveStartNative();
   if (!navigator.geolocation) return setStatus('Este navegador no da la ubicación', true);
@@ -1658,6 +1678,9 @@ function initSheet() {
   initResizer();
   $('clearBtn').addEventListener('click', clearRoute);
   $('driveBtn').addEventListener('click', () => (drive.on ? driveStop() : driveStart()));
+  $('verTxt').textContent = VERSION;
+  $('testVoice').hidden = !(NATIVE || 'speechSynthesis' in window);
+  $('testVoice').addEventListener('click', testVoice);
   document.addEventListener('visibilitychange', () => { if (document.visibilityState === 'visible') { drive.wake = null; driveWake(); autoRefresh(); } });
   setInterval(autoRefresh, 30000);
   const sh = $('sheet');

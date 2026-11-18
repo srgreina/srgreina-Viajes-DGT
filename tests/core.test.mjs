@@ -395,3 +395,9 @@ test('refresco automático: toca a los 5 min y la primera vez', () => {
   assert.equal(api.dueRefresh(1000, 1000 + 300000), true);
   assert.equal(api.dueRefresh(1000, 1000 + 600000, 900000), false);
 });
+
+test('la versión visible coincide con la caché del service worker', () => {
+  const sw = readFileSync(new URL('../docs/sw.js', import.meta.url), 'utf8');
+  const v = html.match(/const VERSION = '(v\d+)'/)[1];
+  assert.equal(sw.match(/viajes-dgt-(v\d+)/)[1], v);
+});
