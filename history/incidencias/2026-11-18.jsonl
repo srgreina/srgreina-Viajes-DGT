@@ -300,3 +300,24 @@
 {"t":"2026-11-18T01:19:19Z","ev":"close","id":"30140951"}
 {"t":"2026-11-18T01:19:19Z","ev":"close","id":"30140953"}
 {"t":"2026-11-18T01:19:19Z","ev":"close","id":"30140954"}
+{"t":"2026-11-18T01:28:46Z","ev":"open","id":"30127704","sit":"25705517","ver":"12","kind":"GeneralObstruction","types":["roadMaintenance","roadworks","obstructionOnTheRoad"],"status":"active","created":"2026-11-18T02:19:17.000+01:00","start":"2026-11-18T02:19:00.000+01:00","end":"2026-11-18T06:00:00.000+01:00","road":"A-3","dir":"negative","lanes":"rightLane","pk":[352.0,343.0],"a":[39.46933,-0.41774],"b":[39.47304,-0.516136],"geo":{"autonomousCommunity":"Comunitat Valenciana","municipality":"Quart de Poblet","province":"València/Valencia"}}
+{"t":"2026-11-18T01:28:46Z","ev":"open","id":"30140973","sit":"25718379","ver":"1","kind":"GenericSituationRecord","types":["vehicleObstruction","vehicleStuck"],"status":"active","created":"2026-11-18T02:19:53.000+01:00","start":"2026-11-18T02:19:53.000+01:00","road":"CV-35","dir":"positive","pk":[13.076],"a":[39.55887,-0.49298],"geo":{"autonomousCommunity":"Comunitat Valenciana","municipality":"San Antonio de Benagéber","province":"València/Valencia"}}
+{"t":"2026-11-18T01:28:46Z","ev":"open","id":"30140977","sit":"25718381","ver":"1","kind":"GenericSituationRecord","types":["vehicleObstruction","vehicleStuck"],"status":"active","created":"2026-11-18T02:21:19.000+01:00","start":"2026-11-18T02:21:19.000+01:00","road":"CV-35","dir":"positive","pk":[12.97],"a":[39.55812,-0.49216],"geo":{"autonomousCommunity":"Comunitat Valenciana","municipality":"San Antonio de Benagéber","province":"València/Valencia"}}
+{"t":"2026-11-18T01:28:46Z","ev":"open","id":"30140978","sit":"25718382","ver":"1","kind":"GenericSituationRecord","types":["vehicleObstruction","vehicleStuck"],"status":"active","created":"2026-11-18T02:21:25.000+01:00","start":"2026-11-18T02:21:25.000+01:00","road":"CV-408","dir":"negative","pk":[0.103],"a":[39.47722,-0.45223],"geo":{"autonomousCommunity":"Comunitat Valenciana","municipality":"Aldaia","province":"València/Valencia"}}
+{"t":"2026-11-18T01:28:46Z","ev":"open","id":"30140983","sit":"25718387","ver":"1","kind":"GenericSituationRecord","types":["vehicleObstruction","vehicleStuck"],"status":"active","created":"2026-11-18T02:25:08.000+01:00","start":"2026-11-18T02:25:08.000+01:00","road":"A-308","dir":"positive","pk":[2.151],"a":[37.40065,-3.5445],"geo":{"autonomousCommunity":"Andalucía","municipality":"Iznalloz","province":"Granada"}}
+{"t":"2026-11-18T01:28:46Z","ev":"open","id":"30140987","sit":"25718391","ver":"1","kind":"GenericSituationRecord","types":["vehicleObstruction","vehicleStuck"],"status":"active","created":"2026-11-18T02:26:15.000+01:00","start":"2026-11-18T02:26:15.000+01:00","road":"LU-P-6605","dir":"negative","pk":[0.517],"a":[43.66575,-7.58887],"geo":{"autonomousCommunity":"Galicia","municipality":"Viveiro","province":"Lugo"}}
+{"t":"2026-11-18T01:28:46Z","ev":"open","id":"30140988","sit":"25718392","ver":"1","kind":"GenericSituationRecord","types":["vehicleObstruction","vehicleStuck"],"status":"active","created":"2026-11-18T02:26:25.000+01:00","start":"2026-11-18T02:26:24.000+01:00","road":"N-232","dir":"negative","pk":[56.43],"a":[40.59672,-0.04529],"geo":{"autonomousCommunity":"Comunitat Valenciana","municipality":"Morella","province":"Castelló/Castellón"}}
+{"t":"2026-11-18T01:28:46Z","ev":"open","id":"30140989","sit":"25718393","ver":"1","kind":"GenericSituationRecord","types":["vehicleObstruction","vehicleStuck"],"status":"active","created":"2026-11-18T02:26:25.000+01:00","start":"2026-11-18T02:26:25.000+01:00","road":"A-7","dir":"negative","pk":[327.966],"a":[39.51588,-0.482015],"geo":{"autonomousCommunity":"Comunitat Valenciana","municipality":"Paterna","province":"València/Valencia"}}
+{"t":"2026-11-18T01:28:46Z","ev":"open","id":"30140990","sit":"25718394","ver":"1","kind":"GenericSituationRecord","types":["vehicleObstruction","vehicleStuck"],"status":"active","created":"2026-11-18T02:27:30.000+01:00","start":"2026-11-18T02:27:30.000+01:00","road":"AP-7","dir":"negative","pk":[208.921],"a":[41.285206,1.579428],"geo":{"autonomousCommunity":"Cataluña","municipality":"Banyeres del Penedès","province":"Tarragona"}}
+{"t":"2026-11-18T01:28:46Z","ev":"close","id":"30127689"}
+{"t":"2026-11-18T01:28:46Z","ev":"close","id":"30134461"}
+{"t":"2026-11-18T01:28:46Z","ev":"close","id":"30139805"}
+{"t":"2026-11-18T01:28:46Z","ev":"close","id":"30140830"}
+{"t":"2026-11-18T01:28:46Z","ev":"close","id":"30140797"}
+{"t":"2026-11-18T01:28:46Z","ev":"close","id":"30140810"}
+{"t":"2026-11-18T01:28:46Z","ev":"close","id":"30140817"}
+{"t":"2026-11-18T01:28:46Z","ev":"close","id":"30140821"}
+{"t":"2026-11-18T01:28:46Z","ev":"close","id":"30140948"}
+{"t":"2026-11-18T01:28:46Z","ev":"close","id":"30140961"}
+{"t":"2026-11-18T01:28:46Z","ev":"close","id":"30140964"}
+{"t":"2026-11-18T01:28:46Z","ev":"close","id":"30140971"}
