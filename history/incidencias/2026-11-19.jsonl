@@ -486,3 +486,31 @@
 {"t":"2026-11-19T02:21:39Z","ev":"close","id":"30177965"}
 {"t":"2026-11-19T02:21:39Z","ev":"close","id":"30177966"}
 {"t":"2026-11-19T02:21:39Z","ev":"close","id":"30177967"}
+{"t":"2026-11-19T02:31:02Z","ev":"open","id":"30177998","sit":"25753202","ver":"2","kind":"RoadOrCarriagewayOrLaneManagement","types":["vehicleObstruction","vehicleStuck","narrowLanes"],"status":"active","created":"2026-11-19T03:25:09.000+01:00","start":"2026-11-19T03:24:57.000+01:00","road":"A-4","dir":"negative","lanes":"rightLane","pk":[230.179],"a":[38.524616,-3.492395],"geo":{"autonomousCommunity":"Castilla - La Mancha","municipality":"Viso del Marqués","province":"Ciudad Real"}}
+{"t":"2026-11-19T02:31:02Z","ev":"open","id":"30177990","sit":"25753207","ver":"1","kind":"GenericSituationRecord","types":["vehicleObstruction","vehicleStuck"],"status":"active","created":"2026-11-19T03:22:17.000+01:00","start":"2026-11-19T03:22:17.000+01:00","road":"CM-4004","dir":"negative","pk":[44.072],"a":[39.96353,-3.73976],"geo":{"autonomousCommunity":"Castilla - La Mancha","municipality":"Añover de Tajo","province":"Toledo"}}
+{"t":"2026-11-19T02:31:02Z","ev":"open","id":"30177997","sit":"25753214","ver":"1","kind":"GenericSituationRecord","types":["vehicleObstruction","vehicleStuck"],"status":"active","created":"2026-11-19T03:24:58.000+01:00","start":"2026-11-19T03:24:58.000+01:00","road":"VS-A-5-C","dir":"positive","pk":[16.393],"a":[40.34453,-3.86192],"geo":{"autonomousCommunity":"Madrid, Comunidad de","municipality":"Alcorcón","province":"Madrid"}}
+{"t":"2026-11-19T02:31:02Z","ev":"open","id":"30178002","sit":"25753218","ver":"1","kind":"GenericSituationRecord","types":["vehicleObstruction","vehicleStuck"],"status":"active","created":"2026-11-19T03:25:53.000+01:00","start":"2026-11-19T03:25:53.000+01:00","road":"A-4","dir":"positive","pk":[12.862],"a":[40.31256,-3.69197],"geo":{"autonomousCommunity":"Madrid, Comunidad de","municipality":"Getafe","province":"Madrid"}}
+{"t":"2026-11-19T02:31:02Z","ev":"open","id":"30178007","sit":"25753223","ver":"1","kind":"GenericSituationRecord","types":["vehicleObstruction","vehicleStuck"],"status":"active","created":"2026-11-19T03:28:31.000+01:00","start":"2026-11-19T03:28:31.000+01:00","road":"N-340a","dir":"negative","pk":[388.458],"a":[36.74914,-3.014247],"geo":{"autonomousCommunity":"Andalucía","municipality":"Adra","province":"Almería"}}
+{"t":"2026-11-19T02:31:02Z","ev":"open","id":"30178009","sit":"25753225","ver":"1","kind":"GenericSituationRecord","types":["vehicleObstruction","vehicleStuck"],"status":"active","created":"2026-11-19T03:28:42.000+01:00","start":"2026-11-19T03:28:42.000+01:00","road":"A-3","dir":"positive","pk":[17.53],"a":[40.33731,-3.53666],"geo":{"autonomousCommunity":"Madrid, Comunidad de","municipality":"Rivas-Vaciamadrid","province":"Madrid"}}
+{"t":"2026-11-19T02:31:02Z","ev":"close","id":"30174213"}
+{"t":"2026-11-19T02:31:02Z","ev":"close","id":"30175609"}
+{"t":"2026-11-19T02:31:02Z","ev":"close","id":"30177250"}
+{"t":"2026-11-19T02:31:02Z","ev":"close","id":"30177688"}
+{"t":"2026-11-19T02:31:02Z","ev":"close","id":"30177788"}
+{"t":"2026-11-19T02:31:02Z","ev":"close","id":"30177790"}
+{"t":"2026-11-19T02:31:02Z","ev":"close","id":"30177794"}
+{"t":"2026-11-19T02:31:02Z","ev":"close","id":"30177799"}
+{"t":"2026-11-19T02:31:02Z","ev":"close","id":"30177871"}
+{"t":"2026-11-19T02:31:02Z","ev":"close","id":"30177897"}
+{"t":"2026-11-19T02:31:02Z","ev":"close","id":"30177958"}
+{"t":"2026-11-19T02:31:02Z","ev":"close","id":"30177969"}
+{"t":"2026-11-19T02:31:02Z","ev":"close","id":"30177971"}
+{"t":"2026-11-19T02:31:02Z","ev":"close","id":"30177975"}
+{"t":"2026-11-19T02:31:02Z","ev":"close","id":"30177979"}
+{"t":"2026-11-19T02:31:02Z","ev":"close","id":"30177980"}
+{"t":"2026-11-19T02:31:02Z","ev":"close","id":"30177981"}
+{"t":"2026-11-19T02:31:02Z","ev":"close","id":"30177982"}
+{"t":"2026-11-19T02:31:02Z","ev":"close","id":"30177983"}
+{"t":"2026-11-19T02:31:02Z","ev":"close","id":"30177984"}
+{"t":"2026-11-19T02:31:02Z","ev":"close","id":"30177985"}
+{"t":"2026-11-19T02:31:02Z","ev":"close","id":"30177987"}
