@@ -542,3 +542,24 @@
 {"t":"2026-11-19T02:40:28Z","ev":"close","id":"30177990"}
 {"t":"2026-11-19T02:40:28Z","ev":"close","id":"30178007"}
 {"t":"2026-11-19T02:40:28Z","ev":"close","id":"30178009"}
+{"t":"2026-11-19T02:49:50Z","ev":"open","id":"30178046","sit":"25753262","ver":"1","kind":"GenericSituationRecord","types":["vehicleObstruction","vehicleStuck"],"status":"active","created":"2026-11-19T03:42:55.000+01:00","start":"2026-11-19T03:42:55.000+01:00","road":"PO-534","dir":"positive","pk":[1.814],"a":[42.645554,-8.126634],"geo":{"autonomousCommunity":"Galicia","municipality":"Lalín","province":"Pontevedra"}}
+{"t":"2026-11-19T02:49:50Z","ev":"open","id":"30178052","sit":"25753268","ver":"1","kind":"GenericSituationRecord","types":["vehicleObstruction","vehicleStuck"],"status":"active","created":"2026-11-19T03:45:24.000+01:00","start":"2026-11-19T03:45:24.000+01:00","road":"A-31","dir":"negative","pk":[236.346],"a":[38.33818,-0.5367],"geo":{"autonomousCommunity":"Comunitat Valenciana","municipality":"Alacant/Alicante","province":"Alacant/Alicante"}}
+{"t":"2026-11-19T02:49:50Z","ev":"open","id":"30178054","sit":"25753270","ver":"1","kind":"GenericSituationRecord","types":["vehicleObstruction","vehicleStuck"],"status":"active","created":"2026-11-19T03:46:13.000+01:00","start":"2026-11-19T03:46:13.000+01:00","road":"RM-608","dir":"negative","pk":[0.066],"a":[37.83058,-1.40782],"geo":{"autonomousCommunity":"Murcia, Región de","municipality":"Alhama de Murcia","province":"Murcia"}}
+{"t":"2026-11-19T02:49:50Z","ev":"open","id":"30178056","sit":"25753272","ver":"1","kind":"GenericSituationRecord","types":["vehicleObstruction","vehicleStuck"],"status":"active","created":"2026-11-19T03:47:22.000+01:00","start":"2026-11-19T03:47:22.000+01:00","road":"M-506","dir":"positive","pk":[4.534],"a":[40.3531,-3.87173],"geo":{"autonomousCommunity":"Madrid, Comunidad de","municipality":"Villaviciosa de Odón","province":"Madrid"}}
+{"t":"2026-11-19T02:49:50Z","ev":"open","id":"30178057","sit":"25753273","ver":"1","kind":"GenericSituationRecord","types":["vehicleObstruction","vehicleStuck"],"status":"active","created":"2026-11-19T03:48:33.000+01:00","start":"2026-11-19T03:48:33.000+01:00","road":"A-5","dir":"negative","pk":[328.215],"a":[38.95001,-6.217152],"geo":{"autonomousCommunity":"Extremadura","municipality":"Mérida","province":"Badajoz"}}
+{"t":"2026-11-19T02:49:50Z","ev":"open","id":"30178058","sit":"25753274","ver":"1","kind":"GenericSituationRecord","types":["vehicleObstruction","vehicleStuck"],"status":"active","created":"2026-11-19T03:48:59.000+01:00","start":"2026-11-19T03:48:59.000+01:00","road":"A-5","dir":"positive","pk":[119.749],"a":[39.97474,-4.86442],"geo":{"autonomousCommunity":"Castilla - La Mancha","municipality":"Talavera de la Reina","province":"Toledo"}}
+{"t":"2026-11-19T02:49:50Z","ev":"open","id":"30178032","sit":"25753248","ver":"2","kind":"RoadOrCarriagewayOrLaneManagement","types":["roadMaintenance","roadworks","narrowLanes"],"status":"active","created":"2026-11-19T03:49:21.000+01:00","start":"2026-11-19T03:49:00.000+01:00","end":"2026-11-19T05:30:00.000+01:00","road":"A-2","dir":"positive","lanes":"rightLane","pk":[27.1],"a":[40.481674,-3.401706],"geo":{"autonomousCommunity":"Madrid, Comunidad de","municipality":"Alcalá de Henares","province":"Madrid"}}
+{"t":"2026-11-19T02:49:50Z","ev":"close","id":"30141372"}
+{"t":"2026-11-19T02:49:50Z","ev":"close","id":"30164632"}
+{"t":"2026-11-19T02:49:50Z","ev":"close","id":"30177844"}
+{"t":"2026-11-19T02:49:50Z","ev":"close","id":"30177849"}
+{"t":"2026-11-19T02:49:50Z","ev":"close","id":"30177852"}
+{"t":"2026-11-19T02:49:50Z","ev":"close","id":"30177857"}
+{"t":"2026-11-19T02:49:50Z","ev":"close","id":"30177868"}
+{"t":"2026-11-19T02:49:50Z","ev":"close","id":"30177900"}
+{"t":"2026-11-19T02:49:50Z","ev":"close","id":"30178021"}
+{"t":"2026-11-19T02:49:50Z","ev":"close","id":"30178022"}
+{"t":"2026-11-19T02:49:50Z","ev":"close","id":"30178024"}
+{"t":"2026-11-19T02:49:50Z","ev":"close","id":"30178025"}
+{"t":"2026-11-19T02:49:50Z","ev":"close","id":"30178033"}
+{"t":"2026-11-19T02:49:50Z","ev":"close","id":"30178040"}
