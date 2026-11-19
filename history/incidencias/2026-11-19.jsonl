@@ -585,3 +585,17 @@
 {"t":"2026-11-19T02:59:13Z","ev":"close","id":"30178052"}
 {"t":"2026-11-19T02:59:13Z","ev":"close","id":"30178057"}
 {"t":"2026-11-19T02:59:13Z","ev":"close","id":"30178058"}
+{"t":"2026-11-19T03:08:34Z","ev":"open","id":"30178279","sit":"25753306","ver":"1","kind":"GenericSituationRecord","types":["vehicleObstruction","vehicleStuck"],"status":"active","created":"2026-11-19T04:00:42.000+01:00","start":"2026-11-19T04:00:42.000+01:00","road":"TF-1","dir":"positive","pk":[42.483],"a":[28.144781,-16.453205],"geo":{"autonomousCommunity":"Canarias","municipality":"Arico","province":"Santa Cruz de Tenerife"}}
+{"t":"2026-11-19T03:08:34Z","ev":"open","id":"30178287","sit":"25753290","ver":"2","kind":"RoadOrCarriagewayOrLaneManagement","types":["vehicleObstruction","vehicleStuck","narrowLanes"],"status":"active","created":"2026-11-19T04:03:46.000+01:00","start":"2026-11-19T04:03:29.000+01:00","road":"A-4","dir":"positive","lanes":"rightLane","pk":[28.496],"a":[40.17428,-3.667243],"geo":{"autonomousCommunity":"Madrid, Comunidad de","municipality":"Valdemoro","province":"Madrid"}}
+{"t":"2026-11-19T03:08:34Z","ev":"open","id":"30178290","sit":"25753316","ver":"1","kind":"GenericSituationRecord","types":["vehicleObstruction","vehicleStuck"],"status":"active","created":"2026-11-19T04:04:47.000+01:00","start":"2026-11-19T04:04:47.000+01:00","road":"A-4","dir":"negative","pk":[363.608],"a":[37.998123,-4.424007],"geo":{"autonomousCommunity":"Andalucía","municipality":"Montoro","province":"Córdoba"}}
+{"t":"2026-11-19T03:08:34Z","ev":"change","id":"30128172","sit":"25705848","ver":"21","kind":"GeneralObstruction","types":["roadMaintenance","roadworks","obstructionOnTheRoad"],"status":"active","created":"2026-11-18T23:23:45.000+01:00","start":"2026-11-19T04:06:00.000+01:00","end":"2026-11-19T06:00:00.000+01:00","road":"AP-7","dir":"negative","lanes":"rightLane","pk":[358.0,347.0],"a":[40.460407,0.407673],"b":[40.55472,0.424867],"geo":{"autonomousCommunity":"Comunitat Valenciana","municipality":"Vinaròs","province":"Castelló/Castellón"}}
+{"t":"2026-11-19T03:08:34Z","ev":"open","id":"30178297","sit":"25753323","ver":"1","kind":"GenericSituationRecord","types":["vehicleObstruction","vehicleStuck"],"status":"active","created":"2026-11-19T04:07:03.000+01:00","start":"2026-11-19T04:07:03.000+01:00","road":"A-5","dir":"positive","pk":[105.147],"a":[39.98655,-4.712699],"geo":{"autonomousCommunity":"Castilla - La Mancha","municipality":"Cazalegas","province":"Toledo"}}
+{"t":"2026-11-19T03:08:34Z","ev":"close","id":"30168142"}
+{"t":"2026-11-19T03:08:34Z","ev":"close","id":"30175100"}
+{"t":"2026-11-19T03:08:34Z","ev":"close","id":"30175117"}
+{"t":"2026-11-19T03:08:34Z","ev":"close","id":"30177940"}
+{"t":"2026-11-19T03:08:34Z","ev":"close","id":"30178063"}
+{"t":"2026-11-19T03:08:34Z","ev":"close","id":"30178069"}
+{"t":"2026-11-19T03:08:34Z","ev":"close","id":"30178074"}
+{"t":"2026-11-19T03:08:34Z","ev":"close","id":"30178078"}
+{"t":"2026-11-19T03:08:34Z","ev":"close","id":"30178080"}
