@@ -725,3 +725,20 @@
 {"t":"2026-11-19T04:14:18Z","ev":"close","id":"30178279"}
 {"t":"2026-11-19T04:14:18Z","ev":"close","id":"30178396"}
 {"t":"2026-11-19T04:14:18Z","ev":"close","id":"30178397"}
+{"t":"2026-11-19T04:23:49Z","ev":"open","id":"30178448","sit":"25753463","ver":"1","kind":"GenericSituationRecord","types":["vehicleObstruction","vehicleStuck"],"status":"active","created":"2026-11-19T05:18:02.000+01:00","start":"2026-11-19T05:18:02.000+01:00","road":"A-52","dir":"negative","pk":[18.064],"a":[42.0137,-5.882237],"geo":{"autonomousCommunity":"Castilla y León","municipality":"Quiruelas de Vidriales","province":"Zamora"}}
+{"t":"2026-11-19T04:23:49Z","ev":"open","id":"30178450","sit":"25753465","ver":"1","kind":"GenericSituationRecord","types":["vehicleObstruction","vehicleStuck"],"status":"active","created":"2026-11-19T05:18:47.000+01:00","start":"2026-11-19T05:18:47.000+01:00","road":"A-27","dir":"positive","pk":[4.856],"a":[41.154762,1.23021],"geo":{"autonomousCommunity":"Cataluña","municipality":"Constantí","province":"Tarragona"}}
+{"t":"2026-11-19T04:23:49Z","ev":"open","id":"30178462","sit":"25753477","ver":"1","kind":"GenericSituationRecord","types":["vehicleObstruction","vehicleStuck"],"status":"active","created":"2026-11-19T05:21:56.000+01:00","start":"2026-11-19T05:21:56.000+01:00","road":"A-309a","dir":"negative","pk":[5.739],"a":[37.578495,-4.651027],"geo":{"autonomousCommunity":"Andalucía","municipality":"Montilla","province":"Córdoba"}}
+{"t":"2026-11-19T04:23:49Z","ev":"open","id":"30178463","sit":"25753478","ver":"1","kind":"GenericSituationRecord","types":["vehicleObstruction","vehicleStuck"],"status":"active","created":"2026-11-19T05:22:04.000+01:00","start":"2026-11-19T05:22:04.000+01:00","road":"ZA-13","dir":"negative","pk":[1.452],"a":[41.477123,-5.73997],"geo":{"autonomousCommunity":"Castilla y León","municipality":"Zamora","province":"Zamora"}}
+{"t":"2026-11-19T04:23:49Z","ev":"open","id":"30178465","sit":"25753480","ver":"1","kind":"GenericSituationRecord","types":["vehicleObstruction","vehicleStuck"],"status":"active","created":"2026-11-19T05:22:35.000+01:00","start":"2026-11-19T05:22:35.000+01:00","road":"AS-118","dir":"negative","pk":[5.123],"a":[43.58135,-5.77904],"geo":{"autonomousCommunity":"Asturias, Principado de","municipality":"Carreño","province":"Asturias"}}
+{"t":"2026-11-19T04:23:49Z","ev":"close","id":"30177669"}
+{"t":"2026-11-19T04:23:49Z","ev":"close","id":"30176812"}
+{"t":"2026-11-19T04:23:49Z","ev":"close","id":"30178297"}
+{"t":"2026-11-19T04:23:49Z","ev":"close","id":"30178315"}
+{"t":"2026-11-19T04:23:49Z","ev":"close","id":"30178320"}
+{"t":"2026-11-19T04:23:49Z","ev":"close","id":"30178364"}
+{"t":"2026-11-19T04:23:49Z","ev":"close","id":"30178367"}
+{"t":"2026-11-19T04:23:49Z","ev":"close","id":"30178377"}
+{"t":"2026-11-19T04:23:49Z","ev":"close","id":"30178415"}
+{"t":"2026-11-19T04:23:49Z","ev":"close","id":"30178425"}
+{"t":"2026-11-19T04:23:49Z","ev":"close","id":"30178427"}
+{"t":"2026-11-19T04:23:49Z","ev":"close","id":"30178432"}
