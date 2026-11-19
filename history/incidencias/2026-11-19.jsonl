@@ -282,3 +282,24 @@
 {"t":"2026-11-19T01:15:29Z","ev":"close","id":"30177749"}
 {"t":"2026-11-19T01:15:29Z","ev":"close","id":"30177750"}
 {"t":"2026-11-19T01:15:29Z","ev":"close","id":"30177751"}
+{"t":"2026-11-19T01:25:03Z","ev":"open","id":"30177779","sit":"25752998","ver":"1","kind":"GenericSituationRecord","types":["obstruction","objectOnTheRoad"],"status":"active","created":"2026-11-19T02:14:49.000+01:00","start":"2026-11-19T02:10:00.000+01:00","road":"CV-425","dir":"positive","pk":[4.685],"a":[39.404594,-0.784543],"geo":{"autonomousCommunity":"Comunitat Valenciana","municipality":"Buñol","province":"València/Valencia"}}
+{"t":"2026-11-19T01:25:03Z","ev":"open","id":"30177788","sit":"25753007","ver":"1","kind":"GenericSituationRecord","types":["vehicleObstruction","vehicleStuck"],"status":"active","created":"2026-11-19T02:18:02.000+01:00","start":"2026-11-19T02:18:02.000+01:00","road":"N-525","dir":"positive","pk":[48.953],"a":[42.005898,-6.226921],"geo":{"autonomousCommunity":"Castilla y León","municipality":"Rionegro del Puente","province":"Zamora"}}
+{"t":"2026-11-19T01:25:03Z","ev":"open","id":"30177790","sit":"25753009","ver":"1","kind":"GenericSituationRecord","types":["vehicleObstruction","vehicleStuck"],"status":"active","created":"2026-11-19T02:18:27.000+01:00","start":"2026-11-19T02:18:27.000+01:00","road":"TF-28","dir":"negative","pk":[2.605],"a":[28.435843,-16.309166],"geo":{"autonomousCommunity":"Canarias","municipality":"Santa Cruz de Tenerife","province":"Santa Cruz de Tenerife"}}
+{"t":"2026-11-19T01:25:03Z","ev":"open","id":"30177792","sit":"25753011","ver":"1","kind":"GenericSituationRecord","types":["vehicleObstruction","vehicleStuck"],"status":"active","created":"2026-11-19T02:19:24.000+01:00","start":"2026-11-19T02:19:24.000+01:00","road":"A-30","dir":"negative","pk":[130.153],"a":[38.055046,-1.285238],"geo":{"autonomousCommunity":"Murcia, Región de","municipality":"Alguazas","province":"Murcia"}}
+{"t":"2026-11-19T01:25:03Z","ev":"open","id":"30177794","sit":"25753012","ver":"1","kind":"GenericSituationRecord","types":["vehicleObstruction","vehicleStuck"],"status":"active","created":"2026-11-19T02:20:12.000+01:00","start":"2026-11-19T02:20:12.000+01:00","road":"V-30","dir":"positive","pk":[10.345],"a":[39.47818,-0.42715],"geo":{"autonomousCommunity":"Comunitat Valenciana","municipality":"Quart de Poblet","province":"València/Valencia"}}
+{"t":"2026-11-19T01:25:03Z","ev":"open","id":"30177796","sit":"25753013","ver":"1","kind":"GenericSituationRecord","types":["vehicleObstruction","vehicleStuck"],"status":"active","created":"2026-11-19T02:20:27.000+01:00","start":"2026-11-19T02:20:27.000+01:00","road":"CM-4010","dir":"positive","pk":[18.442],"a":[40.10483,-3.64566],"geo":{"autonomousCommunity":"Castilla - La Mancha","municipality":"Seseña","province":"Toledo"}}
+{"t":"2026-11-19T01:25:03Z","ev":"open","id":"30177799","sit":"25753016","ver":"1","kind":"GenericSituationRecord","types":["vehicleObstruction","vehicleStuck"],"status":"active","created":"2026-11-19T02:21:55.000+01:00","start":"2026-11-19T02:21:55.000+01:00","road":"Avda. Andalucía","dir":"negative","pk":[11.897],"a":[40.32751,-3.69216],"geo":{"autonomousCommunity":"Madrid, Comunidad de","municipality":"Madrid","province":"Madrid"}}
+{"t":"2026-11-19T01:25:03Z","ev":"open","id":"30177803","sit":"25753020","ver":"1","kind":"GenericSituationRecord","types":["vehicleObstruction","vehicleStuck"],"status":"active","created":"2026-11-19T02:22:47.000+01:00","start":"2026-11-19T02:22:47.000+01:00","road":"A-6","dir":"negative","pk":[34.781],"a":[40.60486,-3.96847],"geo":{"autonomousCommunity":"Madrid, Comunidad de","municipality":"Galapagar","province":"Madrid"}}
+{"t":"2026-11-19T01:25:03Z","ev":"close","id":"30164796"}
+{"t":"2026-11-19T01:25:03Z","ev":"close","id":"30176844"}
+{"t":"2026-11-19T01:25:03Z","ev":"close","id":"30176845"}
+{"t":"2026-11-19T01:25:03Z","ev":"close","id":"30177561"}
+{"t":"2026-11-19T01:25:03Z","ev":"close","id":"30177542"}
+{"t":"2026-11-19T01:25:03Z","ev":"close","id":"30177549"}
+{"t":"2026-11-19T01:25:03Z","ev":"close","id":"30177582"}
+{"t":"2026-11-19T01:25:03Z","ev":"close","id":"30177660"}
+{"t":"2026-11-19T01:25:03Z","ev":"close","id":"30177661"}
+{"t":"2026-11-19T01:25:03Z","ev":"close","id":"30177681"}
+{"t":"2026-11-19T01:25:03Z","ev":"close","id":"30177738"}
+{"t":"2026-11-19T01:25:03Z","ev":"close","id":"30177753"}
+{"t":"2026-11-19T01:25:03Z","ev":"close","id":"30177772"}
