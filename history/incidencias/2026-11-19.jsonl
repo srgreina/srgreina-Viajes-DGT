@@ -599,3 +599,21 @@
 {"t":"2026-11-19T03:08:34Z","ev":"close","id":"30178074"}
 {"t":"2026-11-19T03:08:34Z","ev":"close","id":"30178078"}
 {"t":"2026-11-19T03:08:34Z","ev":"close","id":"30178080"}
+{"t":"2026-11-19T03:17:55Z","ev":"open","id":"30178304","sit":"25705848","ver":"23","kind":"GeneralObstruction","types":["roadMaintenance","roadworks","obstructionOnTheRoad"],"status":"active","created":"2026-11-19T04:10:19.000+01:00","start":"2026-11-19T04:10:00.000+01:00","end":"2026-11-19T07:00:00.000+01:00","road":"AP-7","dir":"positive","lanes":"rightLane","pk":[346.2,355.0],"a":[40.561607,0.428725],"b":[40.484486,0.416543],"geo":{"autonomousCommunity":"Comunitat Valenciana","municipality":"Vinaròs","province":"Castelló/Castellón"}}
+{"t":"2026-11-19T03:17:55Z","ev":"open","id":"30178312","sit":"25753337","ver":"1","kind":"GenericSituationRecord","types":["vehicleObstruction","vehicleStuck"],"status":"active","created":"2026-11-19T04:11:20.000+01:00","start":"2026-11-19T04:11:20.000+01:00","road":"TF-312","dir":"positive","pk":[3.189],"a":[28.407284,-16.551613],"geo":{"autonomousCommunity":"Canarias","municipality":"Puerto de la Cruz","province":"Santa Cruz de Tenerife"}}
+{"t":"2026-11-19T03:17:55Z","ev":"open","id":"30178313","sit":"25753338","ver":"1","kind":"GenericSituationRecord","types":["vehicleObstruction","vehicleStuck"],"status":"active","created":"2026-11-19T04:11:21.000+01:00","start":"2026-11-19T04:11:21.000+01:00","road":"A-5","dir":"positive","pk":[151.466],"a":[39.90978,-5.21231],"geo":{"autonomousCommunity":"Castilla - La Mancha","municipality":"Lagartera","province":"Toledo"}}
+{"t":"2026-11-19T03:17:55Z","ev":"open","id":"30178315","sit":"25753340","ver":"1","kind":"GenericSituationRecord","types":["vehicleObstruction","vehicleStuck"],"status":"active","created":"2026-11-19T04:12:19.000+01:00","start":"2026-11-19T04:12:19.000+01:00","road":"N-323","dir":"negative","pk":[193.039],"a":[36.72793,-3.54197],"geo":{"autonomousCommunity":"Andalucía","municipality":"Motril","province":"Granada"}}
+{"t":"2026-11-19T03:17:55Z","ev":"open","id":"30178320","sit":"25753345","ver":"1","kind":"GenericSituationRecord","types":["vehicleObstruction","vehicleStuck"],"status":"active","created":"2026-11-19T04:14:40.000+01:00","start":"2026-11-19T04:14:40.000+01:00","road":"A-384","dir":"positive","pk":[93.331],"a":[37.006542,-4.996868],"geo":{"autonomousCommunity":"Andalucía","municipality":"Almargen","province":"Málaga"}}
+{"t":"2026-11-19T03:17:55Z","ev":"open","id":"30178323","sit":"25753347","ver":"1","kind":"GenericSituationRecord","types":["vehicleObstruction","vehicleStuck"],"status":"active","created":"2026-11-19T04:15:54.000+01:00","start":"2026-11-19T04:15:54.000+01:00","road":"EX-102","dir":"negative","pk":[56.956],"a":[39.3825,-5.389158],"geo":{"autonomousCommunity":"Extremadura","municipality":"Cañamero","province":"Cáceres"}}
+{"t":"2026-11-19T03:17:55Z","ev":"close","id":"29938590"}
+{"t":"2026-11-19T03:17:55Z","ev":"close","id":"30141590"}
+{"t":"2026-11-19T03:17:55Z","ev":"close","id":"30141581"}
+{"t":"2026-11-19T03:17:55Z","ev":"close","id":"30141591"}
+{"t":"2026-11-19T03:17:55Z","ev":"close","id":"30175828"}
+{"t":"2026-11-19T03:17:55Z","ev":"close","id":"30177950"}
+{"t":"2026-11-19T03:17:55Z","ev":"close","id":"30177954"}
+{"t":"2026-11-19T03:17:55Z","ev":"close","id":"30177960"}
+{"t":"2026-11-19T03:17:55Z","ev":"close","id":"30177961"}
+{"t":"2026-11-19T03:17:55Z","ev":"close","id":"30177962"}
+{"t":"2026-11-19T03:17:55Z","ev":"close","id":"30178002"}
+{"t":"2026-11-19T03:17:55Z","ev":"close","id":"30128172"}
