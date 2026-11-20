@@ -569,3 +569,32 @@
 {"t":"2026-11-20T02:39:10Z","ev":"close","id":"30216099"}
 {"t":"2026-11-20T02:39:10Z","ev":"close","id":"30216100"}
 {"t":"2026-11-20T02:39:10Z","ev":"close","id":"30216101"}
+{"t":"2026-11-20T02:48:37Z","ev":"open","id":"30216138","sit":"25788029","ver":"1","kind":"GenericSituationRecord","types":["vehicleObstruction","vehicleStuck"],"status":"active","created":"2026-11-20T03:38:54.000+01:00","start":"2026-11-20T03:38:53.000+01:00","road":"A-357","dir":"negative","pk":[68.077],"a":[36.71356,-4.47273],"geo":{"autonomousCommunity":"Andalucía","municipality":"Málaga","province":"Málaga"}}
+{"t":"2026-11-20T02:48:37Z","ev":"open","id":"30216144","sit":"25788032","ver":"1","kind":"GenericSituationRecord","types":["vehicleObstruction","vehicleStuck"],"status":"active","created":"2026-11-20T03:41:04.000+01:00","start":"2026-11-20T03:41:04.000+01:00","road":"A-45","dir":"negative","pk":[145.29],"a":[36.7374,-4.42461],"geo":{"autonomousCommunity":"Andalucía","municipality":"Málaga","province":"Málaga"}}
+{"t":"2026-11-20T02:48:37Z","ev":"open","id":"30216145","sit":"25788033","ver":"1","kind":"GenericSituationRecord","types":["vehicleObstruction","vehicleStuck"],"status":"active","created":"2026-11-20T03:41:04.000+01:00","start":"2026-11-20T03:41:04.000+01:00","road":"A-7205R2","dir":"negative","pk":[0.348],"a":[36.7891,-4.11842],"geo":{"autonomousCommunity":"Andalucía","municipality":"Vélez-Málaga","province":"Málaga"}}
+{"t":"2026-11-20T02:48:37Z","ev":"open","id":"30216146","sit":"25788034","ver":"1","kind":"GenericSituationRecord","types":["vehicleObstruction","vehicleStuck"],"status":"active","created":"2026-11-20T03:41:09.000+01:00","start":"2026-11-20T03:41:09.000+01:00","road":"AL-12","dir":"positive","pk":[3.353],"a":[36.843063,-2.424498],"geo":{"autonomousCommunity":"Andalucía","municipality":"Almería","province":"Almería"}}
+{"t":"2026-11-20T02:48:37Z","ev":"open","id":"30216149","sit":"25788013","ver":"2","kind":"RoadOrCarriagewayOrLaneManagement","types":["vehicleObstruction","vehicleStuck","laneClosures"],"status":"active","created":"2026-11-20T03:41:41.000+01:00","start":"2026-11-20T03:41:02.000+01:00","road":"GR-30","dir":"positive","lanes":"_extended","pk":[3.398],"a":[37.242367,-3.652582],"geo":{"autonomousCommunity":"Andalucía","municipality":"Albolote","province":"Granada"}}
+{"t":"2026-11-20T02:48:37Z","ev":"open","id":"30216152","sit":"25788037","ver":"1","kind":"GenericSituationRecord","types":["vehicleObstruction","vehicleStuck"],"status":"active","created":"2026-11-20T03:43:13.000+01:00","start":"2026-11-20T03:43:13.000+01:00","road":"SE-3308","dir":"positive","pk":[1.765],"a":[37.358654,-6.170016],"geo":{"autonomousCommunity":"Andalucía","municipality":"Umbrete","province":"Sevilla"}}
+{"t":"2026-11-20T02:48:37Z","ev":"open","id":"30216155","sit":"25788040","ver":"1","kind":"GenericSituationRecord","types":["vehicleObstruction","vehicleStuck"],"status":"active","created":"2026-11-20T03:46:38.000+01:00","start":"2026-11-20T03:46:38.000+01:00","road":"M-50","dir":"positive","pk":[26.475],"a":[40.3925,-3.53273],"geo":{"autonomousCommunity":"Madrid, Comunidad de","municipality":"Madrid","province":"Madrid"}}
+{"t":"2026-11-20T02:48:37Z","ev":"open","id":"30216156","sit":"25788041","ver":"1","kind":"GenericSituationRecord","types":["vehicleObstruction","vehicleStuck"],"status":"active","created":"2026-11-20T03:47:03.000+01:00","start":"2026-11-20T03:47:03.000+01:00","road":"M-506","dir":"negative","pk":[39.845],"a":[40.2188,-3.57109],"geo":{"autonomousCommunity":"Madrid, Comunidad de","municipality":"San Martín de la Vega","province":"Madrid"}}
+{"t":"2026-11-20T02:48:37Z","ev":"open","id":"30216157","sit":"25788042","ver":"1","kind":"GenericSituationRecord","types":["vehicleObstruction","vehicleStuck"],"status":"active","created":"2026-11-20T03:47:10.000+01:00","start":"2026-11-20T03:47:10.000+01:00","road":"Ma-3460","dir":"positive","pk":[0.307],"a":[39.84319,3.09729],"geo":{"autonomousCommunity":"Balears, Illes","municipality":"Alcúdia","province":"Illes Balears"}}
+{"t":"2026-11-20T02:48:37Z","ev":"open","id":"30216158","sit":"25788043","ver":"1","kind":"GenericSituationRecord","types":["vehicleObstruction","vehicleStuck"],"status":"active","created":"2026-11-20T03:47:50.000+01:00","start":"2026-11-20T03:47:50.000+01:00","road":"TF-342","dir":"negative","pk":[12.752],"a":[28.37453,-16.65196],"geo":{"autonomousCommunity":"Canarias","municipality":"La Guancha","province":"Santa Cruz de Tenerife"}}
+{"t":"2026-11-20T02:48:37Z","ev":"close","id":"29935081"}
+{"t":"2026-11-20T02:48:37Z","ev":"close","id":"29935082"}
+{"t":"2026-11-20T02:48:37Z","ev":"close","id":"30215794"}
+{"t":"2026-11-20T02:48:37Z","ev":"close","id":"30214231"}
+{"t":"2026-11-20T02:48:37Z","ev":"close","id":"30215861"}
+{"t":"2026-11-20T02:48:37Z","ev":"close","id":"30215957"}
+{"t":"2026-11-20T02:48:37Z","ev":"close","id":"30215960"}
+{"t":"2026-11-20T02:48:37Z","ev":"close","id":"30215965"}
+{"t":"2026-11-20T02:48:37Z","ev":"close","id":"30215969"}
+{"t":"2026-11-20T02:48:37Z","ev":"close","id":"30215984"}
+{"t":"2026-11-20T02:48:37Z","ev":"close","id":"30215985"}
+{"t":"2026-11-20T02:48:37Z","ev":"close","id":"30216089"}
+{"t":"2026-11-20T02:48:37Z","ev":"close","id":"30216090"}
+{"t":"2026-11-20T02:48:37Z","ev":"close","id":"30216113"}
+{"t":"2026-11-20T02:48:37Z","ev":"close","id":"30216121"}
+{"t":"2026-11-20T02:48:37Z","ev":"close","id":"30216122"}
+{"t":"2026-11-20T02:48:37Z","ev":"close","id":"30216127"}
+{"t":"2026-11-20T02:48:37Z","ev":"close","id":"30216129"}
+{"t":"2026-11-20T02:48:37Z","ev":"close","id":"30216130"}
