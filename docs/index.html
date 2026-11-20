@@ -195,6 +195,8 @@ h2.sec { margin: 6px 0 8px; font: 700 17px var(--font); letter-spacing: -.015em;
 #corSave > div { padding-bottom: 10px; }
 #corNote textarea { width: 100%; min-height: 90px; font: 12px monospace; }
 
+#vozWrap { margin-right: 10px; font: 500 12.5px var(--font); color: var(--text); }
+#voz { margin-left: 4px; padding: 4px 6px; border: 1px solid var(--suave); border-radius: 8px; background: var(--papel); color: var(--text); font: inherit; }
 #testVoice { margin-right: 10px; padding: 6px 12px; min-height: 0; border: 1px solid var(--suave); border-radius: 16px; background: transparent; color: var(--text); font: 500 12.5px var(--font); cursor: pointer; }
 .note { margin: 20px 0 0; color: var(--suave); font: 400 12.5px/1.5 var(--font); }
 #tip { position: fixed; z-index: 800; max-width: 330px; padding: 12px 14px 13px; border-radius: 14px; background: var(--papel); color: var(--text); box-shadow: 0 3px 16px rgba(0, 0, 0, .32); pointer-events: none; font: 400 13.5px/1.4 var(--font); }
@@ -287,7 +289,7 @@ h2.sec { margin: 6px 0 8px; font: 700 17px var(--font); letter-spacing: -.015em;
       <div id="layers"></div>
 
       <ol id="list"></ol>
-      <p class="note" id="ver"><button type="button" id="testVoice" hidden>Probar voz y GPS</button> <span id="verTxt"></span></p>
+      <p class="note" id="ver"><button type="button" id="testVoice" hidden>Probar voz y GPS</button> <label id="vozWrap" hidden>Voz por <select id="voz"></select></label> <span id="verTxt"></span></p>
       <p class="note">Datos de la DGT (NAP, CC-BY), AEMET y Open-Meteo. Mapa © OpenStreetMap. La duración es sin tráfico. Incidencias y paneles muestran el estado actual, no una previsión.</p>
     </div>
   </section>
@@ -1705,21 +1707,35 @@ function clearRoute() {
 }
 
 // ---- modo conducción (voz del navegador + GPS; la lógica de qué decir está en <core>)
-const VERSION = 'v25'; // mantener igual que CACHE en sw.js (lo vigila tests/core.test.mjs)
+const VERSION = 'v26'; // mantener igual que CACHE en sw.js (lo vigila tests/core.test.mjs)
 const drive = { on: false, watch: null, wake: null, said: new Set(), off: false, nativeId: null };
 // Dentro de la app Android (Capacitor) el GPS y la voz son nativos y siguen con la pantalla apagada; en el navegador, los de siempre.
 const NATIVE = !!(window.Capacitor && typeof window.Capacitor.isNativePlatform === 'function' && window.Capacitor.isNativePlatform());
 const plug = (n) => (window.Capacitor && window.Capacitor.Plugins && window.Capacitor.Plugins[n]) || null;
+// Canal de la voz en la app: manos libres (el coche silencia la radio), Bluetooth/altavoz con la música del móvil atenuada, o altavoz del móvil
+const VOICE_MODES = { hfp: 'Manos libres del coche', duck: 'Bluetooth o altavoz (baja la música del móvil)', speaker: 'Altavoz del móvil' };
+const VOICE_ROUTE_ES = { hfp: 'por el manos libres', duck: 'por el audio normal', speaker: 'por el altavoz del móvil' };
+const voiceMode = () => (VOICE_MODES[storeGet('voz')] ? storeGet('voz') : 'hfp');
+// Devuelve el canal usado ({ route }) cuando lo sabe
 function speak(text) {
   if (NATIVE) {
-    const tts = plug('TextToSpeech');
+    const vc = plug('VozCoche');
+    if (vc) return vc.speak({ text, mode: voiceMode() }).catch(() => ({}));
+    const tts = plug('TextToSpeech'); // APK anterior sin VozCoche
     if (tts) tts.speak({ text, lang: 'es-ES', rate: 1.0, queueStrategy: 1 }).catch(() => {});
-    return;
+    return Promise.resolve({});
   }
-  if (!('speechSynthesis' in window)) return;
+  if (!('speechSynthesis' in window)) return Promise.resolve({});
   const u = new SpeechSynthesisUtterance(text);
   u.lang = 'es-ES';
   speechSynthesis.speak(u);
+  return Promise.resolve({});
+}
+// El manos libres en Android 12+ puede necesitar el permiso «Dispositivos cercanos»
+async function voicePrepare() {
+  const vc = NATIVE && plug('VozCoche');
+  if (!vc || voiceMode() !== 'hfp') return;
+  try { await vc.requestPermissions(); } catch (e) { /* sin permiso: se usa el audio normal */ }
 }
 async function driveWake() {
   if (NATIVE) return; // la app Android no necesita mantener la pantalla encendida
@@ -1744,7 +1760,7 @@ function driveStop() {
   if (drive.watch !== null) navigator.geolocation.clearWatch(drive.watch);
   drive.watch = null;
   if (drive.nativeId !== null) { const bg = plug('BackgroundGeolocation'); if (bg) bg.removeWatcher({ id: drive.nativeId }).catch(() => {}); drive.nativeId = null; }
-  if (NATIVE) { const tts = plug('TextToSpeech'); if (tts) tts.stop().catch(() => {}); }
+  if (NATIVE) { const vc = plug('VozCoche') || plug('TextToSpeech'); if (vc) vc.stop().catch(() => {}); }
   if ('speechSynthesis' in window) speechSynthesis.cancel();
   if (drive.wake) { drive.wake.release().catch(() => {}); drive.wake = null; }
   $('driveBtn').setAttribute('aria-pressed', 'false');
@@ -1752,7 +1768,8 @@ function driveStop() {
 }
 async function driveStartNative() {
   const bg = plug('BackgroundGeolocation');
-  if (!bg || !plug('TextToSpeech')) return setStatus('Falta un componente de la app: reinstala la última versión', true);
+  if (!bg || !(plug('VozCoche') || plug('TextToSpeech'))) return setStatus('Falta un componente de la app: reinstala la última versión', true);
+  await voicePrepare();
   try { const ln = plug('LocalNotifications'); if (ln) await ln.requestPermissions(); } catch (e) { /* sin aviso en barra: el servicio sigue funcionando */ }
   drive.on = true; drive.off = false; drive.said.clear();
   $('driveBtn').setAttribute('aria-pressed', 'true');
@@ -1772,8 +1789,11 @@ async function driveStartNative() {
   if (!isDesktop()) setSheet('peek');
 }
 async function testVoice() {
-  speak('Prueba de voz correcta');
+  await voicePrepare();
+  const r = await speak('Prueba de voz correcta');
   if (!NATIVE) return setStatus('Voz probada. El GPS en segundo plano solo se prueba en la app Android');
+  const via = r && r.route ? `Voz ${VOICE_ROUTE_ES[r.route]}` : (plug('VozCoche') ? 'Voz' : 'Voz (reinstala la APK para elegir el canal)');
+  const hfpFail = r && r.route && voiceMode() === 'hfp' && r.route !== 'hfp' ? ': manos libres no disponible (¿Bluetooth del coche conectado?)' : '';
   const bg = plug('BackgroundGeolocation');
   if (!bg) return setStatus('Falta un componente de la app: reinstala la última versión', true);
   setStatus('Probando GPS…');
@@ -1782,8 +1802,8 @@ async function testVoice() {
   setTimeout(() => end('GPS sin señal tras 20 s: sal a un sitio abierto o revisa el permiso «Permitir siempre»', true), 20000);
   try {
     id = await bg.addWatcher({ requestPermissions: true, stale: false }, (loc, err) => {
-      if (err) return end(err.code === 'NOT_AUTHORIZED' ? 'Falta el permiso de ubicación: en Ajustes elige «Permitir siempre»' : 'Error de GPS', true);
-      if (loc) end(`GPS correcto (precisión ${Math.round(loc.accuracy || 0)} m)`);
+      if (err) return end(`${via}${hfpFail}. ` + (err.code === 'NOT_AUTHORIZED' ? 'Falta el permiso de ubicación: en Ajustes elige «Permitir siempre»' : 'Error de GPS'), true);
+      if (loc) end(`${via}${hfpFail}. GPS correcto (precisión ${Math.round(loc.accuracy || 0)} m)`, !!hfpFail);
     });
     if (done) bg.removeWatcher({ id }).catch(() => {});
   } catch (e) { end('No se pudo probar el GPS', true); }
@@ -1846,6 +1866,10 @@ function initSheet() {
   $('verTxt').textContent = VERSION;
   $('testVoice').hidden = !(NATIVE || 'speechSynthesis' in window);
   $('testVoice').addEventListener('click', testVoice);
+  $('vozWrap').hidden = !(NATIVE && plug('VozCoche')); // la APK anterior no puede elegir canal
+  $('voz').innerHTML = Object.entries(VOICE_MODES).map(([k, t]) => `<option value="${k}">${esc(t)}</option>`).join('');
+  $('voz').value = voiceMode();
+  $('voz').addEventListener('change', () => storeSet('voz', $('voz').value));
   document.addEventListener('visibilitychange', () => { if (document.visibilityState === 'visible') { drive.wake = null; driveWake(); autoRefresh(); } });
   setInterval(autoRefresh, 30000);
   const sh = $('sheet');
