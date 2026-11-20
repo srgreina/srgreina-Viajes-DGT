@@ -598,3 +598,20 @@
 {"t":"2026-11-20T02:48:37Z","ev":"close","id":"30216127"}
 {"t":"2026-11-20T02:48:37Z","ev":"close","id":"30216129"}
 {"t":"2026-11-20T02:48:37Z","ev":"close","id":"30216130"}
+{"t":"2026-11-20T02:58:03Z","ev":"open","id":"30216159","sit":"25788044","ver":"1","kind":"GenericSituationRecord","types":["vehicleObstruction","vehicleStuck"],"status":"active","created":"2026-11-20T03:49:05.000+01:00","start":"2026-11-20T03:49:05.000+01:00","road":"M-40","dir":"negative","pk":[46.125],"a":[40.46243,-3.80002],"geo":{"autonomousCommunity":"Madrid, Comunidad de","municipality":"Madrid","province":"Madrid"}}
+{"t":"2026-11-20T02:58:03Z","ev":"open","id":"30216165","sit":"25788050","ver":"1","kind":"GenericSituationRecord","types":["vehicleObstruction","vehicleStuck"],"status":"active","created":"2026-11-20T03:51:55.000+01:00","start":"2026-11-20T03:51:55.000+01:00","road":"GU-206","dir":"negative","pk":[0.069],"a":[40.46233,-3.17433],"geo":{"autonomousCommunity":"Castilla - La Mancha","municipality":"Pioz","province":"Guadalajara"}}
+{"t":"2026-11-20T02:58:03Z","ev":"open","id":"30216169","sit":"25788046","ver":"2","kind":"RoadOrCarriagewayOrLaneManagement","types":["vehicleObstruction","vehicleStuck","narrowLanes"],"status":"active","created":"2026-11-20T03:52:31.000+01:00","start":"2026-11-20T03:51:49.000+01:00","road":"A-2","dir":"positive","lanes":"rightLane","pk":[18.604],"a":[40.459892,-3.499413],"geo":{"autonomousCommunity":"Madrid, Comunidad de","municipality":"San Fernando de Henares","province":"Madrid"}}
+{"t":"2026-11-20T02:58:03Z","ev":"open","id":"30216171","sit":"25788055","ver":"1","kind":"GenericSituationRecord","types":["vehicleObstruction","vehicleStuck"],"status":"active","created":"2026-11-20T03:53:39.000+01:00","start":"2026-11-20T03:53:39.000+01:00","road":"A-4","dir":"negative","pk":[495.054],"a":[37.485,-5.517604],"geo":{"autonomousCommunity":"Andalucía","municipality":"Carmona","province":"Sevilla"}}
+{"t":"2026-11-20T02:58:03Z","ev":"open","id":"30216174","sit":"25788057","ver":"1","kind":"GenericSituationRecord","types":["vehicleObstruction","vehicleStuck"],"status":"active","created":"2026-11-20T03:56:36.000+01:00","start":"2026-11-20T03:56:36.000+01:00","road":"VS-M-45-C","dir":"positive","pk":[16.219],"a":[40.35544,-3.61943],"geo":{"autonomousCommunity":"Madrid, Comunidad de","municipality":"Madrid","province":"Madrid"}}
+{"t":"2026-11-20T02:58:03Z","ev":"open","id":"30216175","sit":"25788058","ver":"1","kind":"GenericSituationRecord","types":["vehicleObstruction","vehicleStuck"],"status":"active","created":"2026-11-20T03:56:45.000+01:00","start":"2026-11-20T03:56:45.000+01:00","road":"N-431","dir":"positive","pk":[116.959],"a":[37.25808,-7.19653],"geo":{"autonomousCommunity":"Andalucía","municipality":"Lepe","province":"Huelva"}}
+{"t":"2026-11-20T02:58:03Z","ev":"open","id":"30216176","sit":"25788059","ver":"1","kind":"GenericSituationRecord","types":["vehicleObstruction","vehicleStuck"],"status":"active","created":"2026-11-20T03:57:03.000+01:00","start":"2026-11-20T03:57:03.000+01:00","road":"M-509","dir":"negative","pk":[6.745],"a":[40.48659,-3.96903],"geo":{"autonomousCommunity":"Madrid, Comunidad de","municipality":"Villanueva del Pardillo","province":"Madrid"}}
+{"t":"2026-11-20T02:58:03Z","ev":"close","id":"30212371"}
+{"t":"2026-11-20T02:58:03Z","ev":"close","id":"30215991"}
+{"t":"2026-11-20T02:58:03Z","ev":"close","id":"30215992"}
+{"t":"2026-11-20T02:58:03Z","ev":"close","id":"30215994"}
+{"t":"2026-11-20T02:58:03Z","ev":"close","id":"30216000"}
+{"t":"2026-11-20T02:58:03Z","ev":"close","id":"30216002"}
+{"t":"2026-11-20T02:58:03Z","ev":"close","id":"30216003"}
+{"t":"2026-11-20T02:58:03Z","ev":"close","id":"30216006"}
+{"t":"2026-11-20T02:58:03Z","ev":"close","id":"30216126"}
+{"t":"2026-11-20T02:58:03Z","ev":"close","id":"30216156"}
