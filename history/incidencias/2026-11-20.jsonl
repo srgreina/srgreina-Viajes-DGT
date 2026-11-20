@@ -729,3 +729,26 @@
 {"t":"2026-11-20T03:44:59Z","ev":"close","id":"30216431"}
 {"t":"2026-11-20T03:44:59Z","ev":"close","id":"30216437"}
 {"t":"2026-11-20T03:44:59Z","ev":"close","id":"30216438"}
+{"t":"2026-11-20T03:54:28Z","ev":"open","id":"30216460","sit":"25788155","ver":"1","kind":"GenericSituationRecord","types":["vehicleObstruction","vehicleStuck"],"status":"active","created":"2026-11-20T04:44:28.000+01:00","start":"2026-11-20T04:44:28.000+01:00","road":"A-92N","dir":"negative","pk":[43.304],"a":[37.50477,-2.764861],"geo":{"autonomousCommunity":"Andalucía","municipality":"Baza","province":"Granada"}}
+{"t":"2026-11-20T03:54:28Z","ev":"open","id":"30216464","sit":"25788159","ver":"1","kind":"GenericSituationRecord","types":["vehicleObstruction","vehicleStuck"],"status":"active","created":"2026-11-20T04:47:38.000+01:00","start":"2026-11-20T04:47:38.000+01:00","road":"A-45","dir":"negative","pk":[145.29],"a":[36.7374,-4.42461],"geo":{"autonomousCommunity":"Andalucía","municipality":"Málaga","province":"Málaga"}}
+{"t":"2026-11-20T03:54:28Z","ev":"open","id":"30216465","sit":"25788160","ver":"1","kind":"GenericSituationRecord","types":["vehicleObstruction","vehicleStuck"],"status":"active","created":"2026-11-20T04:47:39.000+01:00","start":"2026-11-20T04:47:39.000+01:00","road":"A-7205R2","dir":"negative","pk":[0.348],"a":[36.7891,-4.11842],"geo":{"autonomousCommunity":"Andalucía","municipality":"Vélez-Málaga","province":"Málaga"}}
+{"t":"2026-11-20T03:54:28Z","ev":"open","id":"30216466","sit":"25788161","ver":"1","kind":"GenericSituationRecord","types":["vehicleObstruction","vehicleStuck"],"status":"active","created":"2026-11-20T04:48:21.000+01:00","start":"2026-11-20T04:48:20.000+01:00","road":"CM-2004","dir":"negative","pk":[20.038],"a":[40.47814,-3.18074],"geo":{"autonomousCommunity":"Castilla - La Mancha","municipality":"Pioz","province":"Guadalajara"}}
+{"t":"2026-11-20T03:54:28Z","ev":"open","id":"30216467","sit":"25788162","ver":"1","kind":"GenericSituationRecord","types":["vehicleObstruction","vehicleStuck"],"status":"active","created":"2026-11-20T04:48:35.000+01:00","start":"2026-11-20T04:48:35.000+01:00","road":"A-49","dir":"negative","pk":[70.244],"a":[37.33338,-6.78913],"geo":{"autonomousCommunity":"Andalucía","municipality":"Trigueros","province":"Huelva"}}
+{"t":"2026-11-20T03:54:28Z","ev":"open","id":"30216468","sit":"25788163","ver":"1","kind":"GenericSituationRecord","types":["vehicleObstruction","vehicleStuck"],"status":"active","created":"2026-11-20T04:48:48.000+01:00","start":"2026-11-20T04:48:48.000+01:00","road":"CM-2004","dir":"negative","pk":[20.841],"a":[40.47084,-3.17985],"geo":{"autonomousCommunity":"Castilla - La Mancha","municipality":"Pioz","province":"Guadalajara"}}
+{"t":"2026-11-20T03:54:28Z","ev":"open","id":"30216470","sit":"25788165","ver":"1","kind":"GenericSituationRecord","types":["vehicleObstruction","vehicleStuck"],"status":"active","created":"2026-11-20T04:50:50.000+01:00","start":"2026-11-20T04:50:50.000+01:00","road":"N-432","dir":"negative","pk":[380.498],"a":[37.48638,-3.961672],"geo":{"autonomousCommunity":"Andalucía","municipality":"Alcalá la Real","province":"Jaén"}}
+{"t":"2026-11-20T03:54:28Z","ev":"close","id":"29979252"}
+{"t":"2026-11-20T03:54:28Z","ev":"close","id":"30180342"}
+{"t":"2026-11-20T03:54:28Z","ev":"close","id":"30196935"}
+{"t":"2026-11-20T03:54:28Z","ev":"close","id":"30213367"}
+{"t":"2026-11-20T03:54:28Z","ev":"close","id":"30213368"}
+{"t":"2026-11-20T03:54:28Z","ev":"close","id":"30213425"}
+{"t":"2026-11-20T03:54:28Z","ev":"close","id":"30213911"}
+{"t":"2026-11-20T03:54:28Z","ev":"close","id":"30216416"}
+{"t":"2026-11-20T03:54:28Z","ev":"close","id":"30216104"}
+{"t":"2026-11-20T03:54:28Z","ev":"close","id":"30215589"}
+{"t":"2026-11-20T03:54:28Z","ev":"close","id":"30215594"}
+{"t":"2026-11-20T03:54:28Z","ev":"close","id":"30216138"}
+{"t":"2026-11-20T03:54:28Z","ev":"close","id":"30216144"}
+{"t":"2026-11-20T03:54:28Z","ev":"close","id":"30216145"}
+{"t":"2026-11-20T03:54:28Z","ev":"close","id":"30216152"}
+{"t":"2026-11-20T03:54:28Z","ev":"close","id":"30216442"}
