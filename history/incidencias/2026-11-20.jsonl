@@ -615,3 +615,23 @@
 {"t":"2026-11-20T02:58:03Z","ev":"close","id":"30216006"}
 {"t":"2026-11-20T02:58:03Z","ev":"close","id":"30216126"}
 {"t":"2026-11-20T02:58:03Z","ev":"close","id":"30216156"}
+{"t":"2026-11-20T03:07:27Z","ev":"open","id":"30216366","sit":"25788065","ver":"1","kind":"GenericSituationRecord","types":["vehicleObstruction","vehicleStuck"],"status":"active","created":"2026-11-20T04:00:16.000+01:00","start":"2026-11-20T04:00:16.000+01:00","road":"CV-304","dir":"negative","pk":[1.049],"a":[39.5426,-0.37518],"geo":{"autonomousCommunity":"Comunitat Valenciana","municipality":"Vinalesa","province":"València/Valencia"}}
+{"t":"2026-11-20T03:07:27Z","ev":"open","id":"30216172","sit":"25786845","ver":"21","kind":"RoadOrCarriagewayOrLaneManagement","types":["roadMaintenance","roadworks","laneClosures"],"status":"active","created":"2026-11-20T04:02:43.000+01:00","start":"2026-11-20T04:02:00.000+01:00","end":"2026-11-20T05:30:00.000+01:00","road":"A-42","dir":"positive","lanes":"rightLane","pk":[14.2,15.0],"a":[40.297024,-3.737636],"b":[40.29055,-3.741085],"geo":{"autonomousCommunity":"Madrid, Comunidad de","municipality":"Getafe","province":"Madrid"}}
+{"t":"2026-11-20T03:07:27Z","ev":"open","id":"30216371","sit":"25788070","ver":"1","kind":"GenericSituationRecord","types":["vehicleObstruction","vehicleStuck"],"status":"active","created":"2026-11-20T04:04:05.000+01:00","start":"2026-11-20T04:04:05.000+01:00","road":"TF-342","dir":"negative","pk":[12.637],"a":[28.37423,-16.65086],"geo":{"autonomousCommunity":"Canarias","municipality":"La Guancha","province":"Santa Cruz de Tenerife"}}
+{"t":"2026-11-20T03:07:27Z","ev":"open","id":"30216372","sit":"25788071","ver":"1","kind":"GenericSituationRecord","types":["vehicleObstruction","vehicleStuck"],"status":"active","created":"2026-11-20T04:05:44.000+01:00","start":"2026-11-20T04:05:44.000+01:00","road":"A-45","dir":"negative","pk":[145.29],"a":[36.7374,-4.42461],"geo":{"autonomousCommunity":"Andalucía","municipality":"Málaga","province":"Málaga"}}
+{"t":"2026-11-20T03:07:27Z","ev":"open","id":"30216373","sit":"25788072","ver":"1","kind":"GenericSituationRecord","types":["vehicleObstruction","vehicleStuck"],"status":"active","created":"2026-11-20T04:06:15.000+01:00","start":"2026-11-20T04:06:15.000+01:00","road":"M-509","dir":"negative","pk":[6.745],"a":[40.48659,-3.96903],"geo":{"autonomousCommunity":"Madrid, Comunidad de","municipality":"Villanueva del Pardillo","province":"Madrid"}}
+{"t":"2026-11-20T03:07:27Z","ev":"close","id":"30203362"}
+{"t":"2026-11-20T03:07:27Z","ev":"close","id":"30216017"}
+{"t":"2026-11-20T03:07:27Z","ev":"close","id":"30216018"}
+{"t":"2026-11-20T03:07:27Z","ev":"close","id":"30216019"}
+{"t":"2026-11-20T03:07:27Z","ev":"close","id":"30216021"}
+{"t":"2026-11-20T03:07:27Z","ev":"close","id":"30216027"}
+{"t":"2026-11-20T03:07:27Z","ev":"close","id":"30216030"}
+{"t":"2026-11-20T03:07:27Z","ev":"close","id":"30216034"}
+{"t":"2026-11-20T03:07:27Z","ev":"close","id":"30216039"}
+{"t":"2026-11-20T03:07:27Z","ev":"close","id":"30216060"}
+{"t":"2026-11-20T03:07:27Z","ev":"close","id":"30216146"}
+{"t":"2026-11-20T03:07:27Z","ev":"close","id":"30216157"}
+{"t":"2026-11-20T03:07:27Z","ev":"close","id":"30216024"}
+{"t":"2026-11-20T03:07:27Z","ev":"close","id":"30216174"}
+{"t":"2026-11-20T03:07:27Z","ev":"close","id":"30216175"}
