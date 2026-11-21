@@ -1135,11 +1135,11 @@ function locateOnRoad(index, track, prev, hint) {
   if (keep) return { road: keep.road, pk: keep.pk, sign: keep.sign, ...base, fails: 0, status: 'ok' };
   // la carretera anterior ya no cuadra: se mantiene una lectura más antes de cambiar (histéresis)
   if (prev && prev.road && prev.status === 'ok' && (prev.fails || 0) < 1) return { ...prev, ...base, fails: (prev.fails || 0) + 1, status: 'ok' };
-  // tras perder la anterior, la nueva se busca solo con el tramo reciente (≈25 s), que ya no arrastra la carretera vieja
-  if (prev && prev.road) {
-    const k = st.win.findIndex((f) => st.last.t - f.t <= 25000);
-    valid = candidates(Math.max(0, k)).filter((v) => v.road !== prev.road);
-  }
+  // una carretera nueva se busca con el tramo reciente (≈25 s), que no arrastra la anterior; si es muy corto, con todo
+  const k = st.win.findIndex((f) => st.last.t - f.t <= 25000);
+  const recent = k > 0 ? candidates(k) : [];
+  if (recent.length) valid = recent;
+  if (prev && prev.road) valid = valid.filter((v) => v.road !== prev.road);
   let pick = null;
   if (valid.length === 1) pick = valid[0];
   else if (valid.length > 1 && valid[0].score < valid[1].score * 0.5) pick = valid[0];
