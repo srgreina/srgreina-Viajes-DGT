@@ -197,7 +197,7 @@ h2.sec { margin: 6px 0 8px; font: 700 17px var(--font); letter-spacing: -.015em;
 
 #vozWrap { margin-right: 10px; font: 500 12.5px var(--font); color: var(--text); }
 #voz { margin-left: 4px; padding: 4px 6px; border: 1px solid var(--suave); border-radius: 8px; background: var(--papel); color: var(--text); font: inherit; }
-#testVoice { margin-right: 10px; padding: 6px 12px; min-height: 0; border: 1px solid var(--suave); border-radius: 16px; background: transparent; color: var(--text); font: 500 12.5px var(--font); cursor: pointer; }
+#tripBtn, #testVoice { margin-right: 10px; padding: 6px 12px; min-height: 0; border: 1px solid var(--suave); border-radius: 16px; background: transparent; color: var(--text); font: 500 12.5px var(--font); cursor: pointer; }
 .note { margin: 20px 0 0; color: var(--suave); font: 400 12.5px/1.5 var(--font); }
 #tip { position: fixed; z-index: 800; max-width: 330px; padding: 12px 14px 13px; border-radius: 14px; background: var(--papel); color: var(--text); box-shadow: 0 3px 16px rgba(0, 0, 0, .32); pointer-events: none; font: 400 13.5px/1.4 var(--font); }
 #tip .h { font: 700 15.5px var(--font); letter-spacing: -.015em; font-variant-numeric: tabular-nums; }
@@ -289,7 +289,7 @@ h2.sec { margin: 6px 0 8px; font: 700 17px var(--font); letter-spacing: -.015em;
       <div id="layers"></div>
 
       <ol id="list"></ol>
-      <p class="note" id="ver"><button type="button" id="testVoice" hidden>Probar voz y GPS</button> <label id="vozWrap" hidden>Voz por <select id="voz"></select></label> <span id="verTxt"></span></p>
+      <p class="note" id="ver"><button type="button" id="testVoice" hidden>Probar voz y GPS</button> <button type="button" id="tripBtn" hidden>Copiar trayecto</button> <label id="vozWrap" hidden>Voz por <select id="voz"></select></label> <span id="verTxt"></span></p>
       <p class="note">Datos de la DGT (NAP, CC-BY), AEMET y Open-Meteo. Mapa © OpenStreetMap. La duración es sin tráfico. Incidencias y paneles muestran el estado actual, no una previsión.</p>
     </div>
   </section>
@@ -817,7 +817,8 @@ function describe(hit) {
 const DRIVE_LAYERS = new Set(['inc', 'avi', 'wx', 'rad', 'pan', 'rie']);
 function driveSpeech(gap, d) {
   const dist = gap >= 1000 ? `${Math.round(gap / 1000)} ${Math.round(gap / 1000) === 1 ? 'kilómetro' : 'kilómetros'}` : `${Math.max(100, Math.round(gap / 100) * 100)} metros`;
-  const say = (t) => String(t || '').replace(/\bPK\b/g, 'punto kilométrico').replace(/[·→|]/g, ',').replace(/\s+/g, ' ').trim();
+  // el sentido sobra al hablar (lo que se dice ya es de tu sentido o de ambos)
+  const say = (t) => String(t || '').replace(/\s*·\s*sentido PK (de)?creciente/g, '').replace(/\bPK\b/g, 'punto kilométrico').replace(/[·→|]/g, ',').replace(/\s+/g, ' ').trim();
   return [`En ${dist}`, d.title, d.sub, d.text].map(say).filter(Boolean).join('. ');
 }
 // ---- qué se dice por voz y cuándo (común a ruta y conducción libre)
@@ -1279,6 +1280,13 @@ function decodeTrack(txt) {
     if (d !== '' && d !== undefined) f.spd = +d / 3.6;
     return f;
   });
+}
+
+// Avisos AEMET naranja o rojo vigentes en tu posición (para la conducción libre)
+function zoneAvisos(avisos, lat, lon, nowMs) {
+  return (avisos || []).filter((av) => (av.lvl === 'naranja' || av.lvl === 'rojo')
+    && Date.parse(av.from) <= nowMs && nowMs <= Date.parse(av.to)
+    && (av.poly || []).some((r) => { const b = ringBox(r); return lat >= b[0] && lat <= b[1] && lon >= b[2] && lon <= b[3] && pointInRing(lat, lon, r); }));
 }
 
 // "A-45 · PK 128,4 ↓" o el estado de búsqueda
@@ -1817,7 +1825,9 @@ async function refresh(silent) {
 // Cada 5 min (y al volver a la pestaña) con ruta calculada: vuelve a pedir lo que cambia en minutos.
 // El tiempo se renueva cada 15 min. En modo conducción lo ya dicho no se repite (las claves de `said` no cambian).
 async function autoRefresh() {
-  if (!state.hasRoute || refreshing || document.visibilityState !== 'visible' || !dueRefresh(lastRefresh, Date.now())) return;
+  if (drive.on && !state.hasRoute) return freeRefresh();
+  // conduciendo, también con la pantalla apagada (la app Android sigue viva con el GPS en segundo plano)
+  if (!state.hasRoute || refreshing || (document.visibilityState !== 'visible' && !drive.on) || !dueRefresh(lastRefresh, Date.now())) return;
   reloadLive();
   state.av = null;
   if (dueRefresh(state.wxAt, Date.now(), 900000)) state.wx = null;
@@ -1973,7 +1983,8 @@ function syncPanels() {
   $('layers').hidden = !has;
   $('list').hidden = !has;
   $('clearBtn').hidden = !has;
-  $('driveBtn').hidden = !has;
+  $('driveBtn').hidden = false;
+  $('driveBtn').title = has ? 'Modo conducción por voz (con la ruta)' : 'Conducción libre: avisos por voz de lo que tienes delante, sin ruta';
   repaintSheet();
 }
 // Chrome a veces deja el panel sin pintar tras mostrar/ocultar bloques: se fuerza un repintado completo
@@ -1991,7 +2002,7 @@ function fitRoute() {
     : { paddingTopLeft: [20, 80], paddingBottomRight: [20, 270] });
 }
 function clearRoute() {
-  driveStop();
+  if (drive.on) { drive.said.clear(); speak('Ruta borrada. Sigo en conducción libre'); freeEnsure(); }
   lastRefresh = 0;
   for (const l of [routeLine, hitLine, endMarks]) if (l && l.remove) l.remove();
   routeLine = hitLine = endMarks = null;
@@ -2016,8 +2027,11 @@ function clearRoute() {
 }
 
 // ---- modo conducción (voz del navegador + GPS; la lógica de qué decir está en <core>)
-const VERSION = 'v26'; // mantener igual que CACHE en sw.js (lo vigila tests/core.test.mjs)
-const drive = { on: false, watch: null, wake: null, said: new Set(), off: false, nativeId: null };
+const VERSION = 'v27'; // mantener igual que CACHE en sw.js (lo vigila tests/core.test.mjs)
+const drive = { on: false, watch: null, wake: null, said: new Set(), off: false, nativeId: null,
+  // conducción libre
+  track: [], loc: null, hint: null, matchOk: 0, matchAt: 0, matching: false, index: null, items: [], freeAt: 0, freeLoading: false,
+  staleSaid: false, aviAt: 0, notif: '', notifAt: 0 };
 // Dentro de la app Android (Capacitor) el GPS y la voz son nativos y siguen con la pantalla apagada; en el navegador, los de siempre.
 const NATIVE = !!(window.Capacitor && typeof window.Capacitor.isNativePlatform === 'function' && window.Capacitor.isNativePlatform());
 const plug = (n) => (window.Capacitor && window.Capacitor.Plugins && window.Capacitor.Plugins[n]) || null;
@@ -2051,6 +2065,15 @@ async function driveWake() {
   try { if (drive.on && !drive.wake && navigator.wakeLock) drive.wake = await navigator.wakeLock.request('screen'); } catch (e) { /* sin bloqueo de pantalla */ }
 }
 function driveInfo(msg) { $('drive').textContent = msg; $('drive').hidden = !msg; }
+// Cada posición GPS (navegador o app): se graba y se decide entre modo ruta y conducción libre
+function drivePos(lat, lon, speed, acc) {
+  if (!drive.on) return;
+  const fix = { lat, lon, t: Date.now(), spd: Number.isFinite(speed) && speed >= 0 ? speed : undefined };
+  tripAdd(fix);
+  autoRefresh();
+  if (state.route && state.hasRoute) return driveTick({ coords: { latitude: lat, longitude: lon, speed } });
+  freeTick(fix);
+}
 function driveTick(pos) {
   if (!state.route || !state.hasRoute) return;
   const r = driveStep(state.routeWide || state.route, state.hits, pos.coords.latitude, pos.coords.longitude, drive.said, alertDistance(pos.coords.speed));
@@ -2061,11 +2084,167 @@ function driveTick(pos) {
   }
   if (drive.off) { drive.off = false; speak('De nuevo en la ruta'); }
   driveInfo(`En ruta · PK ${fmtKm(r.s)} · quedan ${fmtKm(state.route.totalD - r.s)} km`);
+  notify('Viajes DGT · en ruta', `PK ${fmtKm(r.s)} · quedan ${fmtKm(state.route.totalD - r.s)} km`);
   for (const a of r.say) { a.keys.forEach((k) => drive.said.add(k)); speak(a.text); }
+}
+
+// ---- conducción libre: datos, OSRM /match, avisos de zona y datos viejos
+const FREE_TRACK_MS = 180000;
+async function freeLoad() {
+  if (drive.freeLoading) return;
+  drive.freeLoading = true;
+  try {
+    const keys = ['inc', 'pan', 'panLoc', 'rad', 'cam'];
+    const docs = await Promise.all(keys.map((k) => load(k).catch(() => null)));
+    const ds = Object.fromEntries(keys.map((k, i) => [k, docs[i]]));
+    if (!ds.inc && !ds.cam) throw new Error('sin datos');
+    drive.index = buildRoadIndex(pkRefs(ds));
+    const en = enabledMap();
+    // capas apagadas por ti tampoco se dicen en conducción libre (cámaras nunca se dicen)
+    drive.items = freeItems(ds, drive.index).filter((f) => en[f.layer] !== false);
+    drive.freeAt = Date.now();
+    drive.incAt = ds.inc ? Date.parse(ds.inc.generated) : 0;
+  } catch (e) {
+    driveInfo('Sin datos de la DGT: lo reintento en 1 min');
+    drive.freeAt = Date.now() - 240000;
+  } finally { drive.freeLoading = false; }
+}
+function freeEnsure() { if (!drive.index) freeLoad(); }
+async function freeRefresh() {
+  if (drive.freeLoading || !dueRefresh(drive.freeAt, Date.now())) return;
+  reloadLive();
+  await freeLoad();
+}
+async function freeMatch() {
+  if (drive.matching || Date.now() - drive.matchAt < 30000) return;
+  const url = matchUrl(drive.track);
+  if (!url) return;
+  drive.matching = true;
+  drive.matchAt = Date.now();
+  const ctl = typeof AbortController === 'function' ? new AbortController() : null;
+  const timer = ctl && setTimeout(() => ctl.abort(), 8000);
+  try {
+    const res = await fetch(url, ctl ? { signal: ctl.signal } : undefined);
+    const r = matchRoads(await res.json());
+    if (r) { drive.hint = { roads: r.roads, t: drive.track[drive.track.length - 1].t }; drive.matchOk = Date.now(); }
+  } catch (e) { /* sin cobertura o servidor ocupado: se sigue solo con los datos de la DGT */ }
+  finally { clearTimeout(timer); drive.matching = false; }
+}
+function freeZoneAvisos(fix) {
+  if (Date.now() - drive.aviAt < 60000) return;
+  drive.aviAt = Date.now();
+  load('avi').then((doc) => {
+    for (const av of zoneAvisos(doc.items, fix.lat, fix.lon, Date.now())) {
+      const key = `zona:${av.ev}:${av.area}:${av.from}`;
+      if (drive.said.has(key)) continue;
+      drive.said.add(key);
+      speak(`Aviso ${av.lvl} de AEMET: ${av.ev}. ${av.area}. Hasta las ${fmtClock(Date.parse(av.to))}`);
+    }
+  }).catch(() => {});
+}
+function freeTick(fix) {
+  drive.track.push(fix);
+  while (drive.track.length && fix.t - drive.track[0].t > FREE_TRACK_MS) drive.track.shift();
+  if (!drive.index) { freeEnsure(); driveInfo('Cargando datos de la DGT…'); return; }
+  freeMatch();
+  freeZoneAvisos(fix);
+  const r = freeStep(drive.index, drive.items, drive.track, drive.loc, drive.hint, drive.said);
+  drive.loc = r.loc;
+  // sin respuesta de OSRM en 2 min: la carretera sale solo de la DGT (puede confundir vías paralelas)
+  const unconf = r.loc.status === 'ok' && Date.now() - drive.matchOk > 120000;
+  const label = freeLabel(r.loc) + (unconf ? ' (sin confirmar)' : '');
+  const next = r.next ? `${r.next.title} a ${fmtKm(r.next.gap)} km` : 'Nada por delante';
+  driveInfo(`${label} · ${next}`);
+  notify(`Viajes DGT · ${label}`, next);
+  const staleMin = drive.incAt ? (Date.now() - drive.incAt) / 60000 : 0;
+  if (staleMin > 15 && !drive.staleSaid) { drive.staleSaid = true; speak('Atención: los datos de tráfico tienen más de 15 minutos'); }
+  if (staleMin <= 15) drive.staleSaid = false;
+  for (const a of r.say) { a.keys.forEach((k) => drive.said.add(k)); speak(a.text); }
+  freeFollow(fix);
+}
+let meMarker = null;
+function freeFollow(fix) {
+  if (!map || typeof L === 'undefined') return;
+  const ll = [fix.lat, fix.lon];
+  if (!meMarker) meMarker = L.circleMarker(ll, { radius: 9, color: '#fff', weight: 3, fillColor: '#1a73e8', fillOpacity: 1 }).addTo(map);
+  else meMarker.setLatLng(ll);
+  if (document.visibilityState === 'visible') map.setView(ll, Math.max(map.getZoom(), 13), { animate: false });
+}
+// Notificación fija en la app Android con el próximo aviso (solo si cambia y como mucho cada 15 s)
+const NOTIF_ID = 7701;
+let notifReady = false;
+function notify(title, body) {
+  const ln = NATIVE && plug('LocalNotifications');
+  if (!ln || !drive.on) return;
+  const txt = title + '|' + body;
+  if (txt === drive.notif || Date.now() - drive.notifAt < 15000) return;
+  drive.notif = txt; drive.notifAt = Date.now();
+  const go = () => ln.schedule({ notifications: [{ id: NOTIF_ID, title, body, channelId: 'conduccion', ongoing: true, autoCancel: false }] }).catch(() => {});
+  if (notifReady) return go();
+  ln.createChannel({ id: 'conduccion', name: 'Conducción', description: 'Próximo aviso en ruta', importance: 2, visibility: 1, vibration: false })
+    .catch(() => {}).then(() => { notifReady = true; go(); });
+}
+function notifyClear() {
+  const ln = NATIVE && plug('LocalNotifications');
+  drive.notif = '';
+  if (ln) ln.cancel({ notifications: [{ id: NOTIF_ID }] }).catch(() => {});
+}
+
+// ---- grabación del trayecto (solo en este móvil; se exporta copiándolo)
+const TRIP_KEY = 'trip';
+const TRIP_MAX = 8000; // ≈4,5 h a una posición cada 2 s
+let tripBuf = null, tripSavedAt = 0;
+function tripAdd(fix) {
+  if (!tripBuf) {
+    let old = [];
+    try { old = decodeTrack(storeGet(TRIP_KEY) || ''); } catch (e) { old = []; }
+    // si el último trayecto acabó hace menos de 30 min, se sigue con él; si no, empieza uno nuevo
+    tripBuf = old.length && fix.t - old[old.length - 1].t < 1800000 ? old : [];
+  }
+  const l = tripBuf[tripBuf.length - 1];
+  if (l && fix.t - l.t < 1500) return;
+  tripBuf.push(fix);
+  if (tripBuf.length > TRIP_MAX) tripBuf.splice(0, tripBuf.length - TRIP_MAX);
+  if (Date.now() - tripSavedAt > 30000) tripSave();
+}
+function tripSave() {
+  if (!tripBuf || !tripBuf.length) return;
+  tripSavedAt = Date.now();
+  storeSet(TRIP_KEY, encodeTrack(tripBuf));
+  syncTripBtn();
+}
+function syncTripBtn() {
+  let n = 0, min = 0;
+  try { const t = decodeTrack(storeGet(TRIP_KEY) || ''); n = t.length; if (n) min = Math.round((t[n - 1].t - t[0].t) / 60000); } catch (e) { n = 0; }
+  $('tripBtn').hidden = !n;
+  $('tripBtn').textContent = `Copiar trayecto (${min} min)`;
+}
+async function tripCopy() {
+  tripSave();
+  const txt = storeGet(TRIP_KEY) || '';
+  try { await navigator.clipboard.writeText(txt); setStatus('Trayecto copiado: pégalo en el chat para revisarlo. Solo contiene posiciones y horas.'); }
+  catch (e) {
+    const ta = document.createElement('textarea');
+    ta.value = txt; document.body.appendChild(ta); ta.select();
+    let ok = false; try { ok = document.execCommand('copy'); } catch (err) { ok = false; }
+    ta.remove();
+    setStatus(ok ? 'Trayecto copiado.' : 'No se pudo copiar el trayecto en este dispositivo', !ok);
+  }
+}
+function driveBegin() {
+  drive.on = true; drive.off = false; drive.said.clear();
+  Object.assign(drive, { track: [], loc: null, hint: null, matchOk: 0, matchAt: 0, staleSaid: false, aviAt: 0 });
+  $('driveBtn').setAttribute('aria-pressed', 'true');
+  speak(state.hasRoute ? 'Modo conducción activado' : 'Conducción libre activada');
+  driveInfo('Buscando tu posición…');
+  if (!state.hasRoute) { drive.index = null; freeLoad(); }
 }
 function driveStop() {
   if (!drive.on) return;
   drive.on = false;
+  tripSave();
+  notifyClear();
+  if (meMarker) { meMarker.remove(); meMarker = null; }
   if (drive.watch !== null) navigator.geolocation.clearWatch(drive.watch);
   drive.watch = null;
   if (drive.nativeId !== null) { const bg = plug('BackgroundGeolocation'); if (bg) bg.removeWatcher({ id: drive.nativeId }).catch(() => {}); drive.nativeId = null; }
@@ -2080,10 +2259,7 @@ async function driveStartNative() {
   if (!bg || !(plug('VozCoche') || plug('TextToSpeech'))) return setStatus('Falta un componente de la app: reinstala la última versión', true);
   await voicePrepare();
   try { const ln = plug('LocalNotifications'); if (ln) await ln.requestPermissions(); } catch (e) { /* sin aviso en barra: el servicio sigue funcionando */ }
-  drive.on = true; drive.off = false; drive.said.clear();
-  $('driveBtn').setAttribute('aria-pressed', 'true');
-  speak('Modo conducción activado');
-  driveInfo('Buscando tu posición…');
+  driveBegin();
   try {
     drive.nativeId = await bg.addWatcher(
       { backgroundTitle: 'Viajes DGT · modo conducción', backgroundMessage: 'Avisos de ruta activos. Toca para abrir.', requestPermissions: true, stale: false, distanceFilter: 10 },
@@ -2092,7 +2268,7 @@ async function driveStartNative() {
           if (err.code === 'NOT_AUTHORIZED') { setStatus('Falta el permiso de ubicación: en Ajustes elige «Permitir siempre»', true); bg.openSettings(); driveStop(); } else driveInfo('Sin señal GPS…');
           return;
         }
-        if (loc) driveTick({ coords: { latitude: loc.latitude, longitude: loc.longitude, speed: loc.speed } });
+        if (loc) drivePos(loc.latitude, loc.longitude, loc.speed, loc.accuracy);
       });
   } catch (e) { setStatus('No se pudo iniciar el GPS en segundo plano', true); driveStop(); }
   if (!isDesktop()) setSheet('peek');
@@ -2121,12 +2297,9 @@ function driveStart() {
   if (NATIVE) return driveStartNative();
   if (!navigator.geolocation) return setStatus('Este navegador no da la ubicación', true);
   if (!('speechSynthesis' in window)) return setStatus('Este navegador no tiene voz', true);
-  drive.on = true; drive.off = false; drive.said.clear();
-  $('driveBtn').setAttribute('aria-pressed', 'true');
-  speak('Modo conducción activado'); // dentro del gesto del usuario: así el navegador permite hablar después
-  driveInfo('Buscando tu posición…');
+  driveBegin(); // habla dentro del gesto del usuario: así el navegador permite hablar después
   driveWake();
-  drive.watch = navigator.geolocation.watchPosition(driveTick, (e) => {
+  drive.watch = navigator.geolocation.watchPosition((p) => drivePos(p.coords.latitude, p.coords.longitude, p.coords.speed, p.coords.accuracy), (e) => {
     if (e.code === 1) { setStatus('Sin permiso de ubicación: actívalo para usar el modo conducción', true); driveStop(); } else driveInfo('Sin señal GPS…'); // túneles y zonas sin cobertura: se sigue intentando
   }, { enableHighAccuracy: true, maximumAge: 2000, timeout: 20000 });
   if (!isDesktop()) setSheet('peek');
@@ -2175,6 +2348,8 @@ function initSheet() {
   $('verTxt').textContent = VERSION;
   $('testVoice').hidden = !(NATIVE || 'speechSynthesis' in window);
   $('testVoice').addEventListener('click', testVoice);
+  $('tripBtn').addEventListener('click', tripCopy);
+  syncTripBtn();
   $('vozWrap').hidden = !(NATIVE && plug('VozCoche')); // la APK anterior no puede elegir canal
   $('voz').innerHTML = Object.entries(VOICE_MODES).map(([k, t]) => `<option value="${k}">${esc(t)}</option>`).join('');
   $('voz').value = voiceMode();

@@ -478,7 +478,7 @@ test('sin sentido conocido no se oculta nada', () => {
 });
 
 // ---- conducción libre: carretera, PK y sentido sin ruta
-const F = new Function(`${html.slice(html.indexOf('// <core>'), html.indexOf('// </core>'))}; return { buildRoadIndex, projectRoads, locateOnRoad, freeItems, aheadOnRoad, aheadCone, freeStep, alertDistance, pickAlerts, freeLabel, pkRefs, matchUrl, matchRoads, encodeTrack, decodeTrack };`)();
+const F = new Function(`${html.slice(html.indexOf('// <core>'), html.indexOf('// </core>'))}; return { buildRoadIndex, projectRoads, locateOnRoad, freeItems, aheadOnRoad, aheadCone, freeStep, alertDistance, pickAlerts, freeLabel, pkRefs, matchUrl, matchRoads, encodeTrack, decodeTrack, zoneAvisos };`)();
 // A-92: de oeste a este por LAT, PK 100 en lon -4.5 bajando 1 km por km. N-331 paralela 800 m al norte, PK 20 subiendo hacia el este.
 const LON0 = -4.5;
 const lonKm = (k) => LON0 + k / KM_PER_DEG_LON;
@@ -657,4 +657,20 @@ test('trayecto grabado: ida y vuelta al texto compacto con ~1 m de precisión', 
   assert.ok(Math.abs(back[3].spd - 30) < 0.2);
   assert.ok(txt.length / tr.length < 20, 'compacto: ' + txt.length / tr.length);
   assert.throws(() => F.decodeTrack('xx;1'));
+});
+
+test('avisos AEMET de zona: solo naranja o rojo, vigentes y que te contienen', () => {
+  const sq = [[36.6, -4.6], [36.6, -4.3], [36.8, -4.3], [36.8, -4.6], [36.6, -4.6]];
+  const now = Date.parse('2026-11-21T12:00:00Z');
+  const av = (lvl, from, to, poly = [sq]) => ({ lvl, ev: 'Lluvias', area: 'Costa del Sol', from, to, poly });
+  const list = [av('naranja', '2026-11-21T10:00:00Z', '2026-11-21T20:00:00Z'), av('amarillo', '2026-11-21T10:00:00Z', '2026-11-21T20:00:00Z'),
+    av('rojo', '2026-11-21T13:00:00Z', '2026-11-21T20:00:00Z'), av('rojo', '2026-11-21T10:00:00Z', '2026-11-21T20:00:00Z', [sq.map(([a, b]) => [a + 1, b])])];
+  const r = F.zoneAvisos(list, 36.7, -4.42, now);
+  assert.equal(r.length, 1);
+  assert.equal(r[0].lvl, 'naranja');
+});
+
+test('la voz no lee el sentido de PK', () => {
+  const t = api.driveSpeech(900, { title: 'Accidente', sub: 'A-45 · PK 124,0 · sentido PK decreciente', text: '' });
+  assert.equal(t, 'En 900 metros. Accidente. A-45 , punto kilométrico 124,0');
 });
