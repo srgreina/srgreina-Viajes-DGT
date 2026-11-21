@@ -820,7 +820,50 @@ function driveSpeech(gap, d) {
   const say = (t) => String(t || '').replace(/\bPK\b/g, 'punto kilométrico').replace(/[·→|]/g, ',').replace(/\s+/g, ' ').trim();
   return [`En ${dist}`, d.title, d.sub, d.text].map(say).filter(Boolean).join('. ');
 }
-// pos (lat, lon) sobre la ruta ancha. Devuelve {off, s, say:[{key, text}]}; el llamante guarda las key en `said`.
+// ---- qué se dice por voz y cuándo (común a ruta y conducción libre)
+// Distancia de aviso: unos 2,5 min de marcha (≈2 km a 50 km/h, 5 km a 120 km/h), entre 1,5 y 6 km
+const alertDistance = (speedMs) => Math.round(Math.min(6000, Math.max(1500, (Number(speedMs) || 0) * 150)));
+// Lo grave se avisa dos veces: a la distancia normal y otra a 1 km
+const TRAFFIC_TYPES = new Set(['slowTraffic', 'heavyTraffic', 'abnormalTraffic', 'queuingTraffic', 'stationaryTraffic']);
+const SEVERE_TYPES = new Set([...HIGH_TYPES, ...TRAFFIC_TYPES]);
+const VOICE_INC_TYPES = new Set([...SEVERE_TYPES, 'laneClosures', 'narrowLanes', 'singleAlternateLineTraffic',
+  'doNotUseSpecifiedLanesOrCarriageways', 'contraflow', 'intermittentShortTermClosures']);
+const PANEL_GRAVE_RE = /ACCIDENT|RETENCI|RETENID|CORTAD|\bCORTE|CERRAD|ATASCO|CONGESTI|\bCOLAS?\b|DETENID/;
+const NEAR_M = 1000;
+const plainUp = (t) => String(t || '').normalize('NFD').replace(/[\u0300-\u036f]/g, '').toUpperCase();
+function isSevere(h) {
+  if (h.layer === 'inc') return (h.item.types || []).some((t) => SEVERE_TYPES.has(t));
+  if (h.layer === 'pan') return PANEL_GRAVE_RE.test(plainUp((h.item.texts || []).join(' ')));
+  return false;
+}
+// ¿Merece aviso por voz? Accidentes, cortes, retenciones, carriles cortados, radares; paneles solo si avisan de algo grave
+function voiceWorthy(h, d) {
+  if (h.layer === 'inc') return (h.item.types || []).some((t) => VOICE_INC_TYPES.has(t));
+  if (h.layer === 'pan') return isSevere(h);
+  if (h.layer === 'rad' || h.layer === 'avi') return true;
+  if (h.layer === 'wx') return d.sev === 'high'; // del tiempo solo lo adverso
+  if (h.layer === 'rie') return d.sev === 'mid';
+  return false;
+}
+// cand: [{h, gap, key}] ya dentro de la distancia de aviso. Devuelve [{key, keys, text, gap}]; el llamante añade keys a `said`.
+function pickAlerts(cand, said, max = 2) {
+  const out = [];
+  for (const c of cand) {
+    const near = c.key + ':1km';
+    const d = describe(c.h);
+    if (!voiceWorthy(c.h, d)) continue;
+    const severe = isSevere(c.h);
+    if (!said.has(c.key)) {
+      // primer aviso; si ya estás a menos de 1,3 km no hace falta el segundo
+      out.push({ key: c.key, keys: severe && c.gap <= NEAR_M * 1.3 ? [c.key, near] : [c.key], gap: c.gap, d, sev: d.sev });
+    } else if (severe && c.gap <= NEAR_M && !said.has(near)) {
+      out.push({ key: near, keys: [near], gap: c.gap, d, sev: d.sev });
+    }
+  }
+  out.sort((a, b) => (b.sev === 'high') - (a.sev === 'high') || a.gap - b.gap);
+  return out.slice(0, max).map((x) => ({ key: x.key, keys: x.keys, gap: x.gap, text: driveSpeech(x.gap, x.d) }));
+}
+// pos (lat, lon) sobre la ruta ancha. Devuelve {off, s, say:[{key, keys, text}]}; el llamante guarda keys en `said`.
 function driveStep(routeWide, hits, lat, lon, said, ahead = 5000, max = 2, offM = 300) {
   const p = nearest(routeWide, lat, lon);
   if (!p || p.dist > offM) return { off: true, s: null, say: [] };
@@ -829,14 +872,9 @@ function driveStep(routeWide, hits, lat, lon, said, ahead = 5000, max = 2, offM 
     if (!DRIVE_LAYERS.has(h.layer)) continue;
     const gap = h.s - p.s;
     if (gap <= 0 || gap > ahead) continue;
-    const key = `${h.layer}:${Math.round(h.s)}:${(h.item && h.item.id) || ''}`;
-    if (said.has(key)) continue;
-    const d = describe(h);
-    if (h.layer === 'wx' && d.sev !== 'high') continue; // del tiempo solo lo adverso
-    cand.push({ key, gap, d });
+    cand.push({ h, gap, key: `${h.layer}:${Math.round(h.s)}:${(h.item && h.item.id) || ''}` });
   }
-  cand.sort((a, b) => (b.d.sev === 'high') - (a.d.sev === 'high') || a.gap - b.gap);
-  return { off: false, s: p.s, say: cand.slice(0, max).map((c) => ({ key: c.key, text: driveSpeech(c.gap, c.d) })) };
+  return { off: false, s: p.s, say: pickAlerts(cand, said, max) };
 }
 
 // ---- refresco automático: cuándo toca volver a pedir los datos (lógica pura)
@@ -978,6 +1016,204 @@ function senseSummary(senses) {
     }
   }
   return out;
+}
+
+// ======== conducción libre (sin ruta): carretera, PK y sentido a partir del GPS y de las referencias de PK de la DGT
+const FREE_CELL = 0.05; // ≈5 km
+// Índice de tramos rectos entre referencias consecutivas (por PK) de cada carretera.
+// Se descartan referencias incoherentes con sus vecinas y no se unen saltos de kilometraje.
+function buildRoadIndex(refs) {
+  const by = new Map();
+  for (const r of refs) { const a = by.get(r.road); if (a) a.push(r); else by.set(r.road, [r]); }
+  const proj = makeProjector(40);
+  const dist = (a, b) => { const p = proj(a.lat, a.lon), q = proj(b.lat, b.lon); return Math.hypot(p[0] - q[0], p[1] - q[1]); };
+  const fits = (a, b) => dist(a, b) <= Math.abs(b.pk - a.pk) * 1600 + 500;
+  const segs = [];
+  const grid = new Map();
+  for (const [road, arr] of by) {
+    arr.sort((a, b) => a.pk - b.pk);
+    const m = []; // referencias a menos de 50 m de PK: se promedian
+    for (const r of arr) {
+      const l = m[m.length - 1];
+      if (l && r.pk - l.pk < 0.05 && dist(l, r) < 2000) { l.lat = (l.lat * l.n + r.lat) / (l.n + 1); l.lon = (l.lon * l.n + r.lon) / (l.n + 1); l.n++; }
+      else m.push({ lat: r.lat, lon: r.lon, pk: r.pk, n: 1 });
+    }
+    const ok = m.filter((r, i) => {
+      const a = i > 0 ? fits(m[i - 1], r) : null;
+      const b = i < m.length - 1 ? fits(r, m[i + 1]) : null;
+      return !(a === false && b === false); // incoherente con sus dos vecinas: PK mal puesto
+    });
+    for (let i = 0; i < ok.length - 1; i++) {
+      const a = ok[i], b = ok[i + 1];
+      if (!fits(a, b) || b.pk - a.pk > 60) continue;
+      const len = dist(a, b);
+      const seg = { road, a, b, len, tol: 300 + len * 0.06 };
+      segs.push(seg);
+      const pad = seg.tol / 111000 + 0.001;
+      const la0 = Math.floor((Math.min(a.lat, b.lat) - pad) / FREE_CELL), la1 = Math.floor((Math.max(a.lat, b.lat) + pad) / FREE_CELL);
+      const lo0 = Math.floor((Math.min(a.lon, b.lon) - pad * 1.3) / FREE_CELL), lo1 = Math.floor((Math.max(a.lon, b.lon) + pad * 1.3) / FREE_CELL);
+      for (let x = la0; x <= la1; x++) for (let y = lo0; y <= lo1; y++) {
+        const k = x + ':' + y; const c = grid.get(k); if (c) c.push(seg); else grid.set(k, [seg]);
+      }
+    }
+  }
+  return { segs, grid, roads: new Set(segs.map((x) => x.road)) };
+}
+// Mejor proyección por carretera de un punto: Map road -> {pk (km), d (m), tol}
+function projectRoads(index, lat, lon, only) {
+  const out = new Map();
+  const segs = index.grid.get(Math.floor(lat / FREE_CELL) + ':' + Math.floor(lon / FREE_CELL)) || [];
+  const proj = makeProjector(lat);
+  const [x, y] = proj(lat, lon);
+  for (const sg of segs) {
+    if (only && !only.has(sg.road)) continue;
+    const [x1, y1] = proj(sg.a.lat, sg.a.lon), [x2, y2] = proj(sg.b.lat, sg.b.lon);
+    const dx = x2 - x1, dy = y2 - y1, l2 = dx * dx + dy * dy;
+    const u = l2 ? Math.max(0, Math.min(1, ((x - x1) * dx + (y - y1) * dy) / l2)) : 0;
+    const d = Math.hypot(x - x1 - u * dx, y - y1 - u * dy);
+    if (d > sg.tol) continue;
+    const prev = out.get(sg.road);
+    if (!prev || d / sg.tol < prev.d / prev.tol) out.set(sg.road, { pk: sg.a.pk + u * (sg.b.pk - sg.a.pk), d, tol: sg.tol });
+  }
+  return out;
+}
+function trackStats(track, winMs = 60000) {
+  const last = track[track.length - 1];
+  const win = track.filter((f) => last.t - f.t <= winMs);
+  const proj = makeProjector(last.lat);
+  let travelled = 0;
+  for (let i = 1; i < win.length; i++) { const p = proj(win[i - 1].lat, win[i - 1].lon), q = proj(win[i].lat, win[i].lon); travelled += Math.hypot(q[0] - p[0], q[1] - p[1]); }
+  const dt = (last.t - win[0].t) / 1000;
+  const speed = Number.isFinite(last.spd) && last.spd >= 0 ? last.spd : dt > 0 ? travelled / dt : 0;
+  // rumbo: desde el primer punto a ≥80 m del último
+  let heading = null;
+  for (let i = win.length - 2; i >= 0; i--) {
+    const p = proj(win[i].lat, win[i].lon), q = proj(last.lat, last.lon);
+    if (Math.hypot(q[0] - p[0], q[1] - p[1]) >= 80) { heading = (Math.atan2(q[0] - p[0], q[1] - p[1]) / RAD + 360) % 360; break; }
+  }
+  return { last, win, travelled, speed, heading };
+}
+// Localiza en carretera. track: [{lat, lon, t, spd?}] (último al final); prev: resultado anterior;
+// hint: {roads:[...], t} carreteras que da OSRM /match (opcional). Devuelve {road, pk, sign, speed, heading, fails, status}.
+// status: 'ok' | 'parado' | 'buscando' | 'dudoso'
+function locateOnRoad(index, track, prev, hint) {
+  if (!track || !track.length) return { road: null, pk: null, sign: 0, speed: 0, heading: null, fails: 0, status: 'buscando' };
+  const st = trackStats(track);
+  const base = { speed: st.speed, heading: st.heading };
+  if (st.win.length < 3 || st.travelled < 250 || st.speed < 5) {
+    return prev && prev.road ? { ...prev, ...base, status: 'parado' } : { road: null, pk: null, sign: 0, ...base, fails: 0, status: st.speed < 5 && st.win.length >= 3 ? 'parado' : 'buscando' };
+  }
+  const hintRoads = hint && hint.roads && hint.roads.length && st.last.t - hint.t <= 120000 ? new Set(hint.roads.map(normRoad)) : null;
+  const projs = st.win.map((f) => projectRoads(index, f.lat, f.lon, hintRoads));
+  const lastP = projs[projs.length - 1];
+  const valid = [];
+  for (const [road, lp] of lastP) {
+    const seq = projs.map((m) => m.get(road)).filter(Boolean);
+    if (seq.length < Math.max(3, Math.ceil(projs.length * 0.8))) continue;
+    const dPk = (seq[seq.length - 1].pk - seq[0].pk) * 1000;
+    const ratio = Math.abs(dPk) / st.travelled;
+    if (Math.abs(dPk) < 150 || ratio < 0.5 || ratio > 1.6) continue;
+    const sign = dPk > 0 ? 1 : -1;
+    let back = 0;
+    for (let i = 1; i < seq.length; i++) if ((seq[i].pk - seq[i - 1].pk) * sign < -0.08) back++;
+    if (back > 1) continue;
+    const score = seq.reduce((a, x) => a + x.d / x.tol, 0) / seq.length;
+    valid.push({ road, pk: lp.pk, sign, score });
+  }
+  valid.sort((a, b) => a.score - b.score);
+  const keep = prev && prev.road && valid.find((v) => v.road === prev.road);
+  if (keep) return { road: keep.road, pk: keep.pk, sign: keep.sign, ...base, fails: 0, status: 'ok' };
+  // la carretera anterior ya no cuadra: se mantiene una lectura más antes de cambiar (histéresis)
+  if (prev && prev.road && prev.status === 'ok' && (prev.fails || 0) < 1) return { ...prev, ...base, fails: (prev.fails || 0) + 1, status: 'ok' };
+  let pick = null;
+  if (valid.length === 1) pick = valid[0];
+  else if (valid.length > 1 && valid[0].score < valid[1].score * 0.5) pick = valid[0];
+  if (!pick) return { road: null, pk: null, sign: 0, ...base, fails: 0, status: valid.length > 1 ? 'dudoso' : 'buscando' };
+  return { road: pick.road, pk: pick.pk, sign: pick.sign, ...base, fails: 0, status: 'ok' };
+}
+// Elementos avisables con carretera y PK (los radares no traen PK: se estima proyectándolos en su carretera)
+function freeItems(ds, index) {
+  const out = [];
+  const pkOf = (road, lat, lon) => { const p = projectRoads(index, lat, lon, new Set([road])).get(road); return p ? p.pk : null; };
+  for (const it of (ds.inc && ds.inc.items) || []) {
+    if (!it.a) continue;
+    const road = normRoad(it.road);
+    const p0 = it.pk && Number.isFinite(it.pk[0]) ? it.pk[0] : pkOf(road, it.a[0], it.a[1]);
+    const p1 = it.pk && Number.isFinite(it.pk[1]) ? it.pk[1] : p0;
+    out.push({ layer: 'inc', item: it, road, pk: p0, pk2: p1, dir: it.dir, lat: it.a[0], lon: it.a[1] });
+  }
+  const locs = new Map(((ds.panLoc && ds.panLoc.items) || []).map((l) => [l.id, l]));
+  for (const it of (ds.pan && ds.pan.items) || []) {
+    const loc = locs.get(it.ctrl);
+    if (!loc) continue;
+    const road = normRoad(loc.road);
+    const pk = loc.pk && Number.isFinite(loc.pk[0]) ? loc.pk[0] : pkOf(road, loc.lat, loc.lon);
+    out.push({ layer: 'pan', item: it, loc, road, pk, pk2: pk, dir: loc.extra && loc.extra.tpegDirectionRoad, lat: loc.lat, lon: loc.lon });
+  }
+  for (const it of (ds.rad && ds.rad.items) || []) {
+    const road = normRoad(it.road);
+    const pk = pkOf(road, it.lat, it.lon);
+    out.push({ layer: 'rad', item: it, road, pk, pk2: pk, dir: it.extra && it.extra.directionRelative, lat: it.lat, lon: it.lon });
+  }
+  return out;
+}
+// Lo que tienes por delante en tu carretera y sentido (distancia por PK). Accidentes y cortes del otro sentido también.
+function aheadOnRoad(items, loc, distM) {
+  const out = [];
+  if (!loc || !loc.road || !loc.sign || !Number.isFinite(loc.pk)) return out;
+  const mine = loc.sign > 0 ? 'positive' : 'negative';
+  for (const f of items) {
+    if (f.road !== loc.road || !Number.isFinite(f.pk)) continue;
+    if (f.dir === 'positive' || f.dir === 'negative') {
+      if (f.dir !== mine && (f.layer !== 'inc' || dirHideableInc(f.item))) continue;
+    }
+    const lo = Math.min(f.pk, f.pk2), hi = Math.max(f.pk, f.pk2);
+    const start = loc.sign > 0 ? lo : hi, end = loc.sign > 0 ? hi : lo;
+    let gap = (start - loc.pk) * loc.sign * 1000;
+    if (gap < 0) { if ((end - loc.pk) * loc.sign * 1000 > 0 && f.layer === 'inc') gap = 0; else continue; } // dentro del tramo afectado
+    if (gap > distM) continue;
+    out.push({ h: f, gap, key: `${f.layer}:${(f.item && f.item.id) || ''}` });
+  }
+  return out;
+}
+// Reserva sin carretera: accidentes, cortes y retenciones en un cono de ±35° por delante
+function aheadCone(items, fix, heading, distM = 2000, half = 35, skipRoad = null) {
+  const out = [];
+  if (heading === null || heading === undefined) return out;
+  const proj = makeProjector(fix.lat);
+  const [x0, y0] = proj(fix.lat, fix.lon);
+  for (const f of items) {
+    if (f.layer !== 'inc' || !isSevere(f) || (skipRoad && f.road === skipRoad)) continue;
+    const [x, y] = proj(f.lat, f.lon);
+    const gap = Math.hypot(x - x0, y - y0);
+    if (gap > distM || gap < 30) continue;
+    const brg = (Math.atan2(x - x0, y - y0) / RAD + 360) % 360;
+    const diff = Math.abs(((brg - heading + 540) % 360) - 180);
+    if (diff <= half) out.push({ h: f, gap, key: `${f.layer}:${(f.item && f.item.id) || ''}` });
+  }
+  return out;
+}
+// Un paso de conducción libre: dónde estás, qué decir y lo próximo por delante (para pantalla y notificación)
+function freeStep(index, items, track, prev, hint, said, max = 2) {
+  const loc = locateOnRoad(index, track, prev, hint);
+  const fix = track[track.length - 1];
+  const dist = alertDistance(loc.speed);
+  const onRoad = loc.status === 'ok' ? aheadOnRoad(items, loc, dist) : [];
+  // el cono es solo la reserva cuando no se sabe la carretera (si no, avisaría de vías paralelas)
+  const cone = loc.status === 'ok' ? [] : aheadCone(items, fix, loc.heading, Math.min(dist, 2000), 35);
+  const cand = [...onRoad, ...cone];
+  const seen = new Set();
+  const uniq = cand.filter((c) => !seen.has(c.key) && seen.add(c.key)).sort((a, b) => a.gap - b.gap);
+  const nextC = uniq.find((c) => voiceWorthy(c.h, describe(c.h)));
+  const next = nextC ? { gap: nextC.gap, title: describe(nextC.h).title } : null;
+  return { loc, dist, next, say: loc.status === 'parado' ? [] : pickAlerts(uniq, said, max) };
+}
+// "A-45 · PK 128,4 ↓" o el estado de búsqueda
+function freeLabel(loc) {
+  if (loc.status === 'ok') return `${loc.road} · PK ${fmtNum(loc.pk, 1)} ${loc.sign > 0 ? '↑' : '↓'}`;
+  if (loc.status === 'parado') return loc.road ? `${loc.road} · parado` : 'Parado';
+  if (loc.status === 'dudoso') return 'Dudando entre carreteras…';
+  return 'Buscando carretera…';
 }
 // </core>
 
@@ -1744,7 +1980,7 @@ async function driveWake() {
 function driveInfo(msg) { $('drive').textContent = msg; $('drive').hidden = !msg; }
 function driveTick(pos) {
   if (!state.route || !state.hasRoute) return;
-  const r = driveStep(state.routeWide || state.route, state.hits, pos.coords.latitude, pos.coords.longitude, drive.said);
+  const r = driveStep(state.routeWide || state.route, state.hits, pos.coords.latitude, pos.coords.longitude, drive.said, alertDistance(pos.coords.speed));
   if (r.off) {
     if (!drive.off) { drive.off = true; speak('Te has salido de la ruta'); }
     driveInfo('Fuera de la ruta');
@@ -1752,7 +1988,7 @@ function driveTick(pos) {
   }
   if (drive.off) { drive.off = false; speak('De nuevo en la ruta'); }
   driveInfo(`En ruta · PK ${fmtKm(r.s)} · quedan ${fmtKm(state.route.totalD - r.s)} km`);
-  for (const a of r.say) { drive.said.add(a.key); speak(a.text); }
+  for (const a of r.say) { a.keys.forEach((k) => drive.said.add(k)); speak(a.text); }
 }
 function driveStop() {
   if (!drive.on) return;
@@ -1783,7 +2019,7 @@ async function driveStartNative() {
           if (err.code === 'NOT_AUTHORIZED') { setStatus('Falta el permiso de ubicación: en Ajustes elige «Permitir siempre»', true); bg.openSettings(); driveStop(); } else driveInfo('Sin señal GPS…');
           return;
         }
-        if (loc) driveTick({ coords: { latitude: loc.latitude, longitude: loc.longitude } });
+        if (loc) driveTick({ coords: { latitude: loc.latitude, longitude: loc.longitude, speed: loc.speed } });
       });
   } catch (e) { setStatus('No se pudo iniciar el GPS en segundo plano', true); driveStop(); }
   if (!isDesktop()) setSheet('peek');

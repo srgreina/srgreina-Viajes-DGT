@@ -476,3 +476,152 @@ test('sin sentido conocido no se oculta nada', () => {
   assert.equal(r.shown.length, 3);
   assert.equal(r.hidden.length, 0);
 });
+
+// ---- conducción libre: carretera, PK y sentido sin ruta
+const F = new Function(`${html.slice(html.indexOf('// <core>'), html.indexOf('// </core>'))}; return { buildRoadIndex, projectRoads, locateOnRoad, freeItems, aheadOnRoad, aheadCone, freeStep, alertDistance, pickAlerts, freeLabel, pkRefs };`)();
+// A-92: de oeste a este por LAT, PK 100 en lon -4.5 bajando 1 km por km. N-331 paralela 800 m al norte, PK 20 subiendo hacia el este.
+const LON0 = -4.5;
+const lonKm = (k) => LON0 + k / KM_PER_DEG_LON;
+const refsDoc = {
+  cam: { items: [
+    ...Array.from({ length: 16 }, (_, i) => ({ road: 'A-92', lat: LAT, lon: lonKm(i * 2), pk: [100 - i * 2] })),
+    ...Array.from({ length: 16 }, (_, i) => ({ road: 'N-331', lat: offsetLat(800), lon: lonKm(i * 2), pk: [20 + i * 2] })),
+  ] },
+};
+const idx = F.buildRoadIndex(F.pkRefs(refsDoc));
+let seed = 7;
+const rnd = () => ((seed = (seed * 16807) % 2147483647) / 2147483647 - 0.5) * 2;
+// recorrido: de kmFrom a kmTo (por la A-92 si lat0=LAT), una posición cada 2 s a v m/s, ruido ±noise m
+function track(kmFrom, kmTo, { v = 30, lat0 = LAT, noise = 15, t0 = 0 } = {}) {
+  const out = [];
+  const n = Math.ceil((Math.abs(kmTo - kmFrom) * 1000) / (v * 2));
+  for (let i = 0; i <= n; i++) {
+    const k = kmFrom + ((kmTo - kmFrom) * i) / n;
+    out.push({ lat: lat0 + (rnd() * noise) / 111195, lon: lonKm(k) + (rnd() * noise) / (KM_PER_DEG_LON * 1000), t: t0 + i * 2000, spd: v });
+  }
+  return out;
+}
+function runTrack(tr, items = [], hint = null) {
+  let loc = null;
+  const said = new Set();
+  const spoken = [];
+  for (let i = 1; i <= tr.length; i++) {
+    const r = F.freeStep(idx, items, tr.slice(Math.max(0, i - 40), i), loc, hint, said);
+    loc = r.loc;
+    for (const a of r.say) { a.keys.forEach((k) => said.add(k)); spoken.push(a); }
+  }
+  return { loc, spoken };
+}
+
+test('índice de carreteras: tramos entre referencias y proyección con PK', () => {
+  assert.ok(idx.roads.has('A-92') && idx.roads.has('N-331'));
+  const p = F.projectRoads(idx, LAT, lonKm(5)).get('A-92');
+  assert.ok(Math.abs(p.pk - 95) < 0.05, p.pk);
+});
+
+test('índice: una referencia con el PK mal puesto se descarta y un salto de kilometraje no se une', () => {
+  const bad = { cam: { items: [...refsDoc.cam.items.filter((x) => x.road === 'A-92'), { road: 'A-92', lat: LAT, lon: lonKm(7), pk: [300] }] } };
+  const i2 = F.buildRoadIndex(F.pkRefs(bad));
+  assert.ok(i2.segs.every((s) => s.a.pk < 200 && s.b.pk < 200));
+  const jump = { cam: { items: [{ road: 'A-7', lat: LAT, lon: lonKm(0), pk: [1020] }, { road: 'A-7', lat: LAT, lon: lonKm(2), pk: [1018] }, { road: 'A-7', lat: LAT, lon: lonKm(4), pk: [5] }, { road: 'A-7', lat: LAT, lon: lonKm(6), pk: [7] }] } };
+  const i3 = F.buildRoadIndex(F.pkRefs(jump));
+  assert.ok(i3.segs.every((s) => Math.abs(s.b.pk - s.a.pk) < 10), 'no une PK 7 con PK 1018');
+});
+
+test('localiza carretera, PK y sentido en la A-92 con ruido GPS, sin confundir la N-331 paralela', () => {
+  const { loc } = runTrack(track(2, 6));
+  assert.equal(loc.status, 'ok');
+  assert.equal(loc.road, 'A-92');
+  assert.equal(loc.sign, -1);
+  assert.ok(Math.abs(loc.pk - 94) < 0.3, loc.pk);
+  const n = runTrack(track(6, 2, { lat0: offsetLat(800) })).loc;
+  assert.equal(n.road, 'N-331');
+  assert.equal(n.sign, -1); // hacia el oeste en la N-331 el PK baja
+});
+
+test('parado o recién arrancado no se inventa la carretera', () => {
+  const still = Array.from({ length: 10 }, (_, i) => ({ lat: LAT, lon: lonKm(3), t: i * 2000, spd: 0 }));
+  const r = F.locateOnRoad(idx, still, null, null);
+  assert.equal(r.road, null);
+  assert.equal(F.locateOnRoad(idx, still.slice(0, 2), null, null).status, 'buscando');
+});
+
+test('lejos de cualquier carretera con PK: buscando, y con dos posibles a la misma distancia: dudoso', () => {
+  assert.equal(runTrack(track(2, 6, { lat0: offsetLat(20000) })).loc.status, 'buscando');
+  // ruta a medio camino entre ambas (400 m de cada una) pero moviéndose: la A-92 baja y la N-331 sube igual de bien
+  const mid = runTrack(track(2, 6, { lat0: offsetLat(400), noise: 0 })).loc;
+  assert.notEqual(mid.status, 'ok');
+});
+
+test('la pista de OSRM decide entre carreteras', () => {
+  const tr = track(2, 6, { lat0: offsetLat(400), noise: 0 });
+  const r = runTrack(tr, [], { roads: ['n-331'], t: tr[tr.length - 1].t });
+  assert.equal(r.loc.road, 'N-331');
+  assert.equal(r.loc.sign, 1);
+});
+
+test('histéresis: un punto suelto fuera no cambia de carretera', () => {
+  const tr = track(2, 6);
+  let loc = null;
+  for (let i = 3; i <= tr.length; i++) loc = F.locateOnRoad(idx, tr.slice(0, i), loc, null);
+  const glitch = [...tr, { lat: offsetLat(5000), lon: lonKm(6.1), t: tr[tr.length - 1].t + 2000, spd: 30 }];
+  const g = F.locateOnRoad(idx, glitch, loc, null);
+  assert.equal(g.road, 'A-92');
+});
+
+const fInc = (id, km, types, dir = 'negative', road = 'A-92') => ({ id, road, types, dir, a: [LAT, lonKm(km)], pk: [100 - km] });
+const fDocs = (incs, rads = [], pans = [], locs = []) => ({ inc: { items: incs }, rad: { items: rads }, pan: { items: pans }, panLoc: { items: locs } });
+
+test('avisa lo de delante en mi sentido, accidentes de ambos sentidos, y nunca lo de otra carretera', () => {
+  const items = F.freeItems(fDocs([
+    fInc('acc', 9, ['accident'], 'positive'), // otro sentido, pero accidente: se avisa
+    fInc('obra', 10, ['roadworks', 'laneClosures'], 'positive'), // otro sentido en autovía: no
+    fInc('mia', 10.5, ['laneClosures'], 'negative'), // mi sentido: sí
+    fInc('n331', 9, ['accident'], 'both', 'N-331'), // otra carretera paralela (aunque sea a 800 m en la realidad)
+    fInc('atras', 1, ['accident'], 'negative'), // ya pasado
+  ], [{ id: 'r1', road: 'A-92', lat: LAT, lon: lonKm(9.5), extra: { directionRelative: 'negative' } },
+    { id: 'r2', road: 'A-92', lat: LAT, lon: lonKm(9.6), extra: { directionRelative: 'positive' } }]), idx);
+  const { spoken } = runTrack(track(2, 12), items);
+  const ids = spoken.map((x) => x.key);
+  assert.ok(ids.includes('inc:acc') && ids.includes('inc:mia') && ids.includes('rad:r1'), ids.join());
+  assert.ok(!ids.some((k) => /obra|n331|atras|r2/.test(k)), ids.join());
+  assert.ok(ids.includes('inc:acc:1km'), 'lo grave se repite a 1 km');
+  assert.ok(!ids.includes('inc:mia:1km'), 'lo no grave, una vez');
+});
+
+test('a 50 km/h avisa a unos 2 km; a 120, a 5 km', () => {
+  assert.equal(F.alertDistance(50 / 3.6), 2083);
+  assert.equal(F.alertDistance(120 / 3.6), 5000);
+  assert.equal(F.alertDistance(0), 1500);
+  assert.equal(F.alertDistance(80), 6000);
+  const items = F.freeItems(fDocs([fInc('acc', 12, ['accident'])]), idx);
+  const slow = runTrack(track(2, 12, { v: 14 }), items).spoken.find((x) => x.key === 'inc:acc');
+  assert.ok(slow.gap <= 2100 && slow.gap > 1500, slow.gap);
+});
+
+test('fuera de carretera conocida: cono por delante solo con lo grave', () => {
+  const far = offsetLat(20000);
+  const items = F.freeItems(fDocs([
+    { id: 'delante', road: 'MA-1', types: ['accident'], dir: 'both', a: [far, lonKm(5)] },
+    { id: 'lado', road: 'MA-1', types: ['accident'], dir: 'both', a: [offsetLat(21500), lonKm(4)] },
+    { id: 'obra', road: 'MA-1', types: ['laneClosures'], dir: 'both', a: [far, lonKm(5.2)] },
+  ]), idx);
+  const { spoken, loc } = runTrack(track(2, 6, { lat0: far, v: 14 }), items);
+  assert.equal(loc.status, 'buscando');
+  const ids = spoken.map((x) => x.key);
+  assert.ok(ids.includes('inc:delante') && !ids.includes('inc:lado') && !ids.includes('inc:obra'), ids.join());
+});
+
+test('voz: paneles solo si avisan de algo grave; obras sin carriles cortados no se dicen', () => {
+  const locs = [{ id: 'P1', road: 'A-92', lat: LAT, lon: lonKm(8), pk: [92], extra: { tpegDirectionRoad: 'negative' } },
+    { id: 'P2', road: 'A-92', lat: LAT, lon: lonKm(8.5), pk: [91.5], extra: { tpegDirectionRoad: 'negative' } }];
+  const pans = [{ id: 'P1.1', ctrl: 'P1', texts: ['RETENCIÓN A 5 KM'] }, { id: 'P2.1', ctrl: 'P2', texts: ['NO CONDUZCA CANSADO'] }];
+  const items = F.freeItems(fDocs([fInc('o', 9, ['roadworks'])], [], pans, locs), idx);
+  const ids = runTrack(track(2, 12), items).spoken.map((x) => x.key);
+  assert.ok(ids.includes('pan:P1.1') && !ids.includes('pan:P2.1') && !ids.includes('inc:o'), ids.join());
+});
+
+test('etiqueta de estado', () => {
+  assert.equal(F.freeLabel({ status: 'ok', road: 'A-45', pk: 128.43, sign: -1 }), 'A-45 · PK 128,4 ↓');
+  assert.equal(F.freeLabel({ status: 'buscando' }), 'Buscando carretera…');
+});
