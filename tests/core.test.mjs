@@ -478,7 +478,7 @@ test('sin sentido conocido no se oculta nada', () => {
 });
 
 // ---- conducción libre: carretera, PK y sentido sin ruta
-const F = new Function(`${html.slice(html.indexOf('// <core>'), html.indexOf('// </core>'))}; return { buildRoadIndex, projectRoads, locateOnRoad, freeItems, aheadOnRoad, aheadCone, freeStep, alertDistance, pickAlerts, freeLabel, pkRefs };`)();
+const F = new Function(`${html.slice(html.indexOf('// <core>'), html.indexOf('// </core>'))}; return { buildRoadIndex, projectRoads, locateOnRoad, freeItems, aheadOnRoad, aheadCone, freeStep, alertDistance, pickAlerts, freeLabel, pkRefs, matchUrl, matchRoads, encodeTrack, decodeTrack };`)();
 // A-92: de oeste a este por LAT, PK 100 en lon -4.5 bajando 1 km por km. N-331 paralela 800 m al norte, PK 20 subiendo hacia el este.
 const LON0 = -4.5;
 const lonKm = (k) => LON0 + k / KM_PER_DEG_LON;
@@ -624,4 +624,37 @@ test('voz: paneles solo si avisan de algo grave; obras sin carriles cortados no 
 test('etiqueta de estado', () => {
   assert.equal(F.freeLabel({ status: 'ok', road: 'A-45', pk: 128.43, sign: -1 }), 'A-45 · PK 128,4 ↓');
   assert.equal(F.freeLabel({ status: 'buscando' }), 'Buscando carretera…');
+});
+
+test('OSRM match: URL con las últimas posiciones separadas y lectura de la carretera', () => {
+  const tr = track(2, 4);
+  const u = F.matchUrl(tr);
+  const n = u.split('/driving/')[1].split('?')[0].split(';').length;
+  assert.ok(n >= 3 && n <= 10, n);
+  assert.match(u, /radiuses=20(;20)+&timestamps=\d+/);
+  assert.equal(F.matchUrl(tr.slice(0, 2)), null);
+  // respuesta real (A-7, Mijas): empieza en una calle y termina en la autovía
+  const resp = { code: 'Ok', matchings: [{ confidence: 0.81, legs: [
+    { steps: [{ name: '', distance: 43 }, { name: 'Calle Playa del Chaparral', distance: 805 }, { name: '', distance: 139 }, { name: 'Autovía del Mediterráneo', ref: 'A-7', distance: 493 }, { ref: 'A-7', distance: 0 }] },
+    { steps: [{ name: 'Autovía del Mediterráneo', ref: 'A-7;E-15', distance: 1043 }, { ref: 'A-7', distance: 0 }] }] }] };
+  assert.deepEqual(F.matchRoads(resp), { roads: ['A-7', 'E-15'] });
+  assert.equal(F.matchRoads({ ...resp, matchings: [{ ...resp.matchings[0], confidence: 0.2 }] }), null);
+  assert.equal(F.matchRoads({ code: 'NoSegment' }), null);
+  assert.deepEqual(F.matchRoads({ code: 'Ok', matchings: [{ confidence: 0.9, legs: [{ steps: [{ name: 'Calle Larios', distance: 300 }] }] }] }), { roads: [] });
+});
+
+test('si OSRM dice que vas por una calle sin número, no se adivina la autovía de al lado', () => {
+  const tr = track(2, 6, { noise: 0 });
+  assert.equal(runTrack(tr, [], { roads: [], t: tr[tr.length - 1].t }).loc.status, 'buscando');
+});
+
+test('trayecto grabado: ida y vuelta al texto compacto con ~1 m de precisión', () => {
+  const tr = track(2, 5);
+  const txt = F.encodeTrack(tr);
+  const back = F.decodeTrack(txt);
+  assert.equal(back.length, tr.length);
+  assert.ok(back.every((f, i) => Math.abs(f.lat - tr[i].lat) < 1e-5 && Math.abs(f.lon - tr[i].lon) < 1e-5 && Math.abs(f.t - tr[i].t) < 1000));
+  assert.ok(Math.abs(back[3].spd - 30) < 0.2);
+  assert.ok(txt.length / tr.length < 20, 'compacto: ' + txt.length / tr.length);
+  assert.throws(() => F.decodeTrack('xx;1'));
 });

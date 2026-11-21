@@ -1103,7 +1103,9 @@ function locateOnRoad(index, track, prev, hint) {
   if (st.win.length < 3 || st.travelled < 250 || st.speed < 5) {
     return prev && prev.road ? { ...prev, ...base, status: 'parado' } : { road: null, pk: null, sign: 0, ...base, fails: 0, status: st.speed < 5 && st.win.length >= 3 ? 'parado' : 'buscando' };
   }
-  const hintRoads = hint && hint.roads && hint.roads.length && st.last.t - hint.t <= 120000 ? new Set(hint.roads.map(normRoad)) : null;
+  const fresh = hint && hint.roads && st.last.t - hint.t <= 120000;
+  if (fresh && !hint.roads.length) return { road: null, pk: null, sign: 0, ...base, fails: 0, status: 'buscando' }; // OSRM: calle sin carretera numerada
+  const hintRoads = fresh ? new Set(hint.roads.map(normRoad)) : null;
   const projs = st.win.map((f) => projectRoads(index, f.lat, f.lon, hintRoads));
   const lastP = projs[projs.length - 1];
   const valid = [];
@@ -1208,6 +1210,64 @@ function freeStep(index, items, track, prev, hint, said, max = 2) {
   const next = nextC ? { gap: nextC.gap, title: describe(nextC.h).title } : null;
   return { loc, dist, next, say: loc.status === 'parado' ? [] : pickAlerts(uniq, said, max) };
 }
+// ---- OSRM /match: en qué carretera estás según OpenStreetMap (el servidor público admite radios de ~20 m)
+// Últimas posiciones (máx. 10, ≥ 25 m entre sí, últimos 90 s) -> URL, o null si no hay recorrido suficiente
+function matchUrl(track, base = 'https://router.project-osrm.org') {
+  const last = track[track.length - 1];
+  if (!last) return null;
+  const proj = makeProjector(last.lat);
+  const pts = [];
+  for (let i = track.length - 1; i >= 0 && pts.length < 10; i--) {
+    const f = track[i];
+    if (last.t - f.t > 90000) break;
+    const q = pts[pts.length - 1];
+    if (q) { const a = proj(q.lat, q.lon), b = proj(f.lat, f.lon); if (Math.hypot(a[0] - b[0], a[1] - b[1]) < 25) continue; }
+    pts.push(f);
+  }
+  if (pts.length < 3) return null;
+  pts.reverse();
+  const c = pts.map((f) => `${f.lon.toFixed(5)},${f.lat.toFixed(5)}`).join(';');
+  const ts = pts.map((f) => Math.round(f.t / 1000)).join(';');
+  return `${base}/match/v1/driving/${c}?steps=true&overview=false&radiuses=${pts.map(() => 20).join(';')}&timestamps=${ts}`;
+}
+// Respuesta de /match -> {roads:[...]} (vacío = calle sin carretera numerada) o null si no es fiable
+function matchRoads(resp, minConf = 0.5) {
+  if (!resp || resp.code !== 'Ok' || !resp.matchings || !resp.matchings.length) return null;
+  const m = resp.matchings[resp.matchings.length - 1];
+  if (Number.isFinite(m.confidence) && m.confidence < minConf) return null;
+  const legs = m.legs || [];
+  const steps = ((legs[legs.length - 1] || {}).steps || []).filter((x) => x.distance > 0);
+  const st = steps[steps.length - 1];
+  if (!st) return null;
+  return { roads: [...new Set(String(st.ref || '').split(';').map(normRoad).filter(Boolean))] };
+}
+
+// ---- trayectos grabados: texto compacto para exportar (≈1 m de precisión, segundos, km/h)
+function encodeTrack(fixes) {
+  if (!fixes.length) return 'v1';
+  let pl = 0, po = 0, pt = 0;
+  const parts = fixes.map((f, i) => {
+    const la = Math.round(f.lat * 1e5), lo = Math.round(f.lon * 1e5), t = Math.round(f.t / 1000);
+    const sp = Number.isFinite(f.spd) ? Math.round(f.spd * 3.6) : '';
+    const r = i ? [la - pl, lo - po, t - pt, sp] : [la, lo, t, sp];
+    pl = la; po = lo; pt = t;
+    return r.join(',');
+  });
+  return 'v1;' + parts.join(';');
+}
+function decodeTrack(txt) {
+  const parts = String(txt || '').trim().split(';');
+  if (parts.shift() !== 'v1') throw new Error('Formato de trayecto desconocido');
+  let la = 0, lo = 0, t = 0;
+  return parts.filter(Boolean).map((p, i) => {
+    const [a, b, c, d] = p.split(',');
+    la = i ? la + +a : +a; lo = i ? lo + +b : +b; t = i ? t + +c : +c;
+    const f = { lat: la / 1e5, lon: lo / 1e5, t: t * 1000 };
+    if (d !== '' && d !== undefined) f.spd = +d / 3.6;
+    return f;
+  });
+}
+
 // "A-45 · PK 128,4 ↓" o el estado de búsqueda
 function freeLabel(loc) {
   if (loc.status === 'ok') return `${loc.road} · PK ${fmtNum(loc.pk, 1)} ${loc.sign > 0 ? '↑' : '↓'}`;
