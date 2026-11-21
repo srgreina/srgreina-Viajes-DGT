@@ -1107,26 +1107,39 @@ function locateOnRoad(index, track, prev, hint) {
   if (fresh && !hint.roads.length) return { road: null, pk: null, sign: 0, ...base, fails: 0, status: 'buscando' }; // OSRM: calle sin carretera numerada
   const hintRoads = fresh ? new Set(hint.roads.map(normRoad)) : null;
   const projs = st.win.map((f) => projectRoads(index, f.lat, f.lon, hintRoads));
-  const lastP = projs[projs.length - 1];
-  const valid = [];
-  for (const [road, lp] of lastP) {
-    const seq = projs.map((m) => m.get(road)).filter(Boolean);
-    if (seq.length < Math.max(3, Math.ceil(projs.length * 0.8))) continue;
-    const dPk = (seq[seq.length - 1].pk - seq[0].pk) * 1000;
-    const ratio = Math.abs(dPk) / st.travelled;
-    if (Math.abs(dPk) < 150 || ratio < 0.5 || ratio > 1.6) continue;
-    const sign = dPk > 0 ? 1 : -1;
-    let back = 0;
-    for (let i = 1; i < seq.length; i++) if ((seq[i].pk - seq[i - 1].pk) * sign < -0.08) back++;
-    if (back > 1) continue;
-    const score = seq.reduce((a, x) => a + x.d / x.tol, 0) / seq.length;
-    valid.push({ road, pk: lp.pk, sign, score });
-  }
-  valid.sort((a, b) => a.score - b.score);
+  // carreteras coherentes con las posiciones desde `from`: el PK avanza en proporción a lo recorrido y sin retrocesos
+  const candidates = (from) => {
+    const ps = projs.slice(from), fs = st.win.slice(from);
+    if (ps.length < 3) return [];
+    const proj = makeProjector(st.last.lat);
+    let trav = 0;
+    for (let i = 1; i < fs.length; i++) { const a = proj(fs[i - 1].lat, fs[i - 1].lon), b = proj(fs[i].lat, fs[i].lon); trav += Math.hypot(b[0] - a[0], b[1] - a[1]); }
+    if (trav < 250) return [];
+    const out = [];
+    for (const [road, lp] of ps[ps.length - 1]) {
+      const seq = ps.map((m) => m.get(road)).filter(Boolean);
+      if (seq.length < Math.max(3, Math.ceil(ps.length * 0.8))) continue;
+      const dPk = (seq[seq.length - 1].pk - seq[0].pk) * 1000;
+      const ratio = Math.abs(dPk) / trav;
+      if (Math.abs(dPk) < 150 || ratio < 0.5 || ratio > 1.6) continue;
+      const sign = dPk > 0 ? 1 : -1;
+      let back = 0;
+      for (let i = 1; i < seq.length; i++) if ((seq[i].pk - seq[i - 1].pk) * sign < -0.08) back++;
+      if (back > 1) continue;
+      out.push({ road, pk: lp.pk, sign, score: seq.reduce((a, x) => a + x.d / x.tol, 0) / seq.length });
+    }
+    return out.sort((a, b) => a.score - b.score);
+  };
+  let valid = candidates(0);
   const keep = prev && prev.road && valid.find((v) => v.road === prev.road);
   if (keep) return { road: keep.road, pk: keep.pk, sign: keep.sign, ...base, fails: 0, status: 'ok' };
   // la carretera anterior ya no cuadra: se mantiene una lectura más antes de cambiar (histéresis)
   if (prev && prev.road && prev.status === 'ok' && (prev.fails || 0) < 1) return { ...prev, ...base, fails: (prev.fails || 0) + 1, status: 'ok' };
+  // tras perder la anterior, la nueva se busca solo con el tramo reciente (≈25 s), que ya no arrastra la carretera vieja
+  if (prev && prev.road) {
+    const k = st.win.findIndex((f) => st.last.t - f.t <= 25000);
+    valid = candidates(Math.max(0, k)).filter((v) => v.road !== prev.road);
+  }
   let pick = null;
   if (valid.length === 1) pick = valid[0];
   else if (valid.length > 1 && valid[0].score < valid[1].score * 0.5) pick = valid[0];
