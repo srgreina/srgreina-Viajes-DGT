@@ -1488,3 +1488,5 @@
 {"t":"2026-11-21T11:58:39Z","feed":"paneles","bytes":4145539,"ms":536,"ok":true,"published":"2026-11-21T12:57:25.000+01:00","lag_s":74,"count":1257,"opens":7,"changes":76,"closes":1}
 {"t":"2026-11-21T12:08:05Z","feed":"incidencias","bytes":3979472,"ms":309,"ok":true,"published":"2026-11-21T13:07:25.714+01:00","lag_s":40,"count":951,"opens":108,"changes":2,"closes":83}
 {"t":"2026-11-21T12:08:05Z","feed":"paneles","bytes":4118119,"ms":54,"ok":true,"published":"2026-11-21T13:05:39.000+01:00","lag_s":146,"count":1262,"opens":8,"changes":84,"closes":3}
+{"t":"2026-11-21T12:17:31Z","feed":"incidencias","bytes":3922986,"ms":77,"ok":true,"published":"2026-11-21T13:16:25.715+01:00","lag_s":66,"count":935,"opens":83,"changes":0,"closes":99}
+{"t":"2026-11-21T12:17:31Z","feed":"paneles","bytes":43,"ms":479,"ok":false,"err":"not well-formed (invalid token): line 1, column 0"}
