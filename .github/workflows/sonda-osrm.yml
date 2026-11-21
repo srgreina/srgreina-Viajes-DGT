@@ -1,0 +1,31 @@
+# Temporal: comprueba el servicio /match del OSRM público (se borra tras usarlo)
+name: Sonda OSRM match
+on:
+  push:
+    branches: [conduccion-libre]
+    paths: [".github/workflows/sonda-osrm.yml"]
+jobs:
+  sonda:
+    runs-on: ubuntu-latest
+    steps:
+      - run: |
+          U='https://router.project-osrm.org/match/v1/driving/-4.43576,36.8652;-4.43325,36.874;-4.42442,36.8807;-4.42102,36.8903?steps=true&overview=false&radiuses=50;50;50;50&timestamps=0;40;80;120'
+          curl -s -w '\nHTTP %{http_code}\n' "$U" | python3 -c "
+          import sys,json
+          raw=sys.stdin.read(); body,code=raw.rsplit('\n',2)[0],raw.strip().splitlines()[-1]; print(code)
+          d=json.loads(body); print('code',d.get('code'),d.get('message'))
+          for m in d.get('matchings',[]):
+            print('confidence',m.get('confidence'))
+            for l in m['legs']:
+              for s in l['steps']: print('step',repr(s.get('name')),repr(s.get('ref')),round(s['distance']),s['maneuver']['type'])
+          print('tracepoints',[ (t and {k:t.get(k) for k in ('matchings_index','waypoint_index','name')}) for t in d.get('tracepoints',[])])
+          "
+          echo '--- A-7/N-340 Costa del Sol (paralelas)'
+          U2='https://router.project-osrm.org/match/v1/driving/-4.6010,36.5480;-4.5900,36.5560;-4.5790,36.5640;-4.5680,36.5710?steps=true&overview=false&radiuses=40;40;40;40&timestamps=0;40;80;120'
+          curl -s "$U2" | python3 -c "
+          import sys,json; d=json.load(sys.stdin); print('code',d.get('code'),d.get('message'))
+          for m in d.get('matchings',[]):
+            print('confidence',m.get('confidence'))
+            for l in m['legs']:
+              for s in l['steps']: print('step',repr(s.get('name')),repr(s.get('ref')),round(s['distance']),s['maneuver']['type'])
+          "
