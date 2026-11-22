@@ -1499,3 +1499,38 @@
 {"t":"2026-11-22T05:28:57Z","ev":"close","id":"30276465"}
 {"t":"2026-11-22T05:28:57Z","ev":"close","id":"30276484"}
 {"t":"2026-11-22T05:28:57Z","ev":"close","id":"30276488"}
+{"t":"2026-11-22T05:38:24Z","ev":"open","id":"30276529","sit":"25844743","ver":"1","kind":"GenericSituationRecord","types":["vehicleObstruction","vehicleStuck"],"status":"active","created":"2026-11-22T06:29:07.000+01:00","start":"2026-11-22T06:29:07.000+01:00","road":"A-5R","dir":"positive","pk":[0.213],"a":[40.36221,-3.78684],"geo":{"autonomousCommunity":"Madrid, Comunidad de","municipality":"Madrid","province":"Madrid"}}
+{"t":"2026-11-22T05:38:24Z","ev":"open","id":"30276533","sit":"25844747","ver":"1","kind":"GenericSituationRecord","types":["vehicleObstruction","vehicleStuck"],"status":"active","created":"2026-11-22T06:29:42.000+01:00","start":"2026-11-22T06:29:42.000+01:00","road":"A-68","dir":"positive","pk":[254.349],"a":[41.71977,-1.0383],"geo":{"autonomousCommunity":"Aragón","municipality":"Zaragoza","province":"Zaragoza"}}
+{"t":"2026-11-22T05:38:24Z","ev":"open","id":"30276539","sit":"25844753","ver":"1","kind":"GenericSituationRecord","types":["vehicleObstruction","vehicleStuck"],"status":"active","created":"2026-11-22T06:31:06.000+01:00","start":"2026-11-22T06:31:06.000+01:00","road":"M-21","dir":"positive","pk":[4.611],"a":[40.44239,-3.54885],"geo":{"autonomousCommunity":"Madrid, Comunidad de","municipality":"Madrid","province":"Madrid"}}
+{"t":"2026-11-22T05:38:24Z","ev":"open","id":"30276540","sit":"25844754","ver":"1","kind":"GenericSituationRecord","types":["vehicleObstruction","vehicleStuck"],"status":"active","created":"2026-11-22T06:31:21.000+01:00","start":"2026-11-22T06:31:21.000+01:00","road":"A-474","dir":"positive","pk":[24.469],"a":[37.30154,-6.25787],"geo":{"autonomousCommunity":"Andalucía","municipality":"Aznalcázar","province":"Sevilla"}}
+{"t":"2026-11-22T05:38:24Z","ev":"open","id":"30276541","sit":"25844755","ver":"1","kind":"GenericSituationRecord","types":["vehicleObstruction","vehicleStuck"],"status":"active","created":"2026-11-22T06:31:28.000+01:00","start":"2026-11-22T06:31:28.000+01:00","road":"CV-611","dir":"positive","pk":[2.153],"a":[38.951874,-0.439653],"geo":{"autonomousCommunity":"Comunitat Valenciana","municipality":"Benigànim","province":"València/Valencia"}}
+{"t":"2026-11-22T05:38:24Z","ev":"open","id":"30276542","sit":"25844756","ver":"1","kind":"GenericSituationRecord","types":["vehicleObstruction","vehicleStuck"],"status":"active","created":"2026-11-22T06:31:31.000+01:00","start":"2026-11-22T06:31:31.000+01:00","road":"C-32","dir":"negative","pk":[117.014],"a":[41.603867,2.604255],"geo":{"autonomousCommunity":"Cataluña","municipality":"Sant Pol de Mar","province":"Barcelona"}}
+{"t":"2026-11-22T05:38:24Z","ev":"open","id":"30276554","sit":"25844766","ver":"1","kind":"GenericSituationRecord","types":["vehicleObstruction","vehicleStuck"],"status":"active","created":"2026-11-22T06:33:35.000+01:00","start":"2026-11-22T06:33:35.000+01:00","road":"AP-7","dir":"negative","pk":[638.359],"a":[38.619484,-0.052877],"geo":{"autonomousCommunity":"Comunitat Valenciana","municipality":"Altea","province":"Alacant/Alicante"}}
+{"t":"2026-11-22T05:38:24Z","ev":"open","id":"30276555","sit":"25844767","ver":"1","kind":"GenericSituationRecord","types":["vehicleObstruction","vehicleStuck"],"status":"active","created":"2026-11-22T06:33:59.000+01:00","start":"2026-11-22T06:33:59.000+01:00","road":"P-240","dir":"positive","pk":[18.163],"a":[42.47766,-4.692954],"geo":{"autonomousCommunity":"Castilla y León","municipality":"Quintanilla de Onsoña","province":"Palencia"}}
+{"t":"2026-11-22T05:38:24Z","ev":"open","id":"30276556","sit":"25844768","ver":"1","kind":"GenericSituationRecord","types":["vehicleObstruction","vehicleStuck"],"status":"active","created":"2026-11-22T06:34:07.000+01:00","start":"2026-11-22T06:34:07.000+01:00","road":"A-7","dir":"positive","pk":[607.14],"a":[37.78697,-1.43946],"geo":{"autonomousCommunity":"Murcia, Región de","municipality":"Alhama de Murcia","province":"Murcia"}}
+{"t":"2026-11-22T05:38:24Z","ev":"open","id":"30276558","sit":"25844770","ver":"1","kind":"GenericSituationRecord","types":["vehicleObstruction","vehicleStuck"],"status":"active","created":"2026-11-22T06:34:30.000+01:00","start":"2026-11-22T06:34:30.000+01:00","road":"C-58","dir":"negative","pk":[10.159],"a":[41.508224,2.106166],"geo":{"autonomousCommunity":"Cataluña","municipality":"Badia del Vallès","province":"Barcelona"}}
+{"t":"2026-11-22T05:38:24Z","ev":"open","id":"30276560","sit":"25844772","ver":"1","kind":"GenericSituationRecord","types":["vehicleObstruction","vehicleStuck"],"status":"active","created":"2026-11-22T06:35:50.000+01:00","start":"2026-11-22T06:35:50.000+01:00","road":"TF-351","dir":"positive","pk":[4.126],"a":[28.380342,-16.641218],"geo":{"autonomousCommunity":"Canarias","municipality":"San Juan de la Rambla","province":"Santa Cruz de Tenerife"}}
+{"t":"2026-11-22T05:38:24Z","ev":"open","id":"30276567","sit":"25844775","ver":"1","kind":"GenericSituationRecord","types":["vehicleObstruction","vehicleStuck"],"status":"active","created":"2026-11-22T06:36:48.000+01:00","start":"2026-11-22T06:36:48.000+01:00","road":"A-5","dir":"negative","pk":[5.045],"a":[40.40395,-3.75455],"geo":{"autonomousCommunity":"Madrid, Comunidad de","municipality":"Madrid","province":"Madrid"}}
+{"t":"2026-11-22T05:38:24Z","ev":"close","id":"30274717"}
+{"t":"2026-11-22T05:38:24Z","ev":"close","id":"30276230"}
+{"t":"2026-11-22T05:38:24Z","ev":"close","id":"30276278"}
+{"t":"2026-11-22T05:38:24Z","ev":"close","id":"30276279"}
+{"t":"2026-11-22T05:38:24Z","ev":"close","id":"30276281"}
+{"t":"2026-11-22T05:38:24Z","ev":"close","id":"30276335"}
+{"t":"2026-11-22T05:38:24Z","ev":"close","id":"30276417"}
+{"t":"2026-11-22T05:38:24Z","ev":"close","id":"30276424"}
+{"t":"2026-11-22T05:38:24Z","ev":"close","id":"30276470"}
+{"t":"2026-11-22T05:38:24Z","ev":"close","id":"30276471"}
+{"t":"2026-11-22T05:38:24Z","ev":"close","id":"30276472"}
+{"t":"2026-11-22T05:38:24Z","ev":"close","id":"30276474"}
+{"t":"2026-11-22T05:38:24Z","ev":"close","id":"30276475"}
+{"t":"2026-11-22T05:38:24Z","ev":"close","id":"30276476"}
+{"t":"2026-11-22T05:38:24Z","ev":"close","id":"30276479"}
+{"t":"2026-11-22T05:38:24Z","ev":"close","id":"30276480"}
+{"t":"2026-11-22T05:38:24Z","ev":"close","id":"30276496"}
+{"t":"2026-11-22T05:38:24Z","ev":"close","id":"30276497"}
+{"t":"2026-11-22T05:38:24Z","ev":"close","id":"30276499"}
+{"t":"2026-11-22T05:38:24Z","ev":"close","id":"30276501"}
+{"t":"2026-11-22T05:38:24Z","ev":"close","id":"30276502"}
+{"t":"2026-11-22T05:38:24Z","ev":"close","id":"30276526"}
+{"t":"2026-11-22T05:38:24Z","ev":"close","id":"30276527"}
