@@ -9560,3 +9560,76 @@
 {"t":"2026-11-22T22:19:25Z","ev":"close","id":"61660.1"}
 {"t":"2026-11-22T22:19:25Z","ev":"close","id":"60072.1"}
 {"t":"2026-11-22T22:19:25Z","ev":"close","id":"60471.1"}
+{"t":"2026-11-22T22:28:51Z","ev":"open","id":"61538.1","ctrl":"61538","texts":["MAQUINAS EN / TRATAMIENTO / INVERNAL","MAQUINAS EN / TRATAMIENTO / INVERNAL"],"picts":["P50I","P18I"],"time":"2026-11-22T23:17:49.000+01:00"}
+{"t":"2026-11-22T22:28:51Z","ev":"change","id":"61728.1","ctrl":"61728","picts":["E46"],"time":"2026-11-22T23:24:46.000+01:00"}
+{"t":"2026-11-22T22:28:51Z","ev":"change","id":"61730.1","ctrl":"61730","picts":["E46"],"time":"2026-11-22T23:25:31.000+01:00"}
+{"t":"2026-11-22T22:28:51Z","ev":"change","id":"61731.1","ctrl":"61731","picts":["E46"],"time":"2026-11-22T23:25:35.000+01:00"}
+{"t":"2026-11-22T22:28:51Z","ev":"change","id":"61756.1","ctrl":"61756","texts":["M-40       3 min / PLANTIO    4 min / VILLALBA  18 min"],"picts":["XE90a"],"time":"2026-11-22T23:26:12.000+01:00"}
+{"t":"2026-11-22T22:28:51Z","ev":"change","id":"61774.1","ctrl":"61774","texts":["M-505      3 min / LAS ROZAS  5 min / VILLALBA  16 min"],"picts":["XE90a"],"time":"2026-11-22T23:26:12.000+01:00"}
+{"t":"2026-11-22T22:28:51Z","ev":"change","id":"61776.1","ctrl":"61776","texts":["M-505      3 min / LAS ROZAS  4 min / VILLALBA  15 min","TRAF. LENTO / HASTA / KM 14.2"],"picts":["XE90a","P31"],"time":"2026-11-22T23:25:15.000+01:00"}
+{"t":"2026-11-22T22:28:51Z","ev":"change","id":"160081.1","ctrl":"160081","texts":["VELOCIDADE / CONTROLADA / EN TRAMO","VELOCIDAD / CONTROLADA / EN TRAMO"],"picts":["E17","R301120I"],"time":"2026-11-22T23:21:03.000+01:00"}
+{"t":"2026-11-22T22:28:51Z","ev":"change","id":"61809.1","ctrl":"61809","texts":["GALAPAGAR  6 min / VILLALBA   8 min"],"picts":["XE90a"],"time":"2026-11-22T23:19:11.000+01:00"}
+{"t":"2026-11-22T22:28:51Z","ev":"change","id":"61994.1","ctrl":"61994","texts":["PLZ. OURENSE / AC-12  8 Min / AC-11  8 Min"],"picts":["XE90a"],"time":"2026-11-22T23:22:30.000+01:00"}
+{"t":"2026-11-22T22:28:51Z","ev":"change","id":"61995.1","ctrl":"61995","texts":["PLZ. OURENSE / AC-11  6 Min / AC-12  7 Min"],"picts":["XE90a"],"time":"2026-11-22T23:24:34.000+01:00"}
+{"t":"2026-11-22T22:28:51Z","ev":"change","id":"61997.1","ctrl":"61997","texts":["PLZ. OURENSE / AC-11  6 Min / AC-12  7 Min"],"picts":["XE90a"],"time":"2026-11-22T23:24:35.000+01:00"}
+{"t":"2026-11-22T22:28:51Z","ev":"change","id":"62011.1","ctrl":"62011","texts":["CAMPOMANES / N-630 1H:26M / AP-66 1H:08M"],"picts":["XE90a"],"time":"2026-11-22T23:24:44.000+01:00"}
+{"t":"2026-11-22T22:28:51Z","ev":"change","id":"62012.1","ctrl":"62012","texts":["CAMPOMANES / N-630 1H:15M / AP-66 57 Min"],"picts":["XE90a"],"time":"2026-11-22T23:24:37.000+01:00"}
+{"t":"2026-11-22T22:28:51Z","ev":"change","id":"62013.1","ctrl":"62013","texts":["CAMPOMANES / N-630 1H:18M / AP-66 56 Min"],"picts":["XE90a"],"time":"2026-11-22T23:24:44.000+01:00"}
+{"t":"2026-11-22T22:28:51Z","ev":"change","id":"62014.1","ctrl":"62014","texts":["CAMPOMANES / N-630 1H:14M / AP-66 52 Min"],"picts":["XE90a"],"time":"2026-11-22T23:24:44.000+01:00"}
+{"t":"2026-11-22T22:28:51Z","ev":"change","id":"62015.1","ctrl":"62015","texts":["CAMPOMANES / AP-66 51 Min / N-630 1H:11M"],"picts":["XE90a"],"time":"2026-11-22T23:24:38.000+01:00"}
+{"t":"2026-11-22T22:28:51Z","ev":"change","id":"62022.1","ctrl":"62022","texts":["FENE / AP-9F 17 Min"],"picts":["XE90a"],"time":"2026-11-22T23:18:32.000+01:00"}
+{"t":"2026-11-22T22:28:51Z","ev":"change","id":"62025.1","ctrl":"62025","texts":["PLZ. OURENSE / AC-11  7 Min / AC-12  9 Min"],"picts":["XE90a"],"time":"2026-11-22T23:22:30.000+01:00"}
+{"t":"2026-11-22T22:28:51Z","ev":"change","id":"62029.1","ctrl":"62029","texts":["FENE / N-651 22 Min / AP-9F 10 Min"],"picts":["XE90a"],"time":"2026-11-22T23:22:29.000+01:00"}
+{"t":"2026-11-22T22:28:51Z","ev":"change","id":"62031.1","ctrl":"62031","texts":["A CORUÑA / N-651 47 Min / AP-9F 26 Min"],"picts":["XE90a"],"time":"2026-11-22T23:18:31.000+01:00"}
+{"t":"2026-11-22T22:28:51Z","ev":"change","id":"62034.1","ctrl":"62034","texts":["A CORUÑA / AP-9F 14 Min / N-651 31 Min"],"picts":["XE90a"],"time":"2026-11-22T23:20:36.000+01:00"}
+{"t":"2026-11-22T22:28:51Z","ev":"change","id":"62036.1","ctrl":"62036","texts":["A CORUÑA / AP-9F 26 Min / N-651 47 Min"],"picts":["XE90a"],"time":"2026-11-22T23:18:37.000+01:00"}
+{"t":"2026-11-22T22:28:51Z","ev":"change","id":"62037.1","ctrl":"62037","texts":["A CORUÑA / AP-9F 19 Min / N-651 38 Min"],"picts":["XE90a"],"time":"2026-11-22T23:24:33.000+01:00"}
+{"t":"2026-11-22T22:28:51Z","ev":"change","id":"62039.1","ctrl":"62039","texts":["A CORUÑA / AP-9F 26 Min / N-651 46 Min"],"picts":["XE90a"],"time":"2026-11-22T23:18:31.000+01:00"}
+{"t":"2026-11-22T22:28:51Z","ev":"change","id":"62085.1","ctrl":"62085","texts":["CADIZ AP4 29 Min / CADIZ  N4 39 Min"],"picts":["XE90a"],"time":"2026-11-22T23:20:39.000+01:00"}
+{"t":"2026-11-22T22:28:51Z","ev":"change","id":"62098.1","ctrl":"62098","texts":["PEINADOR  6m / PORTUGAL 19m"],"picts":["XE90a"],"time":"2026-11-22T23:24:35.000+01:00"}
+{"t":"2026-11-22T22:28:51Z","ev":"change","id":"62152.1","ctrl":"62152","texts":["@H / @F","@H / @F"],"picts":["NEGRO"],"time":"2026-11-22T23:20:45.000+01:00"}
+{"t":"2026-11-22T22:28:51Z","ev":"change","id":"62153.1","ctrl":"62153","texts":["FRANCIA / CADENAS EN / MALETERO","O NEUMATICOS / DE INVIERNO"],"picts":["S118"],"time":"2026-11-22T23:20:51.000+01:00"}
+{"t":"2026-11-22T22:28:51Z","ev":"change","id":"62154.1","ctrl":"62154","texts":["@H / @F","@H / @F"],"picts":["NEGRO"],"time":"2026-11-22T23:21:07.000+01:00"}
+{"t":"2026-11-22T22:28:51Z","ev":"change","id":"62172.1","ctrl":"62172","texts":["SEV.  N4 59 Min / SEV. AP4 46 Min"],"picts":["XE90a"],"time":"2026-11-22T23:20:36.000+01:00"}
+{"t":"2026-11-22T22:28:51Z","ev":"change","id":"62182.1","ctrl":"62182","texts":["SEV.  AP4 50 Min / SEV.  N-4 1H:03M"],"picts":["XE90a"],"time":"2026-11-22T23:20:36.000+01:00"}
+{"t":"2026-11-22T22:28:51Z","ev":"change","id":"62207.1","ctrl":"62207","texts":["EN H-31 A 3 KM / CNTROL VELOCIDAD / POR RADAR","PTE. ODIEL  9 Min / PORTUGAL 25 Min"],"picts":["R301100","XE90a"],"time":"2026-11-22T23:24:38.000+01:00"}
+{"t":"2026-11-22T22:28:51Z","ev":"change","id":"172882.1","ctrl":"172882","texts":["M-505      5 min / VILLALBA  17 min"],"time":"2026-11-22T23:26:12.000+01:00"}
+{"t":"2026-11-22T22:28:51Z","ev":"change","id":"62290.1","ctrl":"62290","texts":["A 500 M / FIN / AUTOVIA"],"picts":["S2"],"time":"2026-11-22T23:20:36.000+01:00"}
+{"t":"2026-11-22T22:28:51Z","ev":"change","id":"62300.1","ctrl":"62300","texts":["LEON SUR / AP-66 1H:12M / N-630 1H:31M"],"picts":["XE90a"],"time":"2026-11-22T23:24:43.000+01:00"}
+{"t":"2026-11-22T22:28:51Z","ev":"change","id":"62302.1","ctrl":"62302","texts":["LEON SUR / AP-66 1H:10M / N-630 1H:29M"],"picts":["XE90a"],"time":"2026-11-22T23:24:45.000+01:00"}
+{"t":"2026-11-22T22:28:51Z","ev":"change","id":"62335.1","ctrl":"62335","texts":["CAMPOMANES / AP-66 1H:31M / N-630 1H:36M"],"picts":["XE90a"],"time":"2026-11-22T23:24:42.000+01:00"}
+{"t":"2026-11-22T22:28:51Z","ev":"open","id":"62473.1","ctrl":"62473","texts":["MAQUINAS EN / TRATAMIENTO / INVERNAL"],"picts":["P50","P18"],"time":"2026-11-22T23:17:47.000+01:00"}
+{"t":"2026-11-22T22:28:51Z","ev":"open","id":"62474.1","ctrl":"62474","texts":["MAQUINAS EN / TRATAMIENTO / INVERNAL"],"picts":["P50","P18"],"time":"2026-11-22T23:17:47.000+01:00"}
+{"t":"2026-11-22T22:28:51Z","ev":"open","id":"62475.1","ctrl":"62475","texts":["MAQUINAS EN / TRATAMIENTO / INVERNAL"],"picts":["P50","P18"],"time":"2026-11-22T23:17:47.000+01:00"}
+{"t":"2026-11-22T22:28:51Z","ev":"open","id":"62477.1","ctrl":"62477","texts":["MAQUINAS EN / TRATAMIENTO / INVERNAL"],"picts":["P50","P18"],"time":"2026-11-22T23:17:48.000+01:00"}
+{"t":"2026-11-22T22:28:51Z","ev":"open","id":"62478.1","ctrl":"62478","texts":["MAQUINAS EN / TRATAMIENTO / INVERNAL"],"picts":["P50","P18"],"time":"2026-11-22T23:17:48.000+01:00"}
+{"t":"2026-11-22T22:28:51Z","ev":"open","id":"62485.1","ctrl":"62485","texts":["MAQUINAS EN / TRATAMIENTO / INVERNAL"],"picts":["P50","P18"],"time":"2026-11-22T23:17:48.000+01:00"}
+{"t":"2026-11-22T22:28:51Z","ev":"change","id":"165099.1","ctrl":"165099","texts":["PEINADOR  8 Min / PORTUGAL 22 Min"],"picts":["XE90a"],"time":"2026-11-22T23:24:37.000+01:00"}
+{"t":"2026-11-22T22:28:51Z","ev":"change","id":"60073.1","ctrl":"60073","texts":["VELOCIDAD / CONTROLADA / POR RADAR","VELOCITAT / CONTROLADA / PER RADAR"],"picts":["R301120I","E17"],"time":"2026-11-22T23:22:39.000+01:00"}
+{"t":"2026-11-22T22:28:51Z","ev":"open","id":"60082.1","ctrl":"60082","texts":["-> ALBACETE / A 12 KM / V. AVERIADO"],"picts":["P32I","S52"],"time":"2026-11-22T23:21:13.000+01:00"}
+{"t":"2026-11-22T22:28:51Z","ev":"open","id":"60144.1","ctrl":"60144","texts":["-> ALBACETE / A 12 KM / V. AVERIADO"],"picts":["P32I","S52"],"time":"2026-11-22T23:21:27.000+01:00"}
+{"t":"2026-11-22T22:28:51Z","ev":"open","id":"60149.1","ctrl":"60149","texts":["MAQUINAS EN / TRATAMIENTO / INVERNAL"],"picts":["P50I","P18I"],"time":"2026-11-22T23:17:48.000+01:00"}
+{"t":"2026-11-22T22:28:51Z","ev":"open","id":"60248.1","ctrl":"60248","texts":["MAQUINAS EN / TRATAMIENTO / INVERNAL"],"picts":["P50","P18"],"time":"2026-11-22T23:17:47.000+01:00"}
+{"t":"2026-11-22T22:28:51Z","ev":"open","id":"60249.1","ctrl":"60249","texts":["MAQUINAS EN / TRATAMIENTO / INVERNAL"],"picts":["P50","P18"],"time":"2026-11-22T23:17:48.000+01:00"}
+{"t":"2026-11-22T22:28:51Z","ev":"open","id":"60250.1","ctrl":"60250","texts":["MAQUINAS EN / TRATAMIENTO / INVERNAL","MAQUINAS EN / TRATAMIENTO / INVERNAL"],"picts":["P50I","P18I"],"time":"2026-11-22T23:17:49.000+01:00"}
+{"t":"2026-11-22T22:28:51Z","ev":"open","id":"60251.1","ctrl":"60251","texts":["MAQUINAS EN / TRATAMIENTO / INVERNAL"],"picts":["P50I","P18I"],"time":"2026-11-22T23:17:48.000+01:00"}
+{"t":"2026-11-22T22:28:51Z","ev":"open","id":"60253.1","ctrl":"60253","texts":["MAQUINAS EN / TRATAMIENTO / INVERNAL"],"picts":["P50I","P18I"],"time":"2026-11-22T23:17:48.000+01:00"}
+{"t":"2026-11-22T22:28:51Z","ev":"open","id":"60256.1","ctrl":"60256","texts":["MAQUINAS EN / TRATAMIENTO / INVERNAL"],"picts":["P50I","P18I"],"time":"2026-11-22T23:17:48.000+01:00"}
+{"t":"2026-11-22T22:28:51Z","ev":"open","id":"60257.1","ctrl":"60257","texts":["MAQUINAS EN / TRATAMIENTO / INVERNAL"],"picts":["P50","NEGRO"],"time":"2026-11-22T23:17:49.000+01:00"}
+{"t":"2026-11-22T22:28:51Z","ev":"open","id":"60258.1","ctrl":"60258","texts":["MAQUINAS EN / TRATAMIENTO / INVERNAL"],"picts":["P50"],"time":"2026-11-22T23:17:49.000+01:00"}
+{"t":"2026-11-22T22:28:51Z","ev":"open","id":"60260.1","ctrl":"60260","texts":["MAQUINAS EN / TRATAMIENTO / INVERNAL","MAQUINAS EN / TRATAMIENTO / INVERNAL"],"picts":["P50I","P18I"],"time":"2026-11-22T23:17:49.000+01:00"}
+{"t":"2026-11-22T22:28:51Z","ev":"open","id":"60261.1","ctrl":"60261","texts":["MAQUINAS EN / TRATAMIENTO / INVERNAL","MAQUINAS EN / TRATAMIENTO / INVERNAL"],"picts":["P50I","P18I"],"time":"2026-11-22T23:17:49.000+01:00"}
+{"t":"2026-11-22T22:28:51Z","ev":"open","id":"60263.1","ctrl":"60263","texts":["MAQUINAS EN / TRATAMIENTO / INVERNAL"],"picts":["P50I","P18I"],"time":"2026-11-22T23:17:48.000+01:00"}
+{"t":"2026-11-22T22:28:51Z","ev":"open","id":"60264.1","ctrl":"60264","texts":["MAQUINAS EN / TRATAMIENTO / INVERNAL","MAQUINAS EN / TRATAMIENTO / INVERNAL"],"picts":["P50I","P18I"],"time":"2026-11-22T23:17:49.000+01:00"}
+{"t":"2026-11-22T22:28:51Z","ev":"open","id":"60294.1","ctrl":"60294","texts":["A 2 KM / VEHICULO / AVERIADO"],"picts":["P32I","S118"],"time":"2026-11-22T23:20:36.000+01:00"}
+{"t":"2026-11-22T22:28:51Z","ev":"change","id":"60364.1","ctrl":"60364","texts":["CAMPOMANES / AP-66 58 Min / N-630 1H:21M"],"picts":["XE90a"],"time":"2026-11-22T23:20:38.000+01:00"}
+{"t":"2026-11-22T22:28:51Z","ev":"change","id":"60366.1","ctrl":"60366","texts":["CAMPOMANES / AP-66 1H:13M / N-630 1H:19M"],"picts":["XE90a"],"time":"2026-11-22T23:24:41.000+01:00"}
+{"t":"2026-11-22T22:28:51Z","ev":"change","id":"60461.1","ctrl":"60461","texts":["HUELVA    38 Min / MATLASCA. 45 Min"],"picts":["XE90a"],"time":"2026-11-22T23:24:37.000+01:00"}
+{"t":"2026-11-22T22:28:51Z","ev":"change","id":"60483.1","ctrl":"60483","texts":["VEHICULO 20 T / HUELVA-MERIDA / POR SALIDA 549","CADIZ AP4 58 Min / CADIZ  N4 1H:18M"],"picts":["R406","XE90a"],"time":"2026-11-22T23:24:33.000+01:00"}
+{"t":"2026-11-22T22:28:51Z","ev":"change","id":"60487.1","ctrl":"60487","texts":["CADIZ AP4 53 Min / CADIZ  N4 1H:12M"],"picts":["XE90a"],"time":"2026-11-22T23:22:29.000+01:00"}
+{"t":"2026-11-22T22:28:51Z","ev":"change","id":"60657.1","ctrl":"60657","texts":["SEVILLA POR / AP-4  43 Min / N-4   1H:04M"],"picts":["XE90a"],"time":"2026-11-22T23:20:38.000+01:00"}
+{"t":"2026-11-22T22:28:51Z","ev":"change","id":"60692.1","ctrl":"60692","texts":["PLZ. OURENSE / AC-12  9 Min / AC-11  9 Min"],"picts":["XE90a"],"time":"2026-11-22T23:22:29.000+01:00"}
+{"t":"2026-11-22T22:28:51Z","ev":"change","id":"60699.1","ctrl":"60699","texts":["A CORUÑA / AP-9F 22 Min / N-651 43 Min"],"picts":["XE90a"],"time":"2026-11-22T23:18:33.000+01:00"}
+{"t":"2026-11-22T22:28:51Z","ev":"change","id":"60829.1","ctrl":"60829","texts":["EN PUENTE / CENTENARIO"],"picts":["XR10720t","P18"],"time":"2026-11-22T23:24:33.000+01:00"}
+{"t":"2026-11-22T22:28:51Z","ev":"change","id":"179982.1","ctrl":"179982","texts":["CONTROL / MOVIL / DE VELOCIDAD","CONTROL / MOBIL DE / VELOCIDADE"],"picts":["E17"],"time":"2026-11-22T23:25:51.000+01:00"}
+{"t":"2026-11-22T22:28:51Z","ev":"change","id":"61307.1","ctrl":"61307","texts":["MANTENGA / DISTANCIA DE / SEGURIDAD"],"picts":["0"],"time":"2026-11-22T23:25:03.000+01:00"}
