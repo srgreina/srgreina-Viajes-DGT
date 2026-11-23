@@ -435,3 +435,20 @@
 {"t":"2026-11-23T02:35:08Z","ev":"close","id":"30296117"}
 {"t":"2026-11-23T02:35:08Z","ev":"close","id":"30296219"}
 {"t":"2026-11-23T02:35:08Z","ev":"close","id":"30296220"}
+{"t":"2026-11-23T02:44:38Z","ev":"open","id":"30296240","sit":"25864106","ver":"1","kind":"GenericSituationRecord","types":["vehicleObstruction","vehicleStuck"],"status":"active","created":"2026-11-23T03:34:37.000+01:00","start":"2026-11-23T03:34:37.000+01:00","road":"M-408","dir":"negative","pk":[2.451],"a":[40.24031,-3.74873],"geo":{"autonomousCommunity":"Madrid, Comunidad de","municipality":"Parla","province":"Madrid"}}
+{"t":"2026-11-23T02:44:38Z","ev":"open","id":"30296248","sit":"25864114","ver":"1","kind":"GenericSituationRecord","types":["vehicleObstruction","vehicleStuck"],"status":"active","created":"2026-11-23T03:39:40.000+01:00","start":"2026-11-23T03:39:40.000+01:00","road":"N-623","dir":"positive","pk":[130.11],"a":[43.33243,-3.971648],"geo":{"autonomousCommunity":"Cantabria","municipality":"Puente Viesgo","province":"Cantabria"}}
+{"t":"2026-11-23T02:44:38Z","ev":"open","id":"30296250","sit":"25864116","ver":"1","kind":"GenericSituationRecord","types":["vehicleObstruction","vehicleStuck"],"status":"active","created":"2026-11-23T03:40:39.000+01:00","start":"2026-11-23T03:40:39.000+01:00","road":"M-506","dir":"positive","pk":[28.255],"a":[40.23116,-3.68756],"geo":{"autonomousCommunity":"Madrid, Comunidad de","municipality":"Pinto","province":"Madrid"}}
+{"t":"2026-11-23T02:44:38Z","ev":"open","id":"30296251","sit":"25864117","ver":"1","kind":"GenericSituationRecord","types":["vehicleObstruction","vehicleStuck"],"status":"active","created":"2026-11-23T03:41:19.000+01:00","start":"2026-11-23T03:41:19.000+01:00","road":"M-841","dir":"negative","pk":[0.03],"a":[40.2446,-3.68798],"geo":{"autonomousCommunity":"Madrid, Comunidad de","municipality":"Pinto","province":"Madrid"}}
+{"t":"2026-11-23T02:44:38Z","ev":"open","id":"30296252","sit":"25864118","ver":"1","kind":"GenericSituationRecord","types":["vehicleObstruction","vehicleStuck"],"status":"active","created":"2026-11-23T03:41:44.000+01:00","start":"2026-11-23T03:41:44.000+01:00","road":"TF-342","dir":"positive","pk":[12.691],"a":[28.37442,-16.65133],"geo":{"autonomousCommunity":"Canarias","municipality":"La Guancha","province":"Santa Cruz de Tenerife"}}
+{"t":"2026-11-23T02:44:38Z","ev":"open","id":"30296253","sit":"25864119","ver":"1","kind":"GenericSituationRecord","types":["vehicleObstruction","vehicleStuck"],"status":"active","created":"2026-11-23T03:41:55.000+01:00","start":"2026-11-23T03:41:55.000+01:00","road":"CM-42","dir":"negative","pk":[95.126],"a":[39.35552,-3.187476],"geo":{"autonomousCommunity":"Castilla - La Mancha","municipality":"Alcázar de San Juan","province":"Ciudad Real"}}
+{"t":"2026-11-23T02:44:38Z","ev":"open","id":"30296254","sit":"25864120","ver":"1","kind":"GenericSituationRecord","types":["vehicleObstruction","vehicleStuck"],"status":"active","created":"2026-11-23T03:42:58.000+01:00","start":"2026-11-23T03:42:58.000+01:00","road":"A-1","dir":"negative","pk":[46.672],"a":[40.764423,-3.603963],"geo":{"autonomousCommunity":"Madrid, Comunidad de","municipality":"Pedrezuela","province":"Madrid"}}
+{"t":"2026-11-23T02:44:38Z","ev":"close","id":"30275945"}
+{"t":"2026-11-23T02:44:38Z","ev":"close","id":"30294649"}
+{"t":"2026-11-23T02:44:38Z","ev":"close","id":"30296130"}
+{"t":"2026-11-23T02:44:38Z","ev":"close","id":"30296214"}
+{"t":"2026-11-23T02:44:38Z","ev":"close","id":"30296215"}
+{"t":"2026-11-23T02:44:38Z","ev":"close","id":"30296217"}
+{"t":"2026-11-23T02:44:38Z","ev":"close","id":"30296229"}
+{"t":"2026-11-23T02:44:38Z","ev":"close","id":"30296233"}
+{"t":"2026-11-23T02:44:38Z","ev":"close","id":"30296236"}
+{"t":"2026-11-23T02:44:38Z","ev":"close","id":"30296237"}
