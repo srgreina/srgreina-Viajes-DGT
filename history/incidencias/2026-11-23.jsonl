@@ -348,3 +348,16 @@
 {"t":"2026-11-23T01:38:26Z","ev":"close","id":"30295942"}
 {"t":"2026-11-23T01:38:26Z","ev":"close","id":"30296073"}
 {"t":"2026-11-23T01:38:26Z","ev":"close","id":"30296108"}
+{"t":"2026-11-23T01:47:52Z","ev":"open","id":"30296148","sit":"25864016","ver":"1","kind":"GenericSituationRecord","types":["vehicleObstruction","vehicleStuck"],"status":"active","created":"2026-11-23T02:40:51.000+01:00","start":"2026-11-23T02:40:51.000+01:00","road":"CL-505","dir":"positive","pk":[12.823],"a":[40.6097,-4.55898],"geo":{"autonomousCommunity":"Castilla y León","municipality":"Herradón de Pinares","province":"Ávila"}}
+{"t":"2026-11-23T01:47:52Z","ev":"open","id":"30296150","sit":"25864018","ver":"1","kind":"GenericSituationRecord","types":["vehicleObstruction","vehicleStuck"],"status":"active","created":"2026-11-23T02:42:59.000+01:00","start":"2026-11-23T02:42:59.000+01:00","road":"V-30","dir":"positive","pk":[3.741],"a":[39.43694,-0.37496],"geo":{"autonomousCommunity":"Comunitat Valenciana","municipality":"València","province":"València/Valencia"}}
+{"t":"2026-11-23T01:47:52Z","ev":"open","id":"30296152","sit":"25864020","ver":"1","kind":"GenericSituationRecord","types":["vehicleObstruction","vehicleStuck"],"status":"active","created":"2026-11-23T02:44:39.000+01:00","start":"2026-11-23T02:44:39.000+01:00","road":"R-3","dir":"positive","pk":[10.86],"a":[40.39534,-3.508185],"geo":{"autonomousCommunity":"Madrid, Comunidad de","municipality":"Mejorada del Campo","province":"Madrid"}}
+{"t":"2026-11-23T01:47:52Z","ev":"open","id":"30296155","sit":"25864023","ver":"1","kind":"GenericSituationRecord","types":["vehicleObstruction","vehicleStuck"],"status":"active","created":"2026-11-23T02:45:36.000+01:00","start":"2026-11-23T02:45:36.000+01:00","road":"PO-403","dir":"positive","pk":[10.683],"a":[42.172245,-8.508182],"geo":{"autonomousCommunity":"Galicia","municipality":"Ponteareas","province":"Pontevedra"}}
+{"t":"2026-11-23T01:47:52Z","ev":"close","id":"30295978"}
+{"t":"2026-11-23T01:47:52Z","ev":"close","id":"30295986"}
+{"t":"2026-11-23T01:47:52Z","ev":"close","id":"30295987"}
+{"t":"2026-11-23T01:47:52Z","ev":"close","id":"30295988"}
+{"t":"2026-11-23T01:47:52Z","ev":"close","id":"30295997"}
+{"t":"2026-11-23T01:47:52Z","ev":"close","id":"30296116"}
+{"t":"2026-11-23T01:47:52Z","ev":"close","id":"30296118"}
+{"t":"2026-11-23T01:47:52Z","ev":"close","id":"30296126"}
+{"t":"2026-11-23T01:47:52Z","ev":"close","id":"30296129"}
