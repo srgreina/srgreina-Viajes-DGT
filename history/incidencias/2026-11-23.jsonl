@@ -393,3 +393,13 @@
 {"t":"2026-11-23T02:06:44Z","ev":"close","id":"30296150"}
 {"t":"2026-11-23T02:06:44Z","ev":"close","id":"30296161"}
 {"t":"2026-11-23T02:06:44Z","ev":"close","id":"30296166"}
+{"t":"2026-11-23T02:16:07Z","ev":"open","id":"30296196","sit":"25864063","ver":"1","kind":"GenericSituationRecord","types":["vehicleObstruction","vehicleStuck"],"status":"active","created":"2026-11-23T03:09:38.000+01:00","start":"2026-11-23T03:09:38.000+01:00","road":"M-131","dir":"positive","pk":[0.993],"a":[40.82371,-3.53834],"geo":{"autonomousCommunity":"Madrid, Comunidad de","municipality":"Torrelaguna","province":"Madrid"}}
+{"t":"2026-11-23T02:16:07Z","ev":"open","id":"30296202","sit":"25864069","ver":"1","kind":"GenericSituationRecord","types":["vehicleObstruction","vehicleStuck"],"status":"active","created":"2026-11-23T03:12:46.000+01:00","start":"2026-11-23T03:12:46.000+01:00","road":"PO-340","dir":"negative","pk":[21.313],"a":[42.115116,-8.810618],"geo":{"autonomousCommunity":"Galicia","municipality":"Nigrán","province":"Pontevedra"}}
+{"t":"2026-11-23T02:16:07Z","ev":"open","id":"30296203","sit":"25864070","ver":"1","kind":"GenericSituationRecord","types":["vehicleObstruction","vehicleStuck"],"status":"active","created":"2026-11-23T03:14:05.000+01:00","start":"2026-11-23T03:14:05.000+01:00","road":"A-73","dir":"positive","pk":[55.58],"a":[42.7309,-4.072793],"geo":{"autonomousCommunity":"Castilla y León","municipality":"Valle de Valdelucio","province":"Burgos"}}
+{"t":"2026-11-23T02:16:07Z","ev":"close","id":"30292289"}
+{"t":"2026-11-23T02:16:07Z","ev":"close","id":"30294364"}
+{"t":"2026-11-23T02:16:07Z","ev":"close","id":"30296088"}
+{"t":"2026-11-23T02:16:07Z","ev":"close","id":"30296090"}
+{"t":"2026-11-23T02:16:07Z","ev":"close","id":"30296152"}
+{"t":"2026-11-23T02:16:07Z","ev":"close","id":"30296162"}
+{"t":"2026-11-23T02:16:07Z","ev":"close","id":"30296188"}
