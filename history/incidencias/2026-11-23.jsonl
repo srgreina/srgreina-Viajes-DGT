@@ -378,3 +378,18 @@
 {"t":"2026-11-23T01:57:20Z","ev":"close","id":"30296106"}
 {"t":"2026-11-23T01:57:20Z","ev":"close","id":"30296143"}
 {"t":"2026-11-23T01:57:20Z","ev":"close","id":"30296148"}
+{"t":"2026-11-23T02:06:44Z","ev":"open","id":"30296175","sit":"25864042","ver":"1","kind":"GenericSituationRecord","types":["vehicleObstruction","vehicleStuck"],"status":"active","created":"2026-11-23T02:57:17.000+01:00","start":"2026-11-23T02:57:17.000+01:00","road":"V-30","dir":"positive","pk":[10.332],"a":[39.47813,-0.42701],"geo":{"autonomousCommunity":"Comunitat Valenciana","municipality":"Quart de Poblet","province":"València/Valencia"}}
+{"t":"2026-11-23T02:06:44Z","ev":"open","id":"30296165","sit":"25863448","ver":"8","kind":"RoadOrCarriagewayOrLaneManagement","types":["roadMaintenance","roadworks","laneClosures"],"status":"active","created":"2026-11-23T03:00:02.000+01:00","start":"2026-11-23T03:00:00.000+01:00","end":"2026-11-23T15:00:00.000+01:00","road":"AP-66","dir":"positive","lanes":"leftLane","pk":[77.5,81.0],"a":[43.01714,-5.815784],"b":[42.987362,-5.820748],"geo":{"autonomousCommunity":"Asturias, Principado de","municipality":"Lena","province":"Asturias"}}
+{"t":"2026-11-23T02:06:44Z","ev":"open","id":"30296181","sit":"25864048","ver":"1","kind":"GenericSituationRecord","types":["vehicleObstruction","vehicleStuck"],"status":"active","created":"2026-11-23T03:00:21.000+01:00","start":"2026-11-23T03:00:21.000+01:00","road":"CL-505","dir":"positive","pk":[10.632],"a":[40.61338,-4.58359],"geo":{"autonomousCommunity":"Castilla y León","municipality":"Tornadizos de Ávila","province":"Ávila"}}
+{"t":"2026-11-23T02:06:44Z","ev":"open","id":"30296187","sit":"25864054","ver":"1","kind":"GenericSituationRecord","types":["vehicleObstruction","vehicleStuck"],"status":"active","created":"2026-11-23T03:05:03.000+01:00","start":"2026-11-23T03:05:03.000+01:00","road":"A-7","dir":"positive","pk":[424.735],"a":[38.821796,-0.511651],"geo":{"autonomousCommunity":"Comunitat Valenciana","municipality":"Albaida","province":"València/Valencia"}}
+{"t":"2026-11-23T02:06:44Z","ev":"open","id":"30296188","sit":"25864055","ver":"1","kind":"GenericSituationRecord","types":["vehicleObstruction","vehicleStuck"],"status":"active","created":"2026-11-23T03:05:54.000+01:00","start":"2026-11-23T03:05:54.000+01:00","road":"N-627","dir":"negative","pk":[47.229],"a":[42.67594,-3.940029],"geo":{"autonomousCommunity":"Castilla y León","municipality":"Basconcillos del Tozo","province":"Burgos"}}
+{"t":"2026-11-23T02:06:44Z","ev":"close","id":"30193055"}
+{"t":"2026-11-23T02:06:44Z","ev":"close","id":"30193054"}
+{"t":"2026-11-23T02:06:44Z","ev":"close","id":"30275742"}
+{"t":"2026-11-23T02:06:44Z","ev":"close","id":"30296045"}
+{"t":"2026-11-23T02:06:44Z","ev":"close","id":"30296046"}
+{"t":"2026-11-23T02:06:44Z","ev":"close","id":"30296052"}
+{"t":"2026-11-23T02:06:44Z","ev":"close","id":"30296137"}
+{"t":"2026-11-23T02:06:44Z","ev":"close","id":"30296150"}
+{"t":"2026-11-23T02:06:44Z","ev":"close","id":"30296161"}
+{"t":"2026-11-23T02:06:44Z","ev":"close","id":"30296166"}
