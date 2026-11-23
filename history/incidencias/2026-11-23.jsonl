@@ -512,3 +512,19 @@
 {"t":"2026-11-23T03:12:53Z","ev":"close","id":"30296296"}
 {"t":"2026-11-23T03:12:53Z","ev":"close","id":"30296305"}
 {"t":"2026-11-23T03:12:53Z","ev":"close","id":"30296306"}
+{"t":"2026-11-23T03:22:23Z","ev":"open","id":"30296329","sit":"25864192","ver":"1","kind":"GenericSituationRecord","types":["vehicleObstruction","vehicleStuck"],"status":"active","created":"2026-11-23T04:12:46.000+01:00","start":"2026-11-23T04:12:46.000+01:00","road":"A-2","dir":"negative","pk":[13.807],"a":[40.44906,-3.55192],"geo":{"autonomousCommunity":"Madrid, Comunidad de","municipality":"Madrid","province":"Madrid"}}
+{"t":"2026-11-23T03:22:23Z","ev":"open","id":"30296335","sit":"25864197","ver":"1","kind":"GenericSituationRecord","types":["vehicleObstruction","vehicleStuck"],"status":"active","created":"2026-11-23T04:17:10.000+01:00","start":"2026-11-23T04:17:10.000+01:00","road":"M-40","dir":"negative","pk":[19.052],"a":[40.37041,-3.65456],"geo":{"autonomousCommunity":"Madrid, Comunidad de","municipality":"Madrid","province":"Madrid"}}
+{"t":"2026-11-23T03:22:23Z","ev":"open","id":"30296340","sit":"25864201","ver":"1","kind":"GenericSituationRecord","types":["vehicleObstruction","vehicleStuck"],"status":"active","created":"2026-11-23T04:19:34.000+01:00","start":"2026-11-23T04:19:34.000+01:00","road":"PO-403","dir":"positive","pk":[10.664],"a":[42.17205,-8.508192],"geo":{"autonomousCommunity":"Galicia","municipality":"Ponteareas","province":"Pontevedra"}}
+{"t":"2026-11-23T03:22:23Z","ev":"open","id":"30296334","sit":"25863450","ver":"10","kind":"RoadOrCarriagewayOrLaneManagement","types":["roadMaintenance","roadworks","laneClosures"],"status":"active","created":"2026-11-23T04:20:01.000+01:00","start":"2026-11-23T04:20:00.000+01:00","end":"2026-11-23T16:20:00.000+01:00","road":"AP-66","dir":"negative","lanes":"leftLane","pk":[102.8,99.3],"a":[42.83221,-5.874126],"b":[42.862476,-5.874368],"geo":{"autonomousCommunity":"Castilla y León","municipality":"Los Barrios de Luna","province":"León"}}
+{"t":"2026-11-23T03:22:23Z","ev":"open","id":"30296341","sit":"25864202","ver":"1","kind":"GenericSituationRecord","types":["vehicleObstruction","vehicleStuck"],"status":"active","created":"2026-11-23T04:20:34.000+01:00","start":"2026-11-23T04:20:34.000+01:00","road":"TF-47","dir":"positive","pk":[0.004],"a":[28.12742,-16.744587],"geo":{"autonomousCommunity":"Canarias","municipality":"Adeje","province":"Santa Cruz de Tenerife"}}
+{"t":"2026-11-23T03:22:23Z","ev":"open","id":"30296342","sit":"25864203","ver":"1","kind":"GenericSituationRecord","types":["vehicleObstruction","vehicleStuck"],"status":"active","created":"2026-11-23T04:21:03.000+01:00","start":"2026-11-23T04:21:03.000+01:00","road":"VS-A-6-D","dir":"positive","pk":[26.656],"a":[40.56104,-3.90297],"geo":{"autonomousCommunity":"Madrid, Comunidad de","municipality":"Las Rozas de Madrid","province":"Madrid"}}
+{"t":"2026-11-23T03:22:23Z","ev":"open","id":"30296343","sit":"25864204","ver":"1","kind":"GenericSituationRecord","types":["vehicleObstruction","vehicleStuck"],"status":"active","created":"2026-11-23T04:21:05.000+01:00","start":"2026-11-23T04:21:05.000+01:00","road":"A-1","dir":"negative","pk":[49.497],"a":[40.787216,-3.615832],"geo":{"autonomousCommunity":"Madrid, Comunidad de","municipality":"Venturada","province":"Madrid"}}
+{"t":"2026-11-23T03:22:23Z","ev":"close","id":"30296187"}
+{"t":"2026-11-23T03:22:23Z","ev":"close","id":"30296196"}
+{"t":"2026-11-23T03:22:23Z","ev":"close","id":"30296253"}
+{"t":"2026-11-23T03:22:23Z","ev":"close","id":"30296257"}
+{"t":"2026-11-23T03:22:23Z","ev":"close","id":"30296300"}
+{"t":"2026-11-23T03:22:23Z","ev":"close","id":"30296315"}
+{"t":"2026-11-23T03:22:23Z","ev":"close","id":"30296316"}
+{"t":"2026-11-23T03:22:23Z","ev":"close","id":"30296322"}
+{"t":"2026-11-23T03:22:23Z","ev":"close","id":"30296327"}
