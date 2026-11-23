@@ -559,3 +559,23 @@
 {"t":"2026-11-23T03:41:17Z","ev":"close","id":"30296349"}
 {"t":"2026-11-23T03:41:17Z","ev":"close","id":"30296350"}
 {"t":"2026-11-23T03:41:17Z","ev":"close","id":"30296357"}
+{"t":"2026-11-23T03:50:42Z","ev":"open","id":"30296371","sit":"25844298","ver":"8","kind":"RoadOrCarriagewayOrLaneManagement","types":["roadMaintenance","roadworks","laneClosures"],"status":"active","created":"2026-11-23T04:42:02.000+01:00","start":"2026-11-23T04:42:00.000+01:00","end":"2026-11-23T16:40:00.000+01:00","road":"A-45","dir":"negative","lanes":"leftLane","pk":[120.4,120.2],"a":[36.920254,-4.446604],"b":[36.92202,-4.447058],"geo":{"autonomousCommunity":"Andalucía","municipality":"Antequera","province":"Málaga"}}
+{"t":"2026-11-23T03:50:42Z","ev":"open","id":"30296394","sit":"25864244","ver":"1","kind":"GenericSituationRecord","types":["vehicleObstruction","vehicleStuck"],"status":"active","created":"2026-11-23T04:48:08.000+01:00","start":"2026-11-23T04:48:08.000+01:00","road":"AP-4","dir":"negative","pk":[52.744],"a":[36.91414,-5.969974],"geo":{"autonomousCommunity":"Andalucía","municipality":"Lebrija","province":"Sevilla"}}
+{"t":"2026-11-23T03:50:42Z","ev":"open","id":"30296395","sit":"25864245","ver":"1","kind":"GenericSituationRecord","types":["vehicleObstruction","vehicleStuck"],"status":"active","created":"2026-11-23T04:48:12.000+01:00","start":"2026-11-23T04:48:12.000+01:00","road":"CA-36","dir":"negative","pk":[3.625],"a":[36.50116,-6.25357],"geo":{"autonomousCommunity":"Andalucía","municipality":"Puerto Real","province":"Cádiz"}}
+{"t":"2026-11-23T03:50:42Z","ev":"open","id":"30296396","sit":"25864246","ver":"1","kind":"GenericSituationRecord","types":["vehicleObstruction","vehicleStuck"],"status":"active","created":"2026-11-23T04:48:41.000+01:00","start":"2026-11-23T04:48:41.000+01:00","road":"TF-342","dir":"positive","pk":[12.561],"a":[28.37409,-16.65012],"geo":{"autonomousCommunity":"Canarias","municipality":"La Guancha","province":"Santa Cruz de Tenerife"}}
+{"t":"2026-11-23T03:50:42Z","ev":"close","id":"30286546"}
+{"t":"2026-11-23T03:50:42Z","ev":"close","id":"30294621"}
+{"t":"2026-11-23T03:50:42Z","ev":"close","id":"30295180"}
+{"t":"2026-11-23T03:50:42Z","ev":"close","id":"30295588"}
+{"t":"2026-11-23T03:50:42Z","ev":"close","id":"30295812"}
+{"t":"2026-11-23T03:50:42Z","ev":"close","id":"30295813"}
+{"t":"2026-11-23T03:50:42Z","ev":"close","id":"30296122"}
+{"t":"2026-11-23T03:50:42Z","ev":"close","id":"30296135"}
+{"t":"2026-11-23T03:50:42Z","ev":"close","id":"30296136"}
+{"t":"2026-11-23T03:50:42Z","ev":"close","id":"30296172"}
+{"t":"2026-11-23T03:50:42Z","ev":"close","id":"30296248"}
+{"t":"2026-11-23T03:50:42Z","ev":"close","id":"30296252"}
+{"t":"2026-11-23T03:50:42Z","ev":"close","id":"30296351"}
+{"t":"2026-11-23T03:50:42Z","ev":"close","id":"30296367"}
+{"t":"2026-11-23T03:50:42Z","ev":"close","id":"30296368"}
+{"t":"2026-11-23T03:50:42Z","ev":"close","id":"30296374"}
