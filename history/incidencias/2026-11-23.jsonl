@@ -308,3 +308,27 @@
 {"t":"2026-11-23T01:19:32Z","ev":"close","id":"30296071"}
 {"t":"2026-11-23T01:19:32Z","ev":"close","id":"30296074"}
 {"t":"2026-11-23T01:19:32Z","ev":"close","id":"30296076"}
+{"t":"2026-11-23T01:29:02Z","ev":"open","id":"30296106","sit":"25863974","ver":"1","kind":"GenericSituationRecord","types":["vehicleObstruction","vehicleStuck"],"status":"active","created":"2026-11-23T02:22:29.000+01:00","start":"2026-11-23T02:22:29.000+01:00","road":"M-527","dir":"negative","pk":[2.342],"a":[40.65117,-4.074744],"geo":{"autonomousCommunity":"Madrid, Comunidad de","municipality":"Guadarrama","province":"Madrid"}}
+{"t":"2026-11-23T01:29:02Z","ev":"open","id":"30296108","sit":"25863976","ver":"1","kind":"GenericSituationRecord","types":["vehicleObstruction","vehicleStuck"],"status":"active","created":"2026-11-23T02:23:02.000+01:00","start":"2026-11-23T02:23:02.000+01:00","road":"A-2","dir":"negative","pk":[16.948],"a":[40.45166,-3.51613],"geo":{"autonomousCommunity":"Madrid, Comunidad de","municipality":"San Fernando de Henares","province":"Madrid"}}
+{"t":"2026-11-23T01:29:02Z","ev":"open","id":"30296109","sit":"25863977","ver":"1","kind":"GenericSituationRecord","types":["vehicleObstruction","vehicleStuck"],"status":"active","created":"2026-11-23T02:23:13.000+01:00","start":"2026-11-23T02:23:13.000+01:00","road":"M-13","dir":"positive","pk":[1.291],"a":[40.47967,-3.58763],"geo":{"autonomousCommunity":"Madrid, Comunidad de","municipality":"Madrid","province":"Madrid"}}
+{"t":"2026-11-23T01:29:02Z","ev":"open","id":"30296116","sit":"25863984","ver":"1","kind":"GenericSituationRecord","types":["vehicleObstruction","vehicleStuck"],"status":"active","created":"2026-11-23T02:25:46.000+01:00","start":"2026-11-23T02:25:46.000+01:00","road":"VS-A-2-D","dir":"positive","pk":[14.443],"a":[40.44849,-3.54552],"geo":{"autonomousCommunity":"Madrid, Comunidad de","municipality":"Madrid","province":"Madrid"}}
+{"t":"2026-11-23T01:29:02Z","ev":"open","id":"30296117","sit":"25863985","ver":"1","kind":"GenericSituationRecord","types":["vehicleObstruction","vehicleStuck"],"status":"active","created":"2026-11-23T02:27:08.000+01:00","start":"2026-11-23T02:27:08.000+01:00","road":"N-211","dir":"negative","pk":[86.588],"a":[40.775757,-1.593345],"geo":{"autonomousCommunity":"Castilla - La Mancha","municipality":"El Pedregal","province":"Guadalajara"}}
+{"t":"2026-11-23T01:29:02Z","ev":"open","id":"30296118","sit":"25863986","ver":"1","kind":"GenericSituationRecord","types":["vehicleObstruction","vehicleStuck"],"status":"active","created":"2026-11-23T02:27:11.000+01:00","start":"2026-11-23T02:27:11.000+01:00","road":"RM-621","dir":"positive","pk":[1.294],"a":[37.6521,-1.68765],"geo":{"autonomousCommunity":"Murcia, Región de","municipality":"Lorca","province":"Murcia"}}
+{"t":"2026-11-23T01:29:02Z","ev":"open","id":"30265102","sit":"25833476","ver":"5","kind":"GeneralObstruction","types":["roadMaintenance","roadworks","obstructionOnTheRoad"],"status":"active","created":"2026-11-23T02:27:52.000+01:00","start":"2026-11-23T02:27:00.000+01:00","end":"2026-11-23T06:00:00.000+01:00","road":"AP-7","dir":"positive","lanes":"rightLane","pk":[352.5,362.0],"a":[40.506973,0.415484],"b":[40.42901,0.385079],"geo":{"autonomousCommunity":"Comunitat Valenciana","municipality":"Benicarló","province":"Castelló/Castellón"}}
+{"t":"2026-11-23T01:29:02Z","ev":"open","id":"30193055","sit":"25766693","ver":"3","kind":"RoadOrCarriagewayOrLaneManagement","types":["roadMaintenance","roadworks","laneClosures"],"status":"active","created":"2026-11-23T02:27:54.000+01:00","start":"2026-11-23T02:27:00.000+01:00","end":"2026-11-23T05:30:00.000+01:00","road":"A-2","dir":"negative","lanes":"leftLane","pk":[38.7,30.9],"a":[40.5318,-3.28968],"b":[40.50465,-3.366032],"geo":{"autonomousCommunity":"Madrid, Comunidad de","municipality":"Alcalá de Henares","province":"Madrid"}}
+{"t":"2026-11-23T01:29:02Z","ev":"open","id":"30193513","sit":"25766959","ver":"3","kind":"RoadOrCarriagewayOrLaneManagement","types":["roadMaintenance","roadworks","laneClosures"],"status":"active","created":"2026-11-23T02:28:24.000+01:00","start":"2026-11-23T02:28:00.000+01:00","end":"2026-11-23T05:30:00.000+01:00","road":"A-2","dir":"negative","lanes":"leftLane","pk":[49.5,38.8],"a":[40.608315,-3.211268],"b":[40.53246,-3.288924],"geo":{"autonomousCommunity":"Castilla - La Mancha","municipality":"Azuqueca de Henares","province":"Guadalajara"}}
+{"t":"2026-11-23T01:29:02Z","ev":"close","id":"30295896"}
+{"t":"2026-11-23T01:29:02Z","ev":"close","id":"30295898"}
+{"t":"2026-11-23T01:29:02Z","ev":"close","id":"30295915"}
+{"t":"2026-11-23T01:29:02Z","ev":"close","id":"30295920"}
+{"t":"2026-11-23T01:29:02Z","ev":"close","id":"30295929"}
+{"t":"2026-11-23T01:29:02Z","ev":"close","id":"30295932"}
+{"t":"2026-11-23T01:29:02Z","ev":"close","id":"30295935"}
+{"t":"2026-11-23T01:29:02Z","ev":"close","id":"30295950"}
+{"t":"2026-11-23T01:29:02Z","ev":"close","id":"30296016"}
+{"t":"2026-11-23T01:29:02Z","ev":"close","id":"30296060"}
+{"t":"2026-11-23T01:29:02Z","ev":"close","id":"30296081"}
+{"t":"2026-11-23T01:29:02Z","ev":"close","id":"30296092"}
+{"t":"2026-11-23T01:29:02Z","ev":"close","id":"30296095"}
+{"t":"2026-11-23T01:29:02Z","ev":"close","id":"30296100"}
+{"t":"2026-11-23T01:29:02Z","ev":"close","id":"30296101"}
