@@ -546,3 +546,23 @@
 {"t":"2026-11-24T03:38:01Z","ev":"close","id":"30332848"}
 {"t":"2026-11-24T03:38:01Z","ev":"close","id":"30332849"}
 {"t":"2026-11-24T03:38:01Z","ev":"close","id":"30332527"}
+{"t":"2026-11-24T03:47:35Z","ev":"open","id":"30332971","sit":"25898300","ver":"1","kind":"GenericSituationRecord","types":["vehicleObstruction","vehicleStuck"],"status":"active","created":"2026-11-24T04:42:20.000+01:00","start":"2026-11-24T04:42:20.000+01:00","road":"A-2","dir":"negative","pk":[11.438],"a":[40.45026,-3.579444],"geo":{"autonomousCommunity":"Madrid, Comunidad de","municipality":"Madrid","province":"Madrid"}}
+{"t":"2026-11-24T03:47:35Z","ev":"open","id":"30332976","sit":"25898305","ver":"1","kind":"GenericSituationRecord","types":["vehicleObstruction","vehicleStuck"],"status":"active","created":"2026-11-24T04:46:21.000+01:00","start":"2026-11-24T04:46:21.000+01:00","road":"VS-M-11-D","dir":"positive","pk":[3.006],"a":[40.480537,-3.644027],"geo":{"autonomousCommunity":"Madrid, Comunidad de","municipality":"Madrid","province":"Madrid"}}
+{"t":"2026-11-24T03:47:35Z","ev":"open","id":"30332969","sit":"25898277","ver":"2","kind":"RoadOrCarriagewayOrLaneManagement","types":["vehicleObstruction","vehicleStuck","narrowLanes"],"status":"active","created":"2026-11-24T04:42:00.000+01:00","start":"2026-11-24T04:41:05.000+01:00","road":"SE-30","dir":"negative","lanes":"rightLane","pk":[10.92],"a":[37.35117,-5.995804],"geo":{"autonomousCommunity":"Andalucía","municipality":"Sevilla","province":"Sevilla"}}
+{"t":"2026-11-24T03:47:35Z","ev":"close","id":"29881048"}
+{"t":"2026-11-24T03:47:35Z","ev":"close","id":"29881044"}
+{"t":"2026-11-24T03:47:35Z","ev":"close","id":"29881046"}
+{"t":"2026-11-24T03:47:35Z","ev":"close","id":"30332866"}
+{"t":"2026-11-24T03:47:35Z","ev":"close","id":"30332871"}
+{"t":"2026-11-24T03:47:35Z","ev":"close","id":"30332873"}
+{"t":"2026-11-24T03:47:35Z","ev":"close","id":"30332884"}
+{"t":"2026-11-24T03:47:35Z","ev":"close","id":"30332891"}
+{"t":"2026-11-24T03:47:35Z","ev":"close","id":"30332894"}
+{"t":"2026-11-24T03:47:35Z","ev":"close","id":"30332895"}
+{"t":"2026-11-24T03:47:35Z","ev":"close","id":"30332900"}
+{"t":"2026-11-24T03:47:35Z","ev":"close","id":"30332907"}
+{"t":"2026-11-24T03:47:35Z","ev":"close","id":"30332910"}
+{"t":"2026-11-24T03:47:35Z","ev":"close","id":"30332916"}
+{"t":"2026-11-24T03:47:35Z","ev":"close","id":"30332925"}
+{"t":"2026-11-24T03:47:35Z","ev":"close","id":"30332926"}
+{"t":"2026-11-24T03:47:35Z","ev":"close","id":"30332946"}
