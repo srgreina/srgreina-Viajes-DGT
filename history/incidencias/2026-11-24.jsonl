@@ -441,3 +441,18 @@
 {"t":"2026-11-24T02:40:57Z","ev":"close","id":"30332851"}
 {"t":"2026-11-24T02:40:57Z","ev":"close","id":"30332856"}
 {"t":"2026-11-24T02:40:57Z","ev":"close","id":"30332858"}
+{"t":"2026-11-24T02:50:24Z","ev":"open","id":"30332881","sit":"25898214","ver":"1","kind":"GenericSituationRecord","types":["vehicleObstruction","vehicleStuck"],"status":"active","created":"2026-11-24T03:44:16.000+01:00","start":"2026-11-24T03:44:16.000+01:00","road":"M-300","dir":"negative","pk":[32.442],"a":[40.46761,-3.44079],"geo":{"autonomousCommunity":"Madrid, Comunidad de","municipality":"Torrejón de Ardoz","province":"Madrid"}}
+{"t":"2026-11-24T02:50:24Z","ev":"open","id":"30332884","sit":"25898217","ver":"1","kind":"GenericSituationRecord","types":["vehicleObstruction","vehicleStuck"],"status":"active","created":"2026-11-24T03:46:23.000+01:00","start":"2026-11-24T03:46:23.000+01:00","road":"A-4","dir":"positive","pk":[32.804],"a":[40.1365,-3.65771],"geo":{"autonomousCommunity":"Madrid, Comunidad de","municipality":"Ciempozuelos","province":"Madrid"}}
+{"t":"2026-11-24T02:50:24Z","ev":"open","id":"30332886","sit":"25898219","ver":"1","kind":"GenericSituationRecord","types":["vehicleObstruction","vehicleStuck"],"status":"active","created":"2026-11-24T03:47:25.000+01:00","start":"2026-11-24T03:47:25.000+01:00","road":"BU-30","dir":"positive","pk":[10.841],"a":[42.34782,-3.79107],"geo":{"autonomousCommunity":"Castilla y León","municipality":"Villalbilla de Burgos","province":"Burgos"}}
+{"t":"2026-11-24T02:50:24Z","ev":"open","id":"30332887","sit":"25898220","ver":"1","kind":"GenericSituationRecord","types":["vehicleObstruction","vehicleStuck"],"status":"active","created":"2026-11-24T03:48:20.000+01:00","start":"2026-11-24T03:48:20.000+01:00","road":"BU-30","dir":"positive","pk":[11.752],"a":[42.35586,-3.78968],"geo":{"autonomousCommunity":"Castilla y León","municipality":"Burgos","province":"Burgos"}}
+{"t":"2026-11-24T02:50:24Z","ev":"change","id":"30331563","sit":"25896932","ver":"4","kind":"GenericSituationRecord","types":["roadMaintenance","roadworks"],"status":"active","created":"2026-11-23T22:48:37.000+01:00","start":"2026-11-23T22:48:37.000+01:00","road":"M-40","dir":"positive","pk":[39.042,39.686],"a":[40.415627,-3.822486],"b":[40.419697,-3.828003],"geo":{"autonomousCommunity":"Madrid, Comunidad de","municipality":"Pozuelo de Alarcón","province":"Madrid"}}
+{"t":"2026-11-24T02:50:24Z","ev":"close","id":"30111348"}
+{"t":"2026-11-24T02:50:24Z","ev":"close","id":"30332751"}
+{"t":"2026-11-24T02:50:24Z","ev":"close","id":"30332753"}
+{"t":"2026-11-24T02:50:24Z","ev":"close","id":"30332756"}
+{"t":"2026-11-24T02:50:24Z","ev":"close","id":"30332757"}
+{"t":"2026-11-24T02:50:24Z","ev":"close","id":"30332860"}
+{"t":"2026-11-24T02:50:24Z","ev":"close","id":"30332865"}
+{"t":"2026-11-24T02:50:24Z","ev":"close","id":"30332874"}
+{"t":"2026-11-24T02:50:24Z","ev":"close","id":"30332878"}
+{"t":"2026-11-24T02:50:24Z","ev":"close","id":"30332879"}
