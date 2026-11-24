@@ -535,3 +535,14 @@
 {"t":"2026-11-24T03:28:31Z","ev":"close","id":"30332837"}
 {"t":"2026-11-24T03:28:31Z","ev":"close","id":"30332840"}
 {"t":"2026-11-24T03:28:31Z","ev":"close","id":"30332941"}
+{"t":"2026-11-24T03:38:01Z","ev":"open","id":"30332954","sit":"25898285","ver":"1","kind":"GenericSituationRecord","types":["vehicleObstruction","vehicleStuck"],"status":"active","created":"2026-11-24T04:29:07.000+01:00","start":"2026-11-24T04:29:07.000+01:00","road":"A-1","dir":"negative","pk":[54.469],"a":[40.828262,-3.614368],"geo":{"autonomousCommunity":"Madrid, Comunidad de","municipality":"Cabanillas de la Sierra","province":"Madrid"}}
+{"t":"2026-11-24T03:38:01Z","ev":"open","id":"30332956","sit":"25898287","ver":"1","kind":"GenericSituationRecord","types":["vehicleObstruction","vehicleStuck"],"status":"active","created":"2026-11-24T04:29:54.000+01:00","start":"2026-11-24T04:29:54.000+01:00","road":"A-317","dir":"positive","pk":[91.559],"a":[37.956757,-2.430012],"geo":{"autonomousCommunity":"Andalucía","municipality":"Puebla de Don Fadrique","province":"Granada"}}
+{"t":"2026-11-24T03:38:01Z","ev":"open","id":"30332963","sit":"25898294","ver":"1","kind":"GenericSituationRecord","types":["obstruction","objectOnTheRoad"],"status":"active","created":"2026-11-24T04:35:55.000+01:00","start":"2026-11-24T04:34:00.000+01:00","road":"A-7","dir":"negative","pk":[334.897],"a":[39.48229,-0.544854],"geo":{"autonomousCommunity":"Comunitat Valenciana","municipality":"Riba-roja de Túria","province":"València/Valencia"}}
+{"t":"2026-11-24T03:38:01Z","ev":"close","id":"30331891"}
+{"t":"2026-11-24T03:38:01Z","ev":"close","id":"30331893"}
+{"t":"2026-11-24T03:38:01Z","ev":"close","id":"30331892"}
+{"t":"2026-11-24T03:38:01Z","ev":"close","id":"30332060"}
+{"t":"2026-11-24T03:38:01Z","ev":"close","id":"30332541"}
+{"t":"2026-11-24T03:38:01Z","ev":"close","id":"30332848"}
+{"t":"2026-11-24T03:38:01Z","ev":"close","id":"30332849"}
+{"t":"2026-11-24T03:38:01Z","ev":"close","id":"30332527"}
