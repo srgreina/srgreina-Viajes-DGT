@@ -650,3 +650,32 @@
 {"t":"2026-11-24T04:44:31Z","ev":"close","id":"30332950"}
 {"t":"2026-11-24T04:44:31Z","ev":"close","id":"30332956"}
 {"t":"2026-11-24T04:44:31Z","ev":"close","id":"30333023"}
+{"t":"2026-11-24T04:53:59Z","ev":"open","id":"30333108","sit":"25898409","ver":"1","kind":"GenericSituationRecord","types":["accident"],"status":"active","created":"2026-11-24T05:43:35.000+01:00","start":"2026-11-24T05:42:00.000+01:00","road":"A-3","dir":"negative","pk":[249.794],"a":[39.542892,-1.490329],"geo":{"autonomousCommunity":"Comunitat Valenciana","municipality":"Villargordo del Cabriel","province":"València/Valencia"}}
+{"t":"2026-11-24T04:53:59Z","ev":"open","id":"30333110","sit":"25898411","ver":"1","kind":"GenericSituationRecord","types":["vehicleObstruction","vehicleStuck"],"status":"active","created":"2026-11-24T05:43:50.000+01:00","start":"2026-11-24T05:43:50.000+01:00","road":"CM-211","dir":"negative","pk":[38.9],"a":[39.529945,-1.566794],"geo":{"autonomousCommunity":"Castilla - La Mancha","municipality":"Minglanilla","province":"Cuenca"}}
+{"t":"2026-11-24T04:53:59Z","ev":"open","id":"30333111","sit":"25898412","ver":"1","kind":"GenericSituationRecord","types":["vehicleObstruction","vehicleStuck"],"status":"active","created":"2026-11-24T05:44:14.000+01:00","start":"2026-11-24T05:44:14.000+01:00","road":"L-304","dir":"positive","pk":[3.085],"a":[41.758926,1.207489],"geo":{"autonomousCommunity":"Cataluña","municipality":"Els Plans de Sió","province":"Lleida"}}
+{"t":"2026-11-24T04:53:59Z","ev":"open","id":"30333115","sit":"25898416","ver":"1","kind":"GenericSituationRecord","types":["vehicleObstruction","vehicleStuck"],"status":"active","created":"2026-11-24T05:44:58.000+01:00","start":"2026-11-24T05:44:58.000+01:00","road":"CO-4207","dir":"negative","pk":[6.622],"a":[37.575962,-4.726578],"geo":{"autonomousCommunity":"Andalucía","municipality":"Montilla","province":"Córdoba"}}
+{"t":"2026-11-24T04:53:59Z","ev":"open","id":"30333118","sit":"25898419","ver":"1","kind":"GenericSituationRecord","types":["vehicleObstruction","vehicleStuck"],"status":"active","created":"2026-11-24T05:45:18.000+01:00","start":"2026-11-24T05:45:18.000+01:00","road":"N-420","dir":"negative","pk":[431.795],"a":[40.035973,-2.153166],"geo":{"autonomousCommunity":"Castilla - La Mancha","municipality":"Cuenca","province":"Cuenca"}}
+{"t":"2026-11-24T04:53:59Z","ev":"open","id":"30333119","sit":"25898420","ver":"1","kind":"GenericSituationRecord","types":["vehicleObstruction","vehicleStuck"],"status":"active","created":"2026-11-24T05:45:46.000+01:00","start":"2026-11-24T05:45:46.000+01:00","road":"AS-116","dir":"negative","pk":[6.655],"a":[43.334137,-5.763523],"geo":{"autonomousCommunity":"Asturias, Principado de","municipality":"Oviedo","province":"Asturias"}}
+{"t":"2026-11-24T04:53:59Z","ev":"open","id":"30333130","sit":"25898431","ver":"1","kind":"GenericSituationRecord","types":["vehicleObstruction","vehicleStuck"],"status":"active","created":"2026-11-24T05:49:39.000+01:00","start":"2026-11-24T05:49:39.000+01:00","road":"NV-5","dir":"positive","pk":[7.418],"a":[43.509445,-6.704604],"geo":{"autonomousCommunity":"Asturias, Principado de","municipality":"Navia","province":"Asturias"}}
+{"t":"2026-11-24T04:53:59Z","ev":"open","id":"30333132","sit":"25898433","ver":"1","kind":"GenericSituationRecord","types":["vehicleObstruction","vehicleStuck"],"status":"active","created":"2026-11-24T05:50:32.000+01:00","start":"2026-11-24T05:50:32.000+01:00","road":"A-15","dir":"negative","pk":[87.861],"a":[42.79295,-1.682535],"geo":{"autonomousCommunity":"Navarra, Comunidad Foral de","municipality":"Zizur Mayor/Zizur Nagusia","province":"Navarra"}}
+{"t":"2026-11-24T04:53:59Z","ev":"open","id":"30333140","sit":"25898438","ver":"1","kind":"GenericSituationRecord","types":["vehicleObstruction","vehicleStuck"],"status":"active","created":"2026-11-24T05:52:20.000+01:00","start":"2026-11-24T05:52:20.000+01:00","road":"A-92","dir":"positive","pk":[10.833],"a":[37.348324,-5.834579],"geo":{"autonomousCommunity":"Andalucía","municipality":"Alcalá de Guadaíra","province":"Sevilla"}}
+{"t":"2026-11-24T04:53:59Z","ev":"open","id":"30333141","sit":"25898439","ver":"1","kind":"GenericSituationRecord","types":["accident"],"status":"active","created":"2026-11-24T05:52:46.000+01:00","start":"2026-11-24T05:52:00.000+01:00","road":"VG-4.3","dir":"positive","pk":[8.194],"a":[42.5757,-8.768465],"geo":{"autonomousCommunity":"Galicia","municipality":"Vilagarcía de Arousa","province":"Pontevedra"}}
+{"t":"2026-11-24T04:53:59Z","ev":"close","id":"30330613"}
+{"t":"2026-11-24T04:53:59Z","ev":"close","id":"30330625"}
+{"t":"2026-11-24T04:53:59Z","ev":"close","id":"30296384"}
+{"t":"2026-11-24T04:53:59Z","ev":"close","id":"30296392"}
+{"t":"2026-11-24T04:53:59Z","ev":"close","id":"30296387"}
+{"t":"2026-11-24T04:53:59Z","ev":"close","id":"30296379"}
+{"t":"2026-11-24T04:53:59Z","ev":"close","id":"30296373"}
+{"t":"2026-11-24T04:53:59Z","ev":"close","id":"30296377"}
+{"t":"2026-11-24T04:53:59Z","ev":"close","id":"30296375"}
+{"t":"2026-11-24T04:53:59Z","ev":"close","id":"30296381"}
+{"t":"2026-11-24T04:53:59Z","ev":"close","id":"30332647"}
+{"t":"2026-11-24T04:53:59Z","ev":"close","id":"30332648"}
+{"t":"2026-11-24T04:53:59Z","ev":"close","id":"30331791"}
+{"t":"2026-11-24T04:53:59Z","ev":"close","id":"30322623"}
+{"t":"2026-11-24T04:53:59Z","ev":"close","id":"30332161"}
+{"t":"2026-11-24T04:53:59Z","ev":"close","id":"30332297"}
+{"t":"2026-11-24T04:53:59Z","ev":"close","id":"30333034"}
+{"t":"2026-11-24T04:53:59Z","ev":"close","id":"30333098"}
+{"t":"2026-11-24T04:53:59Z","ev":"close","id":"30333101"}
