@@ -593,3 +593,17 @@
 {"t":"2026-11-24T04:06:35Z","ev":"close","id":"30332923"}
 {"t":"2026-11-24T04:06:35Z","ev":"close","id":"30332937"}
 {"t":"2026-11-24T04:06:35Z","ev":"close","id":"30332949"}
+{"t":"2026-11-24T04:16:06Z","ev":"open","id":"30332967","sit":"25863450","ver":"64","kind":"RoadOrCarriagewayOrLaneManagement","types":["roadMaintenance","roadworks","laneClosures"],"status":"active","created":"2026-11-24T05:10:02.000+01:00","start":"2026-11-24T05:10:00.000+01:00","end":"2026-11-24T17:10:00.000+01:00","road":"AP-66","dir":"negative","lanes":"leftLane","pk":[93.3,90.1],"a":[42.90465,-5.888652],"b":[42.923347,-5.872284],"geo":{"autonomousCommunity":"Castilla y León","municipality":"Sena de Luna","province":"León"}}
+{"t":"2026-11-24T04:16:06Z","ev":"open","id":"30333011","sit":"25898339","ver":"1","kind":"GenericSituationRecord","types":["vehicleObstruction","vehicleStuck"],"status":"active","created":"2026-11-24T05:12:36.000+01:00","start":"2026-11-24T05:12:36.000+01:00","road":"A-5","dir":"positive","pk":[194.414],"a":[39.823433,-5.660537],"geo":{"autonomousCommunity":"Extremadura","municipality":"Almaraz","province":"Cáceres"}}
+{"t":"2026-11-24T04:16:06Z","ev":"open","id":"30333014","sit":"25898342","ver":"1","kind":"GenericSituationRecord","types":["vehicleObstruction","vehicleStuck"],"status":"active","created":"2026-11-24T05:13:42.000+01:00","start":"2026-11-24T05:13:42.000+01:00","road":"A-6050","dir":"positive","pk":[0.703],"a":[37.751835,-3.79977],"geo":{"autonomousCommunity":"Andalucía","municipality":"Jaén","province":"Jaén"}}
+{"t":"2026-11-24T04:16:06Z","ev":"close","id":"30194501"}
+{"t":"2026-11-24T04:16:06Z","ev":"close","id":"30194500"}
+{"t":"2026-11-24T04:16:06Z","ev":"close","id":"30321675"}
+{"t":"2026-11-24T04:16:06Z","ev":"close","id":"30319502"}
+{"t":"2026-11-24T04:16:06Z","ev":"close","id":"30319501"}
+{"t":"2026-11-24T04:16:06Z","ev":"close","id":"30332452"}
+{"t":"2026-11-24T04:16:06Z","ev":"close","id":"30331731"}
+{"t":"2026-11-24T04:16:06Z","ev":"close","id":"30332274"}
+{"t":"2026-11-24T04:16:06Z","ev":"close","id":"30332935"}
+{"t":"2026-11-24T04:16:06Z","ev":"close","id":"30332990"}
+{"t":"2026-11-24T04:16:06Z","ev":"close","id":"30332998"}
