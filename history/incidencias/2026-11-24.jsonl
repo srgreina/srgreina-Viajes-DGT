@@ -576,3 +576,20 @@
 {"t":"2026-11-24T03:57:03Z","ev":"close","id":"30332971"}
 {"t":"2026-11-24T03:57:03Z","ev":"close","id":"30332976"}
 {"t":"2026-11-24T03:57:03Z","ev":"close","id":"30332969"}
+{"t":"2026-11-24T04:06:35Z","ev":"open","id":"30332982","sit":"25898311","ver":"1","kind":"GenericSituationRecord","types":["vehicleObstruction","vehicleStuck"],"status":"active","created":"2026-11-24T04:55:30.000+01:00","start":"2026-11-24T04:55:30.000+01:00","road":"A-67","dir":"positive","pk":[123.407],"a":[42.917988,-4.123257],"geo":{"autonomousCommunity":"Cantabria","municipality":"Valdeolea","province":"Cantabria"}}
+{"t":"2026-11-24T04:06:35Z","ev":"open","id":"30332983","sit":"25898312","ver":"1","kind":"GenericSituationRecord","types":["vehicleObstruction","vehicleStuck"],"status":"active","created":"2026-11-24T04:56:38.000+01:00","start":"2026-11-24T04:56:38.000+01:00","road":"PO-403","dir":"positive","pk":[10.684],"a":[42.17211,-8.508522],"geo":{"autonomousCommunity":"Galicia","municipality":"Ponteareas","province":"Pontevedra"}}
+{"t":"2026-11-24T04:06:35Z","ev":"open","id":"30332990","sit":"25898319","ver":"1","kind":"GenericSituationRecord","types":["vehicleObstruction","vehicleStuck"],"status":"active","created":"2026-11-24T05:00:39.000+01:00","start":"2026-11-24T05:00:39.000+01:00","road":"M-634","dir":"positive","pk":[3.408],"a":[41.006615,-3.670339],"geo":{"autonomousCommunity":"Madrid, Comunidad de","municipality":"Villavieja del Lozoya","province":"Madrid"}}
+{"t":"2026-11-24T04:06:35Z","ev":"open","id":"30332992","sit":"25898321","ver":"1","kind":"GenericSituationRecord","types":["vehicleObstruction","vehicleStuck"],"status":"active","created":"2026-11-24T05:02:26.000+01:00","start":"2026-11-24T05:02:26.000+01:00","road":"FV-605","dir":"negative","pk":[5.646],"a":[28.326775,-14.138873],"geo":{"autonomousCommunity":"Canarias","municipality":"Pájara","province":"Las Palmas"}}
+{"t":"2026-11-24T04:06:35Z","ev":"open","id":"30332998","sit":"25898326","ver":"1","kind":"GenericSituationRecord","types":["vehicleObstruction","vehicleStuck"],"status":"active","created":"2026-11-24T05:05:21.000+01:00","start":"2026-11-24T05:05:21.000+01:00","road":"A-44","dir":"positive","pk":[38.932],"a":[37.799213,-3.758119],"geo":{"autonomousCommunity":"Andalucía","municipality":"Jaén","province":"Jaén"}}
+{"t":"2026-11-24T04:06:35Z","ev":"open","id":"30332999","sit":"25898327","ver":"1","kind":"GenericSituationRecord","types":["vehicleObstruction","vehicleStuck"],"status":"active","created":"2026-11-24T05:05:23.000+01:00","start":"2026-11-24T05:05:23.000+01:00","road":"CM-4009","dir":"negative","pk":[34.63],"a":[39.859394,-4.360483],"geo":{"autonomousCommunity":"Castilla - La Mancha","municipality":"La Puebla de Montalbán","province":"Toledo"}}
+{"t":"2026-11-24T04:06:35Z","ev":"close","id":"29965544"}
+{"t":"2026-11-24T04:06:35Z","ev":"close","id":"29965535"}
+{"t":"2026-11-24T04:06:35Z","ev":"close","id":"30233758"}
+{"t":"2026-11-24T04:06:35Z","ev":"close","id":"30311712"}
+{"t":"2026-11-24T04:06:35Z","ev":"close","id":"30311713"}
+{"t":"2026-11-24T04:06:35Z","ev":"close","id":"30315502"}
+{"t":"2026-11-24T04:06:35Z","ev":"close","id":"30332901"}
+{"t":"2026-11-24T04:06:35Z","ev":"close","id":"30332913"}
+{"t":"2026-11-24T04:06:35Z","ev":"close","id":"30332923"}
+{"t":"2026-11-24T04:06:35Z","ev":"close","id":"30332937"}
+{"t":"2026-11-24T04:06:35Z","ev":"close","id":"30332949"}
