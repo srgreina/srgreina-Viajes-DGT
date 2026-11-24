@@ -620,3 +620,15 @@
 {"t":"2026-11-24T04:25:36Z","ev":"close","id":"30332954"}
 {"t":"2026-11-24T04:25:36Z","ev":"close","id":"30332982"}
 {"t":"2026-11-24T04:25:36Z","ev":"close","id":"30333014"}
+{"t":"2026-11-24T04:35:04Z","ev":"open","id":"30333034","sit":"25898361","ver":"1","kind":"GenericSituationRecord","types":["vehicleObstruction","vehicleStuck"],"status":"active","created":"2026-11-24T05:25:37.000+01:00","start":"2026-11-24T05:25:37.000+01:00","road":"VS-A-92-D","dir":"positive","pk":[5.205],"a":[37.376217,-5.88695],"geo":{"autonomousCommunity":"Andalucía","municipality":"Alcalá de Guadaíra","province":"Sevilla"}}
+{"t":"2026-11-24T04:35:04Z","ev":"open","id":"30333041","sit":"25898368","ver":"1","kind":"GenericSituationRecord","types":["vehicleObstruction","vehicleStuck"],"status":"active","created":"2026-11-24T05:29:43.000+01:00","start":"2026-11-24T05:29:43.000+01:00","road":"A-62","dir":"negative","pk":[120.73],"a":[41.684284,-4.72994],"geo":{"autonomousCommunity":"Castilla y León","municipality":"Valladolid","province":"Valladolid"}}
+{"t":"2026-11-24T04:35:04Z","ev":"open","id":"30333071","sit":"25898376","ver":"1","kind":"GenericSituationRecord","types":["vehicleObstruction","vehicleStuck"],"status":"active","created":"2026-11-24T05:31:27.000+01:00","start":"2026-11-24T05:31:27.000+01:00","road":"A-5","dir":"negative","pk":[62.812],"a":[40.116154,-4.277461],"geo":{"autonomousCommunity":"Castilla - La Mancha","municipality":"Santa Cruz del Retamar","province":"Toledo"}}
+{"t":"2026-11-24T04:35:04Z","ev":"open","id":"30333073","sit":"25898378","ver":"1","kind":"GenericSituationRecord","types":["vehicleObstruction","vehicleStuck"],"status":"active","created":"2026-11-24T05:31:43.000+01:00","start":"2026-11-24T05:31:43.000+01:00","road":"A-12","dir":"positive","pk":[96.724],"a":[42.436466,-2.57227],"geo":{"autonomousCommunity":"Rioja, La","municipality":"Navarrete","province":"La Rioja"}}
+{"t":"2026-11-24T04:35:04Z","ev":"open","id":"30333074","sit":"25898379","ver":"1","kind":"PoorEnvironmentConditions","types":["poorEnvironment","strongWinds","badWeather"],"status":"active","created":"2026-11-24T05:32:08.000+01:00","start":"2026-11-24T05:32:08.000+01:00","road":"A-8","dir":"both","lanes":"allLanesCompleteCarriageway","pk":[536.0,552.0],"a":[43.454296,-7.322006],"b":[43.377575,-7.423702],"geo":{"autonomousCommunity":"Galicia","municipality":"Abadín","province":"Lugo"}}
+{"t":"2026-11-24T04:35:04Z","ev":"close","id":"30324097"}
+{"t":"2026-11-24T04:35:04Z","ev":"close","id":"30319608"}
+{"t":"2026-11-24T04:35:04Z","ev":"close","id":"30319607"}
+{"t":"2026-11-24T04:35:04Z","ev":"close","id":"30332206"}
+{"t":"2026-11-24T04:35:04Z","ev":"close","id":"30332999"}
+{"t":"2026-11-24T04:35:04Z","ev":"close","id":"30331784"}
+{"t":"2026-11-24T04:35:04Z","ev":"close","id":"30333030"}
