@@ -516,3 +516,22 @@
 {"t":"2026-11-24T03:18:58Z","ev":"close","id":"30332909"}
 {"t":"2026-11-24T03:18:58Z","ev":"close","id":"30332921"}
 {"t":"2026-11-24T03:18:58Z","ev":"close","id":"30332924"}
+{"t":"2026-11-24T03:28:31Z","ev":"open","id":"30332890","sit":"25863450","ver":"59","kind":"RoadOrCarriagewayOrLaneManagement","types":["roadMaintenance","roadworks","laneClosures"],"status":"active","created":"2026-11-24T04:20:03.000+01:00","start":"2026-11-24T04:20:00.000+01:00","end":"2026-11-24T16:20:00.000+01:00","road":"AP-66","dir":"negative","lanes":"leftLane","pk":[102.8,99.3],"a":[42.83221,-5.874126],"b":[42.862476,-5.874368],"geo":{"autonomousCommunity":"Castilla y León","municipality":"Los Barrios de Luna","province":"León"}}
+{"t":"2026-11-24T03:28:31Z","ev":"open","id":"30332946","sit":"25898277","ver":"1","kind":"GenericSituationRecord","types":["vehicleObstruction","vehicleStuck"],"status":"active","created":"2026-11-24T04:20:13.000+01:00","start":"2026-11-24T04:20:13.000+01:00","road":"SE-30","dir":"negative","pk":[10.92],"a":[37.35117,-5.995804],"geo":{"autonomousCommunity":"Andalucía","municipality":"Sevilla","province":"Sevilla"}}
+{"t":"2026-11-24T03:28:31Z","ev":"open","id":"30332949","sit":"25898280","ver":"1","kind":"GenericSituationRecord","types":["vehicleObstruction","vehicleStuck"],"status":"active","created":"2026-11-24T04:24:46.000+01:00","start":"2026-11-24T04:24:46.000+01:00","road":"C-17","dir":"negative","pk":[37.466],"a":[41.748554,2.26235],"geo":{"autonomousCommunity":"Cataluña","municipality":"Tagamanent","province":"Barcelona"}}
+{"t":"2026-11-24T03:28:31Z","ev":"open","id":"30332950","sit":"25898281","ver":"1","kind":"GenericSituationRecord","types":["vehicleObstruction","vehicleStuck"],"status":"active","created":"2026-11-24T04:25:55.000+01:00","start":"2026-11-24T04:25:55.000+01:00","road":"A-66","dir":"positive","pk":[715.836],"a":[38.131657,-6.274247],"geo":{"autonomousCommunity":"Extremadura","municipality":"Montemolín","province":"Badajoz"}}
+{"t":"2026-11-24T03:28:31Z","ev":"open","id":"30332952","sit":"25898283","ver":"1","kind":"GenericSituationRecord","types":["obstruction","objectOnTheRoad"],"status":"active","created":"2026-11-24T04:27:50.000+01:00","start":"2026-11-24T04:25:00.000+01:00","road":"A-7","dir":"positive","pk":[300.937],"a":[39.68532,-0.293871],"geo":{"autonomousCommunity":"Comunitat Valenciana","municipality":"Sagunt/Sagunto","province":"València/Valencia"}}
+{"t":"2026-11-24T03:28:31Z","ev":"close","id":"29934893"}
+{"t":"2026-11-24T03:28:31Z","ev":"close","id":"29934910"}
+{"t":"2026-11-24T03:28:31Z","ev":"close","id":"30319606"}
+{"t":"2026-11-24T03:28:31Z","ev":"close","id":"30322194"}
+{"t":"2026-11-24T03:28:31Z","ev":"close","id":"30332737"}
+{"t":"2026-11-24T03:28:31Z","ev":"close","id":"30332748"}
+{"t":"2026-11-24T03:28:31Z","ev":"close","id":"30331789"}
+{"t":"2026-11-24T03:28:31Z","ev":"close","id":"30332219"}
+{"t":"2026-11-24T03:28:31Z","ev":"close","id":"30332827"}
+{"t":"2026-11-24T03:28:31Z","ev":"close","id":"30332832"}
+{"t":"2026-11-24T03:28:31Z","ev":"close","id":"30332834"}
+{"t":"2026-11-24T03:28:31Z","ev":"close","id":"30332837"}
+{"t":"2026-11-24T03:28:31Z","ev":"close","id":"30332840"}
+{"t":"2026-11-24T03:28:31Z","ev":"close","id":"30332941"}
