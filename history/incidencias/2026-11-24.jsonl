@@ -193,3 +193,27 @@
 {"t":"2026-11-24T00:47:10Z","ev":"close","id":"30332603"}
 {"t":"2026-11-24T00:47:10Z","ev":"close","id":"30332605"}
 {"t":"2026-11-24T00:47:10Z","ev":"close","id":"30332606"}
+{"t":"2026-11-24T00:56:37Z","ev":"open","id":"30332634","sit":"25897976","ver":"1","kind":"GenericSituationRecord","types":["vehicleObstruction","vehicleStuck"],"status":"active","created":"2026-11-24T01:46:33.000+01:00","start":"2026-11-24T01:46:33.000+01:00","road":"CM-401","dir":"positive","pk":[29.88],"a":[39.70189,-4.27731],"geo":{"autonomousCommunity":"Castilla - La Mancha","municipality":"Gálvez","province":"Toledo"}}
+{"t":"2026-11-24T00:56:37Z","ev":"open","id":"30332636","sit":"25897978","ver":"1","kind":"GenericSituationRecord","types":["vehicleObstruction","vehicleStuck"],"status":"active","created":"2026-11-24T01:47:00.000+01:00","start":"2026-11-24T01:47:00.000+01:00","road":"M-203","dir":"negative","pk":[14.188],"a":[40.42133,-3.46293],"geo":{"autonomousCommunity":"Madrid, Comunidad de","municipality":"San Fernando de Henares","province":"Madrid"}}
+{"t":"2026-11-24T00:56:37Z","ev":"open","id":"30332643","sit":"25897985","ver":"1","kind":"GenericSituationRecord","types":["vehicleObstruction","vehicleStuck"],"status":"active","created":"2026-11-24T01:48:45.000+01:00","start":"2026-11-24T01:48:45.000+01:00","road":"M-40","dir":"positive","pk":[22.862],"a":[40.36457,-3.69671],"geo":{"autonomousCommunity":"Madrid, Comunidad de","municipality":"Madrid","province":"Madrid"}}
+{"t":"2026-11-24T00:56:37Z","ev":"open","id":"30332646","sit":"25897988","ver":"1","kind":"GenericSituationRecord","types":["vehicleObstruction","vehicleStuck"],"status":"active","created":"2026-11-24T01:49:01.000+01:00","start":"2026-11-24T01:49:01.000+01:00","road":"OU-504","dir":"negative","pk":[24.89],"a":[42.462337,-8.007773],"geo":{"autonomousCommunity":"Galicia","municipality":"San Cristovo de Cea","province":"Ourense"}}
+{"t":"2026-11-24T00:56:37Z","ev":"open","id":"30332652","sit":"25897992","ver":"1","kind":"GenericSituationRecord","types":["vehicleObstruction","vehicleStuck"],"status":"active","created":"2026-11-24T01:51:42.000+01:00","start":"2026-11-24T01:51:42.000+01:00","road":"LU-P-2006","dir":"negative","pk":[0.569],"a":[43.56949,-7.25801],"geo":{"autonomousCommunity":"Galicia","municipality":"Foz","province":"Lugo"}}
+{"t":"2026-11-24T00:56:37Z","ev":"open","id":"30332657","sit":"25897996","ver":"1","kind":"GenericSituationRecord","types":["vehicleObstruction","vehicleStuck"],"status":"active","created":"2026-11-24T01:53:20.000+01:00","start":"2026-11-24T01:53:20.000+01:00","road":"A-2","dir":"negative","pk":[16.378],"a":[40.449593,-3.522702],"geo":{"autonomousCommunity":"Madrid, Comunidad de","municipality":"San Fernando de Henares","province":"Madrid"}}
+{"t":"2026-11-24T00:56:37Z","ev":"open","id":"30332659","sit":"25897998","ver":"1","kind":"GenericSituationRecord","types":["vehicleObstruction","vehicleStuck"],"status":"active","created":"2026-11-24T01:54:37.000+01:00","start":"2026-11-24T01:54:37.000+01:00","road":"VS-V-30-D","dir":"negative","pk":[6.647],"a":[39.450516,-0.410672],"geo":{"autonomousCommunity":"Comunitat Valenciana","municipality":"València","province":"València/Valencia"}}
+{"t":"2026-11-24T00:56:37Z","ev":"open","id":"30332660","sit":"25897999","ver":"1","kind":"GenericSituationRecord","types":["vehicleObstruction","vehicleStuck"],"status":"active","created":"2026-11-24T01:54:51.000+01:00","start":"2026-11-24T01:54:51.000+01:00","road":"VS-M-45-D","dir":"negative","pk":[17.101],"a":[40.360744,-3.612454],"geo":{"autonomousCommunity":"Madrid, Comunidad de","municipality":"Madrid","province":"Madrid"}}
+{"t":"2026-11-24T00:56:37Z","ev":"open","id":"30332662","sit":"25898001","ver":"1","kind":"GenericSituationRecord","types":["vehicleObstruction","vehicleStuck"],"status":"active","created":"2026-11-24T01:55:22.000+01:00","start":"2026-11-24T01:55:22.000+01:00","road":"T-340a","dir":"negative","pk":[0.262],"a":[37.55348,-1.81366],"geo":{"autonomousCommunity":"Murcia, Región de","municipality":"Puerto Lumbreras","province":"Murcia"}}
+{"t":"2026-11-24T00:56:37Z","ev":"open","id":"30332665","sit":"25898004","ver":"1","kind":"GenericSituationRecord","types":["vehicleObstruction","vehicleStuck"],"status":"active","created":"2026-11-24T01:55:55.000+01:00","start":"2026-11-24T01:55:55.000+01:00","road":"HU-5401","dir":"positive","pk":[12.882],"a":[37.709305,-7.307734],"geo":{"autonomousCommunity":"Andalucía","municipality":"Paymogo","province":"Huelva"}}
+{"t":"2026-11-24T00:56:37Z","ev":"close","id":"30331601"}
+{"t":"2026-11-24T00:56:37Z","ev":"close","id":"30331930"}
+{"t":"2026-11-24T00:56:37Z","ev":"close","id":"30332403"}
+{"t":"2026-11-24T00:56:37Z","ev":"close","id":"30332406"}
+{"t":"2026-11-24T00:56:37Z","ev":"close","id":"30332410"}
+{"t":"2026-11-24T00:56:37Z","ev":"close","id":"30332422"}
+{"t":"2026-11-24T00:56:37Z","ev":"close","id":"30332429"}
+{"t":"2026-11-24T00:56:37Z","ev":"close","id":"30332443"}
+{"t":"2026-11-24T00:56:37Z","ev":"close","id":"30332531"}
+{"t":"2026-11-24T00:56:37Z","ev":"close","id":"30332535"}
+{"t":"2026-11-24T00:56:37Z","ev":"close","id":"30332618"}
+{"t":"2026-11-24T00:56:37Z","ev":"close","id":"30332624"}
+{"t":"2026-11-24T00:56:37Z","ev":"close","id":"30332626"}
+{"t":"2026-11-24T00:56:37Z","ev":"close","id":"30332630"}
