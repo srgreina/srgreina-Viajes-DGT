@@ -499,3 +499,20 @@
 {"t":"2026-11-24T03:09:25Z","ev":"close","id":"30332842"}
 {"t":"2026-11-24T03:09:25Z","ev":"close","id":"30332902"}
 {"t":"2026-11-24T03:09:25Z","ev":"close","id":"30332903"}
+{"t":"2026-11-24T03:18:58Z","ev":"open","id":"30332925","sit":"25898257","ver":"1","kind":"GenericSituationRecord","types":["vehicleObstruction","vehicleStuck"],"status":"active","created":"2026-11-24T04:08:57.000+01:00","start":"2026-11-24T04:08:57.000+01:00","road":"CM-401","dir":"positive","pk":[29.88],"a":[39.70189,-4.27731],"geo":{"autonomousCommunity":"Castilla - La Mancha","municipality":"Gálvez","province":"Toledo"}}
+{"t":"2026-11-24T03:18:58Z","ev":"open","id":"30332926","sit":"25898258","ver":"1","kind":"GenericSituationRecord","types":["vehicleObstruction","vehicleStuck"],"status":"active","created":"2026-11-24T04:09:54.000+01:00","start":"2026-11-24T04:09:54.000+01:00","road":"LU-P-2006","dir":"negative","pk":[0.57],"a":[43.56958,-7.25805],"geo":{"autonomousCommunity":"Galicia","municipality":"Foz","province":"Lugo"}}
+{"t":"2026-11-24T03:18:58Z","ev":"open","id":"30332935","sit":"25898267","ver":"1","kind":"GenericSituationRecord","types":["vehicleObstruction","vehicleStuck"],"status":"active","created":"2026-11-24T04:13:51.000+01:00","start":"2026-11-24T04:13:51.000+01:00","road":"VS-A-92-D","dir":"positive","pk":[44.715],"a":[37.27006,-5.500255],"geo":{"autonomousCommunity":"Andalucía","municipality":"Paradas","province":"Sevilla"}}
+{"t":"2026-11-24T03:18:58Z","ev":"open","id":"30332937","sit":"25898269","ver":"1","kind":"GenericSituationRecord","types":["vehicleObstruction","vehicleStuck"],"status":"active","created":"2026-11-24T04:14:50.000+01:00","start":"2026-11-24T04:14:50.000+01:00","road":"AP-7","dir":"negative","pk":[334.317],"a":[40.648636,0.506598],"geo":{"autonomousCommunity":"Cataluña","municipality":"Freginals","province":"Tarragona"}}
+{"t":"2026-11-24T03:18:58Z","ev":"open","id":"30332939","sit":"25898271","ver":"1","kind":"GenericSituationRecord","types":["vehicleObstruction","vehicleStuck"],"status":"active","created":"2026-11-24T04:17:15.000+01:00","start":"2026-11-24T04:17:15.000+01:00","road":"A-1","dir":"negative","pk":[45.194],"a":[40.75283,-3.593111],"geo":{"autonomousCommunity":"Madrid, Comunidad de","municipality":"El Vellón","province":"Madrid"}}
+{"t":"2026-11-24T03:18:58Z","ev":"open","id":"30332941","sit":"25898273","ver":"1","kind":"GenericSituationRecord","types":["vehicleObstruction","vehicleStuck"],"status":"active","created":"2026-11-24T04:17:32.000+01:00","start":"2026-11-24T04:17:32.000+01:00","road":"A-3","dir":"negative","pk":[35.22],"a":[40.257545,-3.375366],"geo":{"autonomousCommunity":"Madrid, Comunidad de","municipality":"Perales de Tajuña","province":"Madrid"}}
+{"t":"2026-11-24T03:18:58Z","ev":"close","id":"30296415"}
+{"t":"2026-11-24T03:18:58Z","ev":"close","id":"30296411"}
+{"t":"2026-11-24T03:18:58Z","ev":"close","id":"30296414"}
+{"t":"2026-11-24T03:18:58Z","ev":"close","id":"30296336"}
+{"t":"2026-11-24T03:18:58Z","ev":"close","id":"30313106"}
+{"t":"2026-11-24T03:18:58Z","ev":"close","id":"30332818"}
+{"t":"2026-11-24T03:18:58Z","ev":"close","id":"30332821"}
+{"t":"2026-11-24T03:18:58Z","ev":"close","id":"30332872"}
+{"t":"2026-11-24T03:18:58Z","ev":"close","id":"30332909"}
+{"t":"2026-11-24T03:18:58Z","ev":"close","id":"30332921"}
+{"t":"2026-11-24T03:18:58Z","ev":"close","id":"30332924"}
