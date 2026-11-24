@@ -311,3 +311,24 @@
 {"t":"2026-11-24T01:34:31Z","ev":"close","id":"30332724"}
 {"t":"2026-11-24T01:34:31Z","ev":"close","id":"30332727"}
 {"t":"2026-11-24T01:34:31Z","ev":"close","id":"30332728"}
+{"t":"2026-11-24T01:44:03Z","ev":"open","id":"30193068","sit":"25766693","ver":"9","kind":"RoadOrCarriagewayOrLaneManagement","types":["roadMaintenance","roadworks","laneClosures"],"status":"active","created":"2026-11-24T02:34:50.000+01:00","start":"2026-11-24T02:34:00.000+01:00","end":"2026-11-24T05:30:00.000+01:00","road":"A-2","dir":"positive","lanes":"leftLane","pk":[26.0,33.6],"a":[40.474483,-3.411911],"b":[40.502205,-3.334997],"geo":{"autonomousCommunity":"Madrid, Comunidad de","municipality":"Alcalá de Henares","province":"Madrid"}}
+{"t":"2026-11-24T01:44:03Z","ev":"open","id":"30332751","sit":"25898087","ver":"1","kind":"GenericSituationRecord","types":["vehicleObstruction","vehicleStuck"],"status":"active","created":"2026-11-24T02:35:56.000+01:00","start":"2026-11-24T02:35:56.000+01:00","road":"N-340a","dir":"negative","pk":[590.034],"a":[37.6576,-1.709548],"geo":{"autonomousCommunity":"Murcia, Región de","municipality":"Lorca","province":"Murcia"}}
+{"t":"2026-11-24T01:44:03Z","ev":"open","id":"30332753","sit":"25898089","ver":"1","kind":"GenericSituationRecord","types":["vehicleObstruction","vehicleStuck"],"status":"active","created":"2026-11-24T02:36:19.000+01:00","start":"2026-11-24T02:36:19.000+01:00","road":"A-4","dir":"positive","pk":[32.804],"a":[40.1365,-3.65771],"geo":{"autonomousCommunity":"Madrid, Comunidad de","municipality":"Ciempozuelos","province":"Madrid"}}
+{"t":"2026-11-24T01:44:03Z","ev":"open","id":"30332756","sit":"25898092","ver":"1","kind":"GenericSituationRecord","types":["vehicleObstruction","vehicleStuck"],"status":"active","created":"2026-11-24T02:37:54.000+01:00","start":"2026-11-24T02:37:54.000+01:00","road":"Ma-1044","dir":"positive","pk":[3.861],"a":[39.57336,2.6152],"geo":{"autonomousCommunity":"Balears, Illes","municipality":"Palma","province":"Illes Balears"}}
+{"t":"2026-11-24T01:44:03Z","ev":"open","id":"30332757","sit":"25898093","ver":"1","kind":"GenericSituationRecord","types":["vehicleObstruction","vehicleStuck"],"status":"active","created":"2026-11-24T02:38:11.000+01:00","start":"2026-11-24T02:38:11.000+01:00","road":"M-14","dir":"positive","pk":[1.772],"a":[40.4531,-3.5863],"geo":{"autonomousCommunity":"Madrid, Comunidad de","municipality":"Madrid","province":"Madrid"}}
+{"t":"2026-11-24T01:44:03Z","ev":"change","id":"30235596","sit":"25805183","ver":"6","kind":"RoadOrCarriagewayOrLaneManagement","types":["roadMaintenance","roadworks","laneClosures"],"status":"active","created":"2026-11-24T01:39:33.000+01:00","start":"2026-11-24T02:39:00.000+01:00","end":"2026-11-24T06:00:00.000+01:00","road":"N-351","dir":"positive","lanes":"leftLane","pk":[3.1,3.2],"a":[36.17979,-5.379406],"b":[36.179108,-5.378748],"geo":{"autonomousCommunity":"Andalucía","municipality":"San Roque","province":"Cádiz"}}
+{"t":"2026-11-24T01:44:03Z","ev":"open","id":"30332763","sit":"25898099","ver":"1","kind":"GenericSituationRecord","types":["vehicleObstruction","vehicleStuck"],"status":"active","created":"2026-11-24T02:42:30.000+01:00","start":"2026-11-24T02:42:30.000+01:00","road":"A-4","dir":"positive","pk":[397.064],"a":[37.892174,-4.724206],"geo":{"autonomousCommunity":"Andalucía","municipality":"Córdoba","province":"Córdoba"}}
+{"t":"2026-11-24T01:44:03Z","ev":"close","id":"30332569"}
+{"t":"2026-11-24T01:44:03Z","ev":"close","id":"30332572"}
+{"t":"2026-11-24T01:44:03Z","ev":"close","id":"30332575"}
+{"t":"2026-11-24T01:44:03Z","ev":"close","id":"30332577"}
+{"t":"2026-11-24T01:44:03Z","ev":"close","id":"30332578"}
+{"t":"2026-11-24T01:44:03Z","ev":"close","id":"30332580"}
+{"t":"2026-11-24T01:44:03Z","ev":"close","id":"30332583"}
+{"t":"2026-11-24T01:44:03Z","ev":"close","id":"30332600"}
+{"t":"2026-11-24T01:44:03Z","ev":"close","id":"30332604"}
+{"t":"2026-11-24T01:44:03Z","ev":"close","id":"30332608"}
+{"t":"2026-11-24T01:44:03Z","ev":"close","id":"30332701"}
+{"t":"2026-11-24T01:44:03Z","ev":"close","id":"30332741"}
+{"t":"2026-11-24T01:44:03Z","ev":"close","id":"30332744"}
+{"t":"2026-11-24T01:44:03Z","ev":"close","id":"30332749"}
