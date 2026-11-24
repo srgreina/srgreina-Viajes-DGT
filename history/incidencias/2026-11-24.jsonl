@@ -607,3 +607,16 @@
 {"t":"2026-11-24T04:16:06Z","ev":"close","id":"30332935"}
 {"t":"2026-11-24T04:16:06Z","ev":"close","id":"30332990"}
 {"t":"2026-11-24T04:16:06Z","ev":"close","id":"30332998"}
+{"t":"2026-11-24T04:25:36Z","ev":"open","id":"30333022","sit":"25898350","ver":"1","kind":"GenericSituationRecord","types":["vehicleObstruction","vehicleStuck"],"status":"active","created":"2026-11-24T05:18:52.000+01:00","start":"2026-11-24T05:18:52.000+01:00","road":"N-340a","dir":"negative","pk":[590.036],"a":[37.65763,-1.709562],"geo":{"autonomousCommunity":"Murcia, Región de","municipality":"Lorca","province":"Murcia"}}
+{"t":"2026-11-24T04:25:36Z","ev":"open","id":"30333023","sit":"25898351","ver":"1","kind":"GenericSituationRecord","types":["vehicleObstruction","vehicleStuck"],"status":"active","created":"2026-11-24T05:20:19.000+01:00","start":"2026-11-24T05:20:19.000+01:00","road":"CA-171","dir":"positive","pk":[2.858],"a":[43.00561,-4.097658],"geo":{"autonomousCommunity":"Cantabria","municipality":"Campoo de Enmedio","province":"Cantabria"}}
+{"t":"2026-11-24T04:25:36Z","ev":"change","id":"30331784","sit":"25897153","ver":"7","kind":"GenericSituationRecord","types":["roadMaintenance","roadworks"],"status":"active","created":"2026-11-23T23:13:36.000+01:00","start":"2026-11-23T23:13:36.000+01:00","road":"VS-A-3-D","dir":"positive","pk":[4.495],"a":[40.40425,-3.652843],"geo":{"autonomousCommunity":"Madrid, Comunidad de","municipality":"Madrid","province":"Madrid"}}
+{"t":"2026-11-24T04:25:36Z","ev":"open","id":"30333030","sit":"25898357","ver":"1","kind":"GenericSituationRecord","types":["vehicleObstruction","vehicleStuck"],"status":"active","created":"2026-11-24T05:24:30.000+01:00","start":"2026-11-24T05:24:30.000+01:00","road":"A-6050","dir":"negative","pk":[4.31],"a":[37.729183,-3.808686],"geo":{"autonomousCommunity":"Andalucía","municipality":"Jaén","province":"Jaén"}}
+{"t":"2026-11-24T04:25:36Z","ev":"open","id":"30333033","sit":"25898360","ver":"1","kind":"GenericSituationRecord","types":["vehicleObstruction","vehicleStuck"],"status":"active","created":"2026-11-24T05:25:20.000+01:00","start":"2026-11-24T05:25:20.000+01:00","road":"AP-2","dir":"positive","pk":[128.744],"a":[41.54202,0.489874],"geo":{"autonomousCommunity":"Cataluña","municipality":"Soses","province":"Lleida"}}
+{"t":"2026-11-24T04:25:36Z","ev":"close","id":"30296756"}
+{"t":"2026-11-24T04:25:36Z","ev":"close","id":"30330834"}
+{"t":"2026-11-24T04:25:36Z","ev":"close","id":"30332273"}
+{"t":"2026-11-24T04:25:36Z","ev":"close","id":"30332796"}
+{"t":"2026-11-24T04:25:36Z","ev":"close","id":"30332939"}
+{"t":"2026-11-24T04:25:36Z","ev":"close","id":"30332954"}
+{"t":"2026-11-24T04:25:36Z","ev":"close","id":"30332982"}
+{"t":"2026-11-24T04:25:36Z","ev":"close","id":"30333014"}
