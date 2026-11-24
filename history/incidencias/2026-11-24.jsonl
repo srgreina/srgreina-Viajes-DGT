@@ -456,3 +456,19 @@
 {"t":"2026-11-24T02:50:24Z","ev":"close","id":"30332874"}
 {"t":"2026-11-24T02:50:24Z","ev":"close","id":"30332878"}
 {"t":"2026-11-24T02:50:24Z","ev":"close","id":"30332879"}
+{"t":"2026-11-24T02:59:49Z","ev":"open","id":"30332891","sit":"25898223","ver":"1","kind":"GenericSituationRecord","types":["vehicleObstruction","vehicleStuck"],"status":"active","created":"2026-11-24T03:51:01.000+01:00","start":"2026-11-24T03:51:01.000+01:00","road":"A-2","dir":"positive","pk":[27.412],"a":[40.48399,-3.39937],"geo":{"autonomousCommunity":"Madrid, Comunidad de","municipality":"Alcalá de Henares","province":"Madrid"}}
+{"t":"2026-11-24T02:59:49Z","ev":"open","id":"30332894","sit":"25898226","ver":"1","kind":"GenericSituationRecord","types":["vehicleObstruction","vehicleStuck"],"status":"active","created":"2026-11-24T03:52:14.000+01:00","start":"2026-11-24T03:52:14.000+01:00","road":"Ma-1044","dir":"positive","pk":[3.861],"a":[39.57336,2.6152],"geo":{"autonomousCommunity":"Balears, Illes","municipality":"Palma","province":"Illes Balears"}}
+{"t":"2026-11-24T02:59:49Z","ev":"open","id":"30332895","sit":"25898227","ver":"1","kind":"GenericSituationRecord","types":["vehicleObstruction","vehicleStuck"],"status":"active","created":"2026-11-24T03:52:30.000+01:00","start":"2026-11-24T03:52:30.000+01:00","road":"N-611","dir":"positive","pk":[137.932],"a":[42.996086,-4.140548],"geo":{"autonomousCommunity":"Cantabria","municipality":"Reinosa","province":"Cantabria"}}
+{"t":"2026-11-24T02:59:49Z","ev":"open","id":"30332900","sit":"25898232","ver":"1","kind":"GenericSituationRecord","types":["vehicleObstruction","vehicleStuck"],"status":"active","created":"2026-11-24T03:55:50.000+01:00","start":"2026-11-24T03:55:50.000+01:00","road":"AC-550","dir":"negative","pk":[35.702],"a":[42.75909,-9.0837],"geo":{"autonomousCommunity":"Galicia","municipality":"Muros","province":"A Coruña"}}
+{"t":"2026-11-24T02:59:49Z","ev":"open","id":"30332901","sit":"25898233","ver":"1","kind":"GenericSituationRecord","types":["vehicleObstruction","vehicleStuck"],"status":"active","created":"2026-11-24T03:56:28.000+01:00","start":"2026-11-24T03:56:28.000+01:00","road":"A-43","dir":"positive","pk":[58.338],"a":[39.03639,-3.304561],"geo":{"autonomousCommunity":"Castilla - La Mancha","municipality":"Manzanares","province":"Ciudad Real"}}
+{"t":"2026-11-24T02:59:49Z","ev":"open","id":"30332902","sit":"25898234","ver":"1","kind":"GenericSituationRecord","types":["vehicleObstruction","vehicleStuck"],"status":"active","created":"2026-11-24T03:56:34.000+01:00","start":"2026-11-24T03:56:34.000+01:00","road":"A-2","dir":"negative","pk":[15.228],"a":[40.44684,-3.53533],"geo":{"autonomousCommunity":"Madrid, Comunidad de","municipality":"Madrid","province":"Madrid"}}
+{"t":"2026-11-24T02:59:49Z","ev":"open","id":"30332903","sit":"25898235","ver":"1","kind":"GenericSituationRecord","types":["vehicleObstruction","vehicleStuck"],"status":"active","created":"2026-11-24T03:56:46.000+01:00","start":"2026-11-24T03:56:46.000+01:00","road":"VS-M-12-D","dir":"positive","pk":[5.843],"a":[40.49993,-3.60254],"geo":{"autonomousCommunity":"Madrid, Comunidad de","municipality":"Madrid","province":"Madrid"}}
+{"t":"2026-11-24T02:59:49Z","ev":"close","id":"30332669"}
+{"t":"2026-11-24T02:59:49Z","ev":"close","id":"30332770"}
+{"t":"2026-11-24T02:59:49Z","ev":"close","id":"30332773"}
+{"t":"2026-11-24T02:59:49Z","ev":"close","id":"30332783"}
+{"t":"2026-11-24T02:59:49Z","ev":"close","id":"30332830"}
+{"t":"2026-11-24T02:59:49Z","ev":"close","id":"30332881"}
+{"t":"2026-11-24T02:59:49Z","ev":"close","id":"30332886"}
+{"t":"2026-11-24T02:59:49Z","ev":"close","id":"30332887"}
+{"t":"2026-11-24T02:59:49Z","ev":"close","id":"30331563"}
