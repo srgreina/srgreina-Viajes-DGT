@@ -261,3 +261,26 @@
 {"t":"2026-11-24T01:15:37Z","ev":"close","id":"30332683"}
 {"t":"2026-11-24T01:15:37Z","ev":"close","id":"30332684"}
 {"t":"2026-11-24T01:15:37Z","ev":"close","id":"30332686"}
+{"t":"2026-11-24T01:25:02Z","ev":"open","id":"30332713","sit":"25898051","ver":"1","kind":"GenericSituationRecord","types":["vehicleObstruction","vehicleStuck"],"status":"active","created":"2026-11-24T02:15:07.000+01:00","start":"2026-11-24T02:15:07.000+01:00","road":"M-501","dir":"positive","pk":[3.715],"a":[40.39747,-3.8764],"geo":{"autonomousCommunity":"Madrid, Comunidad de","municipality":"Boadilla del Monte","province":"Madrid"}}
+{"t":"2026-11-24T01:25:02Z","ev":"open","id":"30332719","sit":"25898057","ver":"1","kind":"GenericSituationRecord","types":["vehicleObstruction","vehicleStuck"],"status":"active","created":"2026-11-24T02:18:41.000+01:00","start":"2026-11-24T02:18:41.000+01:00","road":"A-315","dir":"negative","pk":[89.863],"a":[37.53591,-2.929715],"geo":{"autonomousCommunity":"Andalucía","municipality":"Freila","province":"Granada"}}
+{"t":"2026-11-24T01:25:02Z","ev":"open","id":"30332720","sit":"25898058","ver":"1","kind":"GenericSituationRecord","types":["vehicleObstruction","vehicleStuck"],"status":"active","created":"2026-11-24T02:18:51.000+01:00","start":"2026-11-24T02:18:51.000+01:00","road":"TF-342","dir":"positive","pk":[12.665],"a":[28.37439,-16.65109],"geo":{"autonomousCommunity":"Canarias","municipality":"La Guancha","province":"Santa Cruz de Tenerife"}}
+{"t":"2026-11-24T01:25:02Z","ev":"open","id":"30332647","sit":"25810838","ver":"20","kind":"RoadOrCarriagewayOrLaneManagement","types":["roadMaintenance","roadworks","laneClosures"],"status":"active","created":"2026-11-24T02:20:04.000+01:00","start":"2026-11-24T02:20:00.000+01:00","end":"2026-11-24T14:20:00.000+01:00","road":"AG-57","dir":"negative","lanes":"leftLane","pk":[13.0,11.2],"a":[42.137196,-8.764865],"b":[42.122475,-8.769196],"geo":{"autonomousCommunity":"Galicia","municipality":"Gondomar","province":"Pontevedra"}}
+{"t":"2026-11-24T01:25:02Z","ev":"open","id":"30332648","sit":"25810838","ver":"21","kind":"RoadOrCarriagewayOrLaneManagement","types":["roadMaintenance","roadworks","laneClosures"],"status":"active","created":"2026-11-24T02:20:04.000+01:00","start":"2026-11-24T02:20:00.000+01:00","end":"2026-11-24T14:20:00.000+01:00","road":"AG-57","dir":"negative","lanes":"rightLane","pk":[13.0,11.2],"a":[42.137196,-8.764865],"b":[42.122475,-8.769196],"geo":{"autonomousCommunity":"Galicia","municipality":"Gondomar","province":"Pontevedra"}}
+{"t":"2026-11-24T01:25:02Z","ev":"open","id":"30332723","sit":"25898061","ver":"1","kind":"GenericSituationRecord","types":["vehicleObstruction","vehicleStuck"],"status":"active","created":"2026-11-24T02:20:46.000+01:00","start":"2026-11-24T02:20:46.000+01:00","road":"CV-368","dir":"positive","pk":[0.076],"a":[39.51222,-0.45408],"geo":{"autonomousCommunity":"Comunitat Valenciana","municipality":"Paterna","province":"València/Valencia"}}
+{"t":"2026-11-24T01:25:02Z","ev":"open","id":"30332724","sit":"25898062","ver":"1","kind":"GenericSituationRecord","types":["vehicleObstruction","vehicleStuck"],"status":"active","created":"2026-11-24T02:20:59.000+01:00","start":"2026-11-24T02:20:59.000+01:00","road":"M-45","dir":"negative","pk":[17.083],"a":[40.36063,-3.61249],"geo":{"autonomousCommunity":"Madrid, Comunidad de","municipality":"Madrid","province":"Madrid"}}
+{"t":"2026-11-24T01:25:02Z","ev":"open","id":"30332727","sit":"25898065","ver":"1","kind":"GenericSituationRecord","types":["vehicleObstruction","vehicleStuck"],"status":"active","created":"2026-11-24T02:23:16.000+01:00","start":"2026-11-24T02:23:16.000+01:00","road":"AL-3106","dir":"negative","pk":[24.16],"a":[36.875607,-2.013327],"geo":{"autonomousCommunity":"Andalucía","municipality":"Níjar","province":"Almería"}}
+{"t":"2026-11-24T01:25:02Z","ev":"open","id":"30332728","sit":"25898066","ver":"1","kind":"GenericSituationRecord","types":["vehicleObstruction","vehicleStuck"],"status":"active","created":"2026-11-24T02:23:24.000+01:00","start":"2026-11-24T02:23:24.000+01:00","road":"A-49","dir":"negative","pk":[75.707],"a":[37.321674,-6.848373],"geo":{"autonomousCommunity":"Andalucía","municipality":"San Juan del Puerto","province":"Huelva"}}
+{"t":"2026-11-24T01:25:02Z","ev":"close","id":"30315724"}
+{"t":"2026-11-24T01:25:02Z","ev":"close","id":"30315722"}
+{"t":"2026-11-24T01:25:02Z","ev":"close","id":"30331187"}
+{"t":"2026-11-24T01:25:02Z","ev":"close","id":"30331358"}
+{"t":"2026-11-24T01:25:02Z","ev":"close","id":"30332251"}
+{"t":"2026-11-24T01:25:02Z","ev":"close","id":"30332504"}
+{"t":"2026-11-24T01:25:02Z","ev":"close","id":"30332510"}
+{"t":"2026-11-24T01:25:02Z","ev":"close","id":"30332528"}
+{"t":"2026-11-24T01:25:02Z","ev":"close","id":"30332610"}
+{"t":"2026-11-24T01:25:02Z","ev":"close","id":"30332632"}
+{"t":"2026-11-24T01:25:02Z","ev":"close","id":"30332646"}
+{"t":"2026-11-24T01:25:02Z","ev":"close","id":"30332692"}
+{"t":"2026-11-24T01:25:02Z","ev":"close","id":"30332695"}
+{"t":"2026-11-24T01:25:02Z","ev":"close","id":"30332705"}
