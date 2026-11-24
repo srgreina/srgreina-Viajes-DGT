@@ -409,3 +409,17 @@
 {"t":"2026-11-24T02:22:02Z","ev":"close","id":"30332711"}
 {"t":"2026-11-24T02:22:02Z","ev":"close","id":"30332809"}
 {"t":"2026-11-24T02:22:02Z","ev":"close","id":"30332820"}
+{"t":"2026-11-24T02:31:27Z","ev":"open","id":"30332848","sit":"25898182","ver":"1","kind":"GenericSituationRecord","types":["vehicleObstruction","vehicleStuck"],"status":"active","created":"2026-11-24T03:25:44.000+01:00","start":"2026-11-24T03:25:44.000+01:00","road":"TF-342","dir":"positive","pk":[12.766],"a":[28.37457,-16.65211],"geo":{"autonomousCommunity":"Canarias","municipality":"La Guancha","province":"Santa Cruz de Tenerife"}}
+{"t":"2026-11-24T02:31:27Z","ev":"open","id":"30332849","sit":"25898183","ver":"1","kind":"GenericSituationRecord","types":["vehicleObstruction","vehicleStuck"],"status":"active","created":"2026-11-24T03:26:02.000+01:00","start":"2026-11-24T03:26:02.000+01:00","road":"M-501","dir":"positive","pk":[3.715],"a":[40.39747,-3.8764],"geo":{"autonomousCommunity":"Madrid, Comunidad de","municipality":"Boadilla del Monte","province":"Madrid"}}
+{"t":"2026-11-24T02:31:27Z","ev":"open","id":"30332851","sit":"25898185","ver":"1","kind":"GenericSituationRecord","types":["vehicleObstruction","vehicleStuck"],"status":"active","created":"2026-11-24T03:26:49.000+01:00","start":"2026-11-24T03:26:49.000+01:00","road":"A-1","dir":"positive","pk":[233.126],"a":[42.2933,-3.70318],"geo":{"autonomousCommunity":"Castilla y León","municipality":"Villagonzalo Pedernales","province":"Burgos"}}
+{"t":"2026-11-24T02:31:27Z","ev":"open","id":"30332856","sit":"25898190","ver":"1","kind":"GenericSituationRecord","types":["vehicleObstruction","vehicleStuck"],"status":"active","created":"2026-11-24T03:29:01.000+01:00","start":"2026-11-24T03:29:01.000+01:00","road":"A-2","dir":"positive","pk":[16.05],"a":[40.44816,-3.52639],"geo":{"autonomousCommunity":"Madrid, Comunidad de","municipality":"San Fernando de Henares","province":"Madrid"}}
+{"t":"2026-11-24T02:31:27Z","ev":"open","id":"30332858","sit":"25898192","ver":"1","kind":"GenericSituationRecord","types":["vehicleObstruction","vehicleStuck"],"status":"active","created":"2026-11-24T03:29:20.000+01:00","start":"2026-11-24T03:29:20.000+01:00","road":"A-2","dir":"positive","pk":[16.807],"a":[40.45086,-3.51758],"geo":{"autonomousCommunity":"Madrid, Comunidad de","municipality":"San Fernando de Henares","province":"Madrid"}}
+{"t":"2026-11-24T02:31:27Z","ev":"close","id":"30235596"}
+{"t":"2026-11-24T02:31:27Z","ev":"close","id":"30332713"}
+{"t":"2026-11-24T02:31:27Z","ev":"close","id":"30332720"}
+{"t":"2026-11-24T02:31:27Z","ev":"close","id":"30332731"}
+{"t":"2026-11-24T02:31:27Z","ev":"close","id":"30332782"}
+{"t":"2026-11-24T02:31:27Z","ev":"close","id":"30332823"}
+{"t":"2026-11-24T02:31:27Z","ev":"close","id":"30332825"}
+{"t":"2026-11-24T02:31:27Z","ev":"close","id":"30332838"}
+{"t":"2026-11-24T02:31:27Z","ev":"close","id":"30332843"}
