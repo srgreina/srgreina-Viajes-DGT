@@ -375,3 +375,18 @@
 {"t":"2026-11-24T02:03:02Z","ev":"close","id":"30332732"}
 {"t":"2026-11-24T02:03:02Z","ev":"close","id":"30332778"}
 {"t":"2026-11-24T02:03:02Z","ev":"close","id":"30332779"}
+{"t":"2026-11-24T02:12:35Z","ev":"open","id":"30332808","sit":"25898143","ver":"1","kind":"GenericSituationRecord","types":["vehicleObstruction","vehicleStuck"],"status":"active","created":"2026-11-24T03:04:17.000+01:00","start":"2026-11-24T03:04:17.000+01:00","road":"M-406","dir":"negative","pk":[16.958],"a":[40.30349,-3.69506],"geo":{"autonomousCommunity":"Madrid, Comunidad de","municipality":"Getafe","province":"Madrid"}}
+{"t":"2026-11-24T02:12:35Z","ev":"open","id":"30332809","sit":"25898144","ver":"1","kind":"GenericSituationRecord","types":["vehicleObstruction","vehicleStuck"],"status":"active","created":"2026-11-24T03:05:08.000+01:00","start":"2026-11-24T03:05:08.000+01:00","road":"TF-192","dir":"positive","pk":[2.478],"a":[28.44955,-16.28503],"geo":{"autonomousCommunity":"Canarias","municipality":"Santa Cruz de Tenerife","province":"Santa Cruz de Tenerife"}}
+{"t":"2026-11-24T02:12:35Z","ev":"open","id":"30332818","sit":"25898153","ver":"1","kind":"GenericSituationRecord","types":["vehicleObstruction","vehicleStuck"],"status":"active","created":"2026-11-24T03:09:14.000+01:00","start":"2026-11-24T03:09:14.000+01:00","road":"T-340a","dir":"negative","pk":[0.262],"a":[37.55348,-1.81366],"geo":{"autonomousCommunity":"Murcia, Región de","municipality":"Puerto Lumbreras","province":"Murcia"}}
+{"t":"2026-11-24T02:12:35Z","ev":"open","id":"30332820","sit":"25898155","ver":"1","kind":"GenericSituationRecord","types":["vehicleObstruction","vehicleStuck"],"status":"active","created":"2026-11-24T03:10:10.000+01:00","start":"2026-11-24T03:10:10.000+01:00","road":"A-68","dir":"positive","pk":[234.297],"a":[41.63246,-0.85944],"geo":{"autonomousCommunity":"Aragón","municipality":"Zaragoza","province":"Zaragoza"}}
+{"t":"2026-11-24T02:12:35Z","ev":"open","id":"30332821","sit":"25898156","ver":"1","kind":"GenericSituationRecord","types":["vehicleObstruction","vehicleStuck"],"status":"active","created":"2026-11-24T03:10:57.000+01:00","start":"2026-11-24T03:10:57.000+01:00","road":"A-601","dir":"positive","pk":[92.549],"a":[41.090187,-4.227917],"geo":{"autonomousCommunity":"Castilla y León","municipality":"Tabanera la Luenga","province":"Segovia"}}
+{"t":"2026-11-24T02:12:35Z","ev":"close","id":"29886235"}
+{"t":"2026-11-24T02:12:35Z","ev":"close","id":"29886236"}
+{"t":"2026-11-24T02:12:35Z","ev":"close","id":"30236611"}
+{"t":"2026-11-24T02:12:35Z","ev":"close","id":"30330557"}
+{"t":"2026-11-24T02:12:35Z","ev":"close","id":"30332662"}
+{"t":"2026-11-24T02:12:35Z","ev":"close","id":"30332777"}
+{"t":"2026-11-24T02:12:35Z","ev":"close","id":"30332788"}
+{"t":"2026-11-24T02:12:35Z","ev":"close","id":"30332789"}
+{"t":"2026-11-24T02:12:35Z","ev":"close","id":"30332800"}
+{"t":"2026-11-24T02:12:35Z","ev":"close","id":"30332803"}
