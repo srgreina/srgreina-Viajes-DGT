@@ -197,3 +197,20 @@
 {"t":"2026-11-25T00:50:27Z","ev":"close","id":"30369305"}
 {"t":"2026-11-25T00:50:27Z","ev":"close","id":"30369310"}
 {"t":"2026-11-25T00:50:27Z","ev":"close","id":"30369313"}
+{"t":"2026-11-25T01:00:00Z","ev":"open","id":"30369354","sit":"25931818","ver":"1","kind":"GenericSituationRecord","types":["vehicleObstruction","vehicleStuck"],"status":"active","created":"2026-11-25T01:52:34.000+01:00","start":"2026-11-25T01:52:34.000+01:00","road":"AC-311","dir":"negative","pk":[2.98],"a":[42.78681,-8.882581],"geo":{"autonomousCommunity":"Galicia","municipality":"Noia","province":"A Coruña"}}
+{"t":"2026-11-25T01:00:00Z","ev":"open","id":"30369356","sit":"25931820","ver":"1","kind":"GenericSituationRecord","types":["vehicleObstruction","vehicleStuck"],"status":"active","created":"2026-11-25T01:53:04.000+01:00","start":"2026-11-25T01:53:04.000+01:00","road":"A-49","dir":"positive","pk":[45.235],"a":[37.35995,-6.51355],"geo":{"autonomousCommunity":"Andalucía","municipality":"La Palma del Condado","province":"Huelva"}}
+{"t":"2026-11-25T01:00:00Z","ev":"open","id":"30369361","sit":"25931825","ver":"1","kind":"GenericSituationRecord","types":["vehicleObstruction","vehicleStuck"],"status":"active","created":"2026-11-25T01:55:51.000+01:00","start":"2026-11-25T01:55:51.000+01:00","road":"GC-500","dir":"negative","pk":[7.063],"a":[27.784712,-15.506857],"geo":{"autonomousCommunity":"Canarias","municipality":"San Bartolomé de Tirajana","province":"Las Palmas"}}
+{"t":"2026-11-25T01:00:00Z","ev":"open","id":"30369362","sit":"25931826","ver":"1","kind":"GenericSituationRecord","types":["vehicleObstruction","vehicleStuck"],"status":"active","created":"2026-11-25T01:56:32.000+01:00","start":"2026-11-25T01:56:32.000+01:00","road":"RM-611","dir":"negative","pk":[1.261],"a":[37.963047,-1.168864],"geo":{"autonomousCommunity":"Murcia, Región de","municipality":"Murcia","province":"Murcia"}}
+{"t":"2026-11-25T01:00:00Z","ev":"open","id":"30369363","sit":"25931827","ver":"1","kind":"GenericSituationRecord","types":["vehicleObstruction","vehicleStuck"],"status":"active","created":"2026-11-25T01:56:48.000+01:00","start":"2026-11-25T01:56:48.000+01:00","road":"A-7","dir":"positive","pk":[776.138],"a":[36.88443,-2.40676],"geo":{"autonomousCommunity":"Andalucía","municipality":"Viator","province":"Almería"}}
+{"t":"2026-11-25T01:00:00Z","ev":"open","id":"30369367","sit":"25931831","ver":"1","kind":"GenericSituationRecord","types":["accident"],"status":"active","created":"2026-11-25T01:57:28.000+01:00","start":"2026-11-25T01:53:00.000+01:00","road":"A-35","dir":"positive","pk":[14.455],"a":[38.83779,-0.859757],"geo":{"autonomousCommunity":"Comunitat Valenciana","municipality":"la Font de la Figuera","province":"València/Valencia"}}
+{"t":"2026-11-25T01:00:00Z","ev":"open","id":"30369368","sit":"25931832","ver":"1","kind":"GenericSituationRecord","types":["vehicleObstruction","vehicleStuck"],"status":"active","created":"2026-11-25T01:58:14.000+01:00","start":"2026-11-25T01:58:14.000+01:00","road":"A-4R2","dir":"positive","pk":[0.622],"a":[37.852337,-4.790012],"geo":{"autonomousCommunity":"Andalucía","municipality":"Córdoba","province":"Córdoba"}}
+{"t":"2026-11-25T01:00:00Z","ev":"close","id":"30369057"}
+{"t":"2026-11-25T01:00:00Z","ev":"close","id":"30369098"}
+{"t":"2026-11-25T01:00:00Z","ev":"close","id":"30369105"}
+{"t":"2026-11-25T01:00:00Z","ev":"close","id":"30369109"}
+{"t":"2026-11-25T01:00:00Z","ev":"close","id":"30369115"}
+{"t":"2026-11-25T01:00:00Z","ev":"close","id":"30369132"}
+{"t":"2026-11-25T01:00:00Z","ev":"close","id":"30369193"}
+{"t":"2026-11-25T01:00:00Z","ev":"close","id":"30369254"}
+{"t":"2026-11-25T01:00:00Z","ev":"close","id":"30369347"}
+{"t":"2026-11-25T01:00:00Z","ev":"close","id":"30369348"}
