@@ -564,3 +564,20 @@
 {"t":"2026-11-25T03:32:12Z","ev":"close","id":"30369583"}
 {"t":"2026-11-25T03:32:12Z","ev":"close","id":"30369619"}
 {"t":"2026-11-25T03:32:12Z","ev":"close","id":"30369664"}
+{"t":"2026-11-25T03:41:41Z","ev":"open","id":"30369632","sit":"25931135","ver":"8","kind":"RoadOrCarriagewayOrLaneManagement","types":["roadMaintenance","roadworks","laneClosures"],"status":"active","created":"2026-11-25T04:37:54.000+01:00","start":"2026-11-25T04:37:00.000+01:00","end":"2026-11-25T05:30:00.000+01:00","road":"A-5","dir":"negative","lanes":"rightLane","pk":[13.0,12.5],"a":[40.354713,-3.822451],"b":[40.35779,-3.818402],"geo":{"autonomousCommunity":"Madrid, Comunidad de","municipality":"Alcorcón","province":"Madrid"}}
+{"t":"2026-11-25T03:41:41Z","ev":"open","id":"30369700","sit":"25932148","ver":"1","kind":"GenericSituationRecord","types":["vehicleObstruction","vehicleStuck"],"status":"active","created":"2026-11-25T04:32:26.000+01:00","start":"2026-11-25T04:32:26.000+01:00","road":"A-31","dir":"negative","pk":[128.734],"a":[38.87308,-1.306982],"geo":{"autonomousCommunity":"Castilla - La Mancha","municipality":"Bonete","province":"Albacete"}}
+{"t":"2026-11-25T03:41:41Z","ev":"open","id":"30369704","sit":"25932152","ver":"1","kind":"GenericSituationRecord","types":["vehicleObstruction","vehicleStuck"],"status":"active","created":"2026-11-25T04:34:55.000+01:00","start":"2026-11-25T04:34:55.000+01:00","road":"A-31","dir":"negative","pk":[126.957],"a":[38.8771,-1.32608],"geo":{"autonomousCommunity":"Castilla - La Mancha","municipality":"Bonete","province":"Albacete"}}
+{"t":"2026-11-25T03:41:41Z","ev":"open","id":"30369708","sit":"25932156","ver":"1","kind":"GenericSituationRecord","types":["vehicleObstruction","vehicleStuck"],"status":"active","created":"2026-11-25T04:36:55.000+01:00","start":"2026-11-25T04:36:55.000+01:00","road":"A-3","dir":"negative","pk":[325.589],"a":[39.46129,-0.71123],"geo":{"autonomousCommunity":"Comunitat Valenciana","municipality":"Chiva","province":"València/Valencia"}}
+{"t":"2026-11-25T03:41:41Z","ev":"open","id":"30369709","sit":"25932157","ver":"1","kind":"GenericSituationRecord","types":["vehicleObstruction","vehicleStuck"],"status":"active","created":"2026-11-25T04:37:21.000+01:00","start":"2026-11-25T04:37:21.000+01:00","road":"A-68","dir":"negative","pk":[267.311],"a":[41.76203,-1.17228],"geo":{"autonomousCommunity":"Aragón","municipality":"Figueruelas","province":"Zaragoza"}}
+{"t":"2026-11-25T03:41:41Z","ev":"open","id":"30369717","sit":"25932164","ver":"1","kind":"GenericSituationRecord","types":["vehicleObstruction","vehicleStuck"],"status":"active","created":"2026-11-25T04:40:40.000+01:00","start":"2026-11-25T04:40:40.000+01:00","road":"N-2","dir":"negative","pk":[150.904],"a":[41.169147,-2.421591],"geo":{"autonomousCommunity":"Castilla y León","municipality":"Medinaceli","province":"Soria"}}
+{"t":"2026-11-25T03:41:41Z","ev":"open","id":"30369718","sit":"25932165","ver":"1","kind":"GenericSituationRecord","types":["vehicleObstruction","vehicleStuck"],"status":"active","created":"2026-11-25T04:40:53.000+01:00","start":"2026-11-25T04:40:53.000+01:00","road":"A-44","dir":"negative","pk":[98.627],"a":[37.393806,-3.5751],"geo":{"autonomousCommunity":"Andalucía","municipality":"Iznalloz","province":"Granada"}}
+{"t":"2026-11-25T03:41:41Z","ev":"close","id":"29965527"}
+{"t":"2026-11-25T03:41:41Z","ev":"close","id":"29965509"}
+{"t":"2026-11-25T03:41:41Z","ev":"close","id":"30367578"}
+{"t":"2026-11-25T03:41:41Z","ev":"close","id":"30367692"}
+{"t":"2026-11-25T03:41:41Z","ev":"close","id":"30369562"}
+{"t":"2026-11-25T03:41:41Z","ev":"close","id":"30369564"}
+{"t":"2026-11-25T03:41:41Z","ev":"close","id":"30369618"}
+{"t":"2026-11-25T03:41:41Z","ev":"close","id":"30369684"}
+{"t":"2026-11-25T03:41:41Z","ev":"close","id":"30369690"}
+{"t":"2026-11-25T03:41:41Z","ev":"close","id":"30369693"}
