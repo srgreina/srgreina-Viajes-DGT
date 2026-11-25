@@ -269,3 +269,22 @@
 {"t":"2026-11-25T01:18:55Z","ev":"close","id":"30369386"}
 {"t":"2026-11-25T01:18:55Z","ev":"close","id":"30369390"}
 {"t":"2026-11-25T01:18:55Z","ev":"close","id":"30369395"}
+{"t":"2026-11-25T01:28:27Z","ev":"open","id":"30369422","sit":"25931884","ver":"1","kind":"GenericSituationRecord","types":["vehicleObstruction","vehicleStuck"],"status":"active","created":"2026-11-25T02:18:49.000+01:00","start":"2026-11-25T02:18:49.000+01:00","road":"GC-1","dir":"negative","pk":[7.927],"a":[28.014412,-15.387688],"geo":{"autonomousCommunity":"Canarias","municipality":"Telde","province":"Las Palmas"}}
+{"t":"2026-11-25T01:28:27Z","ev":"open","id":"30369425","sit":"25931887","ver":"1","kind":"GenericSituationRecord","types":["vehicleObstruction","vehicleStuck"],"status":"active","created":"2026-11-25T02:19:51.000+01:00","start":"2026-11-25T02:19:51.000+01:00","road":"FV-3","dir":"positive","pk":[1.097],"a":[28.488712,-13.88024],"geo":{"autonomousCommunity":"Canarias","municipality":"Puerto del Rosario","province":"Las Palmas"}}
+{"t":"2026-11-25T01:28:27Z","ev":"open","id":"30369427","sit":"25931889","ver":"1","kind":"GenericSituationRecord","types":["vehicleObstruction","vehicleStuck"],"status":"active","created":"2026-11-25T02:20:42.000+01:00","start":"2026-11-25T02:20:42.000+01:00","road":"OU-0459","dir":"positive","pk":[0.028],"a":[42.43608,-8.071471],"geo":{"autonomousCommunity":"Galicia","municipality":"O Carballiño","province":"Ourense"}}
+{"t":"2026-11-25T01:28:27Z","ev":"open","id":"30369433","sit":"25931895","ver":"1","kind":"GenericSituationRecord","types":["vehicleObstruction","vehicleStuck"],"status":"active","created":"2026-11-25T02:25:14.000+01:00","start":"2026-11-25T02:25:14.000+01:00","road":"A-49","dir":"positive","pk":[34.996],"a":[37.352764,-6.40305],"geo":{"autonomousCommunity":"Andalucía","municipality":"Chucena","province":"Huelva"}}
+{"t":"2026-11-25T01:28:27Z","ev":"open","id":"30369435","sit":"25931897","ver":"1","kind":"GenericSituationRecord","types":["obstruction","objectOnTheRoad"],"status":"active","created":"2026-11-25T02:25:59.000+01:00","start":"2026-11-25T02:25:00.000+01:00","road":"RM-15","dir":"negative","pk":[28.143],"a":[38.06772,-1.519669],"geo":{"autonomousCommunity":"Murcia, Región de","municipality":"Mula","province":"Murcia"}}
+{"t":"2026-11-25T01:28:27Z","ev":"open","id":"30369437","sit":"25931899","ver":"1","kind":"GenericSituationRecord","types":["vehicleObstruction","vehicleStuck"],"status":"active","created":"2026-11-25T02:26:19.000+01:00","start":"2026-11-25T02:26:19.000+01:00","road":"A-7","dir":"negative","pk":[572.548],"a":[37.997665,-1.19482],"geo":{"autonomousCommunity":"Murcia, Región de","municipality":"Murcia","province":"Murcia"}}
+{"t":"2026-11-25T01:28:27Z","ev":"close","id":"30362291"}
+{"t":"2026-11-25T01:28:27Z","ev":"close","id":"30366129"}
+{"t":"2026-11-25T01:28:27Z","ev":"close","id":"30369011"}
+{"t":"2026-11-25T01:28:27Z","ev":"close","id":"30369270"}
+{"t":"2026-11-25T01:28:27Z","ev":"close","id":"30369227"}
+{"t":"2026-11-25T01:28:27Z","ev":"close","id":"30369232"}
+{"t":"2026-11-25T01:28:27Z","ev":"close","id":"30369242"}
+{"t":"2026-11-25T01:28:27Z","ev":"close","id":"30369398"}
+{"t":"2026-11-25T01:28:27Z","ev":"close","id":"30369407"}
+{"t":"2026-11-25T01:28:27Z","ev":"close","id":"30369412"}
+{"t":"2026-11-25T01:28:27Z","ev":"close","id":"30369416"}
+{"t":"2026-11-25T01:28:27Z","ev":"close","id":"30369417"}
+{"t":"2026-11-25T01:28:27Z","ev":"close","id":"30369418"}
