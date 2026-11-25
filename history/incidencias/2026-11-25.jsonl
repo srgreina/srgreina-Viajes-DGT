@@ -554,3 +554,13 @@
 {"t":"2026-11-25T03:22:42Z","ev":"close","id":"30369525"}
 {"t":"2026-11-25T03:22:42Z","ev":"close","id":"30369635"}
 {"t":"2026-11-25T03:22:42Z","ev":"close","id":"30369636"}
+{"t":"2026-11-25T03:32:12Z","ev":"open","id":"30369684","sit":"25932132","ver":"1","kind":"GenericSituationRecord","types":["vehicleObstruction","vehicleStuck"],"status":"active","created":"2026-11-25T04:25:34.000+01:00","start":"2026-11-25T04:25:34.000+01:00","road":"A-42","dir":"positive","pk":[23.731],"a":[40.22212,-3.78413],"geo":{"autonomousCommunity":"Madrid, Comunidad de","municipality":"Parla","province":"Madrid"}}
+{"t":"2026-11-25T03:32:12Z","ev":"open","id":"30369690","sit":"25932138","ver":"1","kind":"GenericSituationRecord","types":["vehicleObstruction","vehicleStuck"],"status":"active","created":"2026-11-25T04:28:55.000+01:00","start":"2026-11-25T04:28:55.000+01:00","road":"A-3","dir":"negative","pk":[337.606],"a":[39.47408,-0.57778],"geo":{"autonomousCommunity":"Comunitat Valenciana","municipality":"Riba-roja de Túria","province":"València/Valencia"}}
+{"t":"2026-11-25T03:32:12Z","ev":"open","id":"30369691","sit":"25932139","ver":"1","kind":"NonWeatherRelatedRoadConditions","types":["poorEnvironment","snowfall","slipperyRoad"],"status":"active","created":"2026-11-25T04:29:18.000+01:00","start":"2026-11-25T04:29:18.000+01:00","road":"N-6","dir":"positive","lanes":"allLanesCompleteCarriageway","pk":[57.0,62.0],"a":[40.708023,-4.142342],"b":[40.712482,-4.184362],"geo":{"autonomousCommunity":"Castilla y León","municipality":"El Espinar","province":"Segovia"}}
+{"t":"2026-11-25T03:32:12Z","ev":"open","id":"30369693","sit":"25932141","ver":"1","kind":"GenericSituationRecord","types":["vehicleObstruction","vehicleStuck"],"status":"active","created":"2026-11-25T04:30:14.000+01:00","start":"2026-11-25T04:30:14.000+01:00","road":"A-3","dir":"negative","pk":[335.432],"a":[39.47442,-0.60271],"geo":{"autonomousCommunity":"Comunitat Valenciana","municipality":"Chiva","province":"València/Valencia"}}
+{"t":"2026-11-25T03:32:12Z","ev":"close","id":"30369536"}
+{"t":"2026-11-25T03:32:12Z","ev":"close","id":"30369538"}
+{"t":"2026-11-25T03:32:12Z","ev":"close","id":"30369543"}
+{"t":"2026-11-25T03:32:12Z","ev":"close","id":"30369583"}
+{"t":"2026-11-25T03:32:12Z","ev":"close","id":"30369619"}
+{"t":"2026-11-25T03:32:12Z","ev":"close","id":"30369664"}
