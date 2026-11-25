@@ -1788,3 +1788,98 @@
 {"t":"2026-11-25T05:07:29Z","ev":"close","id":"60068.1"}
 {"t":"2026-11-25T05:07:29Z","ev":"close","id":"60449.1"}
 {"t":"2026-11-25T05:07:29Z","ev":"close","id":"60451.1"}
+{"t":"2026-11-25T05:16:57Z","ev":"open","id":"61559.1","ctrl":"61559","texts":["MODERE / LA / VELOCIDAD"],"picts":["P33eI","R300I"],"time":"2026-11-25T06:10:23.000+01:00"}
+{"t":"2026-11-25T05:16:57Z","ev":"open","id":"61560.1","ctrl":"61560","texts":["MODERE / LA / VELOCIDAD"],"picts":["P33eI","R300I"],"time":"2026-11-25T06:10:21.000+01:00"}
+{"t":"2026-11-25T05:16:57Z","ev":"open","id":"61561.1","ctrl":"61561","texts":["MODERE / LA / VELOCIDAD"],"picts":["P33e"],"time":"2026-11-25T06:12:02.000+01:00"}
+{"t":"2026-11-25T05:16:57Z","ev":"open","id":"61586.1","ctrl":"61586","texts":["MODERE / LA / VELOCIDAD"],"picts":["P33eI","R300I"],"time":"2026-11-25T06:11:17.000+01:00"}
+{"t":"2026-11-25T05:16:57Z","ev":"change","id":"61732.1","ctrl":"61732","picts":["E46"],"time":"2026-11-25T06:12:53.000+01:00"}
+{"t":"2026-11-25T05:16:57Z","ev":"change","id":"61750.1","ctrl":"61750","texts":["PLANTIO    5 min / VILLALBA  20 min","TRAF. LENTO / DESDE SAL.13 / HASTA KM 14.2"],"picts":["XE90a","P31"],"time":"2026-11-25T06:13:12.000+01:00"}
+{"t":"2026-11-25T05:16:57Z","ev":"change","id":"61756.1","ctrl":"61756","texts":["M-40       3 min / PLANTIO    4 min / VILLALBA  19 min","TRAF. LENTO / DESDE SAL.13 / HASTA KM 14.2"],"picts":["XE90a","P31"],"time":"2026-11-25T06:13:12.000+01:00"}
+{"t":"2026-11-25T05:16:57Z","ev":"change","id":"61820.1","ctrl":"61820","texts":["GALAPAGAR  3 min / VILLALBA   4 min"],"picts":["XE90a"],"time":"2026-11-25T06:11:11.000+01:00"}
+{"t":"2026-11-25T05:16:57Z","ev":"open","id":"61834.1","ctrl":"61834","texts":["MODERE / LA / VELOCIDAD"],"picts":["P33e"],"time":"2026-11-25T06:09:59.000+01:00"}
+{"t":"2026-11-25T05:16:57Z","ev":"open","id":"61881.1","ctrl":"61881","texts":["MODERE / LA / VELOCIDAD"],"picts":["P33eI"],"time":"2026-11-25T06:10:26.000+01:00"}
+{"t":"2026-11-25T05:16:57Z","ev":"open","id":"61882.1","ctrl":"61882","texts":["MODERE / LA / VELOCIDAD"],"picts":["P33eI","R300I"],"time":"2026-11-25T06:10:33.000+01:00"}
+{"t":"2026-11-25T05:16:57Z","ev":"open","id":"61970.1","ctrl":"61970","texts":["MODERE / LA / VELOCIDAD"],"picts":["P33eI"],"time":"2026-11-25T06:10:10.000+01:00"}
+{"t":"2026-11-25T05:16:57Z","ev":"change","id":"62011.1","ctrl":"62011","texts":["CAMPOMANES / AP-66 1H:12M"],"picts":["XE90a"],"time":"2026-11-25T06:08:39.000+01:00"}
+{"t":"2026-11-25T05:16:57Z","ev":"change","id":"62015.1","ctrl":"62015","texts":["CAMPOMANES / AP-66 53 Min"],"picts":["XE90a"],"time":"2026-11-25T06:08:35.000+01:00"}
+{"t":"2026-11-25T05:16:57Z","ev":"change","id":"62022.1","ctrl":"62022","texts":["FENE / AP-9F 19 Min / N-651 32 Min"],"picts":["XE90a"],"time":"2026-11-25T06:10:38.000+01:00"}
+{"t":"2026-11-25T05:16:57Z","ev":"change","id":"62029.1","ctrl":"62029","texts":["FENE / N-651 22 Min / AP-9F 11 Min"],"picts":["XE90a"],"time":"2026-11-25T06:12:35.000+01:00"}
+{"t":"2026-11-25T05:16:57Z","ev":"change","id":"62031.1","ctrl":"62031","texts":["KM 24 / POR OBRAS","A CORUÑA / AP-9F 30 Min"],"picts":["P17bO","XE90a"],"time":"2026-11-25T06:06:38.000+01:00"}
+{"t":"2026-11-25T05:16:57Z","ev":"change","id":"62034.1","ctrl":"62034","texts":["A CORUÑA / AP-9F 16 Min"],"picts":["XE90a"],"time":"2026-11-25T06:06:38.000+01:00"}
+{"t":"2026-11-25T05:16:57Z","ev":"change","id":"62036.1","ctrl":"62036","texts":["A CORUÑA / AP-9F 30 Min"],"picts":["XE90a"],"time":"2026-11-25T06:10:42.000+01:00"}
+{"t":"2026-11-25T05:16:57Z","ev":"change","id":"62039.1","ctrl":"62039","texts":["A CORUÑA / AP-9F 30 Min"],"picts":["XE90a"],"time":"2026-11-25T06:06:39.000+01:00"}
+{"t":"2026-11-25T05:16:57Z","ev":"change","id":"62055.1","ctrl":"62055","texts":["PEINADOR  6 Min / PORTUGAL 21 Min"],"picts":["XE90a"],"time":"2026-11-25T06:12:52.000+01:00"}
+{"t":"2026-11-25T05:16:57Z","ev":"change","id":"62085.1","ctrl":"62085","texts":["CADIZ AP4 31 Min / CADIZ  N4 40 Min"],"picts":["XE90a"],"time":"2026-11-25T06:10:41.000+01:00"}
+{"t":"2026-11-25T05:16:57Z","ev":"change","id":"62098.1","ctrl":"62098","texts":["PEINADOR  7m / PORTUGAL 22m"],"picts":["XE90a"],"time":"2026-11-25T06:12:37.000+01:00"}
+{"t":"2026-11-25T05:16:57Z","ev":"change","id":"168642.1","ctrl":"168642","texts":["PORTUGAL 25m / PEINADOR 10m"],"picts":["XE90a"],"time":"2026-11-25T06:08:33.000+01:00"}
+{"t":"2026-11-25T05:16:57Z","ev":"change","id":"62171.1","ctrl":"62171","texts":["CADIZ AP4 21 Min / CADIZ  N4 21 Min"],"picts":["XE90a"],"time":"2026-11-25T06:08:32.000+01:00"}
+{"t":"2026-11-25T05:16:57Z","ev":"change","id":"62172.1","ctrl":"62172","texts":["SEV.  N4 56 Min / SEV. AP4 49 Min"],"picts":["XE90a"],"time":"2026-11-25T06:12:35.000+01:00"}
+{"t":"2026-11-25T05:16:57Z","ev":"change","id":"62182.1","ctrl":"62182","texts":["SEV.  AP4 53 Min / SEV.  N-4 1H:00M"],"picts":["XE90a"],"time":"2026-11-25T06:12:35.000+01:00"}
+{"t":"2026-11-25T05:16:57Z","ev":"open","id":"172790.1","ctrl":"172790","texts":["MODERE / LA / VELOCIDAD"],"picts":["P33e"],"time":"2026-11-25T06:12:18.000+01:00"}
+{"t":"2026-11-25T05:16:57Z","ev":"open","id":"172807.1","ctrl":"172807","texts":["MODERE / LA / VELOCIDAD","MODERE / LA / VELOCIDAD"],"picts":["P33eI","R300I"],"time":"2026-11-25T06:11:48.000+01:00"}
+{"t":"2026-11-25T05:16:57Z","ev":"open","id":"172812.1","ctrl":"172812","texts":["MODERE / LA / VELOCIDAD"],"picts":["P33e","R300"],"time":"2026-11-25T06:09:09.000+01:00"}
+{"t":"2026-11-25T05:16:57Z","ev":"open","id":"172838.1","ctrl":"172838","texts":["MODERE / LA / VELOCIDAD","MODERE / LA / VELOCIDAD"],"picts":["P33eI","R300I"],"time":"2026-11-25T06:11:49.000+01:00"}
+{"t":"2026-11-25T05:16:57Z","ev":"open","id":"172839.1","ctrl":"172839","texts":["MODERE / LA / VELOCIDAD"],"picts":["P33e"],"time":"2026-11-25T06:12:19.000+01:00"}
+{"t":"2026-11-25T05:16:57Z","ev":"open","id":"172837.1","ctrl":"172837","texts":["MODERE / LA / VELOCIDAD"],"picts":["P33e","R300"],"time":"2026-11-25T06:10:47.000+01:00"}
+{"t":"2026-11-25T05:16:57Z","ev":"open","id":"172842.1","ctrl":"172842","texts":["MODERE / LA / VELOCIDAD"],"picts":["P33e"],"time":"2026-11-25T06:12:19.000+01:00"}
+{"t":"2026-11-25T05:16:57Z","ev":"open","id":"172843.1","ctrl":"172843","texts":["MODERE / LA / VELOCIDAD"],"picts":["P33eI","R300I"],"time":"2026-11-25T06:11:17.000+01:00"}
+{"t":"2026-11-25T05:16:57Z","ev":"open","id":"172840.1","ctrl":"172840","texts":["MODERE / LA / VELOCIDAD"],"picts":["P33e"],"time":"2026-11-25T06:12:20.000+01:00"}
+{"t":"2026-11-25T05:16:57Z","ev":"open","id":"172841.1","ctrl":"172841","texts":["MODERE / LA / VELOCIDAD"],"picts":["P33e"],"time":"2026-11-25T06:12:18.000+01:00"}
+{"t":"2026-11-25T05:16:57Z","ev":"open","id":"172849.1","ctrl":"172849","texts":["KM 35 -> 29 / Y / KM 27 -> 18"],"picts":["P31"],"time":"2026-11-25T06:10:49.000+01:00"}
+{"t":"2026-11-25T05:16:57Z","ev":"open","id":"172856.1","ctrl":"172856","texts":["MODERE / LA / VELOCIDAD"],"picts":["P33e","R300"],"time":"2026-11-25T06:08:35.000+01:00"}
+{"t":"2026-11-25T05:16:57Z","ev":"change","id":"172882.1","ctrl":"172882","texts":["M-505      5 min / VILLALBA  17 min","TRAF. LENTO / A 3 KM HASTA / KM 14.2"],"time":"2026-11-25T06:13:29.000+01:00"}
+{"t":"2026-11-25T05:16:57Z","ev":"change","id":"62300.1","ctrl":"62300","texts":["LEON SUR / AP-66 1H:02M / N-630 1H:28M"],"picts":["XE90a"],"time":"2026-11-25T06:12:43.000+01:00"}
+{"t":"2026-11-25T05:16:57Z","ev":"change","id":"62335.1","ctrl":"62335","texts":["CAMPOMANES / AP-66 1H:35M / N-630 1H:46M"],"picts":["XE90a"],"time":"2026-11-25T06:12:42.000+01:00"}
+{"t":"2026-11-25T05:16:57Z","ev":"change","id":"62348.1","ctrl":"62348","texts":["PREVISION / NEVADAS","INFORMESE / Y PLANIFIQUE / SU VIAJE"],"picts":["S118"],"time":"2026-11-25T06:12:52.000+01:00"}
+{"t":"2026-11-25T05:16:57Z","ev":"open","id":"181139.1","ctrl":"181139","texts":["SALIDA 9BA / A-2 / M-30 / M-14 / M-21"],"picts":["R300","E70"],"time":"2026-11-25T06:07:45.000+01:00"}
+{"t":"2026-11-25T05:16:57Z","ev":"open","id":"62415.1","ctrl":"62415","texts":["A 6 KM / EN TUNEL / LONG.= 2 KM"],"picts":["P18O","E23O"],"time":"2026-11-25T06:09:39.000+01:00"}
+{"t":"2026-11-25T05:16:57Z","ev":"open","id":"62486.1","ctrl":"62486","texts":["MODERE / LA / VELOCIDAD"],"picts":["P33eI","R300I"],"time":"2026-11-25T06:11:12.000+01:00"}
+{"t":"2026-11-25T05:16:57Z","ev":"open","id":"62487.1","ctrl":"62487","texts":["MODERE / LA / VELOCIDAD"],"picts":["P33eI","R300I"],"time":"2026-11-25T06:11:12.000+01:00"}
+{"t":"2026-11-25T05:16:57Z","ev":"open","id":"62488.1","ctrl":"62488","texts":["MODERE / LA / VELOCIDAD"],"picts":["P33eI","R300I"],"time":"2026-11-25T06:11:12.000+01:00"}
+{"t":"2026-11-25T05:16:57Z","ev":"open","id":"62489.1","ctrl":"62489","texts":["MODERE / LA / VELOCIDAD"],"picts":["P33eI","R300I"],"time":"2026-11-25T06:11:16.000+01:00"}
+{"t":"2026-11-25T05:16:57Z","ev":"open","id":"62491.1","ctrl":"62491","texts":["MODERE / LA / VELOCIDAD"],"picts":["P33eI","R300I"],"time":"2026-11-25T06:11:12.000+01:00"}
+{"t":"2026-11-25T05:16:57Z","ev":"open","id":"62494.1","ctrl":"62494","texts":["MODERE / LA / VELOCIDAD"],"picts":["P33e"],"time":"2026-11-25T06:12:03.000+01:00"}
+{"t":"2026-11-25T05:16:57Z","ev":"open","id":"62495.1","ctrl":"62495","texts":["MODERE / LA / VELOCIDAD"],"picts":["P33e"],"time":"2026-11-25T06:12:03.000+01:00"}
+{"t":"2026-11-25T05:16:57Z","ev":"open","id":"62497.1","ctrl":"62497","texts":["MODERE / LA / VELOCIDAD"],"picts":["P33e"],"time":"2026-11-25T06:12:02.000+01:00"}
+{"t":"2026-11-25T05:16:57Z","ev":"open","id":"62500.1","ctrl":"62500","texts":["MODERE / LA / VELOCIDAD"],"picts":["P33e"],"time":"2026-11-25T06:12:02.000+01:00"}
+{"t":"2026-11-25T05:16:57Z","ev":"open","id":"62501.1","ctrl":"62501","texts":["MODERE / LA / VELOCIDAD"],"picts":["P33e"],"time":"2026-11-25T06:12:03.000+01:00"}
+{"t":"2026-11-25T05:16:57Z","ev":"open","id":"62505.1","ctrl":"62505","texts":["MODERE / LA / VELOCIDAD"],"picts":["P33e"],"time":"2026-11-25T06:12:03.000+01:00"}
+{"t":"2026-11-25T05:16:57Z","ev":"open","id":"62506.1","ctrl":"62506","texts":["MODERE / LA / VELOCIDAD"],"picts":["P33e"],"time":"2026-11-25T06:12:03.000+01:00"}
+{"t":"2026-11-25T05:16:57Z","ev":"open","id":"62508.1","ctrl":"62508","texts":["MODERE / LA / VELOCIDAD"],"picts":["P33e"],"time":"2026-11-25T06:12:02.000+01:00"}
+{"t":"2026-11-25T05:16:57Z","ev":"open","id":"62509.1","ctrl":"62509","texts":["MODERE / LA / VELOCIDAD"],"picts":["P33e"],"time":"2026-11-25T06:12:26.000+01:00"}
+{"t":"2026-11-25T05:16:57Z","ev":"open","id":"62510.1","ctrl":"62510","texts":["MODERE / LA / VELOCIDAD"],"picts":["P33e"],"time":"2026-11-25T06:12:03.000+01:00"}
+{"t":"2026-11-25T05:16:57Z","ev":"open","id":"62511.1","ctrl":"62511","texts":["MODERE / LA / VELOCIDAD"],"picts":["P33e"],"time":"2026-11-25T06:12:26.000+01:00"}
+{"t":"2026-11-25T05:16:57Z","ev":"change","id":"161002.1","ctrl":"161002","picts":["R300","P19"],"time":"2026-11-25T06:11:15.000+01:00"}
+{"t":"2026-11-25T05:16:57Z","ev":"change","id":"165099.1","ctrl":"165099","texts":["PEINADOR  8 Min / PORTUGAL 23 Min"],"picts":["XE90a"],"time":"2026-11-25T06:12:39.000+01:00"}
+{"t":"2026-11-25T05:16:57Z","ev":"change","id":"177490.1","ctrl":"177490","texts":["LEON SUR / AP-66 1H:00M / N-630 1H:26M"],"picts":["NEGRO"],"time":"2026-11-25T06:12:40.000+01:00"}
+{"t":"2026-11-25T05:16:57Z","ev":"change","id":"60213.1","ctrl":"60213","texts":["CONTROL / VELOCIDAD / EN TRAMO"],"picts":["R30180","E17"],"time":"2026-11-25T06:13:54.000+01:00"}
+{"t":"2026-11-25T05:16:57Z","ev":"change","id":"60461.1","ctrl":"60461","texts":["HUELVA    45 Min / MATLASCA. 47 Min"],"picts":["XE90a"],"time":"2026-11-25T06:10:40.000+01:00"}
+{"t":"2026-11-25T05:16:57Z","ev":"change","id":"60483.1","ctrl":"60483","texts":["VEHICULO 20 T / HUELVA-MERIDA / POR SALIDA 549","CADIZ AP4 57 Min / CADIZ  N4 1H:16M"],"picts":["R406","XE90a"],"time":"2026-11-25T06:12:35.000+01:00"}
+{"t":"2026-11-25T05:16:57Z","ev":"change","id":"60487.1","ctrl":"60487","texts":["CADIZ AP4 53 Min / CADIZ  N4 1H:09M"],"picts":["XE90a"],"time":"2026-11-25T06:12:35.000+01:00"}
+{"t":"2026-11-25T05:16:57Z","ev":"change","id":"60657.1","ctrl":"60657","texts":["SEVILLA POR / AP-4  46 Min / N-4   1H:01M"],"picts":["XE90a"],"time":"2026-11-25T06:12:38.000+01:00"}
+{"t":"2026-11-25T05:16:57Z","ev":"change","id":"60738.1","ctrl":"60738","texts":["CON LLUVIA / MODERE / LA VELOCIDAD","CON CHOIVA / MODERE / A VELOCIDADE"],"picts":["R300I","NEGRO","P19I"],"time":"2026-11-25T06:10:00.000+01:00"}
+{"t":"2026-11-25T05:16:57Z","ev":"open","id":"167252.1","ctrl":"167252","texts":["MODERE / LA / VELOCIDAD"],"picts":["P33e"],"time":"2026-11-25T06:12:03.000+01:00"}
+{"t":"2026-11-25T05:16:57Z","ev":"open","id":"61035.1","ctrl":"61035","texts":["A 6 KM / VEHICULO / CARRIL DCHO"],"picts":["P32","E23"],"time":"2026-11-25T06:05:35.000+01:00"}
+{"t":"2026-11-25T05:16:57Z","ev":"open","id":"61073.1","ctrl":"61073","texts":["MODERE / LA / VELOCIDAD"],"picts":["P33eI","R300I"],"time":"2026-11-25T06:10:23.000+01:00"}
+{"t":"2026-11-25T05:16:57Z","ev":"open","id":"61076.1","ctrl":"61076","texts":["MODERE / LA / VELOCIDAD"],"picts":["P33eI","R300I"],"time":"2026-11-25T06:11:15.000+01:00"}
+{"t":"2026-11-25T05:16:57Z","ev":"open","id":"61079.1","ctrl":"61079","texts":["MODERE / LA / VELOCIDAD"],"picts":["P33eI"],"time":"2026-11-25T06:12:49.000+01:00"}
+{"t":"2026-11-25T05:16:57Z","ev":"open","id":"61081.1","ctrl":"61081","texts":["MODERE / LA / VELOCIDAD"],"picts":["P33eI"],"time":"2026-11-25T06:12:53.000+01:00"}
+{"t":"2026-11-25T05:16:57Z","ev":"open","id":"61082.1","ctrl":"61082","texts":["MODERE / LA / VELOCIDAD"],"picts":["P33e"],"time":"2026-11-25T06:12:16.000+01:00"}
+{"t":"2026-11-25T05:16:57Z","ev":"open","id":"61083.1","ctrl":"61083","texts":["MODERE / LA / VELOCIDAD"],"picts":["P33eI"],"time":"2026-11-25T06:12:50.000+01:00"}
+{"t":"2026-11-25T05:16:57Z","ev":"open","id":"61085.1","ctrl":"61085","texts":["MODERE / LA / VELOCIDAD"],"picts":["P33eI"],"time":"2026-11-25T06:12:54.000+01:00"}
+{"t":"2026-11-25T05:16:57Z","ev":"open","id":"61151.1","ctrl":"61151","texts":["SALIDA 10 / M-45 / M-406"],"picts":["NEGRO","E70"],"time":"2026-11-25T06:12:15.000+01:00"}
+{"t":"2026-11-25T05:16:57Z","ev":"open","id":"61155.1","ctrl":"61155","texts":["HASTA KM 18"],"picts":["P31I","NEGRO"],"time":"2026-11-25T06:11:40.000+01:00"}
+{"t":"2026-11-25T05:16:57Z","ev":"change","id":"179981.1","ctrl":"179981","texts":["CONTROL / MOVIL / DE VELOCIDAD","CONTROL / MOBIL DE / VELOCIDADE"],"picts":["E17"],"time":"2026-11-25T06:13:54.000+01:00"}
+{"t":"2026-11-25T05:16:57Z","ev":"open","id":"61279.1","ctrl":"61279","texts":["MODERE / LA / VELOCIDAD"],"picts":["P33eI","R300I"],"time":"2026-11-25T06:10:51.000+01:00"}
+{"t":"2026-11-25T05:16:57Z","ev":"open","id":"61281.1","ctrl":"61281","texts":["MODERE / LA / VELOCIDAD"],"picts":["P33eI"],"time":"2026-11-25T06:11:02.000+01:00"}
+{"t":"2026-11-25T05:16:57Z","ev":"open","id":"61343.1","ctrl":"61343","texts":["MODERE / LA / VELOCIDAD"],"picts":["P33eI","R300I"],"time":"2026-11-25T06:08:52.000+01:00"}
+{"t":"2026-11-25T05:16:57Z","ev":"open","id":"61358.1","ctrl":"61358","texts":["HASTA KM 14 / MODERE / VELOCIDAD"],"picts":["P31","R300"],"time":"2026-11-25T06:12:52.000+01:00"}
+{"t":"2026-11-25T05:16:57Z","ev":"change","id":"61362.1","ctrl":"61362","texts":["HASTA KM 21 / MODERE / VELOCIDAD"],"picts":["P31I","R300I"],"time":"2026-11-25T06:07:22.000+01:00"}
+{"t":"2026-11-25T05:16:57Z","ev":"open","id":"61432.1","ctrl":"61432","texts":["MODERE / LA / VELOCIDAD"],"picts":["P33eI","R300I"],"time":"2026-11-25T06:09:25.000+01:00"}
+{"t":"2026-11-25T05:16:57Z","ev":"open","id":"61433.1","ctrl":"61433","texts":["MODERE / LA / VELOCIDAD"],"picts":["P33eI","R300I"],"time":"2026-11-25T06:09:41.000+01:00"}
+{"t":"2026-11-25T05:16:57Z","ev":"open","id":"61434.1","ctrl":"61434","texts":["MODERE / LA / VELOCIDAD"],"picts":["P33eI","R300I"],"time":"2026-11-25T06:09:42.000+01:00"}
+{"t":"2026-11-25T05:16:57Z","ev":"close","id":"62037.1"}
+{"t":"2026-11-25T05:16:57Z","ev":"close","id":"189133.1"}
+{"t":"2026-11-25T05:16:57Z","ev":"close","id":"179001.1"}
+{"t":"2026-11-25T05:16:57Z","ev":"close","id":"60699.1"}
+{"t":"2026-11-25T05:16:57Z","ev":"close","id":"60727.1"}
