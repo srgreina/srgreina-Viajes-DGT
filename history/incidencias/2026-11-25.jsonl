@@ -430,3 +430,20 @@
 {"t":"2026-11-25T02:35:12Z","ev":"close","id":"30369544"}
 {"t":"2026-11-25T02:35:12Z","ev":"close","id":"30369548"}
 {"t":"2026-11-25T02:35:12Z","ev":"close","id":"30369549"}
+{"t":"2026-11-25T02:44:44Z","ev":"open","id":"30369570","sit":"25932022","ver":"1","kind":"GenericSituationRecord","types":["vehicleObstruction","vehicleStuck"],"status":"active","created":"2026-11-25T03:34:29.000+01:00","start":"2026-11-25T03:34:29.000+01:00","road":"A-4","dir":"positive","pk":[21.935],"a":[40.23073,-3.69003],"geo":{"autonomousCommunity":"Madrid, Comunidad de","municipality":"Pinto","province":"Madrid"}}
+{"t":"2026-11-25T02:44:44Z","ev":"open","id":"30369571","sit":"25932023","ver":"1","kind":"GenericSituationRecord","types":["vehicleObstruction","vehicleStuck"],"status":"active","created":"2026-11-25T03:36:53.000+01:00","start":"2026-11-25T03:36:53.000+01:00","road":"VS-A-5-D","dir":"positive","pk":[37.588],"a":[40.24458,-4.05769],"geo":{"autonomousCommunity":"Castilla - La Mancha","municipality":"Casarrubios del Monte","province":"Toledo"}}
+{"t":"2026-11-25T02:44:44Z","ev":"open","id":"30369574","sit":"25932026","ver":"1","kind":"GenericSituationRecord","types":["vehicleObstruction","vehicleStuck"],"status":"active","created":"2026-11-25T03:37:42.000+01:00","start":"2026-11-25T03:37:42.000+01:00","road":"AC-308","dir":"negative","pk":[14.178],"a":[42.78634,-8.86179],"geo":{"autonomousCommunity":"Galicia","municipality":"Lousame","province":"A Coruña"}}
+{"t":"2026-11-25T02:44:44Z","ev":"open","id":"30369579","sit":"25932031","ver":"1","kind":"GenericSituationRecord","types":["vehicleObstruction","vehicleStuck"],"status":"active","created":"2026-11-25T03:40:33.000+01:00","start":"2026-11-25T03:40:33.000+01:00","road":"SE-30","dir":"negative","pk":[0.603],"a":[37.40079,-5.94586],"geo":{"autonomousCommunity":"Andalucía","municipality":"Sevilla","province":"Sevilla"}}
+{"t":"2026-11-25T02:44:44Z","ev":"open","id":"30368863","sit":"25931186","ver":"6","kind":"RoadOrCarriagewayOrLaneManagement","types":["roadMaintenance","roadworks","laneClosures"],"status":"active","created":"2026-11-25T03:40:36.000+01:00","start":"2026-11-25T03:40:00.000+01:00","end":"2026-11-25T06:00:00.000+01:00","road":"M-40","dir":"positive","lanes":"leftLane","pk":[36.0,37.0],"a":[40.391983,-3.830996],"b":[40.400375,-3.83225],"geo":{"autonomousCommunity":"Madrid, Comunidad de","municipality":"Alcorcón","province":"Madrid"}}
+{"t":"2026-11-25T02:44:44Z","ev":"open","id":"30369583","sit":"25932035","ver":"1","kind":"GenericSituationRecord","types":["vehicleObstruction","vehicleStuck"],"status":"active","created":"2026-11-25T03:43:11.000+01:00","start":"2026-11-25T03:43:11.000+01:00","road":"A-8","dir":"negative","pk":[230.619],"a":[43.35885,-4.044989],"geo":{"autonomousCommunity":"Cantabria","municipality":"Torrelavega","province":"Cantabria"}}
+{"t":"2026-11-25T02:44:44Z","ev":"close","id":"30333318"}
+{"t":"2026-11-25T02:44:44Z","ev":"close","id":"30368693"}
+{"t":"2026-11-25T02:44:44Z","ev":"close","id":"30368695"}
+{"t":"2026-11-25T02:44:44Z","ev":"close","id":"30369445"}
+{"t":"2026-11-25T02:44:44Z","ev":"close","id":"30369447"}
+{"t":"2026-11-25T02:44:44Z","ev":"close","id":"30369542"}
+{"t":"2026-11-25T02:44:44Z","ev":"close","id":"30369547"}
+{"t":"2026-11-25T02:44:44Z","ev":"close","id":"30369555"}
+{"t":"2026-11-25T02:44:44Z","ev":"close","id":"30369561"}
+{"t":"2026-11-25T02:44:44Z","ev":"close","id":"30369567"}
+{"t":"2026-11-25T02:44:44Z","ev":"close","id":"30369569"}
