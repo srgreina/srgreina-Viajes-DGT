@@ -475,3 +475,38 @@
 {"t":"2026-11-25T02:54:15Z","ev":"close","id":"30369532"}
 {"t":"2026-11-25T02:54:15Z","ev":"close","id":"30369553"}
 {"t":"2026-11-25T02:54:15Z","ev":"close","id":"30369570"}
+{"t":"2026-11-25T03:03:50Z","ev":"open","id":"30369610","sit":"25932061","ver":"1","kind":"GenericSituationRecord","types":["vehicleObstruction","vehicleStuck"],"status":"active","created":"2026-11-25T03:54:55.000+01:00","start":"2026-11-25T03:54:55.000+01:00","road":"A-338","dir":"negative","pk":[2.252],"a":[37.13987,-3.64975],"geo":{"autonomousCommunity":"Andalucía","municipality":"Las Gabias","province":"Granada"}}
+{"t":"2026-11-25T03:03:50Z","ev":"open","id":"30369615","sit":"25932066","ver":"1","kind":"NonWeatherRelatedRoadConditions","types":["poorEnvironment","snowfall","slipperyRoad"],"status":"active","created":"2026-11-25T03:55:54.000+01:00","start":"2026-11-25T03:55:54.000+01:00","road":"M-601","dir":"both","lanes":"allLanesCompleteCarriageway","pk":[18.0,20.0],"a":[40.772366,-4.007284],"b":[40.78745,-4.002606],"geo":{"autonomousCommunity":"Madrid, Comunidad de","municipality":"Cercedilla","province":"Madrid"}}
+{"t":"2026-11-25T03:03:50Z","ev":"open","id":"30369617","sit":"25932068","ver":"1","kind":"GenericSituationRecord","types":["vehicleObstruction","vehicleStuck"],"status":"active","created":"2026-11-25T03:56:48.000+01:00","start":"2026-11-25T03:56:48.000+01:00","road":"PO-403","dir":"negative","pk":[10.642],"a":[42.171997,-8.507935],"geo":{"autonomousCommunity":"Galicia","municipality":"Ponteareas","province":"Pontevedra"}}
+{"t":"2026-11-25T03:03:50Z","ev":"open","id":"30369618","sit":"25932069","ver":"1","kind":"GenericSituationRecord","types":["vehicleObstruction","vehicleStuck"],"status":"active","created":"2026-11-25T03:56:52.000+01:00","start":"2026-11-25T03:56:52.000+01:00","road":"AP-7","dir":"positive","pk":[590.426],"a":[38.907135,-0.127978],"geo":{"autonomousCommunity":"Comunitat Valenciana","municipality":"Oliva","province":"València/Valencia"}}
+{"t":"2026-11-25T03:03:50Z","ev":"open","id":"30369619","sit":"25932070","ver":"1","kind":"GenericSituationRecord","types":["vehicleObstruction","vehicleStuck"],"status":"active","created":"2026-11-25T03:57:12.000+01:00","start":"2026-11-25T03:57:12.000+01:00","road":"A-1a","dir":"positive","pk":[42.348],"a":[40.731377,-3.583058],"geo":{"autonomousCommunity":"Madrid, Comunidad de","municipality":"El Molar","province":"Madrid"}}
+{"t":"2026-11-25T03:03:50Z","ev":"open","id":"30369622","sit":"25932073","ver":"1","kind":"RoadOrCarriagewayOrLaneManagement","types":["roadMaintenance","roadworks","carriagewayClosures"],"status":"active","created":"2026-11-25T03:57:58.000+01:00","start":"2026-11-25T03:57:58.000+01:00","road":"A-2","dir":"negative","lanes":"allLanesCompleteCarriageway","pk":[317.1],"a":[41.668457,-0.935395],"geo":{"autonomousCommunity":"Aragón","municipality":"Zaragoza","province":"Zaragoza"}}
+{"t":"2026-11-25T03:03:50Z","ev":"open","id":"30369623","sit":"25932074","ver":"1","kind":"GenericSituationRecord","types":["accident"],"status":"active","created":"2026-11-25T03:58:21.000+01:00","start":"2026-11-25T03:56:00.000+01:00","road":"AP-7","dir":"positive","pk":[591.999],"a":[38.901688,-0.112312],"geo":{"autonomousCommunity":"Comunitat Valenciana","municipality":"Oliva","province":"València/Valencia"}}
+{"t":"2026-11-25T03:03:50Z","ev":"open","id":"30369624","sit":"25932075","ver":"1","kind":"GenericSituationRecord","types":["vehicleObstruction","vehicleStuck"],"status":"active","created":"2026-11-25T03:58:23.000+01:00","start":"2026-11-25T03:58:23.000+01:00","road":"M-607","dir":"negative","pk":[21.497],"a":[40.5855,-3.707226],"geo":{"autonomousCommunity":"Madrid, Comunidad de","municipality":"Tres Cantos","province":"Madrid"}}
+{"t":"2026-11-25T03:03:50Z","ev":"open","id":"30369625","sit":"25932076","ver":"1","kind":"GenericSituationRecord","types":["vehicleObstruction","vehicleStuck"],"status":"active","created":"2026-11-25T03:58:30.000+01:00","start":"2026-11-25T03:58:30.000+01:00","road":"NA-160","dir":"positive","pk":[6.985],"a":[42.07116,-1.69313],"geo":{"autonomousCommunity":"Navarra, Comunidad Foral de","municipality":"Tudela","province":"Navarra"}}
+{"t":"2026-11-25T03:03:50Z","ev":"open","id":"30369626","sit":"25932077","ver":"1","kind":"GenericSituationRecord","types":["vehicleObstruction","vehicleStuck"],"status":"active","created":"2026-11-25T03:58:31.000+01:00","start":"2026-11-25T03:58:31.000+01:00","road":"EP-2604","dir":"negative","pk":[0.289],"a":[42.207306,-8.659242],"geo":{"autonomousCommunity":"Galicia","municipality":"Mos","province":"Pontevedra"}}
+{"t":"2026-11-25T03:03:50Z","ev":"open","id":"30369628","sit":"25932079","ver":"1","kind":"GenericSituationRecord","types":["vehicleObstruction","vehicleStuck"],"status":"active","created":"2026-11-25T04:00:10.000+01:00","start":"2026-11-25T04:00:10.000+01:00","road":"M-40","dir":"negative","pk":[14.402],"a":[40.40662,-3.62357],"geo":{"autonomousCommunity":"Madrid, Comunidad de","municipality":"Madrid","province":"Madrid"}}
+{"t":"2026-11-25T03:03:50Z","ev":"open","id":"30369560","sit":"25863450","ver":"115","kind":"RoadOrCarriagewayOrLaneManagement","types":["roadMaintenance","roadworks","laneClosures"],"status":"active","created":"2026-11-25T04:01:01.000+01:00","start":"2026-11-25T04:01:00.000+01:00","end":"2026-11-25T16:00:00.000+01:00","road":"AP-66","dir":"positive","lanes":"leftLane","pk":[94.4,95.7],"a":[42.895306,-5.887991],"b":[42.8847,-5.892238],"geo":{"autonomousCommunity":"Castilla y León","municipality":"Los Barrios de Luna","province":"León"}}
+{"t":"2026-11-25T03:03:50Z","ev":"open","id":"30369630","sit":"25932081","ver":"1","kind":"GenericSituationRecord","types":["vehicleObstruction","vehicleStuck"],"status":"active","created":"2026-11-25T04:01:38.000+01:00","start":"2026-11-25T04:01:38.000+01:00","road":"A-5","dir":"negative","pk":[27.787],"a":[40.29464,-3.97311],"geo":{"autonomousCommunity":"Madrid, Comunidad de","municipality":"Navalcarnero","province":"Madrid"}}
+{"t":"2026-11-25T03:03:50Z","ev":"open","id":"30369631","sit":"25932082","ver":"1","kind":"RoadOrCarriagewayOrLaneManagement","types":["vehicleObstruction","vehicleStuck","laneClosures"],"status":"active","created":"2026-11-25T04:01:42.000+01:00","start":"2026-11-25T04:01:42.000+01:00","road":"A-1","dir":"negative","lanes":"rightLane","pk":[50.0],"a":[40.79154,-3.617471],"geo":{"autonomousCommunity":"Madrid, Comunidad de","municipality":"Venturada","province":"Madrid"}}
+{"t":"2026-11-25T03:03:50Z","ev":"close","id":"30225130"}
+{"t":"2026-11-25T03:03:50Z","ev":"close","id":"30225128"}
+{"t":"2026-11-25T03:03:50Z","ev":"close","id":"30354556"}
+{"t":"2026-11-25T03:03:50Z","ev":"close","id":"30354555"}
+{"t":"2026-11-25T03:03:50Z","ev":"close","id":"30364539"}
+{"t":"2026-11-25T03:03:50Z","ev":"close","id":"30368822"}
+{"t":"2026-11-25T03:03:50Z","ev":"close","id":"30368945"}
+{"t":"2026-11-25T03:03:50Z","ev":"close","id":"30369136"}
+{"t":"2026-11-25T03:03:50Z","ev":"close","id":"30369302"}
+{"t":"2026-11-25T03:03:50Z","ev":"close","id":"30369316"}
+{"t":"2026-11-25T03:03:50Z","ev":"close","id":"30369406"}
+{"t":"2026-11-25T03:03:50Z","ev":"close","id":"30369472"}
+{"t":"2026-11-25T03:03:50Z","ev":"close","id":"30369477"}
+{"t":"2026-11-25T03:03:50Z","ev":"close","id":"30369594"}
+{"t":"2026-11-25T03:03:50Z","ev":"close","id":"30369597"}
+{"t":"2026-11-25T03:03:50Z","ev":"close","id":"30369599"}
+{"t":"2026-11-25T03:03:50Z","ev":"close","id":"30354832"}
+{"t":"2026-11-25T03:03:50Z","ev":"close","id":"30369603"}
+{"t":"2026-11-25T03:03:50Z","ev":"close","id":"30369605"}
+{"t":"2026-11-25T03:03:50Z","ev":"close","id":"30369606"}
+{"t":"2026-11-25T03:03:50Z","ev":"close","id":"30369607"}
