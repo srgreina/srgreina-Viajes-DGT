@@ -307,3 +307,17 @@
 {"t":"2026-11-26T02:45:41Z","ev":"close","id":"30403420"}
 {"t":"2026-11-26T02:45:41Z","ev":"close","id":"30404813"}
 {"t":"2026-11-26T02:45:41Z","ev":"close","id":"30404851"}
+{"t":"2026-11-26T02:55:16Z","ev":"open","id":"30313658","sit":"25879745","ver":"3","kind":"RoadOrCarriagewayOrLaneManagement","types":["roadMaintenance","roadworks","laneClosures"],"status":"active","created":"2026-11-26T03:47:53.000+01:00","start":"2026-11-26T03:47:00.000+01:00","end":"2026-11-26T06:00:00.000+01:00","road":"A-7","dir":"negative","lanes":"rightLane","pk":[1101.3,1100.6],"a":[36.236687,-5.34456],"b":[36.241913,-5.341015],"geo":{"autonomousCommunity":"Andalucía","municipality":"La Línea de la Concepción","province":"Cádiz"}}
+{"t":"2026-11-26T02:55:16Z","ev":"open","id":"30404864","sit":"25965195","ver":"1","kind":"GenericSituationRecord","types":["vehicleObstruction","vehicleStuck"],"status":"active","created":"2026-11-26T03:47:56.000+01:00","start":"2026-11-26T03:47:56.000+01:00","road":"Ma-30","dir":"negative","pk":[5.361],"a":[39.597775,2.716478],"geo":{"autonomousCommunity":"Balears, Illes","municipality":"Marratxí","province":"Illes Balears"}}
+{"t":"2026-11-26T02:55:16Z","ev":"open","id":"30404865","sit":"25965196","ver":"1","kind":"GenericSituationRecord","types":["vehicleObstruction","vehicleStuck"],"status":"active","created":"2026-11-26T03:48:17.000+01:00","start":"2026-11-26T03:48:17.000+01:00","road":"CM-4000","dir":"positive","pk":[10.882],"a":[39.869736,-4.163913],"geo":{"autonomousCommunity":"Castilla - La Mancha","municipality":"Argés","province":"Toledo"}}
+{"t":"2026-11-26T02:55:16Z","ev":"open","id":"30404871","sit":"25965202","ver":"1","kind":"GenericSituationRecord","types":["vehicleObstruction","vehicleStuck"],"status":"active","created":"2026-11-26T03:52:45.000+01:00","start":"2026-11-26T03:52:45.000+01:00","road":"A-7","dir":"positive","pk":[685.125],"a":[37.32554,-1.968491],"geo":{"autonomousCommunity":"Andalucía","municipality":"Huércal-Overa","province":"Almería"}}
+{"t":"2026-11-26T02:55:16Z","ev":"open","id":"30404872","sit":"25965203","ver":"1","kind":"GenericSituationRecord","types":["vehicleObstruction","vehicleStuck"],"status":"active","created":"2026-11-26T03:52:59.000+01:00","start":"2026-11-26T03:52:59.000+01:00","road":"A-92","dir":"positive","pk":[240.795],"a":[37.239708,-3.654785],"geo":{"autonomousCommunity":"Andalucía","municipality":"Albolote","province":"Granada"}}
+{"t":"2026-11-26T02:55:16Z","ev":"close","id":"30121190"}
+{"t":"2026-11-26T02:55:16Z","ev":"close","id":"30402458"}
+{"t":"2026-11-26T02:55:16Z","ev":"close","id":"30403498"}
+{"t":"2026-11-26T02:55:16Z","ev":"close","id":"30404642"}
+{"t":"2026-11-26T02:55:16Z","ev":"close","id":"30404809"}
+{"t":"2026-11-26T02:55:16Z","ev":"close","id":"30404815"}
+{"t":"2026-11-26T02:55:16Z","ev":"close","id":"30404826"}
+{"t":"2026-11-26T02:55:16Z","ev":"close","id":"30404858"}
+{"t":"2026-11-26T02:55:16Z","ev":"close","id":"30404860"}
