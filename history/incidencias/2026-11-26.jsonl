@@ -231,3 +231,14 @@
 {"t":"2026-11-26T01:39:00Z","ev":"close","id":"30404743"}
 {"t":"2026-11-26T01:39:00Z","ev":"close","id":"30404744"}
 {"t":"2026-11-26T01:39:00Z","ev":"close","id":"30404755"}
+{"t":"2026-11-26T01:48:35Z","ev":"open","id":"30404776","sit":"25965111","ver":"1","kind":"GenericSituationRecord","types":["vehicleObstruction","vehicleStuck"],"status":"active","created":"2026-11-26T02:41:30.000+01:00","start":"2026-11-26T02:41:30.000+01:00","road":"V-30","dir":"positive","pk":[12.652],"a":[39.492386,-0.448192],"geo":{"autonomousCommunity":"Comunitat Valenciana","municipality":"Quart de Poblet","province":"València/Valencia"}}
+{"t":"2026-11-26T01:48:35Z","ev":"open","id":"30404777","sit":"25965110","ver":"2","kind":"RoadOrCarriagewayOrLaneManagement","types":["vehicleObstruction","vehicleStuck","narrowLanes"],"status":"active","created":"2026-11-26T02:42:50.000+01:00","start":"2026-11-26T02:42:15.000+01:00","road":"A-42","dir":"negative","lanes":"rightLane","pk":[27.59],"a":[40.19281,-3.798656],"geo":{"autonomousCommunity":"Madrid, Comunidad de","municipality":"Torrejón de la Calzada","province":"Madrid"}}
+{"t":"2026-11-26T01:48:35Z","ev":"open","id":"30404781","sit":"25965115","ver":"1","kind":"GenericSituationRecord","types":["vehicleObstruction","vehicleStuck"],"status":"active","created":"2026-11-26T02:44:17.000+01:00","start":"2026-11-26T02:44:17.000+01:00","road":"N-1a","dir":"negative","pk":[93.099],"a":[41.13823,-3.582295],"geo":{"autonomousCommunity":"Madrid, Comunidad de","municipality":"Somosierra","province":"Madrid"}}
+{"t":"2026-11-26T01:48:35Z","ev":"open","id":"30404783","sit":"25965117","ver":"1","kind":"GenericSituationRecord","types":["vehicleObstruction","vehicleStuck"],"status":"active","created":"2026-11-26T02:47:07.000+01:00","start":"2026-11-26T02:47:07.000+01:00","road":"A-7","dir":"positive","pk":[586.169],"a":[37.92242,-1.291443],"geo":{"autonomousCommunity":"Murcia, Región de","municipality":"Librilla","province":"Murcia"}}
+{"t":"2026-11-26T01:48:35Z","ev":"close","id":"30401980"}
+{"t":"2026-11-26T01:48:35Z","ev":"close","id":"30404033"}
+{"t":"2026-11-26T01:48:35Z","ev":"close","id":"30404672"}
+{"t":"2026-11-26T01:48:35Z","ev":"close","id":"30404674"}
+{"t":"2026-11-26T01:48:35Z","ev":"close","id":"30404675"}
+{"t":"2026-11-26T01:48:35Z","ev":"close","id":"30404745"}
+{"t":"2026-11-26T01:48:35Z","ev":"close","id":"30404758"}
