@@ -2027,7 +2027,7 @@ function clearRoute() {
 }
 
 // ---- modo conducción (voz del navegador + GPS; la lógica de qué decir está en <core>)
-const VERSION = 'v27'; // mantener igual que CACHE en sw.js (lo vigila tests/core.test.mjs)
+const VERSION = 'v28'; // mantener igual que CACHE en sw.js (lo vigila tests/core.test.mjs)
 const drive = { on: false, watch: null, wake: null, said: new Set(), off: false, nativeId: null,
   // conducción libre
   track: [], loc: null, hint: null, matchOk: 0, matchAt: 0, matching: false, index: null, items: [], freeAt: 0, freeLoading: false,
@@ -2036,9 +2036,9 @@ const drive = { on: false, watch: null, wake: null, said: new Set(), off: false,
 const NATIVE = !!(window.Capacitor && typeof window.Capacitor.isNativePlatform === 'function' && window.Capacitor.isNativePlatform());
 const plug = (n) => (window.Capacitor && window.Capacitor.Plugins && window.Capacitor.Plugins[n]) || null;
 // Canal de la voz en la app: manos libres (el coche silencia la radio), Bluetooth/altavoz con la música del móvil atenuada, o altavoz del móvil
-const VOICE_MODES = { hfp: 'Manos libres del coche', duck: 'Bluetooth o altavoz (baja la música del móvil)', speaker: 'Altavoz del móvil' };
-const VOICE_ROUTE_ES = { hfp: 'por el manos libres', duck: 'por el audio normal', speaker: 'por el altavoz del móvil' };
-const voiceMode = () => (VOICE_MODES[storeGet('voz')] ? storeGet('voz') : 'hfp');
+const VOICE_MODES = { auto: 'Automático (Android Auto o manos libres)', hfp: 'Manos libres del coche', duck: 'Bluetooth o altavoz (pausa la música del móvil)', speaker: 'Altavoz del móvil' };
+const VOICE_ROUTE_ES = { nav: 'por Android Auto (canal de navegación)', hfp: 'por el manos libres', duck: 'por el audio normal', speaker: 'por el altavoz del móvil' };
+const voiceMode = () => (VOICE_MODES[storeGet('voz')] ? storeGet('voz') : 'auto');
 // Devuelve el canal usado ({ route }) cuando lo sabe
 function speak(text) {
   if (NATIVE) {
@@ -2057,7 +2057,7 @@ function speak(text) {
 // El manos libres en Android 12+ puede necesitar el permiso «Dispositivos cercanos»
 async function voicePrepare() {
   const vc = NATIVE && plug('VozCoche');
-  if (!vc || voiceMode() !== 'hfp') return;
+  if (!vc || (voiceMode() !== 'hfp' && voiceMode() !== 'auto')) return;
   try { await vc.requestPermissions(); } catch (e) { /* sin permiso: se usa el audio normal */ }
 }
 async function driveWake() {
@@ -2278,7 +2278,8 @@ async function testVoice() {
   const r = await speak('Prueba de voz correcta');
   if (!NATIVE) return setStatus('Voz probada. El GPS en segundo plano solo se prueba en la app Android');
   const via = r && r.route ? `Voz ${VOICE_ROUTE_ES[r.route]}` : (plug('VozCoche') ? 'Voz' : 'Voz (reinstala la APK para elegir el canal)');
-  const hfpFail = r && r.route && voiceMode() === 'hfp' && r.route !== 'hfp' ? ': manos libres no disponible (¿Bluetooth del coche conectado?)' : '';
+  const hfpFail = r && r.route && ['hfp', 'auto'].includes(voiceMode()) && !['hfp', 'nav'].includes(r.route)
+    ? (voiceMode() === 'auto' ? ': ni Android Auto ni manos libres detectados' : ': manos libres no disponible (¿Bluetooth del coche conectado?)') : '';
   const bg = plug('BackgroundGeolocation');
   if (!bg) return setStatus('Falta un componente de la app: reinstala la última versión', true);
   setStatus('Probando GPS…');

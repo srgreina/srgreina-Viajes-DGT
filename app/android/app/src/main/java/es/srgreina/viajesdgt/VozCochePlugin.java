@@ -1,7 +1,9 @@
 package es.srgreina.viajesdgt;
 
 import android.Manifest;
+import android.app.UiModeManager;
 import android.content.Context;
+import android.content.res.Configuration;
 import android.media.AudioAttributes;
 import android.media.AudioDeviceInfo;
 import android.media.AudioFocusRequest;
@@ -27,9 +29,11 @@ import java.util.Locale;
 /**
  * Voz de la app en el coche.
  *  - "hfp": por el canal de manos libres (como una llamada): el equipo del coche silencia la radio mientras habla.
- *  - "duck": por el audio normal (Bluetooth A2DP o altavoz), bajando la música del propio móvil.
+ *  - "auto": con Android Auto (modo coche), por su canal de navegación, como Google Maps; sin él, como "hfp".
+ *  - "duck": por el audio normal (Bluetooth A2DP o altavoz) como navegación, pausando la música del propio móvil.
  *  - "speaker": por el altavoz del móvil aunque haya Bluetooth conectado.
  * Si el manos libres no está disponible o no abre en 4 s, se usa "duck" y se informa en la respuesta.
+ * La respuesta de speak trae route: "nav" (Android Auto), "hfp", "duck" o "speaker".
  */
 @CapacitorPlugin(
     name = "VozCoche",
@@ -100,10 +104,17 @@ public class VozCochePlugin extends Plugin {
     public void status(PluginCall call) {
         JSObject r = new JSObject();
         r.put("hfp", hasScoDevice());
+        r.put("car", inCarMode());
         call.resolve(r);
     }
 
     // ---------------------------------------------------------------------------------------------
+
+    /** Android Auto pone el móvil en modo coche mientras está conectado */
+    private boolean inCarMode() {
+        UiModeManager um = (UiModeManager) getContext().getSystemService(Context.UI_MODE_SERVICE);
+        return um != null && um.getCurrentModeType() == Configuration.UI_MODE_TYPE_CAR;
+    }
 
     private boolean hasScoDevice() {
         if (Build.VERSION.SDK_INT >= 31) {
@@ -126,6 +137,10 @@ public class VozCochePlugin extends Plugin {
 
     private void open(String mode) {
         state = OPENING;
+        if ("auto".equals(mode)) {
+            if (inCarMode()) { nav("nav"); return; }
+            mode = "hfp";
+        }
         if ("hfp".equals(mode) && hasScoDevice()) {
             route = "hfp";
             requestFocus(AudioManager.AUDIOFOCUS_GAIN_TRANSIENT, AudioAttributes.USAGE_VOICE_COMMUNICATION);
@@ -171,25 +186,27 @@ public class VozCochePlugin extends Plugin {
         fallback();
     }
 
-    /** Audio normal con la música del móvil atenuada. */
-    private void fallback() {
+    /** Audio normal como indicación de navegación, pausando la música del móvil mientras habla. */
+    private void fallback() { nav("duck"); }
+
+    private void nav(String r) {
         resetRouting();
-        route = "duck";
-        requestFocus(AudioManager.AUDIOFOCUS_GAIN_TRANSIENT_MAY_DUCK, AudioAttributes.USAGE_ASSISTANCE_NAVIGATION_GUIDANCE);
+        route = r;
+        requestFocus(AudioManager.AUDIOFOCUS_GAIN_TRANSIENT, AudioAttributes.USAGE_ASSISTANCE_NAVIGATION_GUIDANCE);
         state = OPEN;
         pump();
     }
 
     private void pump() {
         if (state != OPEN || !ttsReady) return;
-        int usage = "duck".equals(route) ? AudioAttributes.USAGE_ASSISTANCE_NAVIGATION_GUIDANCE : AudioAttributes.USAGE_VOICE_COMMUNICATION;
-        int stream = "duck".equals(route) ? AudioManager.STREAM_MUSIC : AudioManager.STREAM_VOICE_CALL;
+        boolean navRoute = "duck".equals(route) || "nav".equals(route);
+        int usage = navRoute ? AudioAttributes.USAGE_ASSISTANCE_NAVIGATION_GUIDANCE : AudioAttributes.USAGE_VOICE_COMMUNICATION;
         tts.setAudioAttributes(new AudioAttributes.Builder()
             .setUsage(usage).setContentType(AudioAttributes.CONTENT_TYPE_SPEECH).build());
         while (!queue.isEmpty()) {
             Object[] q = queue.remove(0);
             Bundle p = new Bundle();
-            p.putInt(TextToSpeech.Engine.KEY_PARAM_STREAM, stream);
+            p.putFloat(TextToSpeech.Engine.KEY_PARAM_VOLUME, 1.0f); // los atributos de audio deciden el canal
             pendingUtterances++;
             int res = tts.speak((String) q[0], TextToSpeech.QUEUE_ADD, p, "vc" + (++utt));
             PluginCall call = (PluginCall) q[1];
