@@ -354,3 +354,16 @@
 {"t":"2026-11-26T03:14:28Z","ev":"close","id":"30404825"}
 {"t":"2026-11-26T03:14:28Z","ev":"close","id":"30404882"}
 {"t":"2026-11-26T03:14:28Z","ev":"close","id":"30404885"}
+{"t":"2026-11-26T03:24:03Z","ev":"open","id":"30404905","sit":"25965236","ver":"1","kind":"GenericSituationRecord","types":["vehicleObstruction","vehicleStuck"],"status":"active","created":"2026-11-26T04:14:34.000+01:00","start":"2026-11-26T04:14:34.000+01:00","road":"CM-401","dir":"positive","pk":[0.023],"a":[39.862362,-4.027847],"geo":{"autonomousCommunity":"Castilla - La Mancha","municipality":"Toledo","province":"Toledo"}}
+{"t":"2026-11-26T03:24:03Z","ev":"open","id":"30404909","sit":"25965240","ver":"1","kind":"GenericSituationRecord","types":["vehicleObstruction","vehicleStuck"],"status":"active","created":"2026-11-26T04:15:46.000+01:00","start":"2026-11-26T04:15:46.000+01:00","road":"CV-743","dir":"positive","pk":[0.736],"a":[38.721138,0.112881],"geo":{"autonomousCommunity":"Comunitat Valenciana","municipality":"Teulada","province":"Alacant/Alicante"}}
+{"t":"2026-11-26T03:24:03Z","ev":"open","id":"30404908","sit":"25965239","ver":"1","kind":"GenericSituationRecord","types":["vehicleObstruction","vehicleStuck"],"status":"active","created":"2026-11-26T04:15:25.000+01:00","start":"2026-11-26T04:15:25.000+01:00","road":"A-44","dir":"positive","pk":[56.912],"a":[37.696438,-3.633201],"geo":{"autonomousCommunity":"Andalucía","municipality":"Pegalajar","province":"Jaén"}}
+{"t":"2026-11-26T03:24:03Z","ev":"open","id":"30404922","sit":"25965239","ver":"2","kind":"RoadOrCarriagewayOrLaneManagement","types":["vehicleObstruction","vehicleStuck","laneClosures"],"status":"active","created":"2026-11-26T04:20:42.000+01:00","start":"2026-11-26T04:19:52.000+01:00","road":"A-44","dir":"positive","lanes":"_extended","pk":[56.912],"a":[37.696415,-3.633228],"geo":{"autonomousCommunity":"Andalucía","municipality":"Pegalajar","province":"Jaén"}}
+{"t":"2026-11-26T03:24:03Z","ev":"open","id":"30404923","sit":"25965239","ver":"2","kind":"RoadOrCarriagewayOrLaneManagement","types":["vehicleObstruction","vehicleStuck","narrowLanes"],"status":"active","created":"2026-11-26T04:20:42.000+01:00","start":"2026-11-26T04:20:18.000+01:00","road":"A-44","dir":"positive","lanes":"rightLane","pk":[56.912],"a":[37.69642,-3.633229],"geo":{"autonomousCommunity":"Andalucía","municipality":"Pegalajar","province":"Jaén"}}
+{"t":"2026-11-26T03:24:03Z","ev":"open","id":"30404928","sit":"25965251","ver":"1","kind":"GenericSituationRecord","types":["vehicleObstruction","vehicleStuck"],"status":"active","created":"2026-11-26T04:22:30.000+01:00","start":"2026-11-26T04:22:30.000+01:00","road":"N-1a","dir":"negative","pk":[99.108],"a":[41.19026,-3.58327],"geo":{"autonomousCommunity":"Castilla y León","municipality":"Santo Tomé del Puerto","province":"Segovia"}}
+{"t":"2026-11-26T03:24:03Z","ev":"close","id":"30402453"}
+{"t":"2026-11-26T03:24:03Z","ev":"close","id":"30402525"}
+{"t":"2026-11-26T03:24:03Z","ev":"close","id":"30402148"}
+{"t":"2026-11-26T03:24:03Z","ev":"close","id":"30404802"}
+{"t":"2026-11-26T03:24:03Z","ev":"close","id":"30404864"}
+{"t":"2026-11-26T03:24:03Z","ev":"close","id":"30404897"}
+{"t":"2026-11-26T03:24:03Z","ev":"close","id":"30404902"}
