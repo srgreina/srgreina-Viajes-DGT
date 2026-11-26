@@ -301,3 +301,9 @@
 {"t":"2026-11-26T02:36:13Z","ev":"close","id":"30372624"}
 {"t":"2026-11-26T02:36:13Z","ev":"close","id":"30404629"}
 {"t":"2026-11-26T02:36:13Z","ev":"close","id":"30404817"}
+{"t":"2026-11-26T02:45:41Z","ev":"open","id":"30403444","sit":"25961672","ver":"31","kind":"RoadOrCarriagewayOrLaneManagement","types":["roadMaintenance","roadworks","laneClosures"],"status":"active","created":"2026-11-26T03:38:02.000+01:00","start":"2026-11-26T03:38:00.000+01:00","end":"2026-11-26T10:30:00.000+01:00","road":"AP-9","dir":"negative","lanes":"leftLane","pk":[42.5,39.5],"a":[43.07263,-8.360195],"b":[43.098495,-8.350341],"geo":{"autonomousCommunity":"Galicia","municipality":"Ordes","province":"A Coruña"}}
+{"t":"2026-11-26T02:45:41Z","ev":"open","id":"30404858","sit":"25965189","ver":"1","kind":"GenericSituationRecord","types":["vehicleObstruction","vehicleStuck"],"status":"active","created":"2026-11-26T03:43:42.000+01:00","start":"2026-11-26T03:43:42.000+01:00","road":"A-92","dir":"positive","pk":[295.473],"a":[37.319878,-3.12506],"geo":{"autonomousCommunity":"Andalucía","municipality":"Guadix","province":"Granada"}}
+{"t":"2026-11-26T02:45:41Z","ev":"open","id":"30404860","sit":"25965191","ver":"1","kind":"GenericSituationRecord","types":["vehicleObstruction","vehicleStuck"],"status":"active","created":"2026-11-26T03:44:28.000+01:00","start":"2026-11-26T03:44:28.000+01:00","road":"A-7","dir":"positive","pk":[672.076],"a":[37.423157,-1.931037],"geo":{"autonomousCommunity":"Andalucía","municipality":"Huércal-Overa","province":"Almería"}}
+{"t":"2026-11-26T02:45:41Z","ev":"close","id":"30403420"}
+{"t":"2026-11-26T02:45:41Z","ev":"close","id":"30404813"}
+{"t":"2026-11-26T02:45:41Z","ev":"close","id":"30404851"}
