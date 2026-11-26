@@ -409,3 +409,11 @@
 {"t":"2026-11-26T03:52:33Z","ev":"close","id":"30392879"}
 {"t":"2026-11-26T03:52:33Z","ev":"close","id":"30404947"}
 {"t":"2026-11-26T03:52:33Z","ev":"close","id":"30404948"}
+{"t":"2026-11-26T04:02:01Z","ev":"open","id":"30404968","sit":"25965289","ver":"1","kind":"GenericSituationRecord","types":["vehicleObstruction","vehicleStuck"],"status":"active","created":"2026-11-26T04:54:00.000+01:00","start":"2026-11-26T04:54:00.000+01:00","road":"A-45","dir":"positive","pk":[18.509],"a":[37.668568,-4.753395],"geo":{"autonomousCommunity":"Andalucía","municipality":"La Rambla","province":"Córdoba"}}
+{"t":"2026-11-26T04:02:01Z","ev":"close","id":"30403590"}
+{"t":"2026-11-26T04:02:01Z","ev":"close","id":"30403421"}
+{"t":"2026-11-26T04:02:01Z","ev":"close","id":"30404777"}
+{"t":"2026-11-26T04:02:01Z","ev":"close","id":"30404793"}
+{"t":"2026-11-26T04:02:01Z","ev":"close","id":"30404865"}
+{"t":"2026-11-26T04:02:01Z","ev":"close","id":"30404890"}
+{"t":"2026-11-26T04:02:01Z","ev":"close","id":"30404962"}
