@@ -22182,3 +22182,32 @@
 {"t":"2026-11-26T23:44:14Z","ev":"close","id":"30441681"}
 {"t":"2026-11-26T23:44:14Z","ev":"close","id":"30441685"}
 {"t":"2026-11-26T23:44:14Z","ev":"close","id":"30441686"}
+{"t":"2026-11-26T23:53:48Z","ev":"open","id":"30441736","sit":"25998877","ver":"1","kind":"GenericSituationRecord","types":["vehicleObstruction","vehicleStuck"],"status":"active","created":"2026-11-27T00:44:21.000+01:00","start":"2026-11-27T00:44:21.000+01:00","road":"A-7","dir":"negative","pk":[355.144],"a":[39.340317,-0.429346],"geo":{"autonomousCommunity":"Comunitat Valenciana","municipality":"Silla","province":"València/Valencia"}}
+{"t":"2026-11-26T23:53:48Z","ev":"open","id":"30441740","sit":"25998881","ver":"1","kind":"GenericSituationRecord","types":["vehicleObstruction","vehicleStuck"],"status":"active","created":"2026-11-27T00:45:08.000+01:00","start":"2026-11-27T00:45:08.000+01:00","road":"A-4","dir":"negative","pk":[237.53],"a":[38.463905,-3.501972],"geo":{"autonomousCommunity":"Castilla - La Mancha","municipality":"Almuradiel","province":"Ciudad Real"}}
+{"t":"2026-11-26T23:53:48Z","ev":"open","id":"30441749","sit":"25998889","ver":"1","kind":"GenericSituationRecord","types":["vehicleObstruction","vehicleStuck"],"status":"active","created":"2026-11-27T00:47:10.000+01:00","start":"2026-11-27T00:47:10.000+01:00","road":"N-122a","dir":"negative","pk":[270.376],"a":[41.670094,-3.693807],"geo":{"autonomousCommunity":"Castilla y León","municipality":"Aranda de Duero","province":"Burgos"}}
+{"t":"2026-11-26T23:53:48Z","ev":"open","id":"30441752","sit":"25998892","ver":"1","kind":"GenericSituationRecord","types":["roadMaintenance","roadworks"],"status":"active","created":"2026-11-27T00:47:20.000+01:00","start":"2026-11-27T00:47:20.000+01:00","road":"VS-M-50-D","dir":"positive","pk":[70.715],"a":[40.40364,-3.891188],"geo":{"autonomousCommunity":"Madrid, Comunidad de","municipality":"Boadilla del Monte","province":"Madrid"}}
+{"t":"2026-11-26T23:53:48Z","ev":"open","id":"30441760","sit":"25998760","ver":"2","kind":"RoadOrCarriagewayOrLaneManagement","types":["vehicleObstruction","vehicleStuck","laneClosures"],"status":"active","created":"2026-11-27T00:50:00.000+01:00","start":"2026-11-27T00:47:33.000+01:00","road":"A-3","dir":"negative","lanes":"_extended","pk":[292.1],"a":[39.48255,-1.059307],"geo":{"autonomousCommunity":"Comunitat Valenciana","municipality":"Requena","province":"València/Valencia"}}
+{"t":"2026-11-26T23:53:48Z","ev":"open","id":"30435326","sit":"25992621","ver":"3","kind":"RoadOrCarriagewayOrLaneManagement","types":["roadMaintenance","roadworks","laneClosures"],"status":"active","created":"2026-11-27T00:52:09.000+01:00","start":"2026-11-27T00:52:00.000+01:00","end":"2026-11-27T04:30:00.000+01:00","road":"A-6","dir":"negative","lanes":"rightLane","pk":[28.6,28.3],"a":[40.57072,-3.921703],"b":[40.569263,-3.918683],"geo":{"autonomousCommunity":"Madrid, Comunidad de","municipality":"Torrelodones","province":"Madrid"}}
+{"t":"2026-11-26T23:53:48Z","ev":"open","id":"30441770","sit":"25998908","ver":"1","kind":"GenericSituationRecord","types":["vehicleObstruction","vehicleStuck"],"status":"active","created":"2026-11-27T00:52:27.000+01:00","start":"2026-11-27T00:52:27.000+01:00","road":"DP-1105","dir":"positive","pk":[13.678],"a":[42.664066,-8.886123],"geo":{"autonomousCommunity":"Galicia","municipality":"Boiro","province":"A Coruña"}}
+{"t":"2026-11-26T23:53:48Z","ev":"open","id":"30441772","sit":"25998909","ver":"1","kind":"GenericSituationRecord","types":["vehicleObstruction","vehicleStuck"],"status":"active","created":"2026-11-27T00:52:49.000+01:00","start":"2026-11-27T00:52:49.000+01:00","road":"AP-7","dir":"positive","pk":[1060.568],"a":[36.48387,-5.082568],"geo":{"autonomousCommunity":"Andalucía","municipality":"Estepona","province":"Málaga"}}
+{"t":"2026-11-26T23:53:48Z","ev":"open","id":"30441773","sit":"25998910","ver":"1","kind":"GenericSituationRecord","types":["vehicleObstruction","vehicleStuck"],"status":"active","created":"2026-11-27T00:53:19.000+01:00","start":"2026-11-27T00:53:19.000+01:00","road":"A-2103","dir":"positive","pk":[1.798],"a":[36.299934,-5.302407],"geo":{"autonomousCommunity":"Andalucía","municipality":"San Roque","province":"Cádiz"}}
+{"t":"2026-11-26T23:53:48Z","ev":"open","id":"30441774","sit":"25998911","ver":"1","kind":"GenericSituationRecord","types":["vehicleObstruction","vehicleStuck"],"status":"active","created":"2026-11-27T00:53:27.000+01:00","start":"2026-11-27T00:53:27.000+01:00","road":"N-541","dir":"positive","pk":[25.143],"a":[42.428753,-8.063915],"geo":{"autonomousCommunity":"Galicia","municipality":"Maside","province":"Ourense"}}
+{"t":"2026-11-26T23:53:48Z","ev":"open","id":"30441775","sit":"25998912","ver":"1","kind":"GenericSituationRecord","types":["vehicleObstruction","vehicleStuck"],"status":"active","created":"2026-11-27T00:53:28.000+01:00","start":"2026-11-27T00:53:28.000+01:00","road":"N-629","dir":"negative","pk":[87.289],"a":[43.39406,-3.450143],"geo":{"autonomousCommunity":"Cantabria","municipality":"Colindres","province":"Cantabria"}}
+{"t":"2026-11-26T23:53:48Z","ev":"close","id":"30441363"}
+{"t":"2026-11-26T23:53:48Z","ev":"close","id":"30441391"}
+{"t":"2026-11-26T23:53:48Z","ev":"close","id":"30441397"}
+{"t":"2026-11-26T23:53:48Z","ev":"close","id":"30441409"}
+{"t":"2026-11-26T23:53:48Z","ev":"close","id":"30441418"}
+{"t":"2026-11-26T23:53:48Z","ev":"close","id":"30441446"}
+{"t":"2026-11-26T23:53:48Z","ev":"close","id":"30441511"}
+{"t":"2026-11-26T23:53:48Z","ev":"close","id":"30441537"}
+{"t":"2026-11-26T23:53:48Z","ev":"close","id":"30441588"}
+{"t":"2026-11-26T23:53:48Z","ev":"close","id":"30441608"}
+{"t":"2026-11-26T23:53:48Z","ev":"close","id":"30441618"}
+{"t":"2026-11-26T23:53:48Z","ev":"close","id":"30441625"}
+{"t":"2026-11-26T23:53:48Z","ev":"close","id":"30441705"}
+{"t":"2026-11-26T23:53:48Z","ev":"close","id":"30441722"}
+{"t":"2026-11-26T23:53:48Z","ev":"close","id":"30441723"}
+{"t":"2026-11-26T23:53:48Z","ev":"close","id":"30441724"}
+{"t":"2026-11-26T23:53:48Z","ev":"close","id":"30441728"}
+{"t":"2026-11-26T23:53:48Z","ev":"close","id":"30441729"}
