@@ -103,3 +103,15 @@
 {"t":"2026-11-26T00:32:33Z","ev":"close","id":"30404626"}
 {"t":"2026-11-26T00:32:33Z","ev":"close","id":"30404628"}
 {"t":"2026-11-26T00:32:33Z","ev":"close","id":"30404630"}
+{"t":"2026-11-26T00:42:03Z","ev":"open","id":"30404654","sit":"25964997","ver":"1","kind":"GenericSituationRecord","types":["vehicleObstruction","vehicleStuck"],"status":"active","created":"2026-11-26T01:33:01.000+01:00","start":"2026-11-26T01:33:01.000+01:00","road":"M-209","dir":"positive","pk":[15.193],"a":[40.34026,-3.276747],"geo":{"autonomousCommunity":"Madrid, Comunidad de","municipality":"Villar del Olmo","province":"Madrid"}}
+{"t":"2026-11-26T00:42:03Z","ev":"open","id":"30404656","sit":"25964999","ver":"1","kind":"GenericSituationRecord","types":["vehicleObstruction","vehicleStuck"],"status":"active","created":"2026-11-26T01:33:45.000+01:00","start":"2026-11-26T01:33:45.000+01:00","road":"A-66","dir":"negative","pk":[685.761],"a":[38.38372,-6.338721],"geo":{"autonomousCommunity":"Extremadura","municipality":"Puebla de Sancho Pérez","province":"Badajoz"}}
+{"t":"2026-11-26T00:42:03Z","ev":"open","id":"30404657","sit":"25965000","ver":"1","kind":"GenericSituationRecord","types":["vehicleObstruction","vehicleStuck"],"status":"active","created":"2026-11-26T01:33:46.000+01:00","start":"2026-11-26T01:33:46.000+01:00","road":"N-120","dir":"negative","pk":[607.356],"a":[42.254646,-8.221817],"geo":{"autonomousCommunity":"Galicia","municipality":"Melón","province":"Ourense"}}
+{"t":"2026-11-26T00:42:03Z","ev":"open","id":"30404658","sit":"25965001","ver":"1","kind":"GenericSituationRecord","types":["vehicleObstruction","vehicleStuck"],"status":"active","created":"2026-11-26T01:33:54.000+01:00","start":"2026-11-26T01:33:54.000+01:00","road":"A-66","dir":"negative","pk":[476.518],"a":[39.998062,-6.144702],"geo":{"autonomousCommunity":"Extremadura","municipality":"Plasencia","province":"Cáceres"}}
+{"t":"2026-11-26T00:42:03Z","ev":"open","id":"30404660","sit":"25965003","ver":"1","kind":"GenericSituationRecord","types":["vehicleObstruction","vehicleStuck"],"status":"active","created":"2026-11-26T01:34:44.000+01:00","start":"2026-11-26T01:34:44.000+01:00","road":"A-45","dir":"positive","pk":[123.622],"a":[36.89672,-4.433118],"geo":{"autonomousCommunity":"Andalucía","municipality":"Casabermeja","province":"Málaga"}}
+{"t":"2026-11-26T00:42:03Z","ev":"open","id":"30404667","sit":"25965010","ver":"1","kind":"GenericSituationRecord","types":["obstruction","objectOnTheRoad"],"status":"active","created":"2026-11-26T01:38:26.000+01:00","start":"2026-11-26T01:38:00.000+01:00","road":"A-52","dir":"negative","pk":[281.702],"a":[42.17182,-8.37564],"geo":{"autonomousCommunity":"Galicia","municipality":"As Neves","province":"Pontevedra"}}
+{"t":"2026-11-26T00:42:03Z","ev":"close","id":"30404440"}
+{"t":"2026-11-26T00:42:03Z","ev":"close","id":"30404530"}
+{"t":"2026-11-26T00:42:03Z","ev":"close","id":"30404535"}
+{"t":"2026-11-26T00:42:03Z","ev":"close","id":"30404567"}
+{"t":"2026-11-26T00:42:03Z","ev":"close","id":"30404571"}
+{"t":"2026-11-26T00:42:03Z","ev":"close","id":"30404651"}
