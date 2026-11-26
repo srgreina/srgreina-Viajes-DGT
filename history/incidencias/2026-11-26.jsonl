@@ -367,3 +367,10 @@
 {"t":"2026-11-26T03:24:03Z","ev":"close","id":"30404864"}
 {"t":"2026-11-26T03:24:03Z","ev":"close","id":"30404897"}
 {"t":"2026-11-26T03:24:03Z","ev":"close","id":"30404902"}
+{"t":"2026-11-26T03:33:33Z","ev":"open","id":"30404690","sit":"25964356","ver":"10","kind":"RoadOrCarriagewayOrLaneManagement","types":["roadMaintenance","roadworks","laneClosures"],"status":"active","created":"2026-11-26T04:25:39.000+01:00","start":"2026-11-26T04:25:00.000+01:00","end":"2026-11-26T05:30:00.000+01:00","road":"A-5","dir":"positive","lanes":"rightLane","pk":[10.4],"a":[40.372902,-3.798983],"geo":{"autonomousCommunity":"Madrid, Comunidad de","municipality":"Madrid","province":"Madrid"}}
+{"t":"2026-11-26T03:33:33Z","ev":"open","id":"30404929","sit":"25965252","ver":"1","kind":"GenericSituationRecord","types":["vehicleObstruction","vehicleStuck"],"status":"active","created":"2026-11-26T04:25:01.000+01:00","start":"2026-11-26T04:25:01.000+01:00","road":"VS-A-66-C","dir":"positive","pk":[275.944],"a":[41.53327,-5.70526],"geo":{"autonomousCommunity":"Castilla y León","municipality":"Zamora","province":"Zamora"}}
+{"t":"2026-11-26T03:33:33Z","ev":"open","id":"30404930","sit":"25965253","ver":"1","kind":"GenericSituationRecord","types":["vehicleObstruction","vehicleStuck"],"status":"active","created":"2026-11-26T04:25:14.000+01:00","start":"2026-11-26T04:25:14.000+01:00","road":"N-331","dir":"negative","pk":[42.384],"a":[37.59847,-4.670755],"geo":{"autonomousCommunity":"Andalucía","municipality":"Montilla","province":"Córdoba"}}
+{"t":"2026-11-26T03:33:33Z","ev":"open","id":"30404936","sit":"25965259","ver":"1","kind":"GenericSituationRecord","types":["vehicleObstruction","vehicleStuck"],"status":"active","created":"2026-11-26T04:32:34.000+01:00","start":"2026-11-26T04:32:34.000+01:00","road":"GC-1","dir":"positive","pk":[11.644],"a":[27.981524,-15.391638],"geo":{"autonomousCommunity":"Canarias","municipality":"Telde","province":"Las Palmas"}}
+{"t":"2026-11-26T03:33:33Z","ev":"close","id":"29949944"}
+{"t":"2026-11-26T03:33:33Z","ev":"close","id":"30404833"}
+{"t":"2026-11-26T03:33:33Z","ev":"close","id":"30404905"}
