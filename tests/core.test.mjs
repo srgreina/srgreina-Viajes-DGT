@@ -478,7 +478,7 @@ test('sin sentido conocido no se oculta nada', () => {
 });
 
 // ---- conducción libre: carretera, PK y sentido sin ruta
-const F = new Function(`${html.slice(html.indexOf('// <core>'), html.indexOf('// </core>'))}; return { buildRoadIndex, projectRoads, locateOnRoad, freeItems, aheadOnRoad, aheadCone, freeStep, alertDistance, pickAlerts, freeLabel, pkRefs, matchUrl, matchRoads, encodeTrack, decodeTrack, zoneAvisos };`)();
+const F = new Function(`${html.slice(html.indexOf('// <core>'), html.indexOf('// </core>'))}; return { buildRoadIndex, projectRoads, locateOnRoad, freeItems, aheadOnRoad, aheadCone, freeStep, alertDistance, pickAlerts, freeLabel, pkRefs, matchUrl, matchRoads, encodeTrack, decodeTrack, zoneAvisos, dueDriveRefresh };`)();
 // A-92: de oeste a este por LAT, PK 100 en lon -4.5 bajando 1 km por km. N-331 paralela 800 m al norte, PK 20 subiendo hacia el este.
 const LON0 = -4.5;
 const lonKm = (k) => LON0 + k / KM_PER_DEG_LON;
@@ -673,4 +673,27 @@ test('avisos AEMET de zona: solo naranja o rojo, vigentes y que te contienen', (
 test('la voz no lee el sentido de PK', () => {
   const t = api.driveSpeech(900, { title: 'Accidente', sub: 'A-45 · PK 124,0 · sentido PK decreciente', text: '' });
   assert.equal(t, 'En 900 metros. Accidente. A-45 , punto kilométrico 124,0');
+});
+
+test('sin confirmar por OSRM solo se avisa de lo grave', () => {
+  const items = F.freeItems(fDocs([fInc('acc', 9, ['accident']), fInc('car', 9.5, ['laneClosures'])],
+    [{ id: 'r1', road: 'A-92', lat: LAT, lon: lonKm(10), extra: { directionRelative: 'negative' } }]), idx);
+  const tr = track(2, 12);
+  let loc = null; const said = new Set(); const keys = [];
+  for (let i = 1; i <= tr.length; i++) {
+    const r = F.freeStep(idx, items, tr.slice(Math.max(0, i - 40), i), loc, null, said, 2, false);
+    loc = r.loc;
+    for (const a of r.say) { a.keys.forEach((k) => said.add(k)); keys.push(a.key); }
+  }
+  assert.ok(keys.includes('inc:acc'), keys.join());
+  assert.ok(!keys.includes('inc:car') && !keys.includes('rad:r1'), keys.join());
+});
+
+test('conduciendo, recarga en cuanto los datos pasan de 11 min (máx. una vez por minuto)', () => {
+  const now = 10_000_000;
+  assert.equal(F.dueDriveRefresh(now - 120000, now - 12 * 60000, now), true);
+  assert.equal(F.dueDriveRefresh(now - 30000, now - 12 * 60000, now), false);
+  assert.equal(F.dueDriveRefresh(now - 120000, now - 8 * 60000, now), false);
+  assert.equal(F.dueDriveRefresh(now - 300000, now - 2 * 60000, now), true);
+  assert.equal(F.dueDriveRefresh(0, 0, now), true);
 });

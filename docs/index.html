@@ -880,6 +880,11 @@ function driveStep(routeWide, hits, lat, lon, said, ahead = 5000, max = 2, offM 
 
 // ---- refresco automático: cuándo toca volver a pedir los datos (lógica pura)
 const dueRefresh = (lastMs, nowMs, everyMs = 300000) => !lastMs || nowMs - lastMs >= everyMs;
+// Conduciendo: además, en cuanto los datos superan 11 min ya debería haber otros (el recolector publica cada ~10 min);
+// como mucho un intento por minuto.
+const dueDriveRefresh = (lastMs, genMs, nowMs) => dueRefresh(lastMs, nowMs) || (!!genMs && nowMs - genMs > 660000 && nowMs - lastMs >= 60000);
+// Aviso de datos viejos: solo si se ha perdido al menos un ciclo completo (> 25 min); se rearma al bajar de 15 min
+const STALE_WARN_MIN = 25, STALE_RESET_MIN = 15;
 
 // ---- solo mi sentido. En la DGT, "positive" = sentido de PK creciente (comprobado con radares C/D,
 // tramos de radar, orden de PK de las incidencias y destinos de paneles y cámaras).
@@ -1210,11 +1215,13 @@ function aheadCone(items, fix, heading, distM = 2000, half = 35, skipRoad = null
   return out;
 }
 // Un paso de conducción libre: dónde estás, qué decir y lo próximo por delante (para pantalla y notificación)
-function freeStep(index, items, track, prev, hint, said, max = 2) {
+// confirmed: OSRM ha confirmado la carretera hace poco. Si no, solo se avisa de lo grave (accidentes, cortes,
+// retenciones): con la DGT sola puede confundir una vía paralela y avisar de un radar que no es tuyo.
+function freeStep(index, items, track, prev, hint, said, max = 2, confirmed = true) {
   const loc = locateOnRoad(index, track, prev, hint);
   const fix = track[track.length - 1];
   const dist = alertDistance(loc.speed);
-  const onRoad = loc.status === 'ok' ? aheadOnRoad(items, loc, dist) : [];
+  const onRoad = loc.status === 'ok' ? aheadOnRoad(items, loc, dist).filter((c) => confirmed || isSevere(c.h)) : [];
   // el cono es solo la reserva cuando no se sabe la carretera (si no, avisaría de vías paralelas)
   const cone = loc.status === 'ok' ? [] : aheadCone(items, fix, loc.heading, Math.min(dist, 2000), 35);
   const cand = [...onRoad, ...cone];
@@ -1755,6 +1762,7 @@ function render() {
 }
 
 let lastRefresh = 0;
+let lastIncGen = 0; // hora de generación de las incidencias cargadas en modo ruta
 let refreshing = false;
 async function refresh(silent) {
   if (refreshing) return;
@@ -1819,6 +1827,7 @@ async function refresh(silent) {
     render();
     setStatus(note.trim(), noteErr);
     lastRefresh = Date.now();
+    if (ds.inc) lastIncGen = Date.parse(ds.inc.generated) || 0;
   } catch (e) { if (!silent) setStatus(e.message, true); } finally { refreshing = false; } // en silencio, un fallo conserva los datos anteriores
 }
 
@@ -1827,7 +1836,8 @@ async function refresh(silent) {
 async function autoRefresh() {
   if (drive.on && !state.hasRoute) return freeRefresh();
   // conduciendo, también con la pantalla apagada (la app Android sigue viva con el GPS en segundo plano)
-  if (!state.hasRoute || refreshing || (document.visibilityState !== 'visible' && !drive.on) || !dueRefresh(lastRefresh, Date.now())) return;
+  const due = drive.on ? dueDriveRefresh(lastRefresh, lastIncGen, Date.now()) : dueRefresh(lastRefresh, Date.now());
+  if (!state.hasRoute || refreshing || (document.visibilityState !== 'visible' && !drive.on) || !due) return;
   reloadLive();
   state.av = null;
   if (dueRefresh(state.wxAt, Date.now(), 900000)) state.wx = null;
@@ -2027,7 +2037,7 @@ function clearRoute() {
 }
 
 // ---- modo conducción (voz del navegador + GPS; la lógica de qué decir está en <core>)
-const VERSION = 'v28'; // mantener igual que CACHE en sw.js (lo vigila tests/core.test.mjs)
+const VERSION = 'v29'; // mantener igual que CACHE en sw.js (lo vigila tests/core.test.mjs)
 const drive = { on: false, watch: null, wake: null, said: new Set(), off: false, nativeId: null,
   // conducción libre
   track: [], loc: null, hint: null, matchOk: 0, matchAt: 0, matching: false, index: null, items: [], freeAt: 0, freeLoading: false,
@@ -2064,7 +2074,7 @@ async function driveWake() {
   if (NATIVE) return; // la app Android no necesita mantener la pantalla encendida
   try { if (drive.on && !drive.wake && navigator.wakeLock) drive.wake = await navigator.wakeLock.request('screen'); } catch (e) { /* sin bloqueo de pantalla */ }
 }
-function driveInfo(msg) { $('drive').textContent = msg; $('drive').hidden = !msg; }
+function driveInfo(msg) { if (!drive.on) msg = ''; $('drive').textContent = msg; $('drive').hidden = !msg; }
 // Cada posición GPS (navegador o app): se graba y se decide entre modo ruta y conducción libre
 function drivePos(lat, lon, speed, acc) {
   if (!drive.on) return;
@@ -2111,7 +2121,7 @@ async function freeLoad() {
 }
 function freeEnsure() { if (!drive.index) freeLoad(); }
 async function freeRefresh() {
-  if (drive.freeLoading || !dueRefresh(drive.freeAt, Date.now())) return;
+  if (drive.freeLoading || !dueDriveRefresh(drive.freeAt, drive.incAt, Date.now())) return;
   reloadLive();
   await freeLoad();
 }
@@ -2148,17 +2158,18 @@ function freeTick(fix) {
   if (!drive.index) { freeEnsure(); driveInfo('Cargando datos de la DGT…'); return; }
   freeMatch();
   freeZoneAvisos(fix);
-  const r = freeStep(drive.index, drive.items, drive.track, drive.loc, drive.hint, drive.said);
+  // sin respuesta de OSRM en 2 min: la carretera sale solo de la DGT (puede confundir vías paralelas) → solo lo grave
+  const confirmed = Date.now() - drive.matchOk <= 120000;
+  const r = freeStep(drive.index, drive.items, drive.track, drive.loc, drive.hint, drive.said, 2, confirmed);
   drive.loc = r.loc;
-  // sin respuesta de OSRM en 2 min: la carretera sale solo de la DGT (puede confundir vías paralelas)
-  const unconf = r.loc.status === 'ok' && Date.now() - drive.matchOk > 120000;
+  const unconf = r.loc.status === 'ok' && !confirmed;
   const label = freeLabel(r.loc) + (unconf ? ' (sin confirmar)' : '');
   const next = r.next ? `${r.next.title} a ${fmtKm(r.next.gap)} km` : 'Nada por delante';
   driveInfo(`${label} · ${next}`);
   notify(`Viajes DGT · ${label}`, next);
   const staleMin = drive.incAt ? (Date.now() - drive.incAt) / 60000 : 0;
-  if (staleMin > 15 && !drive.staleSaid) { drive.staleSaid = true; speak('Atención: los datos de tráfico tienen más de 15 minutos'); }
-  if (staleMin <= 15) drive.staleSaid = false;
+  if (staleMin > STALE_WARN_MIN && !drive.staleSaid) { drive.staleSaid = true; speak(`Atención: los datos de tráfico tienen más de ${Math.floor(staleMin)} minutos`); }
+  if (staleMin < STALE_RESET_MIN) drive.staleSaid = false;
   for (const a of r.say) { a.keys.forEach((k) => drive.said.add(k)); speak(a.text); }
   freeFollow(fix);
 }
@@ -2179,14 +2190,15 @@ function notify(title, body) {
   const txt = title + '|' + body;
   if (txt === drive.notif || Date.now() - drive.notifAt < 15000) return;
   drive.notif = txt; drive.notifAt = Date.now();
-  const go = () => ln.schedule({ notifications: [{ id: NOTIF_ID, title, body, channelId: 'conduccion', ongoing: true, autoCancel: false }] }).catch(() => {});
+  // no fija: si cierras la app de golpe, se puede descartar deslizándola
+  const go = () => { if (drive.on) ln.schedule({ notifications: [{ id: NOTIF_ID, title, body, channelId: 'conduccion', ongoing: false, autoCancel: true }] }).catch(() => {}); };
   if (notifReady) return go();
   ln.createChannel({ id: 'conduccion', name: 'Conducción', description: 'Próximo aviso en ruta', importance: 2, visibility: 1, vibration: false })
     .catch(() => {}).then(() => { notifReady = true; go(); });
 }
 function notifyClear() {
   const ln = NATIVE && plug('LocalNotifications');
-  drive.notif = '';
+  drive.notif = ''; drive.notifAt = Date.now(); // evita que una actualización pendiente la vuelva a poner
   if (ln) ln.cancel({ notifications: [{ id: NOTIF_ID }] }).catch(() => {});
 }
 
@@ -2411,6 +2423,7 @@ function init() {
   L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', { maxZoom: 19, attribution: '© OpenStreetMap' }).addTo(map);
   markerGroup = L.layerGroup().addTo(map);
   $('dep').value = nowLocalInput();
+  notifyClear(); // por si quedó la de una sesión cerrada de golpe
   initLayers();
   bindPlace('o');
   bindPlace('d');
