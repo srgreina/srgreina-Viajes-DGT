@@ -242,3 +242,16 @@
 {"t":"2026-11-26T01:48:35Z","ev":"close","id":"30404675"}
 {"t":"2026-11-26T01:48:35Z","ev":"close","id":"30404745"}
 {"t":"2026-11-26T01:48:35Z","ev":"close","id":"30404758"}
+{"t":"2026-11-26T01:58:09Z","ev":"open","id":"30404786","sit":"25965120","ver":"1","kind":"GenericSituationRecord","types":["vehicleObstruction","vehicleStuck"],"status":"active","created":"2026-11-26T02:52:34.000+01:00","start":"2026-11-26T02:52:34.000+01:00","road":"A-92","dir":"negative","pk":[20.633],"a":[37.311737,-5.748192],"geo":{"autonomousCommunity":"Andalucía","municipality":"Mairena del Alcor","province":"Sevilla"}}
+{"t":"2026-11-26T01:58:09Z","ev":"open","id":"30404787","sit":"25965121","ver":"1","kind":"GenericSituationRecord","types":["vehicleObstruction","vehicleStuck"],"status":"active","created":"2026-11-26T02:54:16.000+01:00","start":"2026-11-26T02:54:16.000+01:00","road":"A-7","dir":"positive","pk":[299.106],"a":[39.69641,-0.277194],"geo":{"autonomousCommunity":"Comunitat Valenciana","municipality":"Sagunt/Sagunto","province":"València/Valencia"}}
+{"t":"2026-11-26T01:58:09Z","ev":"close","id":"30377536"}
+{"t":"2026-11-26T01:58:09Z","ev":"close","id":"30402645"}
+{"t":"2026-11-26T01:58:09Z","ev":"close","id":"30402666"}
+{"t":"2026-11-26T01:58:09Z","ev":"close","id":"30404104"}
+{"t":"2026-11-26T01:58:09Z","ev":"close","id":"30404685"}
+{"t":"2026-11-26T01:58:09Z","ev":"close","id":"30404709"}
+{"t":"2026-11-26T01:58:09Z","ev":"close","id":"30404724"}
+{"t":"2026-11-26T01:58:09Z","ev":"close","id":"30404730"}
+{"t":"2026-11-26T01:58:09Z","ev":"close","id":"30404776"}
+{"t":"2026-11-26T01:58:09Z","ev":"close","id":"30404781"}
+{"t":"2026-11-26T01:58:09Z","ev":"close","id":"30404783"}
