@@ -478,7 +478,7 @@ test('sin sentido conocido no se oculta nada', () => {
 });
 
 // ---- conducción libre: carretera, PK y sentido sin ruta
-const F = new Function(`${html.slice(html.indexOf('// <core>'), html.indexOf('// </core>'))}; return { buildRoadIndex, projectRoads, locateOnRoad, freeItems, aheadOnRoad, aheadCone, freeStep, alertDistance, pickAlerts, freeLabel, pkRefs, matchUrl, matchRoads, encodeTrack, decodeTrack, zoneAvisos, dueDriveRefresh };`)();
+const F = new Function(`${html.slice(html.indexOf('// <core>'), html.indexOf('// </core>'))}; return { buildRoadIndex, projectRoads, locateOnRoad, freeItems, aheadOnRoad, aheadCone, freeStep, alertDistance, pickAlerts, freeLabel, pkRefs, matchUrl, matchRoads, encodeTrack, decodeTrack, zoneAvisos, dueDriveRefresh, keepTrips, trackLengthM };`)();
 // A-92: de oeste a este por LAT, PK 100 en lon -4.5 bajando 1 km por km. N-331 paralela 800 m al norte, PK 20 subiendo hacia el este.
 const LON0 = -4.5;
 const lonKm = (k) => LON0 + k / KM_PER_DEG_LON;
@@ -696,4 +696,24 @@ test('conduciendo, recarga en cuanto los datos pasan de 11 min (máx. una vez po
   assert.equal(F.dueDriveRefresh(now - 120000, now - 8 * 60000, now), false);
   assert.equal(F.dueDriveRefresh(now - 300000, now - 2 * 60000, now), true);
   assert.equal(F.dueDriveRefresh(0, 0, now), true);
+});
+
+test('trayectos: se guardan los 3 últimos de ≥1 km y uno corto no borra un viaje', () => {
+  const trip = (km0, km1, t0) => track(km0, km1, { t0 });
+  const a = trip(0, 5, 0), b = trip(0, 3, 1e7), c = trip(0, 2, 2e7), d = trip(0, 4, 3e7);
+  const corto = [{ lat: LAT, lon: lonKm(1), t: 4e7 }];
+  assert.ok(Math.abs(F.trackLengthM(a) - 5000) < 300);
+  let list = F.keepTrips([], a);
+  list = F.keepTrips(list, corto);
+  assert.equal(list.length, 1, 'el trayecto de 1 posición no pisa el viaje');
+  list = F.keepTrips(F.keepTrips(F.keepTrips(list, b), c), d);
+  assert.deepEqual(list.map((t) => t[0].t), [1e7, 2e7, 3e7]);
+  // el trayecto en curso se actualiza, no se duplica
+  const d2 = [...d, { ...d[d.length - 1], t: d[d.length - 1].t + 2000 }];
+  assert.equal(F.keepTrips(list, d2).length, 3);
+  assert.equal(F.keepTrips(list, d2)[2].length, d2.length);
+  // tras guardar y leer (horas en segundos) sigue siendo el mismo trayecto
+  const dms = d.map((f, i) => ({ ...f, t: f.t + 437 }));
+  const saved = F.keepTrips([], dms).map((t) => F.decodeTrack(F.encodeTrack(t)));
+  assert.equal(F.keepTrips(saved, [...dms, { ...dms[dms.length - 1], t: dms[dms.length - 1].t + 2000 }]).length, 1);
 });

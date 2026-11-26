@@ -1276,6 +1276,22 @@ function encodeTrack(fixes) {
   });
   return 'v1;' + parts.join(';');
 }
+// Metros recorridos por un trayecto
+function trackLengthM(fixes) {
+  if (!fixes.length) return 0;
+  const proj = makeProjector(fixes[0].lat);
+  let d = 0;
+  for (let i = 1; i < fixes.length; i++) { const a = proj(fixes[i - 1].lat, fixes[i - 1].lon), b = proj(fixes[i].lat, fixes[i].lon); d += Math.hypot(b[0] - a[0], b[1] - a[1]); }
+  return d;
+}
+// Lista de trayectos guardados tras grabar `current`: sustituye al último si es el mismo (misma hora de inicio),
+// descarta los de menos de minM y deja los `max` más recientes
+function keepTrips(list, current, max = 3, minM = 1000) {
+  const sec = (t) => Math.round(t[0].t / 1000); // al guardar, las horas van en segundos
+  const out = list.filter((t) => t.length && current.length && sec(t) !== sec(current));
+  out.push(current);
+  return out.filter((t) => trackLengthM(t) >= minM).slice(-max);
+}
 function decodeTrack(txt) {
   const parts = String(txt || '').trim().split(';');
   if (parts.shift() !== 'v1') throw new Error('Formato de trayecto desconocido');
@@ -2037,7 +2053,7 @@ function clearRoute() {
 }
 
 // ---- modo conducción (voz del navegador + GPS; la lógica de qué decir está en <core>)
-const VERSION = 'v29'; // mantener igual que CACHE en sw.js (lo vigila tests/core.test.mjs)
+const VERSION = 'v30'; // mantener igual que CACHE en sw.js (lo vigila tests/core.test.mjs)
 const drive = { on: false, watch: null, wake: null, said: new Set(), off: false, nativeId: null,
   // conducción libre
   track: [], loc: null, hint: null, matchOk: 0, matchAt: 0, matching: false, index: null, items: [], freeAt: 0, freeLoading: false,
@@ -2202,16 +2218,22 @@ function notifyClear() {
   if (ln) ln.cancel({ notifications: [{ id: NOTIF_ID }] }).catch(() => {});
 }
 
-// ---- grabación del trayecto (solo en este móvil; se exporta copiándolo)
-const TRIP_KEY = 'trip';
+// ---- grabación de trayectos (solo en este móvil; se exportan copiándolos). Se guardan los 3 últimos de ≥1 km.
+const TRIPS_KEY = 'trips';
 const TRIP_MAX = 8000; // ≈4,5 h a una posición cada 2 s
 let tripBuf = null, tripSavedAt = 0;
+function tripsLoad() {
+  let list = [];
+  try { list = JSON.parse(storeGet(TRIPS_KEY) || '[]').map(decodeTrack).filter((t) => t.length); } catch (e) { list = []; }
+  try { const old = decodeTrack(storeGet('trip') || ''); if (old.length && !list.length) list = [old]; } catch (e) { /* formato antiguo dañado */ }
+  return list;
+}
 function tripAdd(fix) {
   if (!tripBuf) {
-    let old = [];
-    try { old = decodeTrack(storeGet(TRIP_KEY) || ''); } catch (e) { old = []; }
-    // si el último trayecto acabó hace menos de 30 min, se sigue con él; si no, empieza uno nuevo
-    tripBuf = old.length && fix.t - old[old.length - 1].t < 1800000 ? old : [];
+    const list = tripsLoad();
+    const last = list[list.length - 1];
+    // si el último trayecto acabó hace menos de 30 min, se sigue con él; si no, empieza uno nuevo (sin borrar los anteriores)
+    tripBuf = last && fix.t - last[last.length - 1].t < 1800000 ? last : [];
   }
   const l = tripBuf[tripBuf.length - 1];
   if (l && fix.t - l.t < 1500) return;
@@ -2222,25 +2244,28 @@ function tripAdd(fix) {
 function tripSave() {
   if (!tripBuf || !tripBuf.length) return;
   tripSavedAt = Date.now();
-  storeSet(TRIP_KEY, encodeTrack(tripBuf));
+  const list = keepTrips(tripsLoad(), tripBuf);
+  storeSet(TRIPS_KEY, JSON.stringify(list.map(encodeTrack)));
+  storeSet('trip', ''); // formato antiguo ya migrado
   syncTripBtn();
 }
 function syncTripBtn() {
-  let n = 0, min = 0;
-  try { const t = decodeTrack(storeGet(TRIP_KEY) || ''); n = t.length; if (n) min = Math.round((t[n - 1].t - t[0].t) / 60000); } catch (e) { n = 0; }
-  $('tripBtn').hidden = !n;
-  $('tripBtn').textContent = `Copiar trayecto (${min} min)`;
+  const list = tripsLoad();
+  $('tripBtn').hidden = !list.length;
+  const last = list[list.length - 1];
+  const min = last ? Math.round((last[last.length - 1].t - last[0].t) / 60000) : 0;
+  $('tripBtn').textContent = list.length > 1 ? `Copiar trayectos (${list.length}, último ${min} min)` : `Copiar trayecto (${min} min)`;
 }
 async function tripCopy() {
   tripSave();
-  const txt = storeGet(TRIP_KEY) || '';
-  try { await navigator.clipboard.writeText(txt); setStatus('Trayecto copiado: pégalo en el chat para revisarlo. Solo contiene posiciones y horas.'); }
+  const txt = tripsLoad().map(encodeTrack).join('\n');
+  try { await navigator.clipboard.writeText(txt); setStatus('Trayectos copiados: pégalos en el chat para revisarlos. Solo contienen posiciones y horas.'); }
   catch (e) {
     const ta = document.createElement('textarea');
     ta.value = txt; document.body.appendChild(ta); ta.select();
     let ok = false; try { ok = document.execCommand('copy'); } catch (err) { ok = false; }
     ta.remove();
-    setStatus(ok ? 'Trayecto copiado.' : 'No se pudo copiar el trayecto en este dispositivo', !ok);
+    setStatus(ok ? 'Trayectos copiados.' : 'No se pudo copiar en este dispositivo', !ok);
   }
 }
 function driveBegin() {
