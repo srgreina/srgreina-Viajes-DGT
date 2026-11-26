@@ -283,3 +283,13 @@
 {"t":"2026-11-26T02:17:11Z","ev":"close","id":"30404746"}
 {"t":"2026-11-26T02:17:11Z","ev":"close","id":"30404748"}
 {"t":"2026-11-26T02:17:11Z","ev":"close","id":"30404786"}
+{"t":"2026-11-26T02:26:46Z","ev":"open","id":"30404818","sit":"25965150","ver":"1","kind":"GenericSituationRecord","types":["vehicleObstruction","vehicleStuck"],"status":"active","created":"2026-11-26T03:18:21.000+01:00","start":"2026-11-26T03:18:21.000+01:00","road":"A-42","dir":"positive","pk":[14.047],"a":[40.298336,-3.738012],"geo":{"autonomousCommunity":"Madrid, Comunidad de","municipality":"Getafe","province":"Madrid"}}
+{"t":"2026-11-26T02:26:46Z","ev":"open","id":"30404819","sit":"25965151","ver":"1","kind":"GenericSituationRecord","types":["vehicleObstruction","vehicleStuck"],"status":"active","created":"2026-11-26T03:18:56.000+01:00","start":"2026-11-26T03:18:00.000+01:00","road":"A-52","dir":"negative","pk":[280.291],"a":[42.17619,-8.359626],"geo":{"autonomousCommunity":"Galicia","municipality":"A Cañiza","province":"Pontevedra"}}
+{"t":"2026-11-26T02:26:46Z","ev":"open","id":"30404825","sit":"25965157","ver":"1","kind":"GenericSituationRecord","types":["vehicleObstruction","vehicleStuck"],"status":"active","created":"2026-11-26T03:21:44.000+01:00","start":"2026-11-26T03:21:44.000+01:00","road":"N-338","dir":"negative","pk":[3.615],"a":[38.29809,-0.570952],"geo":{"autonomousCommunity":"Comunitat Valenciana","municipality":"Elx/Elche","province":"Alacant/Alicante"}}
+{"t":"2026-11-26T02:26:46Z","ev":"open","id":"30404826","sit":"25965158","ver":"1","kind":"GenericSituationRecord","types":["vehicleObstruction","vehicleStuck"],"status":"active","created":"2026-11-26T03:21:51.000+01:00","start":"2026-11-26T03:21:51.000+01:00","road":"SE-9106","dir":"positive","pk":[0.089],"a":[37.53125,-5.084438],"geo":{"autonomousCommunity":"Andalucía","municipality":"Écija","province":"Sevilla"}}
+{"t":"2026-11-26T02:26:46Z","ev":"open","id":"30404833","sit":"25965165","ver":"1","kind":"GenericSituationRecord","types":["vehicleObstruction","vehicleStuck"],"status":"active","created":"2026-11-26T03:24:26.000+01:00","start":"2026-11-26T03:24:26.000+01:00","road":"AP-4","dir":"negative","pk":[57.419],"a":[36.877747,-5.991469],"geo":{"autonomousCommunity":"Andalucía","municipality":"Lebrija","province":"Sevilla"}}
+{"t":"2026-11-26T02:26:46Z","ev":"close","id":"29965949"}
+{"t":"2026-11-26T02:26:46Z","ev":"close","id":"30379668"}
+{"t":"2026-11-26T02:26:46Z","ev":"close","id":"30404812"}
+{"t":"2026-11-26T02:26:46Z","ev":"close","id":"30404814"}
+{"t":"2026-11-26T02:26:46Z","ev":"close","id":"30404816"}
