@@ -1763,3 +1763,73 @@
 {"t":"2026-11-26T04:39:58Z","ev":"close","id":"61052.1"}
 {"t":"2026-11-26T04:39:58Z","ev":"close","id":"61053.1"}
 {"t":"2026-11-26T04:39:58Z","ev":"close","id":"61054.1"}
+{"t":"2026-11-26T04:49:34Z","ev":"change","id":"61695.1","ctrl":"61695","picts":["E46"],"time":"2026-11-26T05:35:23.000+01:00"}
+{"t":"2026-11-26T04:49:34Z","ev":"change","id":"61732.1","ctrl":"61732","picts":["E46"],"time":"2026-11-26T05:43:27.000+01:00"}
+{"t":"2026-11-26T04:49:34Z","ev":"change","id":"61750.1","ctrl":"61750","texts":["PLANTIO    5 min / VILLALBA  21 min"],"picts":["XE90a"],"time":"2026-11-26T05:43:13.000+01:00"}
+{"t":"2026-11-26T04:49:34Z","ev":"change","id":"61776.1","ctrl":"61776","texts":["M-505      3 min / LAS ROZAS  4 min / VILLALBA  16 min"],"picts":["XE90a"],"time":"2026-11-26T05:43:15.000+01:00"}
+{"t":"2026-11-26T04:49:34Z","ev":"change","id":"61785.1","ctrl":"61785","texts":["CARRIL / BUS-VAO / ABIERTO"],"picts":["E01"],"time":"2026-11-26T05:38:24.000+01:00"}
+{"t":"2026-11-26T04:49:34Z","ev":"change","id":"61793.1","ctrl":"61793","texts":["CARRIL / BUS-VAO / ABIERTO"],"picts":["E01"],"time":"2026-11-26T05:37:35.000+01:00"}
+{"t":"2026-11-26T04:49:34Z","ev":"change","id":"61800.1","ctrl":"61800","texts":["LAS MATAS  3 min / TORRELOD.  5 min / VILLALBA  12 min"],"picts":["XE90a"],"time":"2026-11-26T05:42:14.000+01:00"}
+{"t":"2026-11-26T04:49:34Z","ev":"change","id":"61801.1","ctrl":"61801","texts":["PLANTIO    3 min / M-40       5 min / MADRID    11 min"],"time":"2026-11-26T05:41:09.000+01:00"}
+{"t":"2026-11-26T04:49:34Z","ev":"change","id":"61809.1","ctrl":"61809","texts":["TORRELOD.  3 min / GALAPAGAR  7 min / VILLALBA   9 min"],"picts":["XE90a"],"time":"2026-11-26T05:42:13.000+01:00"}
+{"t":"2026-11-26T04:49:34Z","ev":"change","id":"61810.1","ctrl":"61810","texts":["LAS ROZAS  3 min / PLANTIO    6 min / MADRID    13 min"],"picts":["XE90a"],"time":"2026-11-26T05:42:13.000+01:00"}
+{"t":"2026-11-26T04:49:34Z","ev":"change","id":"61811.1","ctrl":"61811","texts":["GALAPAGAR  6 min / VILLALBA   8 min"],"picts":["XE90a"],"time":"2026-11-26T05:35:12.000+01:00"}
+{"t":"2026-11-26T04:49:34Z","ev":"change","id":"61817.1","ctrl":"61817","texts":["M-50       4 min / MADRID    16 min"],"picts":["XE90a"],"time":"2026-11-26T05:38:12.000+01:00"}
+{"t":"2026-11-26T04:49:34Z","ev":"change","id":"61820.1","ctrl":"61820","texts":["VILLALBA   4 min"],"picts":["XE90a"],"time":"2026-11-26T05:36:11.000+01:00"}
+{"t":"2026-11-26T04:49:34Z","ev":"change","id":"61824.1","ctrl":"61824","texts":["TORRELOD.  3 min / LAS MATAS  4 min / MADRID    19 min"],"picts":["XE90a"],"time":"2026-11-26T05:41:12.000+01:00"}
+{"t":"2026-11-26T04:49:34Z","ev":"change","id":"61831.1","ctrl":"61831","texts":["TORRELOD.  5 min / LAS MATAS  7 min / MADRID    21 min"],"picts":["XE90a"],"time":"2026-11-26T05:41:12.000+01:00"}
+{"t":"2026-11-26T04:49:34Z","ev":"change","id":"61880.1","ctrl":"61880","texts":["CARRIL / BUS-VAO / CERRADO"],"picts":["E02"],"time":"2026-11-26T05:38:25.000+01:00"}
+{"t":"2026-11-26T04:49:34Z","ev":"change","id":"61896.1","ctrl":"61896","texts":["MODERE / VELOCIDAD","MODERE / VELOCITAT"],"picts":["P29I","S7V100"],"time":"2026-11-26T05:42:09.000+01:00"}
+{"t":"2026-11-26T04:49:34Z","ev":"change","id":"61901.1","ctrl":"61901","texts":["MODERE / VELOCIDAD","MODERE / VELOCITAT"],"picts":["P29I","S7V100"],"time":"2026-11-26T05:41:32.000+01:00"}
+{"t":"2026-11-26T04:49:34Z","ev":"open","id":"61914.1","ctrl":"61914","texts":["A 3 KM / OBSTACULO / EN CALZADA"],"picts":["P50I","NEGRO"],"time":"2026-11-26T05:40:52.000+01:00"}
+{"t":"2026-11-26T04:49:34Z","ev":"open","id":"61918.1","ctrl":"61918","texts":["->BARCELONA / A 6 KM / V. AVERIADO","->BARCELONA / A 6 KM / V. AVARIAT"],"picts":["P32I","P17aI"],"time":"2026-11-26T05:39:42.000+01:00"}
+{"t":"2026-11-26T04:49:34Z","ev":"open","id":"61919.1","ctrl":"61919","texts":["A 7 KM / VEHICULO / AVERIADO","A 7 KM / VEHICLE / AVARIAT"],"picts":["P32I","P17aI"],"time":"2026-11-26T05:37:50.000+01:00"}
+{"t":"2026-11-26T04:49:34Z","ev":"change","id":"62011.1","ctrl":"62011","texts":["CAMPOMANES / AP-66 1H:12M"],"picts":["XE90a"],"time":"2026-11-26T05:42:38.000+01:00"}
+{"t":"2026-11-26T04:49:34Z","ev":"change","id":"62012.1","ctrl":"62012","texts":["CAMPOMANES / AP-66 59 Min"],"picts":["XE90a"],"time":"2026-11-26T05:40:40.000+01:00"}
+{"t":"2026-11-26T04:49:34Z","ev":"change","id":"62031.1","ctrl":"62031","texts":["A CORUÑA / AP-9F 29 Min"],"picts":["XE90a"],"time":"2026-11-26T05:38:35.000+01:00"}
+{"t":"2026-11-26T04:49:34Z","ev":"change","id":"62034.1","ctrl":"62034","texts":["A CORUÑA / AP-9F 15 Min"],"picts":["XE90a"],"time":"2026-11-26T05:40:31.000+01:00"}
+{"t":"2026-11-26T04:49:34Z","ev":"change","id":"62036.1","ctrl":"62036","texts":["PRECAUCION / VEH.AVERIADO / EN ARCEN","A CORUÑA / AP-9F 29 Min"],"picts":["P32I","XE90a"],"time":"2026-11-26T05:40:38.000+01:00"}
+{"t":"2026-11-26T04:49:34Z","ev":"change","id":"62037.1","ctrl":"62037","texts":["A CORUÑA / AP-9F 21 Min / N-651 37 Min"],"picts":["XE90a"],"time":"2026-11-26T05:42:28.000+01:00"}
+{"t":"2026-11-26T04:49:34Z","ev":"change","id":"62039.1","ctrl":"62039","texts":["A CORUÑA / AP-9F 29 Min / N-651 46 Min"],"picts":["XE90a"],"time":"2026-11-26T05:40:31.000+01:00"}
+{"t":"2026-11-26T04:49:34Z","ev":"change","id":"62085.1","ctrl":"62085","texts":["CADIZ AP4 35 Min / CADIZ  N4 41 Min"],"picts":["XE90a"],"time":"2026-11-26T05:40:34.000+01:00"}
+{"t":"2026-11-26T04:49:34Z","ev":"change","id":"168642.1","ctrl":"168642","texts":["PORTUGAL 25m / PEINADOR 10m"],"picts":["XE90a"],"time":"2026-11-26T05:40:34.000+01:00"}
+{"t":"2026-11-26T04:49:34Z","ev":"change","id":"62172.1","ctrl":"62172","texts":["SEV.  N4 58 Min / SEV. AP4 53 Min"],"picts":["XE90a"],"time":"2026-11-26T05:40:32.000+01:00"}
+{"t":"2026-11-26T04:49:34Z","ev":"change","id":"62182.1","ctrl":"62182","texts":["SEV.  AP4 57 Min / SEV.  N-4 1H:02M"],"picts":["XE90a"],"time":"2026-11-26T05:40:32.000+01:00"}
+{"t":"2026-11-26T04:49:34Z","ev":"change","id":"62207.1","ctrl":"62207","texts":["EN H-31 A 3 KM / CNTROL VELOCIDAD / POR RADAR","PTE. ODIEL 10 Min / PORTUGAL 32 Min"],"picts":["R301100","XE90a"],"time":"2026-11-26T05:40:34.000+01:00"}
+{"t":"2026-11-26T04:49:34Z","ev":"change","id":"172886.1","ctrl":"172886","texts":["A MADRID / SOLO / BUS-VAO","RESTO / VEHICULOS / MADRID"],"picts":["XE214a","E01","S7V60","R401a"],"time":"2026-11-26T05:37:30.000+01:00"}
+{"t":"2026-11-26T04:49:34Z","ev":"change","id":"172887.1","ctrl":"172887","texts":["SOLO / BUS Y VAO / MADRID","ACCESO A / BUS-VAO SOLO / CARRIL DRCHO"],"picts":["S7V80","E44"],"time":"2026-11-26T05:36:54.000+01:00"}
+{"t":"2026-11-26T04:49:34Z","ev":"change","id":"172885.1","ctrl":"172885","texts":["A MADRID / SOLO / BUS-VAO","RESTO / VEHICULOS / MADRID"],"picts":["XE214a","E01","S7V60","R401a"],"time":"2026-11-26T05:38:35.000+01:00"}
+{"t":"2026-11-26T04:49:34Z","ev":"change","id":"172888.1","ctrl":"172888","texts":["CARRIL / BUS-VAO / ABIERTO","ENTRADA A / 1000 METROS / CARRIL DRCHO"],"picts":["XE214a","S53b"],"time":"2026-11-26T05:36:29.000+01:00"}
+{"t":"2026-11-26T04:49:34Z","ev":"change","id":"62300.1","ctrl":"62300","texts":["LEON SUR / AP-66 1H:14M"],"picts":["XE90a"],"time":"2026-11-26T05:40:43.000+01:00"}
+{"t":"2026-11-26T04:49:34Z","ev":"change","id":"62302.1","ctrl":"62302","texts":["LEON SUR / AP-66 1H:12M"],"picts":["XE90a"],"time":"2026-11-26T05:38:44.000+01:00"}
+{"t":"2026-11-26T04:49:34Z","ev":"change","id":"62335.1","ctrl":"62335","texts":["CAMPOMANES / AP-66 1H:32M / N-630 1H:46M"],"picts":["XE90a"],"time":"2026-11-26T05:38:42.000+01:00"}
+{"t":"2026-11-26T04:49:34Z","ev":"change","id":"62395.1","ctrl":"62395","texts":["A 10 KM / OBRAS","A 10 KM / KM 365->374"],"picts":["S62O","P25O"],"time":"2026-11-26T05:43:55.000+01:00"}
+{"t":"2026-11-26T04:49:34Z","ev":"change","id":"161002.1","ctrl":"161002","picts":["R413","P33e"],"time":"2026-11-26T05:43:14.000+01:00"}
+{"t":"2026-11-26T04:49:34Z","ev":"change","id":"177490.1","ctrl":"177490","texts":["LEON SUR / AP-66 1H:12M"],"picts":["NEGRO"],"time":"2026-11-26T05:40:33.000+01:00"}
+{"t":"2026-11-26T04:49:34Z","ev":"open","id":"174414.1","ctrl":"174414","texts":["CARRIL / BUS-VAO / ABIERTO","A 3 KM / ENTRADA POR / CARRIL DRCHO"],"picts":["E01","XE214a","R106"],"time":"2026-11-26T05:37:01.000+01:00"}
+{"t":"2026-11-26T04:49:34Z","ev":"change","id":"174417.1","ctrl":"174417","picts":["XE214a","E45"],"time":"2026-11-26T05:36:55.000+01:00"}
+{"t":"2026-11-26T04:49:34Z","ev":"open","id":"166475.1","ctrl":"166475","texts":["PRECAUCION / BANCOS DE / NIEBLA"],"picts":["P33I","R300I"],"time":"2026-11-26T05:35:58.000+01:00"}
+{"t":"2026-11-26T04:49:34Z","ev":"change","id":"60213.1","ctrl":"60213","texts":["CONTROL / VELOCIDAD / EN TRAMO"],"picts":["R30180","E17"],"time":"2026-11-26T05:42:09.000+01:00"}
+{"t":"2026-11-26T04:49:34Z","ev":"change","id":"60221.1","ctrl":"60221","texts":["SALIDA 146 / A-343 / EL TORCAL"],"picts":["P18O","E64"],"time":"2026-11-26T05:43:19.000+01:00"}
+{"t":"2026-11-26T04:49:34Z","ev":"change","id":"60364.1","ctrl":"60364","texts":["CAMPOMANES / AP-66 1H:00M"],"picts":["XE90a"],"time":"2026-11-26T05:36:37.000+01:00"}
+{"t":"2026-11-26T04:49:34Z","ev":"change","id":"60457.1","ctrl":"60457","texts":["CON LLUVIA / MODERE / VELOCIDAD"],"picts":["R300","P19"],"time":"2026-11-26T05:40:29.000+01:00"}
+{"t":"2026-11-26T04:49:34Z","ev":"change","id":"60482.1","ctrl":"60482","texts":["VEHICULO 20T / HUELVA-MERID / POR A4 CADIZ"],"picts":["R406","NEGRO"],"time":"2026-11-26T05:37:49.000+01:00"}
+{"t":"2026-11-26T04:49:34Z","ev":"change","id":"60483.1","ctrl":"60483","texts":["VEHICULO 20 T / HUELVA-MERIDA / POR SALIDA 549","CADIZ AP4 1H:04M / CADIZ  N4 1H:18M"],"picts":["R406","XE90a"],"time":"2026-11-26T05:40:32.000+01:00"}
+{"t":"2026-11-26T04:49:34Z","ev":"change","id":"60487.1","ctrl":"60487","texts":["CADIZ AP4 1H:00M / CADIZ  N4 1H:12M"],"picts":["XE90a"],"time":"2026-11-26T05:40:32.000+01:00"}
+{"t":"2026-11-26T04:49:34Z","ev":"change","id":"60511.1","ctrl":"60511","texts":["DESVIO / OBLIGATORIO / A 1 KM"],"picts":["XR10720t","P18"],"time":"2026-11-26T05:37:49.000+01:00"}
+{"t":"2026-11-26T04:49:34Z","ev":"change","id":"60657.1","ctrl":"60657","texts":["SEVILLA POR / AP-4  50 Min / N-4   1H:03M"],"picts":["XE90a"],"time":"2026-11-26T05:42:29.000+01:00"}
+{"t":"2026-11-26T04:49:34Z","ev":"change","id":"60699.1","ctrl":"60699","texts":["A CORUÑA / AP-9F 25 Min"],"picts":["XE90a"],"time":"2026-11-26T05:42:29.000+01:00"}
+{"t":"2026-11-26T04:49:34Z","ev":"change","id":"60833.1","ctrl":"60833","texts":["VEHICULO 20T / HUELVA-MERID / POR A4 CADIZ"],"picts":["R406","NEGRO"],"time":"2026-11-26T05:43:31.000+01:00"}
+{"t":"2026-11-26T04:49:34Z","ev":"change","id":"179695.1","ctrl":"179695","texts":["A 2 KM"],"picts":["P18O","P17aO"],"time":"2026-11-26T05:39:50.000+01:00"}
+{"t":"2026-11-26T04:49:34Z","ev":"change","id":"167506.1","ctrl":"167506","texts":["A MADRID / SOLO / BUS-VAO","ACCESO A / BUS-VAO / CARRIL DRCHO"],"picts":["R106","S7V80","XE214a","E44"],"time":"2026-11-26T05:36:17.000+01:00"}
+{"t":"2026-11-26T04:49:34Z","ev":"open","id":"61053.1","ctrl":"61053","texts":["PRECAUCION / BANCOS DE / NIEBLA"],"picts":["P33I","R300I"],"time":"2026-11-26T05:36:08.000+01:00"}
+{"t":"2026-11-26T04:49:34Z","ev":"open","id":"61064.1","ctrl":"61064","texts":["PRECAUCION / BANCOS DE / NIEBLA"],"picts":["P33I","R300"],"time":"2026-11-26T05:39:13.000+01:00"}
+{"t":"2026-11-26T04:49:34Z","ev":"change","id":"167727.1","ctrl":"167727","texts":["POR OBRAS / CARRIL / IZQUIERDO","POR OBRAS / CARRIL / IZQUIERDO"],"picts":["E21O","R30140O"],"time":"2026-11-26T05:36:42.000+01:00"}
+{"t":"2026-11-26T04:49:34Z","ev":"change","id":"61291.1","ctrl":"61291","picts":["P29I"],"time":"2026-11-26T05:42:55.000+01:00"}
+{"t":"2026-11-26T04:49:34Z","ev":"open","id":"61323.1","ctrl":"61323","texts":["PRECAUCION / NIEBLA / DENSA"],"picts":["0"],"time":"2026-11-26T05:43:45.000+01:00"}
+{"t":"2026-11-26T04:49:34Z","ev":"change","id":"61324.1","ctrl":"61324","texts":["A 2 KM","RESPETEN / SEÑALIZACION"],"picts":["0"],"time":"2026-11-26T05:37:35.000+01:00"}
+{"t":"2026-11-26T04:49:34Z","ev":"open","id":"61325.1","ctrl":"61325","picts":["P33I"],"time":"2026-11-26T05:43:44.000+01:00"}
+{"t":"2026-11-26T04:49:34Z","ev":"close","id":"62025.1"}
+{"t":"2026-11-26T04:49:34Z","ev":"close","id":"60143.1"}
+{"t":"2026-11-26T04:49:34Z","ev":"close","id":"60145.1"}
+{"t":"2026-11-26T04:49:34Z","ev":"close","id":"60509.1"}
