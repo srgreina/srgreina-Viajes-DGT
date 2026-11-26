@@ -150,3 +150,21 @@
 {"t":"2026-11-26T01:01:03Z","ev":"close","id":"30404621"}
 {"t":"2026-11-26T01:01:03Z","ev":"close","id":"30404623"}
 {"t":"2026-11-26T01:01:03Z","ev":"close","id":"30404656"}
+{"t":"2026-11-26T01:10:32Z","ev":"open","id":"30404718","sit":"25965060","ver":"1","kind":"GenericSituationRecord","types":["vehicleObstruction","vehicleStuck"],"status":"active","created":"2026-11-26T02:06:51.000+01:00","start":"2026-11-26T02:06:51.000+01:00","road":"A-2","dir":"negative","pk":[596.688],"a":[41.43544,1.993526],"geo":{"autonomousCommunity":"Cataluña","municipality":"Pallejà","province":"Barcelona"}}
+{"t":"2026-11-26T01:10:32Z","ev":"open","id":"30121190","sit":"25699325","ver":"10","kind":"RoadOrCarriagewayOrLaneManagement","types":["roadMaintenance","roadworks","laneClosures"],"status":"active","created":"2026-11-26T02:07:43.000+01:00","start":"2026-11-26T02:07:00.000+01:00","end":"2026-11-26T06:00:00.000+01:00","road":"M-40","dir":"negative","lanes":"rightLane","pk":[33.6],"a":[40.37991,-3.810046],"geo":{"autonomousCommunity":"Madrid, Comunidad de","municipality":"Madrid","province":"Madrid"}}
+{"t":"2026-11-26T01:10:32Z","ev":"open","id":"30404720","sit":"25965062","ver":"1","kind":"GenericSituationRecord","types":["vehicleObstruction","vehicleStuck"],"status":"active","created":"2026-11-26T02:09:26.000+01:00","start":"2026-11-26T02:09:26.000+01:00","road":"N-340a","dir":"positive","pk":[472.789],"a":[37.068825,-2.374922],"geo":{"autonomousCommunity":"Andalucía","municipality":"Tabernas","province":"Almería"}}
+{"t":"2026-11-26T01:10:32Z","ev":"close","id":"30121140"}
+{"t":"2026-11-26T01:10:32Z","ev":"close","id":"30397412"}
+{"t":"2026-11-26T01:10:32Z","ev":"close","id":"30401539"}
+{"t":"2026-11-26T01:10:32Z","ev":"close","id":"30402500"}
+{"t":"2026-11-26T01:10:32Z","ev":"close","id":"30403367"}
+{"t":"2026-11-26T01:10:32Z","ev":"close","id":"30404287"}
+{"t":"2026-11-26T01:10:32Z","ev":"close","id":"30404429"}
+{"t":"2026-11-26T01:10:32Z","ev":"close","id":"30404576"}
+{"t":"2026-11-26T01:10:32Z","ev":"close","id":"30404638"}
+{"t":"2026-11-26T01:10:32Z","ev":"close","id":"30404684"}
+{"t":"2026-11-26T01:10:32Z","ev":"close","id":"30404698"}
+{"t":"2026-11-26T01:10:32Z","ev":"close","id":"30404699"}
+{"t":"2026-11-26T01:10:32Z","ev":"close","id":"30404700"}
+{"t":"2026-11-26T01:10:32Z","ev":"close","id":"30404701"}
+{"t":"2026-11-26T01:10:32Z","ev":"close","id":"30404707"}
