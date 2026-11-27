@@ -218,3 +218,27 @@
 {"t":"2026-11-27T01:28:50Z","ev":"close","id":"30441880"}
 {"t":"2026-11-27T01:28:50Z","ev":"close","id":"30441988"}
 {"t":"2026-11-27T01:28:50Z","ev":"close","id":"30442012"}
+{"t":"2026-11-27T01:38:20Z","ev":"open","id":"30442026","sit":"25999154","ver":"1","kind":"GenericSituationRecord","types":["vehicleObstruction","vehicleStuck"],"status":"active","created":"2026-11-27T02:28:31.000+01:00","start":"2026-11-27T02:28:31.000+01:00","road":"LR-496","dir":"positive","pk":[0.821],"a":[41.96018,-1.986203],"geo":{"autonomousCommunity":"Rioja, La","municipality":"Aguilar del Río Alhama","province":"La Rioja"}}
+{"t":"2026-11-27T01:38:20Z","ev":"open","id":"30442027","sit":"25999155","ver":"1","kind":"PoorEnvironmentConditions","types":["poorEnvironment","fog","visibilityReduced"],"status":"active","created":"2026-11-27T02:29:01.000+01:00","start":"2026-11-27T02:29:01.000+01:00","road":"A-8","dir":"both","lanes":"allLanesCompleteCarriageway","pk":[536.0,552.0],"a":[43.454296,-7.322006],"b":[43.377575,-7.423702],"geo":{"autonomousCommunity":"Galicia","municipality":"Abadín","province":"Lugo"}}
+{"t":"2026-11-27T01:38:20Z","ev":"open","id":"30442028","sit":"25999155","ver":"1","kind":"SpeedManagement","types":["poorEnvironment","fog","speedRestrictionInOperation"],"status":"active","created":"2026-11-27T02:29:01.000+01:00","start":"2026-11-27T02:29:01.000+01:00","road":"A-8","dir":"both","lanes":"allLanesCompleteCarriageway","pk":[536.0,552.0],"a":[43.454296,-7.322006],"b":[43.377575,-7.423702],"geo":{"autonomousCommunity":"Galicia","municipality":"Abadín","province":"Lugo"}}
+{"t":"2026-11-27T01:38:20Z","ev":"open","id":"30442029","sit":"25999155","ver":"1","kind":"RoadOrCarriagewayOrLaneManagement","types":["poorEnvironment","fog","doNotUseSpecifiedLanesOrCarriageways"],"status":"active","created":"2026-11-27T02:29:01.000+01:00","start":"2026-11-27T02:29:01.000+01:00","road":"A-8","dir":"both","lanes":"allLanesCompleteCarriageway","veh":"largeGoodsVehicle","pk":[536.0,552.0],"a":[43.454296,-7.322006],"b":[43.377575,-7.423702],"geo":{"autonomousCommunity":"Galicia","municipality":"Abadín","province":"Lugo"}}
+{"t":"2026-11-27T01:38:20Z","ev":"open","id":"30442031","sit":"25999157","ver":"1","kind":"GenericSituationRecord","types":["vehicleObstruction","vehicleStuck"],"status":"active","created":"2026-11-27T02:30:01.000+01:00","start":"2026-11-27T02:30:01.000+01:00","road":"VS-A-5-C","dir":"positive","pk":[245.43],"a":[39.51874,-5.835027],"geo":{"autonomousCommunity":"Extremadura","municipality":"Trujillo","province":"Cáceres"}}
+{"t":"2026-11-27T01:38:20Z","ev":"open","id":"30442035","sit":"25999161","ver":"1","kind":"GenericSituationRecord","types":["vehicleObstruction","vehicleStuck"],"status":"active","created":"2026-11-27T02:32:33.000+01:00","start":"2026-11-27T02:32:33.000+01:00","road":"TF-5","dir":"positive","pk":[16.157],"a":[28.486824,-16.385143],"geo":{"autonomousCommunity":"Canarias","municipality":"Tacoronte","province":"Santa Cruz de Tenerife"}}
+{"t":"2026-11-27T01:38:20Z","ev":"open","id":"30442044","sit":"25999170","ver":"1","kind":"GenericSituationRecord","types":["vehicleObstruction","vehicleStuck"],"status":"active","created":"2026-11-27T02:36:03.000+01:00","start":"2026-11-27T02:36:03.000+01:00","road":"CM-4102","dir":"positive","pk":[13.647],"a":[39.85624,-4.745102],"geo":{"autonomousCommunity":"Castilla - La Mancha","municipality":"La Pueblanueva","province":"Toledo"}}
+{"t":"2026-11-27T01:38:20Z","ev":"open","id":"30442045","sit":"25999171","ver":"1","kind":"GenericSituationRecord","types":["vehicleObstruction","vehicleStuck"],"status":"active","created":"2026-11-27T02:36:11.000+01:00","start":"2026-11-27T02:36:11.000+01:00","road":"N-430a","dir":"negative","pk":[593.649],"a":[38.851566,-1.041324],"geo":{"autonomousCommunity":"Castilla - La Mancha","municipality":"Almansa","province":"Albacete"}}
+{"t":"2026-11-27T01:38:20Z","ev":"open","id":"30442046","sit":"25999172","ver":"1","kind":"GenericSituationRecord","types":["vehicleObstruction","vehicleStuck"],"status":"active","created":"2026-11-27T02:36:35.000+01:00","start":"2026-11-27T02:36:35.000+01:00","road":"CL-603","dir":"positive","pk":[89.176],"a":[41.02825,-4.14159],"geo":{"autonomousCommunity":"Castilla y León","municipality":"Encinillas","province":"Segovia"}}
+{"t":"2026-11-27T01:38:20Z","ev":"open","id":"30442048","sit":"25999174","ver":"1","kind":"GenericSituationRecord","types":["vehicleObstruction","vehicleStuck"],"status":"active","created":"2026-11-27T02:37:43.000+01:00","start":"2026-11-27T02:37:43.000+01:00","road":"A-5","dir":"negative","pk":[357.343],"a":[38.865517,-6.513748],"geo":{"autonomousCommunity":"Extremadura","municipality":"Mérida","province":"Badajoz"}}
+{"t":"2026-11-27T01:38:20Z","ev":"close","id":"30310738"}
+{"t":"2026-11-27T01:38:20Z","ev":"close","id":"30310739"}
+{"t":"2026-11-27T01:38:20Z","ev":"close","id":"30439527"}
+{"t":"2026-11-27T01:38:20Z","ev":"close","id":"30439936"}
+{"t":"2026-11-27T01:38:20Z","ev":"close","id":"30440779"}
+{"t":"2026-11-27T01:38:20Z","ev":"close","id":"30440797"}
+{"t":"2026-11-27T01:38:20Z","ev":"close","id":"30441862"}
+{"t":"2026-11-27T01:38:20Z","ev":"close","id":"30441889"}
+{"t":"2026-11-27T01:38:20Z","ev":"close","id":"30441906"}
+{"t":"2026-11-27T01:38:20Z","ev":"close","id":"30441914"}
+{"t":"2026-11-27T01:38:20Z","ev":"close","id":"30441916"}
+{"t":"2026-11-27T01:38:20Z","ev":"close","id":"30442007"}
+{"t":"2026-11-27T01:38:20Z","ev":"close","id":"30442017"}
+{"t":"2026-11-27T01:38:20Z","ev":"close","id":"30442023"}
