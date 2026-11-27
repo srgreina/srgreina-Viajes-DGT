@@ -111,3 +111,22 @@
 {"t":"2026-11-27T00:31:42Z","ev":"close","id":"30441874"}
 {"t":"2026-11-27T00:31:42Z","ev":"close","id":"30441878"}
 {"t":"2026-11-27T00:31:42Z","ev":"close","id":"30441879"}
+{"t":"2026-11-27T00:41:15Z","ev":"open","id":"30441914","sit":"25999047","ver":"1","kind":"GenericSituationRecord","types":["vehicleObstruction","vehicleStuck"],"status":"active","created":"2026-11-27T01:31:16.000+01:00","start":"2026-11-27T01:31:16.000+01:00","road":"M-50","dir":"positive","pk":[14.98],"a":[40.47325,-3.498482],"geo":{"autonomousCommunity":"Madrid, Comunidad de","municipality":"Paracuellos de Jarama","province":"Madrid"}}
+{"t":"2026-11-27T00:41:15Z","ev":"open","id":"30441916","sit":"25999049","ver":"1","kind":"GenericSituationRecord","types":["vehicleObstruction","vehicleStuck"],"status":"active","created":"2026-11-27T01:32:13.000+01:00","start":"2026-11-27T01:32:13.000+01:00","road":"N-550","dir":"negative","pk":[8.548],"a":[43.301544,-8.371274],"geo":{"autonomousCommunity":"Galicia","municipality":"Culleredo","province":"A Coruña"}}
+{"t":"2026-11-27T00:41:15Z","ev":"open","id":"30441919","sit":"25999052","ver":"1","kind":"GenericSituationRecord","types":["vehicleObstruction","vehicleStuck"],"status":"active","created":"2026-11-27T01:32:26.000+01:00","start":"2026-11-27T01:32:26.000+01:00","road":"A-30","dir":"negative","pk":[143.725],"a":[37.95647,-1.213944],"geo":{"autonomousCommunity":"Murcia, Región de","municipality":"Alcantarilla","province":"Murcia"}}
+{"t":"2026-11-27T00:41:15Z","ev":"open","id":"30441929","sit":"25999062","ver":"1","kind":"GenericSituationRecord","types":["vehicleObstruction","vehicleStuck"],"status":"active","created":"2026-11-27T01:36:21.000+01:00","start":"2026-11-27T01:36:21.000+01:00","road":"CM-3202","dir":"positive","pk":[33.938],"a":[38.69502,-2.693132],"geo":{"autonomousCommunity":"Castilla - La Mancha","municipality":"Villanueva de la Fuente","province":"Ciudad Real"}}
+{"t":"2026-11-27T00:41:15Z","ev":"open","id":"30441930","sit":"25999063","ver":"1","kind":"GenericSituationRecord","types":["vehicleObstruction","vehicleStuck"],"status":"active","created":"2026-11-27T01:36:30.000+01:00","start":"2026-11-27T01:36:30.000+01:00","road":"AP-7","dir":"negative","pk":[154.166],"a":[41.489445,2.064941],"geo":{"autonomousCommunity":"Cataluña","municipality":"Sant Cugat del Vallès","province":"Barcelona"}}
+{"t":"2026-11-27T00:41:15Z","ev":"open","id":"30441935","sit":"25999068","ver":"1","kind":"GenericSituationRecord","types":["vehicleObstruction","vehicleStuck"],"status":"active","created":"2026-11-27T01:38:54.000+01:00","start":"2026-11-27T01:38:54.000+01:00","road":"RM-19","dir":"positive","pk":[16.916],"a":[37.81448,-0.946601],"geo":{"autonomousCommunity":"Murcia, Región de","municipality":"Torre-Pacheco","province":"Murcia"}}
+{"t":"2026-11-27T00:41:15Z","ev":"open","id":"30441936","sit":"25999069","ver":"1","kind":"GenericSituationRecord","types":["vehicleObstruction","vehicleStuck"],"status":"active","created":"2026-11-27T01:38:54.000+01:00","start":"2026-11-27T01:38:54.000+01:00","road":"N-301","dir":"positive","pk":[68.502],"a":[39.93978,-3.439185],"geo":{"autonomousCommunity":"Castilla - La Mancha","municipality":"Ocaña","province":"Toledo"}}
+{"t":"2026-11-27T00:41:15Z","ev":"open","id":"30441937","sit":"25999070","ver":"1","kind":"GenericSituationRecord","types":["vehicleObstruction","vehicleStuck"],"status":"active","created":"2026-11-27T01:38:56.000+01:00","start":"2026-11-27T01:38:56.000+01:00","road":"A-44","dir":"positive","pk":[20.636],"a":[37.956104,-3.791393],"geo":{"autonomousCommunity":"Andalucía","municipality":"Mengíbar","province":"Jaén"}}
+{"t":"2026-11-27T00:41:15Z","ev":"close","id":"30441682"}
+{"t":"2026-11-27T00:41:15Z","ev":"close","id":"30441691"}
+{"t":"2026-11-27T00:41:15Z","ev":"close","id":"30441806"}
+{"t":"2026-11-27T00:41:15Z","ev":"close","id":"30441821"}
+{"t":"2026-11-27T00:41:15Z","ev":"close","id":"30441826"}
+{"t":"2026-11-27T00:41:15Z","ev":"close","id":"30441863"}
+{"t":"2026-11-27T00:41:15Z","ev":"close","id":"30441891"}
+{"t":"2026-11-27T00:41:15Z","ev":"close","id":"30441902"}
+{"t":"2026-11-27T00:41:15Z","ev":"close","id":"30441905"}
+{"t":"2026-11-27T00:41:15Z","ev":"close","id":"30441907"}
+{"t":"2026-11-27T00:41:15Z","ev":"close","id":"30441908"}
