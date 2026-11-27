@@ -166,3 +166,28 @@
 {"t":"2026-11-27T01:00:18Z","ev":"close","id":"30441955"}
 {"t":"2026-11-27T01:00:18Z","ev":"close","id":"30441956"}
 {"t":"2026-11-27T01:00:18Z","ev":"close","id":"30441958"}
+{"t":"2026-11-27T01:09:48Z","ev":"open","id":"30441987","sit":"25999119","ver":"1","kind":"GenericSituationRecord","types":["vehicleObstruction","vehicleStuck"],"status":"active","created":"2026-11-27T02:02:20.000+01:00","start":"2026-11-27T02:02:20.000+01:00","road":"A-4R2","dir":"negative","pk":[0.583],"a":[37.85245,-4.789295],"geo":{"autonomousCommunity":"Andalucía","municipality":"Córdoba","province":"Córdoba"}}
+{"t":"2026-11-27T01:09:48Z","ev":"open","id":"30441988","sit":"25999120","ver":"1","kind":"GenericSituationRecord","types":["vehicleObstruction","vehicleStuck"],"status":"active","created":"2026-11-27T02:02:28.000+01:00","start":"2026-11-27T02:02:28.000+01:00","road":"FV-2","dir":"positive","pk":[78.041],"a":[28.088549,-14.293725],"geo":{"autonomousCommunity":"Canarias","municipality":"Pájara","province":"Las Palmas"}}
+{"t":"2026-11-27T01:09:48Z","ev":"open","id":"30441993","sit":"25999123","ver":"1","kind":"GenericSituationRecord","types":["accident"],"status":"active","created":"2026-11-27T02:04:14.000+01:00","start":"2026-11-27T02:04:00.000+01:00","road":"CG-2.2","dir":"negative","pk":[10.37],"a":[42.882652,-7.468884],"geo":{"autonomousCommunity":"Galicia","municipality":"O Corgo","province":"Lugo"}}
+{"t":"2026-11-27T01:09:48Z","ev":"open","id":"30441999","sit":"25999128","ver":"1","kind":"GenericSituationRecord","types":["vehicleObstruction","vehicleStuck"],"status":"active","created":"2026-11-27T02:08:30.000+01:00","start":"2026-11-27T02:08:30.000+01:00","road":"A-307","dir":"negative","pk":[5.814],"a":[37.633327,-4.592431],"geo":{"autonomousCommunity":"Andalucía","municipality":"Montemayor","province":"Córdoba"}}
+{"t":"2026-11-27T01:09:48Z","ev":"close","id":"20624939"}
+{"t":"2026-11-27T01:09:48Z","ev":"close","id":"29763566"}
+{"t":"2026-11-27T01:09:48Z","ev":"close","id":"30320925"}
+{"t":"2026-11-27T01:09:48Z","ev":"close","id":"30358292"}
+{"t":"2026-11-27T01:09:48Z","ev":"close","id":"30434831"}
+{"t":"2026-11-27T01:09:48Z","ev":"close","id":"30435134"}
+{"t":"2026-11-27T01:09:48Z","ev":"close","id":"30435594"}
+{"t":"2026-11-27T01:09:48Z","ev":"close","id":"30435973"}
+{"t":"2026-11-27T01:09:48Z","ev":"close","id":"30440954"}
+{"t":"2026-11-27T01:09:48Z","ev":"close","id":"30437730"}
+{"t":"2026-11-27T01:09:48Z","ev":"close","id":"30437807"}
+{"t":"2026-11-27T01:09:48Z","ev":"close","id":"30438618"}
+{"t":"2026-11-27T01:09:48Z","ev":"close","id":"30440940"}
+{"t":"2026-11-27T01:09:48Z","ev":"close","id":"30441035"}
+{"t":"2026-11-27T01:09:48Z","ev":"close","id":"30441159"}
+{"t":"2026-11-27T01:09:48Z","ev":"close","id":"30441818"}
+{"t":"2026-11-27T01:09:48Z","ev":"close","id":"30441909"}
+{"t":"2026-11-27T01:09:48Z","ev":"close","id":"30441930"}
+{"t":"2026-11-27T01:09:48Z","ev":"close","id":"30441946"}
+{"t":"2026-11-27T01:09:48Z","ev":"close","id":"30441980"}
+{"t":"2026-11-27T01:09:48Z","ev":"close","id":"30441982"}
