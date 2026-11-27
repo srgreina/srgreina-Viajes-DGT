@@ -130,3 +130,18 @@
 {"t":"2026-11-27T00:41:15Z","ev":"close","id":"30441905"}
 {"t":"2026-11-27T00:41:15Z","ev":"close","id":"30441907"}
 {"t":"2026-11-27T00:41:15Z","ev":"close","id":"30441908"}
+{"t":"2026-11-27T00:50:43Z","ev":"open","id":"30441946","sit":"25999078","ver":"1","kind":"GenericSituationRecord","types":["vehicleObstruction","vehicleStuck"],"status":"active","created":"2026-11-27T01:41:58.000+01:00","start":"2026-11-27T01:41:58.000+01:00","road":"N-634","dir":"positive","pk":[444.958],"a":[43.411808,-6.171035],"geo":{"autonomousCommunity":"Asturias, Principado de","municipality":"Salas","province":"Asturias"}}
+{"t":"2026-11-27T00:50:43Z","ev":"open","id":"30317357","sit":"25883295","ver":"6","kind":"RoadOrCarriagewayOrLaneManagement","types":["roadMaintenance","roadworks","laneClosures"],"status":"active","created":"2026-11-27T01:45:03.000+01:00","start":"2026-11-27T01:45:00.000+01:00","end":"2026-11-27T06:00:00.000+01:00","road":"A-7","dir":"negative","lanes":"rightLane","pk":[1092.7,1092.0],"a":[36.292164,-5.299803],"b":[36.294243,-5.292766],"geo":{"autonomousCommunity":"Andalucía","municipality":"San Roque","province":"Cádiz"}}
+{"t":"2026-11-27T00:50:43Z","ev":"open","id":"30441954","sit":"25999086","ver":"1","kind":"GenericSituationRecord","types":["vehicleObstruction","vehicleStuck"],"status":"active","created":"2026-11-27T01:47:45.000+01:00","start":"2026-11-27T01:47:45.000+01:00","road":"N-331","dir":"positive","pk":[42.77],"a":[37.597084,-4.666855],"geo":{"autonomousCommunity":"Andalucía","municipality":"Montilla","province":"Córdoba"}}
+{"t":"2026-11-27T00:50:43Z","ev":"open","id":"30441955","sit":"25999087","ver":"1","kind":"GenericSituationRecord","types":["vehicleObstruction","vehicleStuck"],"status":"active","created":"2026-11-27T01:47:48.000+01:00","start":"2026-11-27T01:47:48.000+01:00","road":"GC-3","dir":"positive","pk":[10.084],"a":[28.094418,-15.468217],"geo":{"autonomousCommunity":"Canarias","municipality":"Las Palmas de Gran Canaria","province":"Las Palmas"}}
+{"t":"2026-11-27T00:50:43Z","ev":"open","id":"30441956","sit":"25999088","ver":"1","kind":"GenericSituationRecord","types":["vehicleObstruction","vehicleStuck"],"status":"active","created":"2026-11-27T01:47:53.000+01:00","start":"2026-11-27T01:47:53.000+01:00","road":"CV-740","dir":"positive","pk":[0.591],"a":[38.727158,0.096715],"geo":{"autonomousCommunity":"Comunitat Valenciana","municipality":"Teulada","province":"Alacant/Alicante"}}
+{"t":"2026-11-27T00:50:43Z","ev":"open","id":"30441958","sit":"25999090","ver":"1","kind":"GenericSituationRecord","types":["vehicleObstruction","vehicleStuck"],"status":"active","created":"2026-11-27T01:48:20.000+01:00","start":"2026-11-27T01:48:20.000+01:00","road":"GR-3405","dir":"positive","pk":[1.345],"a":[37.225967,-3.764743],"geo":{"autonomousCommunity":"Andalucía","municipality":"Fuente Vaqueros","province":"Granada"}}
+{"t":"2026-11-27T00:50:43Z","ev":"close","id":"30317356"}
+{"t":"2026-11-27T00:50:43Z","ev":"close","id":"30440855"}
+{"t":"2026-11-27T00:50:43Z","ev":"close","id":"30441703"}
+{"t":"2026-11-27T00:50:43Z","ev":"close","id":"30441711"}
+{"t":"2026-11-27T00:50:43Z","ev":"close","id":"30441726"}
+{"t":"2026-11-27T00:50:43Z","ev":"close","id":"30441910"}
+{"t":"2026-11-27T00:50:43Z","ev":"close","id":"30441919"}
+{"t":"2026-11-27T00:50:43Z","ev":"close","id":"30441935"}
+{"t":"2026-11-27T00:50:43Z","ev":"close","id":"30441936"}
