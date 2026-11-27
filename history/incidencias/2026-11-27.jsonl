@@ -352,3 +352,11 @@
 {"t":"2026-11-27T03:04:17Z","ev":"close","id":"30442074"}
 {"t":"2026-11-27T03:04:17Z","ev":"close","id":"30442108"}
 {"t":"2026-11-27T03:04:17Z","ev":"close","id":"30442141"}
+{"t":"2026-11-27T03:13:48Z","ev":"open","id":"30442272","sit":"25999300","ver":"1","kind":"RoadOrCarriagewayOrLaneManagement","types":["vehicleObstruction","vehicleStuck","laneClosures"],"status":"active","created":"2026-11-27T04:09:29.000+01:00","start":"2026-11-27T04:09:29.000+01:00","road":"AP-7","dir":"negative","lanes":"_extended","pk":[363.0],"a":[40.42112,0.379311],"geo":{"autonomousCommunity":"Comunitat Valenciana","municipality":"Benicarló","province":"Castelló/Castellón"}}
+{"t":"2026-11-27T03:13:48Z","ev":"open","id":"30442277","sit":"25999305","ver":"1","kind":"GenericSituationRecord","types":["vehicleObstruction","vehicleStuck"],"status":"active","created":"2026-11-27T04:13:29.000+01:00","start":"2026-11-27T04:13:29.000+01:00","road":"A-316","dir":"positive","pk":[54.115],"a":[37.80509,-3.81081],"geo":{"autonomousCommunity":"Andalucía","municipality":"Jaén","province":"Jaén"}}
+{"t":"2026-11-27T03:13:48Z","ev":"close","id":"29989403"}
+{"t":"2026-11-27T03:13:48Z","ev":"close","id":"30317357"}
+{"t":"2026-11-27T03:13:48Z","ev":"close","id":"30441469"}
+{"t":"2026-11-27T03:13:48Z","ev":"close","id":"30441448"}
+{"t":"2026-11-27T03:13:48Z","ev":"close","id":"30442253"}
+{"t":"2026-11-27T03:13:48Z","ev":"close","id":"30442254"}
