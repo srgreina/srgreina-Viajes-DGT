@@ -290,3 +290,12 @@
 {"t":"2026-11-27T02:06:50Z","ev":"close","id":"30441974"}
 {"t":"2026-11-27T02:06:50Z","ev":"close","id":"30442026"}
 {"t":"2026-11-27T02:06:50Z","ev":"close","id":"30442044"}
+{"t":"2026-11-27T02:16:22Z","ev":"change","id":"30317357","sit":"25883295","ver":"7","kind":"RoadOrCarriagewayOrLaneManagement","types":["roadMaintenance","roadworks","laneClosures"],"status":"active","created":"2026-11-27T01:45:03.000+01:00","start":"2026-11-27T03:07:00.000+01:00","end":"2026-11-27T06:00:00.000+01:00","road":"A-7","dir":"negative","lanes":"leftLane","pk":[1092.7,1092.0],"a":[36.292164,-5.299803],"b":[36.294243,-5.292766],"geo":{"autonomousCommunity":"Andalucía","municipality":"San Roque","province":"Cádiz"}}
+{"t":"2026-11-27T02:16:22Z","ev":"open","id":"30442095","sit":"25999220","ver":"1","kind":"GenericSituationRecord","types":["vehicleObstruction","vehicleStuck"],"status":"active","created":"2026-11-27T03:10:51.000+01:00","start":"2026-11-27T03:10:51.000+01:00","road":"N-338","dir":"positive","pk":[2.412],"a":[38.290718,-0.561247],"geo":{"autonomousCommunity":"Comunitat Valenciana","municipality":"Elx/Elche","province":"Alacant/Alicante"}}
+{"t":"2026-11-27T02:16:22Z","ev":"open","id":"30442098","sit":"25999223","ver":"1","kind":"GenericSituationRecord","types":["obstruction","objectOnTheRoad"],"status":"active","created":"2026-11-27T03:11:31.000+01:00","start":"2026-11-27T03:10:00.000+01:00","road":"A-7","dir":"negative","pk":[588.036],"a":[37.913555,-1.308997],"geo":{"autonomousCommunity":"Murcia, Región de","municipality":"Librilla","province":"Murcia"}}
+{"t":"2026-11-27T02:16:22Z","ev":"open","id":"30442100","sit":"25999225","ver":"1","kind":"GenericSituationRecord","types":["obstruction","objectOnTheRoad"],"status":"active","created":"2026-11-27T03:13:23.000+01:00","start":"2026-11-27T03:08:00.000+01:00","road":"A-3","dir":"negative","pk":[303.057],"a":[39.453228,-0.940024],"geo":{"autonomousCommunity":"Comunitat Valenciana","municipality":"Siete Aguas","province":"València/Valencia"}}
+{"t":"2026-11-27T02:16:22Z","ev":"close","id":"30442000"}
+{"t":"2026-11-27T02:16:22Z","ev":"close","id":"30441622"}
+{"t":"2026-11-27T02:16:22Z","ev":"close","id":"29989400"}
+{"t":"2026-11-27T02:16:22Z","ev":"close","id":"29989401"}
+{"t":"2026-11-27T02:16:22Z","ev":"close","id":"30442090"}
