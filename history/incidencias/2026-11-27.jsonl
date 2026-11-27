@@ -314,3 +314,8 @@
 {"t":"2026-11-27T02:25:55Z","ev":"close","id":"30442086"}
 {"t":"2026-11-27T02:25:55Z","ev":"close","id":"30442089"}
 {"t":"2026-11-27T02:25:55Z","ev":"close","id":"30442098"}
+{"t":"2026-11-27T02:35:24Z","ev":"open","id":"30442117","sit":"25999240","ver":"1","kind":"RoadOrCarriagewayOrLaneManagement","types":["vehicleObstruction","vehicleStuck","laneClosures"],"status":"active","created":"2026-11-27T03:26:00.000+01:00","start":"2026-11-27T03:26:00.000+01:00","road":"A-7","dir":"negative","lanes":"rightLane","pk":[588.0],"a":[37.913834,-1.308736],"geo":{"autonomousCommunity":"Murcia, Región de","municipality":"Librilla","province":"Murcia"}}
+{"t":"2026-11-27T02:35:24Z","ev":"open","id":"30442119","sit":"25999242","ver":"1","kind":"GenericSituationRecord","types":["vehicleObstruction","vehicleStuck"],"status":"active","created":"2026-11-27T03:31:13.000+01:00","start":"2026-11-27T03:31:13.000+01:00","road":"AP-7","dir":"positive","pk":[174.733],"a":[41.45003,1.877541],"geo":{"autonomousCommunity":"Cataluña","municipality":"Gelida","province":"Barcelona"}}
+{"t":"2026-11-27T02:35:24Z","ev":"open","id":"30442121","sit":"25999244","ver":"1","kind":"GenericSituationRecord","types":["accident"],"status":"active","created":"2026-11-27T03:32:46.000+01:00","start":"2026-11-27T03:27:00.000+01:00","road":"A-35","dir":"positive","pk":[27.992],"a":[38.89303,-0.72596],"geo":{"autonomousCommunity":"Comunitat Valenciana","municipality":"Moixent/Mogente","province":"València/Valencia"}}
+{"t":"2026-11-27T02:35:24Z","ev":"close","id":"30442111"}
+{"t":"2026-11-27T02:35:24Z","ev":"close","id":"30442114"}
