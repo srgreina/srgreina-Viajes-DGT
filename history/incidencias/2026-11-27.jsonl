@@ -327,3 +327,11 @@
 {"t":"2026-11-27T02:45:00Z","ev":"close","id":"30442024"}
 {"t":"2026-11-27T02:45:00Z","ev":"close","id":"30442031"}
 {"t":"2026-11-27T02:45:00Z","ev":"close","id":"30442109"}
+{"t":"2026-11-27T02:54:36Z","ev":"open","id":"30442141","sit":"25999264","ver":"1","kind":"GenericSituationRecord","types":["vehicleObstruction","vehicleStuck"],"status":"active","created":"2026-11-27T03:49:25.000+01:00","start":"2026-11-27T03:49:25.000+01:00","road":"A-4","dir":"positive","pk":[8.589],"a":[40.344837,-3.672898],"geo":{"autonomousCommunity":"Madrid, Comunidad de","municipality":"Madrid","province":"Madrid"}}
+{"t":"2026-11-27T02:54:36Z","ev":"open","id":"30442149","sit":"25999272","ver":"1","kind":"GenericSituationRecord","types":["accident"],"status":"active","created":"2026-11-27T03:53:36.000+01:00","start":"2026-11-27T03:46:00.000+01:00","road":"MU-33","dir":"positive","pk":[7.285],"a":[37.961872,-1.135761],"geo":{"autonomousCommunity":"Murcia, Región de","municipality":"Murcia","province":"Murcia"}}
+{"t":"2026-11-27T02:54:36Z","ev":"close","id":"30418618"}
+{"t":"2026-11-27T02:54:36Z","ev":"close","id":"30419796"}
+{"t":"2026-11-27T02:54:36Z","ev":"close","id":"30441993"}
+{"t":"2026-11-27T02:54:36Z","ev":"close","id":"30442055"}
+{"t":"2026-11-27T02:54:36Z","ev":"close","id":"30442095"}
+{"t":"2026-11-27T02:54:36Z","ev":"close","id":"30442107"}
