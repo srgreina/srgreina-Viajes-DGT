@@ -535,3 +535,24 @@
 {"t":"2026-11-27T04:49:17Z","ev":"close","id":"30442465"}
 {"t":"2026-11-27T04:49:17Z","ev":"close","id":"30442468"}
 {"t":"2026-11-27T04:49:17Z","ev":"close","id":"30442471"}
+{"t":"2026-11-27T04:58:50Z","ev":"change","id":"30442497","sit":"25998038","ver":"6","kind":"AbnormalTraffic","types":["roadMaintenance","roadworks","slowTraffic"],"status":"active","created":"2026-11-27T05:44:17.000+01:00","start":"2026-11-27T05:48:57.000+01:00","road":"A-3","dir":"negative","lanes":"allLanesCompleteCarriageway","pk":[337.7,336.0],"a":[39.473873,-0.576686],"b":[39.47415,-0.596118],"geo":{"autonomousCommunity":"Comunitat Valenciana","municipality":"Chiva","province":"València/Valencia"}}
+{"t":"2026-11-27T04:58:50Z","ev":"open","id":"30442526","sit":"25999531","ver":"1","kind":"GenericSituationRecord","types":["vehicleObstruction","vehicleStuck"],"status":"active","created":"2026-11-27T05:48:10.000+01:00","start":"2026-11-27T05:48:10.000+01:00","road":"CV-62","dir":"positive","pk":[0.011],"a":[38.827507,-0.509782],"geo":{"autonomousCommunity":"Comunitat Valenciana","municipality":"Albaida","province":"València/Valencia"}}
+{"t":"2026-11-27T04:58:50Z","ev":"open","id":"30442516","sit":"25999524","ver":"2","kind":"RoadOrCarriagewayOrLaneManagement","types":["roadMaintenance","roadworks","laneClosures"],"status":"active","created":"2026-11-27T05:50:45.000+01:00","start":"2026-11-27T05:50:00.000+01:00","end":"2026-11-27T14:00:00.000+01:00","road":"AP-7","dir":"positive","lanes":"leftLane","pk":[1072.0,1073.0],"a":[36.433773,-5.180789],"b":[36.43255,-5.193186],"geo":{"autonomousCommunity":"Andalucía","municipality":"Estepona","province":"Málaga"}}
+{"t":"2026-11-27T04:58:50Z","ev":"open","id":"30442552","sit":"25999541","ver":"1","kind":"GenericSituationRecord","types":["vehicleObstruction","vehicleStuck"],"status":"active","created":"2026-11-27T05:50:55.000+01:00","start":"2026-11-27T05:50:55.000+01:00","road":"N-211","dir":"positive","pk":[156.254],"a":[40.86227,-0.926093],"geo":{"autonomousCommunity":"Aragón","municipality":"Vivel del Río Martín","province":"Teruel"}}
+{"t":"2026-11-27T04:58:50Z","ev":"open","id":"30442556","sit":"25999545","ver":"1","kind":"GenericSituationRecord","types":["obstruction","objectOnTheRoad"],"status":"active","created":"2026-11-27T05:51:49.000+01:00","start":"2026-11-27T05:50:00.000+01:00","road":"A-3","dir":"negative","pk":[283.529],"a":[39.522865,-1.140268],"geo":{"autonomousCommunity":"Comunitat Valenciana","municipality":"Requena","province":"València/Valencia"}}
+{"t":"2026-11-27T04:58:50Z","ev":"open","id":"30442557","sit":"25999546","ver":"1","kind":"GenericSituationRecord","types":["vehicleObstruction","vehicleStuck"],"status":"active","created":"2026-11-27T05:51:54.000+01:00","start":"2026-11-27T05:51:54.000+01:00","road":"C-59","dir":"negative","pk":[36.604],"a":[41.793232,2.105246],"geo":{"autonomousCommunity":"Cataluña","municipality":"Moià","province":"Barcelona"}}
+{"t":"2026-11-27T04:58:50Z","ev":"open","id":"30442562","sit":"25999551","ver":"1","kind":"GenericSituationRecord","types":["vehicleObstruction","vehicleStuck"],"status":"active","created":"2026-11-27T05:53:23.000+01:00","start":"2026-11-27T05:53:23.000+01:00","road":"N-430","dir":"negative","pk":[87.934],"a":[39.000046,-6.051585],"geo":{"autonomousCommunity":"Extremadura","municipality":"Santa Amalia","province":"Badajoz"}}
+{"t":"2026-11-27T04:58:50Z","ev":"open","id":"30442573","sit":"25999562","ver":"1","kind":"GenericSituationRecord","types":["vehicleObstruction","vehicleStuck"],"status":"active","created":"2026-11-27T05:56:45.000+01:00","start":"2026-11-27T05:56:45.000+01:00","road":"A-3","dir":"negative","pk":[283.531],"a":[39.5229,-1.140207],"geo":{"autonomousCommunity":"Comunitat Valenciana","municipality":"Requena","province":"València/Valencia"}}
+{"t":"2026-11-27T04:58:50Z","ev":"open","id":"30442576","sit":"25999565","ver":"1","kind":"GenericSituationRecord","types":["vehicleObstruction","vehicleStuck"],"status":"active","created":"2026-11-27T05:58:40.000+01:00","start":"2026-11-27T05:58:40.000+01:00","road":"A-5","dir":"positive","pk":[325.994],"a":[38.94804,-6.191832],"geo":{"autonomousCommunity":"Extremadura","municipality":"San Pedro de Mérida","province":"Badajoz"}}
+{"t":"2026-11-27T04:58:50Z","ev":"close","id":"30418743"}
+{"t":"2026-11-27T04:58:50Z","ev":"close","id":"30428557"}
+{"t":"2026-11-27T04:58:50Z","ev":"close","id":"30438297"}
+{"t":"2026-11-27T04:58:50Z","ev":"close","id":"30442343"}
+{"t":"2026-11-27T04:58:50Z","ev":"close","id":"30442369"}
+{"t":"2026-11-27T04:58:50Z","ev":"close","id":"30442383"}
+{"t":"2026-11-27T04:58:50Z","ev":"close","id":"30442443"}
+{"t":"2026-11-27T04:58:50Z","ev":"close","id":"30442513"}
+{"t":"2026-11-27T04:58:50Z","ev":"close","id":"30442514"}
+{"t":"2026-11-27T04:58:50Z","ev":"close","id":"30442515"}
+{"t":"2026-11-27T04:58:50Z","ev":"close","id":"30442517"}
+{"t":"2026-11-27T04:58:50Z","ev":"close","id":"30442518"}
