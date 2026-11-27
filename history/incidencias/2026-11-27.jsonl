@@ -299,3 +299,18 @@
 {"t":"2026-11-27T02:16:22Z","ev":"close","id":"29989400"}
 {"t":"2026-11-27T02:16:22Z","ev":"close","id":"29989401"}
 {"t":"2026-11-27T02:16:22Z","ev":"close","id":"30442090"}
+{"t":"2026-11-27T02:25:55Z","ev":"open","id":"30442104","sit":"25999211","ver":"2","kind":"RoadOrCarriagewayOrLaneManagement","types":["vehicleObstruction","vehicleStuck","laneClosures"],"status":"active","created":"2026-11-27T03:15:57.000+01:00","start":"2026-11-27T03:13:53.000+01:00","road":"A-1","dir":"positive","lanes":"leftLane","pk":[12.1,12.218],"a":[40.50456,-3.658243],"b":[40.50555,-3.658117],"geo":{"autonomousCommunity":"Madrid, Comunidad de","municipality":"Madrid","province":"Madrid"}}
+{"t":"2026-11-27T02:25:55Z","ev":"open","id":"30442107","sit":"25999231","ver":"1","kind":"GenericSituationRecord","types":["vehicleObstruction","vehicleStuck"],"status":"active","created":"2026-11-27T03:17:29.000+01:00","start":"2026-11-27T03:17:29.000+01:00","road":"A-2","dir":"negative","pk":[582.983],"a":[41.521233,1.893638],"geo":{"autonomousCommunity":"Cataluña","municipality":"Abrera","province":"Barcelona"}}
+{"t":"2026-11-27T02:25:55Z","ev":"open","id":"30442108","sit":"25999232","ver":"1","kind":"GenericSituationRecord","types":["vehicleObstruction","vehicleStuck"],"status":"active","created":"2026-11-27T03:18:30.000+01:00","start":"2026-11-27T03:18:30.000+01:00","road":"N-330","dir":"positive","pk":[525.409],"a":[41.86332,-0.790856],"geo":{"autonomousCommunity":"Aragón","municipality":"Zuera","province":"Zaragoza"}}
+{"t":"2026-11-27T02:25:55Z","ev":"open","id":"30442109","sit":"25999233","ver":"1","kind":"GenericSituationRecord","types":["vehicleObstruction","vehicleStuck"],"status":"active","created":"2026-11-27T03:19:59.000+01:00","start":"2026-11-27T03:19:59.000+01:00","road":"A-370","dir":"negative","pk":[0.411],"a":[37.166813,-1.927243],"geo":{"autonomousCommunity":"Andalucía","municipality":"Los Gallardos","province":"Almería"}}
+{"t":"2026-11-27T02:25:55Z","ev":"open","id":"30442110","sit":"25999234","ver":"1","kind":"GenericSituationRecord","types":["vehicleObstruction","vehicleStuck"],"status":"active","created":"2026-11-27T03:20:21.000+01:00","start":"2026-11-27T03:20:21.000+01:00","road":"CA-420","dir":"negative","pk":[0.985],"a":[43.394215,-3.730787],"geo":{"autonomousCommunity":"Cantabria","municipality":"Marina de Cudeyo","province":"Cantabria"}}
+{"t":"2026-11-27T02:25:55Z","ev":"open","id":"30442111","sit":"25999223","ver":"2","kind":"RoadOrCarriagewayOrLaneManagement","types":["obstruction","objectOnTheRoad","laneClosures"],"status":"active","created":"2026-11-27T03:21:06.000+01:00","start":"2026-11-27T03:20:37.000+01:00","road":"A-7","dir":"negative","lanes":"rightLane","pk":[588.036],"a":[37.913555,-1.308997],"geo":{"autonomousCommunity":"Murcia, Región de","municipality":"Librilla","province":"Murcia"}}
+{"t":"2026-11-27T02:25:55Z","ev":"open","id":"30442114","sit":"25999237","ver":"1","kind":"GenericSituationRecord","types":["vehicleObstruction","vehicleStuck"],"status":"active","created":"2026-11-27T03:22:40.000+01:00","start":"2026-11-27T03:22:40.000+01:00","road":"AP-7","dir":"positive","pk":[174.72],"a":[41.450115,1.87764],"geo":{"autonomousCommunity":"Cataluña","municipality":"Gelida","province":"Barcelona"}}
+{"t":"2026-11-27T02:25:55Z","ev":"close","id":"30440680"}
+{"t":"2026-11-27T02:25:55Z","ev":"close","id":"30440676"}
+{"t":"2026-11-27T02:25:55Z","ev":"close","id":"30442013"}
+{"t":"2026-11-27T02:25:55Z","ev":"close","id":"30442016"}
+{"t":"2026-11-27T02:25:55Z","ev":"close","id":"30442045"}
+{"t":"2026-11-27T02:25:55Z","ev":"close","id":"30442086"}
+{"t":"2026-11-27T02:25:55Z","ev":"close","id":"30442089"}
+{"t":"2026-11-27T02:25:55Z","ev":"close","id":"30442098"}
