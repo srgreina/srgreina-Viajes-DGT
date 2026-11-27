@@ -369,3 +369,15 @@
 {"t":"2026-11-27T03:23:22Z","ev":"close","id":"30441803"}
 {"t":"2026-11-27T03:23:22Z","ev":"close","id":"30442088"}
 {"t":"2026-11-27T03:23:22Z","ev":"close","id":"30442277"}
+{"t":"2026-11-27T03:32:54Z","ev":"open","id":"30442297","sit":"25999324","ver":"1","kind":"GenericSituationRecord","types":["obstruction","objectOnTheRoad"],"status":"active","created":"2026-11-27T04:23:37.000+01:00","start":"2026-11-27T04:21:00.000+01:00","road":"N-430","dir":"positive","pk":[640.868],"a":[38.969864,-0.603076],"geo":{"autonomousCommunity":"Comunitat Valenciana","municipality":"l'Alcúdia de Crespins","province":"València/Valencia"}}
+{"t":"2026-11-27T03:32:54Z","ev":"open","id":"30442298","sit":"25999325","ver":"1","kind":"GenericSituationRecord","types":["vehicleObstruction","vehicleStuck"],"status":"active","created":"2026-11-27T04:23:38.000+01:00","start":"2026-11-27T04:23:38.000+01:00","road":"TF-5","dir":"positive","pk":[36.68],"a":[28.39506,-16.55188],"geo":{"autonomousCommunity":"Canarias","municipality":"La Orotava","province":"Santa Cruz de Tenerife"}}
+{"t":"2026-11-27T03:32:54Z","ev":"open","id":"30442302","sit":"25999329","ver":"1","kind":"GenericSituationRecord","types":["vehicleObstruction","vehicleStuck"],"status":"active","created":"2026-11-27T04:25:51.000+01:00","start":"2026-11-27T04:25:51.000+01:00","road":"VS-A-1-C","dir":"positive","pk":[13.082],"a":[40.513245,-3.655061],"geo":{"autonomousCommunity":"Madrid, Comunidad de","municipality":"Alcobendas","province":"Madrid"}}
+{"t":"2026-11-27T03:32:54Z","ev":"open","id":"30442311","sit":"25999338","ver":"1","kind":"GenericSituationRecord","types":["vehicleObstruction","vehicleStuck"],"status":"active","created":"2026-11-27T04:31:11.000+01:00","start":"2026-11-27T04:31:11.000+01:00","road":"V-21","dir":"positive","pk":[6.57],"a":[39.572968,-0.295507],"geo":{"autonomousCommunity":"Comunitat Valenciana","municipality":"el Puig de Santa Maria","province":"València/Valencia"}}
+{"t":"2026-11-27T03:32:54Z","ev":"close","id":"30439687"}
+{"t":"2026-11-27T03:32:54Z","ev":"close","id":"30439688"}
+{"t":"2026-11-27T03:32:54Z","ev":"close","id":"30441944"}
+{"t":"2026-11-27T03:32:54Z","ev":"close","id":"30442104"}
+{"t":"2026-11-27T03:32:54Z","ev":"close","id":"30442110"}
+{"t":"2026-11-27T03:32:54Z","ev":"close","id":"30442155"}
+{"t":"2026-11-27T03:32:54Z","ev":"close","id":"30442293"}
+{"t":"2026-11-27T03:32:54Z","ev":"close","id":"30442294"}
