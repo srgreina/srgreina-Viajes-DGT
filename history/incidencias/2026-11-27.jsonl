@@ -88,3 +88,26 @@
 {"t":"2026-11-27T00:22:13Z","ev":"close","id":"30441833"}
 {"t":"2026-11-27T00:22:13Z","ev":"close","id":"30441844"}
 {"t":"2026-11-27T00:22:13Z","ev":"close","id":"30441847"}
+{"t":"2026-11-27T00:31:42Z","ev":"open","id":"30440879","sit":"25998038","ver":"4","kind":"RoadOrCarriagewayOrLaneManagement","types":["roadMaintenance","roadworks","laneClosures"],"status":"active","created":"2026-11-27T01:22:41.000+01:00","start":"2026-11-27T01:22:00.000+01:00","end":"2026-11-27T06:00:00.000+01:00","road":"A-3","dir":"negative","lanes":"rightLane","pk":[336.0],"a":[39.47429,-0.596118],"geo":{"autonomousCommunity":"Comunitat Valenciana","municipality":"Chiva","province":"València/Valencia"}}
+{"t":"2026-11-27T00:31:42Z","ev":"open","id":"30441889","sit":"25999022","ver":"1","kind":"GenericSituationRecord","types":["vehicleObstruction","vehicleStuck"],"status":"active","created":"2026-11-27T01:25:02.000+01:00","start":"2026-11-27T01:25:02.000+01:00","road":"M-21","dir":"positive","pk":[4.901],"a":[40.44222,-3.545591],"geo":{"autonomousCommunity":"Madrid, Comunidad de","municipality":"Coslada","province":"Madrid"}}
+{"t":"2026-11-27T00:31:42Z","ev":"open","id":"30441891","sit":"25999024","ver":"1","kind":"GenericSituationRecord","types":["vehicleObstruction","vehicleStuck"],"status":"active","created":"2026-11-27T01:25:17.000+01:00","start":"2026-11-27T01:25:16.000+01:00","road":"A-140","dir":"negative","pk":[19.425],"a":[41.85288,0.350635],"geo":{"autonomousCommunity":"Aragón","municipality":"San Esteban de Litera","province":"Huesca"}}
+{"t":"2026-11-27T00:31:42Z","ev":"open","id":"30441902","sit":"25999035","ver":"1","kind":"GenericSituationRecord","types":["vehicleObstruction","vehicleStuck"],"status":"active","created":"2026-11-27T01:29:05.000+01:00","start":"2026-11-27T01:29:05.000+01:00","road":"GC-20","dir":"negative","pk":[3.889],"a":[28.114847,-15.524383],"geo":{"autonomousCommunity":"Canarias","municipality":"Arucas","province":"Las Palmas"}}
+{"t":"2026-11-27T00:31:42Z","ev":"open","id":"30441905","sit":"25999038","ver":"1","kind":"GenericSituationRecord","types":["vehicleObstruction","vehicleStuck"],"status":"active","created":"2026-11-27T01:29:19.000+01:00","start":"2026-11-27T01:29:19.000+01:00","road":"CO-4205","dir":"positive","pk":[12.391],"a":[37.64455,-4.697085],"geo":{"autonomousCommunity":"Andalucía","municipality":"Montemayor","province":"Córdoba"}}
+{"t":"2026-11-27T00:31:42Z","ev":"open","id":"30441906","sit":"25999039","ver":"1","kind":"GenericSituationRecord","types":["vehicleObstruction","vehicleStuck"],"status":"active","created":"2026-11-27T01:29:27.000+01:00","start":"2026-11-27T01:29:27.000+01:00","road":"M-50","dir":"positive","pk":[83.566],"a":[40.51198,-3.897067],"geo":{"autonomousCommunity":"Madrid, Comunidad de","municipality":"Las Rozas de Madrid","province":"Madrid"}}
+{"t":"2026-11-27T00:31:42Z","ev":"open","id":"30441907","sit":"25999040","ver":"1","kind":"GenericSituationRecord","types":["vehicleObstruction","vehicleStuck"],"status":"active","created":"2026-11-27T01:29:35.000+01:00","start":"2026-11-27T01:29:35.000+01:00","road":"A-4","dir":"negative","pk":[306.856],"a":[38.06553,-3.885351],"geo":{"autonomousCommunity":"Andalucía","municipality":"Villanueva de la Reina","province":"Jaén"}}
+{"t":"2026-11-27T00:31:42Z","ev":"open","id":"30441908","sit":"25999041","ver":"1","kind":"GenericSituationRecord","types":["vehicleObstruction","vehicleStuck"],"status":"active","created":"2026-11-27T01:29:55.000+01:00","start":"2026-11-27T01:29:55.000+01:00","road":"A-316","dir":"positive","pk":[74.516],"a":[37.72417,-3.981765],"geo":{"autonomousCommunity":"Andalucía","municipality":"Martos","province":"Jaén"}}
+{"t":"2026-11-27T00:31:42Z","ev":"open","id":"30441909","sit":"25999042","ver":"1","kind":"GenericSituationRecord","types":["vehicleObstruction","vehicleStuck"],"status":"active","created":"2026-11-27T01:30:03.000+01:00","start":"2026-11-27T01:30:03.000+01:00","road":"VS-A-7-D","dir":"positive","pk":[1032.41],"a":[36.49358,-4.764579],"geo":{"autonomousCommunity":"Andalucía","municipality":"Marbella","province":"Málaga"}}
+{"t":"2026-11-27T00:31:42Z","ev":"open","id":"30441910","sit":"25999043","ver":"1","kind":"GenericSituationRecord","types":["vehicleObstruction","vehicleStuck"],"status":"active","created":"2026-11-27T01:30:33.000+01:00","start":"2026-11-27T01:30:33.000+01:00","road":"AP-4","dir":"negative","pk":[19.142],"a":[37.204456,-5.909136],"geo":{"autonomousCommunity":"Andalucía","municipality":"Los Palacios y Villafranca","province":"Sevilla"}}
+{"t":"2026-11-27T00:31:42Z","ev":"close","id":"30441801"}
+{"t":"2026-11-27T00:31:42Z","ev":"close","id":"30441019"}
+{"t":"2026-11-27T00:31:42Z","ev":"close","id":"30441621"}
+{"t":"2026-11-27T00:31:42Z","ev":"close","id":"30441639"}
+{"t":"2026-11-27T00:31:42Z","ev":"close","id":"30441644"}
+{"t":"2026-11-27T00:31:42Z","ev":"close","id":"30441770"}
+{"t":"2026-11-27T00:31:42Z","ev":"close","id":"30441828"}
+{"t":"2026-11-27T00:31:42Z","ev":"close","id":"30441834"}
+{"t":"2026-11-27T00:31:42Z","ev":"close","id":"30441837"}
+{"t":"2026-11-27T00:31:42Z","ev":"close","id":"30441869"}
+{"t":"2026-11-27T00:31:42Z","ev":"close","id":"30441874"}
+{"t":"2026-11-27T00:31:42Z","ev":"close","id":"30441878"}
+{"t":"2026-11-27T00:31:42Z","ev":"close","id":"30441879"}
