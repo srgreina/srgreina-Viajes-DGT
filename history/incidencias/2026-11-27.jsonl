@@ -207,3 +207,14 @@
 {"t":"2026-11-27T01:19:18Z","ev":"close","id":"30441968"}
 {"t":"2026-11-27T01:19:18Z","ev":"close","id":"30441973"}
 {"t":"2026-11-27T01:19:18Z","ev":"close","id":"30441987"}
+{"t":"2026-11-27T01:28:50Z","ev":"open","id":"30442013","sit":"25999141","ver":"1","kind":"GenericSituationRecord","types":["vehicleObstruction","vehicleStuck"],"status":"active","created":"2026-11-27T02:18:52.000+01:00","start":"2026-11-27T02:18:52.000+01:00","road":"AP-68","dir":"positive","pk":[290.653],"a":[41.692867,-0.967634],"geo":{"autonomousCommunity":"Aragón","municipality":"Zaragoza","province":"Zaragoza"}}
+{"t":"2026-11-27T01:28:50Z","ev":"open","id":"30442016","sit":"25999144","ver":"1","kind":"GenericSituationRecord","types":["vehicleObstruction","vehicleStuck"],"status":"active","created":"2026-11-27T02:20:23.000+01:00","start":"2026-11-27T02:20:23.000+01:00","road":"RM-424","dir":"positive","pk":[4.06],"a":[38.573586,-1.073617],"geo":{"autonomousCommunity":"Murcia, Región de","municipality":"Yecla","province":"Murcia"}}
+{"t":"2026-11-27T01:28:50Z","ev":"open","id":"30442017","sit":"25999145","ver":"1","kind":"GenericSituationRecord","types":["vehicleObstruction","vehicleStuck"],"status":"active","created":"2026-11-27T02:21:31.000+01:00","start":"2026-11-27T02:21:31.000+01:00","road":"AC-862","dir":"positive","pk":[2.077],"a":[43.497513,-8.200133],"geo":{"autonomousCommunity":"Galicia","municipality":"Narón","province":"A Coruña"}}
+{"t":"2026-11-27T01:28:50Z","ev":"open","id":"30442023","sit":"25999151","ver":"1","kind":"GenericSituationRecord","types":["vehicleObstruction","vehicleStuck"],"status":"active","created":"2026-11-27T02:26:47.000+01:00","start":"2026-11-27T02:26:47.000+01:00","road":"M-527","dir":"positive","pk":[2.379],"a":[40.65141,-4.075017],"geo":{"autonomousCommunity":"Madrid, Comunidad de","municipality":"Guadarrama","province":"Madrid"}}
+{"t":"2026-11-27T01:28:50Z","ev":"open","id":"30442024","sit":"25999152","ver":"1","kind":"GenericSituationRecord","types":["vehicleObstruction","vehicleStuck"],"status":"active","created":"2026-11-27T02:26:53.000+01:00","start":"2026-11-27T02:26:53.000+01:00","road":"N-620a","dir":"positive","pk":[324.047],"a":[40.60281,-6.530053],"geo":{"autonomousCommunity":"Castilla y León","municipality":"Ciudad Rodrigo","province":"Salamanca"}}
+{"t":"2026-11-27T01:28:50Z","ev":"close","id":"30440861"}
+{"t":"2026-11-27T01:28:50Z","ev":"close","id":"30440892"}
+{"t":"2026-11-27T01:28:50Z","ev":"close","id":"30441255"}
+{"t":"2026-11-27T01:28:50Z","ev":"close","id":"30441880"}
+{"t":"2026-11-27T01:28:50Z","ev":"close","id":"30441988"}
+{"t":"2026-11-27T01:28:50Z","ev":"close","id":"30442012"}
