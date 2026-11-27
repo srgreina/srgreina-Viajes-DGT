@@ -426,3 +426,16 @@
 {"t":"2026-11-27T04:01:31Z","ev":"close","id":"30442337"}
 {"t":"2026-11-27T04:01:31Z","ev":"close","id":"30442344"}
 {"t":"2026-11-27T04:01:31Z","ev":"close","id":"30442345"}
+{"t":"2026-11-27T04:10:59Z","ev":"open","id":"30442369","sit":"25999396","ver":"1","kind":"GenericSituationRecord","types":["vehicleObstruction","vehicleStuck"],"status":"active","created":"2026-11-27T05:01:23.000+01:00","start":"2026-11-27T05:01:23.000+01:00","road":"Ma-13","dir":"negative","pk":[31.0],"a":[39.74466,2.951161],"geo":{"autonomousCommunity":"Balears, Illes","municipality":"Inca","province":"Illes Balears"}}
+{"t":"2026-11-27T04:10:59Z","ev":"open","id":"30442376","sit":"25999401","ver":"1","kind":"GenericSituationRecord","types":["obstruction","objectOnTheRoad"],"status":"active","created":"2026-11-27T05:03:51.000+01:00","start":"2026-11-27T05:02:00.000+01:00","road":"CV-405","dir":"positive","pk":[10.375],"a":[39.37301,-0.568824],"geo":{"autonomousCommunity":"Comunitat Valenciana","municipality":"Montserrat","province":"València/Valencia"}}
+{"t":"2026-11-27T04:10:59Z","ev":"open","id":"30442383","sit":"25999408","ver":"1","kind":"GenericSituationRecord","types":["vehicleObstruction","vehicleStuck"],"status":"active","created":"2026-11-27T05:07:44.000+01:00","start":"2026-11-27T05:07:44.000+01:00","road":"N-332","dir":"positive","pk":[43.615],"a":[37.886265,-0.767674],"geo":{"autonomousCommunity":"Comunitat Valenciana","municipality":"Pilar de la Horadada","province":"Alacant/Alicante"}}
+{"t":"2026-11-27T04:10:59Z","ev":"open","id":"30442385","sit":"25999410","ver":"1","kind":"RoadOrCarriagewayOrLaneManagement","types":["vehicleObstruction","vehicleStuck","laneClosures"],"status":"active","created":"2026-11-27T05:10:07.000+01:00","start":"2026-11-27T05:10:07.000+01:00","road":"AP-7","dir":"positive","lanes":"_extended","pk":[396.8],"a":[40.192097,0.172407],"geo":{"autonomousCommunity":"Comunitat Valenciana","municipality":"Cabanes","province":"Castelló/Castellón"}}
+{"t":"2026-11-27T04:10:59Z","ev":"close","id":"30172198"}
+{"t":"2026-11-27T04:10:59Z","ev":"close","id":"30421549"}
+{"t":"2026-11-27T04:10:59Z","ev":"close","id":"30425940"}
+{"t":"2026-11-27T04:10:59Z","ev":"close","id":"30441121"}
+{"t":"2026-11-27T04:10:59Z","ev":"close","id":"30442121"}
+{"t":"2026-11-27T04:10:59Z","ev":"close","id":"30442153"}
+{"t":"2026-11-27T04:10:59Z","ev":"close","id":"30442311"}
+{"t":"2026-11-27T04:10:59Z","ev":"close","id":"30442316"}
+{"t":"2026-11-27T04:10:59Z","ev":"close","id":"30442318"}
