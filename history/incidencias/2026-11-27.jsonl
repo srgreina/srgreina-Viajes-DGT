@@ -556,3 +556,21 @@
 {"t":"2026-11-27T04:58:50Z","ev":"close","id":"30442515"}
 {"t":"2026-11-27T04:58:50Z","ev":"close","id":"30442517"}
 {"t":"2026-11-27T04:58:50Z","ev":"close","id":"30442518"}
+{"t":"2026-11-27T05:08:22Z","ev":"open","id":"30442579","sit":"25999568","ver":"1","kind":"GenericSituationRecord","types":["vehicleObstruction","vehicleStuck"],"status":"active","created":"2026-11-27T05:59:10.000+01:00","start":"2026-11-27T05:59:10.000+01:00","road":"N-340","dir":"negative","pk":[714.541],"a":[38.25737,-0.742618],"geo":{"autonomousCommunity":"Comunitat Valenciana","municipality":"Elx/Elche","province":"Alacant/Alicante"}}
+{"t":"2026-11-27T05:08:22Z","ev":"open","id":"30442580","sit":"25999569","ver":"1","kind":"GenericSituationRecord","types":["vehicleObstruction","vehicleStuck"],"status":"active","created":"2026-11-27T05:59:18.000+01:00","start":"2026-11-27T05:59:18.000+01:00","road":"N-630","dir":"positive","pk":[823.083],"a":[37.35172,-5.99015],"geo":{"autonomousCommunity":"Andalucía","municipality":"Sevilla","province":"Sevilla"}}
+{"t":"2026-11-27T05:08:22Z","ev":"change","id":"30442497","sit":"25998038","ver":"7","kind":"AbnormalTraffic","types":["roadMaintenance","roadworks","slowTraffic"],"status":"active","created":"2026-11-27T05:44:17.000+01:00","start":"2026-11-27T06:00:33.000+01:00","road":"A-3","dir":"negative","lanes":"allLanesCompleteCarriageway","pk":[336.8,336.0],"a":[39.47404,-0.587204],"b":[39.47415,-0.596118],"geo":{"autonomousCommunity":"Comunitat Valenciana","municipality":"Chiva","province":"València/Valencia"}}
+{"t":"2026-11-27T05:08:22Z","ev":"open","id":"30442587","sit":"25999576","ver":"1","kind":"GenericSituationRecord","types":["vehicleObstruction","vehicleStuck"],"status":"active","created":"2026-11-27T06:00:59.000+01:00","start":"2026-11-27T06:00:59.000+01:00","road":"N-122","dir":"positive","pk":[86.003],"a":[41.90038,-1.729486],"geo":{"autonomousCommunity":"Aragón","municipality":"Tarazona","province":"Zaragoza"}}
+{"t":"2026-11-27T05:08:22Z","ev":"open","id":"30442590","sit":"25999579","ver":"1","kind":"GenericSituationRecord","types":["vehicleObstruction","vehicleStuck"],"status":"active","created":"2026-11-27T06:02:49.000+01:00","start":"2026-11-27T06:02:49.000+01:00","road":"A-5","dir":"positive","pk":[171.842],"a":[39.890263,-5.442197],"geo":{"autonomousCommunity":"Extremadura","municipality":"Peraleda de la Mata","province":"Cáceres"}}
+{"t":"2026-11-27T05:08:22Z","ev":"open","id":"30442591","sit":"25999580","ver":"1","kind":"GenericSituationRecord","types":["vehicleObstruction","vehicleStuck"],"status":"active","created":"2026-11-27T06:02:53.000+01:00","start":"2026-11-27T06:02:53.000+01:00","road":"A-4","dir":"positive","pk":[351.899],"a":[37.9895,-4.315026],"geo":{"autonomousCommunity":"Andalucía","municipality":"Villa del Río","province":"Córdoba"}}
+{"t":"2026-11-27T05:08:22Z","ev":"open","id":"30442603","sit":"25999592","ver":"1","kind":"GenericSituationRecord","types":["vehicleObstruction","vehicleStuck"],"status":"active","created":"2026-11-27T06:05:25.000+01:00","start":"2026-11-27T06:05:25.000+01:00","road":"C-31","dir":"negative","pk":[163.64],"a":[41.240547,1.818406],"geo":{"autonomousCommunity":"Cataluña","municipality":"Sitges","province":"Barcelona"}}
+{"t":"2026-11-27T05:08:22Z","ev":"close","id":"29511762"}
+{"t":"2026-11-27T05:08:22Z","ev":"close","id":"30432772"}
+{"t":"2026-11-27T05:08:22Z","ev":"close","id":"30435988"}
+{"t":"2026-11-27T05:08:22Z","ev":"close","id":"30441820"}
+{"t":"2026-11-27T05:08:22Z","ev":"close","id":"30442355"}
+{"t":"2026-11-27T05:08:22Z","ev":"close","id":"30442362"}
+{"t":"2026-11-27T05:08:22Z","ev":"close","id":"30442408"}
+{"t":"2026-11-27T05:08:22Z","ev":"close","id":"30442417"}
+{"t":"2026-11-27T05:08:22Z","ev":"close","id":"30442420"}
+{"t":"2026-11-27T05:08:22Z","ev":"close","id":"30442562"}
+{"t":"2026-11-27T05:08:22Z","ev":"close","id":"30442573"}
